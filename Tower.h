@@ -1,19 +1,32 @@
 #pragma once
 #include "GameObject.h"
+#include "TowerAI.h"
 
 enum tower_t{
   T_BASIC,
   T_FREEZE,
   T_FAST
 };
+struct g_elem{
+  int x;
+  int y;
+  g_elem():x(0),y(0){}
+  g_elem(int nx, int ny):x(nx),y(ny){}
+  bool operator==(const g_elem other)
+  { return (this->x == other.x) && (this->y == other.y);}
+};
 
 class Tower :
   public GameObject
 {
 public:
-  Tower(float inx, float iny, float inz);
+  Tower(float inx, float iny, float inz, int gx, int gy);
   virtual ~Tower(void);
-  void shoot();
+  virtual void shoot();
+  inline int getGridX(){return grid_x;}
+  inline int getGridY(){return grid_y;}
+  bool operator==(const Tower& other);
+  bool operator==(const g_elem& other);
 protected:
   int hp;        //Current HP
   int max_hp;    //Maximum HP
@@ -24,4 +37,5 @@ protected:
   int stage;     //Upgrade stage
   int grid_x;    //Coordinates with respect
   int grid_y;    //  to the game grid
+  TowerAI ai;    //This tower's AI object
 };

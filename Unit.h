@@ -1,4 +1,5 @@
 #pragma once
+#include <list>
 #include "GameObject.h"
 #include "MyVector.h"
 
@@ -25,3 +26,15 @@ protected:
   MyVector dir;
   unit_t type;
 };
+//
+//class UnitList{
+//public:
+//  UnitList();
+//  ~UnitList();
+//  std::list<Unit*>::iterator begin();
+//  std::list<Unit*>::iterator end();
+//  void remove(std::list<Unit*>::iterator& iter);
+//  
+//private:
+//  std::list<Unit*>* uList;
+//};

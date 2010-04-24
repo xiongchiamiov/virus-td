@@ -2,20 +2,13 @@
 #include <list>
 #include <gl/glut.h>
 #include "lighting.h"
-
-struct g_elem{
-  int x;
-  int y;
-  g_elem():x(0),y(0){}
-  g_elem(int nx, int ny):x(nx),y(ny){}
-  bool operator==(const g_elem other)
-  { return (this->x == other.x) && (this->y == other.y);}
-};
-
-const int GRID_WIDTH = 16;
-const int GRID_HEIGHT = 32;
-const float GRID_SIZE = 0.25;
-
+#include "constants.h"
+#include "Tower.h"
+//struct GridElement{
+//  bool isEmpty;
+//  Tower* tower;
+//  bool isRemoved;
+//};
 class GameGrid
 {
 public:
@@ -23,10 +16,11 @@ public:
   ~GameGrid(void);
   void draw();
   bool setTower(int x, int y);
-  bool removeTower(int x, int y, std::list<g_elem>& towers);
+  bool removeTower(int x, int y, std::list<Tower*>& towers);
+  static const int G_WIDTH = 16;
+  static const int G_HEIGHT = 32;
 private:
   float x;
   float y;
-  bool grid[GRID_WIDTH][GRID_HEIGHT];
-
+  bool grid[G_WIDTH][G_HEIGHT];
 };

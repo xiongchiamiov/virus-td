@@ -3,7 +3,9 @@
 #include <gl/glut.h>
 #include "MyVector.h"
 #include "GameGrid.h"
+#include "Player.h"
 #include "lighting.h"
+#include "constants.h"
 
 int GW, GH;
 //Camera variables
@@ -15,17 +17,11 @@ MyVector v;
 MyVector w;
 float theta = 0.0;
 float phi = 0.0; 
-GameGrid testGrid;
-GameGrid cpuGrid;
-std::list<g_elem> towers;
+//GameGrid testGrid;
+Player p1;
+//GameGrid cpuGrid;
 
 int tlx, tly;
-materialStruct Exp2 = {
-  {1.0, 0.0, 0.0, 1.0}, 
-  {0.2, 1.0, 0.2, 1.0},
-  {0.0, 0.2, 1.0, 1.0},
-  {20.0}
-};
 
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -44,10 +40,11 @@ void display(){
     glVertex3f(lx, 5.0, lz);
   }
   glEnd();
-  testGrid.draw();
-  glScalef(-1.0, 1.0, -1.0);
+  //testGrid.draw();
+  p1.draw();
+  /*glScalef(-1.0, 1.0, -1.0);
   glTranslatef(0.0, 0.0, GRID_SIZE*GRID_HEIGHT*2.0 + 8.0*GRID_SIZE);
-  cpuGrid.draw();
+  cpuGrid.draw();*/
   glPopMatrix();
   
   glutSwapBuffers();
@@ -124,14 +121,15 @@ void keyboard(unsigned char key, int x, int y){
                          camera.getZ() - GRID_SIZE*2.0*u.getK());
       break;
     case 't': case 'T':
-      if(testGrid.setTower(tlx, tly)){
+      /*if(testGrid.setTower(tlx, tly)){
         towers.push_back(g_elem(tlx, tly));
-      }
-      std::cout << towers.size() << std::endl;
+      }*/
+      p1.placeTower(tlx, tly);
+      //std::cout << towers.size() << std::endl;
       break;
     case 'r': case 'R':
-      testGrid.removeTower(tlx, tly, towers);
-      std::cout << towers.size() << std::endl;
+      //testGrid.removeTower(tlx, tly, towers);
+      p1.destroyTower(tlx, tly);
       break;
   }
 }

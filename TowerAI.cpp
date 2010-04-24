@@ -1,6 +1,7 @@
 #include "TowerAI.h"
 
-TowerAI::TowerAI(void)
+TowerAI::TowerAI(float inx, float iny, float inz):
+x(inx), y(iny), z(inz), hasTarget(false)
 {
 }
 

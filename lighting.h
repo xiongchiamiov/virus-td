@@ -1,5 +1,6 @@
 #pragma once
 #ifndef LIGHTING
+#include <stdlib.h>
 #include <gl/glut.h>
 #define LIGHTING
 ////light position
@@ -16,6 +17,18 @@ typedef struct materialStruct {
   GLfloat specular[4];
   GLfloat shininess[1];
 } materialStruct;
+
+extern materialStruct RedFlat;
+extern materialStruct GreenShiny;
+extern materialStruct Exp;
+extern materialStruct Exp2;
+extern materialStruct Grey;
+extern materialStruct Black;
+extern materialStruct Teal;
+extern materialStruct Purple;
+extern materialStruct Fuschia;
+extern materialStruct FieryOrange;
+extern materialStruct White;
 
 //sets up a specific material
 void setMaterial(materialStruct materials);

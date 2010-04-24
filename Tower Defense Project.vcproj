@@ -171,23 +171,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\GameGrid.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\GameObject.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\lighting.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MyVector.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\TowerAI.cpp"
 				>
 			</File>
 			<File
@@ -206,7 +190,15 @@
 				Name="Towers"
 				>
 				<File
+					RelativePath=".\BasicTower.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Tower.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TowerAI.cpp"
 					>
 				</File>
 			</Filter>
@@ -215,6 +207,30 @@
 				>
 				<File
 					RelativePath=".\Unit.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Environment"
+				>
+				<File
+					RelativePath=".\GameGrid.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Util"
+				>
+				<File
+					RelativePath=".\constants.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\lighting.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MyVector.cpp"
 					>
 				</File>
 			</Filter>
@@ -230,18 +246,6 @@
 			</File>
 			<File
 				RelativePath=".\GameObject.h"
-				>
-			</File>
-			<File
-				RelativePath=".\lighting.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MyVector.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TowerAI.h"
 				>
 			</File>
 			<Filter
@@ -264,7 +268,35 @@
 				Name="Towers"
 				>
 				<File
+					RelativePath=".\BasicTower.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Tower.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TowerAI.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Environment"
+				>
+			</Filter>
+			<Filter
+				Name="Util"
+				>
+				<File
+					RelativePath=".\constants.h"
+					>
+				</File>
+				<File
+					RelativePath=".\lighting.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MyVector.h"
 					>
 				</File>
 			</Filter>
