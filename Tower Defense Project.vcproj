@@ -209,6 +209,10 @@
 					RelativePath=".\Unit.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\UnitsAI.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Environment"
@@ -241,10 +245,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\GameGrid.h"
-				>
-			</File>
-			<File
 				RelativePath=".\GameObject.h"
 				>
 			</File>
@@ -253,6 +253,10 @@
 				>
 				<File
 					RelativePath=".\Unit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\UnitsAI.h"
 					>
 				</File>
 			</Filter>
@@ -283,6 +287,10 @@
 			<Filter
 				Name="Environment"
 				>
+				<File
+					RelativePath=".\GameGrid.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Util"

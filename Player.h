@@ -20,5 +20,5 @@ private:
   int lives;
   GameGrid pGrid;
   std::list<Tower*> tList;
-  std::list<Unit*> uList;
+  UnitsAI uai;
 };
