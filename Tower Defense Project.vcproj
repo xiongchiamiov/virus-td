@@ -206,6 +206,10 @@
 				Name="Units"
 				>
 				<File
+					RelativePath=".\BasicUnit.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Unit.cpp"
 					>
 				</File>
@@ -251,6 +255,10 @@
 			<Filter
 				Name="Units"
 				>
+				<File
+					RelativePath=".\BasicUnit.h"
+					>
+				</File>
 				<File
 					RelativePath=".\Unit.h"
 					>

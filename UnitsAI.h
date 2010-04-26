@@ -8,4 +8,5 @@ public:
 	std::list<Unit*> uList;
 	UnitsAI(void);
 	~UnitsAI(void);
+	void determineUnitsPaths();
 };

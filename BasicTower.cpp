@@ -7,6 +7,7 @@ namespace b_tower{
   const float RANGE = 3.0;
   const int BUILD_TIME = 3000;
 }
+
 using namespace b_tower;
 
 BasicTower::BasicTower(float inx, float iny, float inz, int gx, int gy):

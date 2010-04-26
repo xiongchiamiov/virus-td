@@ -4,7 +4,7 @@
 #include "MyVector.h"
 
 enum unit_t{
-  U_REG,
+  U_BASIC,
   U_FAST,
   U_STRONG
 };
