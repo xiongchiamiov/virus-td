@@ -5,6 +5,7 @@ namespace b_unit{
   const int ATK = 3;
   const float SPD = 0.5;
 }
+using namespace b_unit;
 
 BasicUnit::BasicUnit(void)
 {

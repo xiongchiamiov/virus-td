@@ -13,8 +13,8 @@ void UnitsAI::determineUnitsPaths() {
 
 	// will be taken out once i establish how to get the current grid
 	// begin
-	int G_WIDTH = 16;	
-	int G_HEIGHT = 32;
+	const int G_WIDTH = 16;	
+	const int G_HEIGHT = 32;
 	int goalx = 15;
 	int goaly = 31;
 	int startx = 0;
