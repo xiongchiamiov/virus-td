@@ -1,6 +1,18 @@
 #pragma once
 #include <list>
-#include <gl/glut.h>
+ #ifdef __unix__
+     #include <GL/glut.h>
+ #endif
+
+ #ifdef __APPLE__
+     #include "GLUT/glut.h"
+ #endif
+
+ #ifdef _WIN32
+     #include <io.h>
+     #include <fcntl.h>
+     #include <glut.h>
+ #endif
 #include "lighting.h"
 #include "constants.h"
 #include "Tower.h"

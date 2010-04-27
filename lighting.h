@@ -1,7 +1,19 @@
 #pragma once
 #ifndef LIGHTING
 #include <stdlib.h>
-#include <gl/glut.h>
+ #ifdef __unix__
+     #include <GL/glut.h>
+ #endif
+
+ #ifdef __APPLE__
+     #include "GLUT/glut.h"
+ #endif
+
+ #ifdef _WIN32
+     #include <io.h>
+     #include <fcntl.h>
+     #include <glut.h>
+ #endif
 #define LIGHTING
 ////light position
 //GLfloat light_pos[4] = {1.0, 1.0, 1.5, 1.0};
