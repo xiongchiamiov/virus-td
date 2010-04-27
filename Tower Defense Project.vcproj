@@ -253,22 +253,6 @@
 				>
 			</File>
 			<Filter
-				Name="Units"
-				>
-				<File
-					RelativePath=".\BasicUnit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Unit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\UnitsAI.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Player"
 				>
 				<File
@@ -313,6 +297,22 @@
 				</File>
 				<File
 					RelativePath=".\MyVector.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Units"
+				>
+				<File
+					RelativePath=".\BasicUnit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Unit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\UnitsAI.h"
 					>
 				</File>
 			</Filter>
