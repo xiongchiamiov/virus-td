@@ -98,3 +98,10 @@ bool GameGrid::removeTower(int x, int y, std::list<Tower*>& towers){
   }
   return false;
 }
+
+bool GameGrid::isWall(int x, int y) {
+	if(x >= GRID_WIDTH || x < 0 || y >= GRID_HEIGHT || y < 0)
+		return true;
+	else
+		return grid[x][y];
+}
