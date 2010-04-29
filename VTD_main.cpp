@@ -195,8 +195,9 @@ int main(int argc, char** argv){
   GH = 600;
   
     /* initialize buttons */
+  GLfloat col[] = {1.0,1.0,1.0};
   for (int i = 0; i < 18; i++) {
-    Button * newBtn = new Button(i, Teal, NULL);
+	Button * newBtn = new Button(i, col, NULL);
     buttons.push_back(newBtn);
   }
   
@@ -232,5 +233,6 @@ int main(int argc, char** argv){
   glEnable(GL_LIGHTING);
   init_lighting();
   glutTimerFunc(1000/60, update, 0);
+  initializeUI();
   glutMainLoop();
 }

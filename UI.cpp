@@ -8,11 +8,16 @@ extern bool clicked;
 GLdouble worldX, worldY, worldZ; //variables to hold world x,y,z coordinates
 extern int tlx, tly, ulx, uly;
 extern Player p1;
+int prevBtn = -1;
 int test = 0;
+GLuint panel_tex;
+GLuint button_tex;
 
-Button::Button(int bNum, materialStruct bColor, GameObject * obj) {
+Button::Button(int bNum, GLfloat bColor[3], GameObject * obj) {
    buttonNumber = bNum;
-   buttonColor = bColor;
+   color[0] = bColor[0];
+   color[1] = bColor[1];
+   color[2] = bColor[2];
    gameObj = obj;
 }
 
@@ -20,10 +25,8 @@ Button::~Button(void) {
 }
 
 void Button::drawButton(int width, int height) {
-   char * num;
-
-   setMaterial(buttonColor);
-   drawRectangle(0, 0, width, height);
+   glColor3f( color[0],color[1],color[2] );
+   drawRectangle(0, 0, width, height, button_tex);
 }
 
 int Button::getButtonNumber() {
@@ -34,8 +37,10 @@ void Button::setButtonNumer(int num) {
    buttonNumber = num;
 }
 
-void Button::setButtonColor(materialStruct color) {
-   buttonColor = color;
+void Button::setButtonColor(GLfloat newColor[3]) {
+   color[0] = newColor[0];
+   color[1] = newColor[1];
+   color[2] = newColor[2];
 }
 
 GameObject * Button::getObject() {
@@ -46,6 +51,11 @@ void Button::setObject(GameObject * gObj){
    gameObj = gObj;
 }
 
+void initializeUI()
+{
+	panel_tex = LoadTexture("GUI.bmp");
+	button_tex = LoadTexture("Button.bmp");
+}
 
 void renderUI(int w, int h, GLuint mode)
 {
@@ -57,12 +67,12 @@ void renderUI(int w, int h, GLuint mode)
    
    // Draws left Panel + 9 Buttons
    glPushMatrix();
-   setMaterial(Black);
+   glColor4f( 1.0, 1.0, 1.0, 1.0 );
+	drawPanel(200, 200);
 
-   drawPanel(200, 200);
    for (int i = 0; i < 3; i++) {
       if (i == 0) {
-         glTranslatef(0, 5, 0.01);
+         glTranslatef(0, 5, 0.5);
       } else {
          glTranslatef(0, 65, 0);
       }
@@ -83,11 +93,12 @@ void renderUI(int w, int h, GLuint mode)
    
    // Draws right panel + 9 buttons
    glPushMatrix();
-   setMaterial(Black);
+   //setMaterial(Black);
    glTranslatef(w - 200, 0, 0);
+   glColor4f( 1.0, 1.0, 1.0, 1.0 );
    drawPanel(200, 200);
    glTranslatef(140, 0, 0);
-   setMaterial(Teal);
+   //setMaterial(Teal);
    for (int i = 0; i < 3; i++) {
       if (i == 0) {
          glTranslatef(0, 5, 0.01);
@@ -156,32 +167,26 @@ void resetPerspectiveProjection() {
  * param w: width
  * param h: height
  */
-void drawRectangle(float xp, float yp, float w, float h)
+void drawRectangle(float xp, float yp, float w, float h, GLuint texture)
 {
-	//NOTE: There's quite a bit of commented out code right now.
-	//      All of that is for when I get the loading of images
-	//      working. Then those commands will actually texture the
-	//      rectangle
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable(GL_BLEND);
+	glDisable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture);
 
-	//glBindTexture(GL_TEXTURE_2D, texture[0]);
-   glMatrixMode(GL_MODELVIEW);
-	glBegin(GL_QUADS);  //tells OpenGL that we're going to start drawing triangles
+	glBegin(GL_QUADS);
+    glTexCoord2f(0,0);
+    glVertex2f(xp,yp+h);
+    glTexCoord2f(1,0);
+    glVertex2f(xp+w,yp+h);
+    glTexCoord2f(1,1);
+    glVertex2f(xp+w,yp);
+    glTexCoord2f(0,1);
+    glVertex2f(xp,yp);
+    glEnd();
 
-	//glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(xp,yp, 0.0); 
-
-	//glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(xp+w,yp,0.0); 
-
-	//glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(xp+w,yp+h,0.0); 
-
-	//glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(xp,yp+h,0.0); 
-	glEnd();                //tells OpenGL that we've finished drawing
-	//glDisable(GL_BLEND);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
 }
 
 void drawMouseBox(bool click) {
@@ -209,7 +214,7 @@ void drawMouseBox(bool click) {
 }
 
 void drawPanel(int w, int h) {
-	drawRectangle(0, 0, w, h);
+	drawRectangle(0, 0, w, h, panel_tex);
 }
 
 void mouseClick(int button, int state, int x, int y) {
@@ -241,13 +246,15 @@ void mouseClick(int button, int state, int x, int y) {
       test = determineClickedButton(x, GH - y);
 
       if (test != -1) {
-         buttons.at(test)->setButtonColor(White);
+		  GLfloat col[] = {0.6,0.6,0.6};
+		  buttons.at(test)->setButtonColor(col);
       }
    }
    
    if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
       if (test != -1) {
-         buttons.at(test)->setButtonColor(Teal);
+		  GLfloat col[] = {1.0,1.0,1.0};
+         buttons.at(test)->setButtonColor(col);
          clicked = !clicked;
       }
 
@@ -314,6 +321,20 @@ void mouseMotion(int x, int y) {
             worldY = 0;
    //    fprintf(stderr, "xTemp: %f yTemp: %f   %.2lf, %.2lf\n", xTemp, yTemp, worldX, worldZ);
    }
+
+   int btn = determineClickedButton(x,GH- y);
+   if(prevBtn != -1 && btn != prevBtn)
+   {
+	   GLfloat col[] = {1.0,1.0,1.0};
+       buttons.at(prevBtn)->setButtonColor(col);
+   }
+   if(btn != -1)
+   {
+	   GLfloat col[] = {0.8,0.8,0.8};
+       buttons.at(btn)->setButtonColor(col);
+   }
+   prevBtn = btn;
+
    
    glutPostRedisplay();
 }
