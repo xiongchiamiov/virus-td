@@ -1,5 +1,6 @@
 #include "BasicTower.h"
 #include "constants.h"
+#include "lighting.h"
 
 namespace b_tower{
   const int MAX_HP = 10;
@@ -15,7 +16,8 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
 {
   hp = MAX_HP;
   max_hp = MAX_HP;
-  atk_dmg = ATK;
+  ai.atk_dmg = ATK;
+  ai.range = BUILD_TIME;
   type = T_BASIC;
   build_time = BUILD_TIME;
   stage = 0;
@@ -27,6 +29,14 @@ BasicTower::~BasicTower(void)
 
 void BasicTower::draw(){
   glPushMatrix();
+  setMaterial(RedFlat);
+  if(ai.hasTarget){
+    glBegin(GL_LINES);
+      glVertex3f(x, GRID_SIZE*2.0, z);
+      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
+    glEnd();
+  }
+  setMaterial(Exp);
   glTranslatef(x, y, z);
   //Front
   glNormal3f(0.0, 0.0, -1.0);
@@ -76,5 +86,3 @@ void BasicTower::step(float dt){
 
 }
 
-void BasicTower::shoot(){
-}

@@ -49,6 +49,7 @@ void Player::placeTower(int x, int y, int towerID){
     } else if (towerID == 8) {
        
     }
+    tList.back()->setEnemyUnitList(uList);
   }
 }
 
@@ -147,6 +148,7 @@ void Player::draw(){
   std::list<Tower*>::iterator i; 
   for(i = tList.begin(); i != tList.end(); ++i){
     (*i)->draw();
+    (*i)->shoot();
   }
   
   std::list<Unit*>::iterator p; 

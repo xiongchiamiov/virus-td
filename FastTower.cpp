@@ -16,7 +16,8 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
 {
   hp = MAX_HP;
   max_hp = MAX_HP;
-  atk_dmg = ATK;
+  ai.atk_dmg = ATK;
+  ai.range = BUILD_TIME;
   type = T_FAST;
   build_time = BUILD_TIME;
   stage = 0;

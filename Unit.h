@@ -26,7 +26,7 @@ public:
   void attack();
   int takeDamage(int damage); //returns health left
   void moveToWaypoint();
-
+  inline bool isDead(){return hp <= 0;}
 protected:
   int hp;
   int max_hp;

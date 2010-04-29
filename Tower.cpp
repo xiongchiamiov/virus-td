@@ -10,8 +10,8 @@ GameObject(inx, iny, inz), grid_x(gx), grid_y(gy), ai(x, y, z)
 Tower::~Tower(void)
 {
 }
-
 void Tower::shoot(){
+  ai.shoot();
 }
 bool Tower::operator==(const Tower& other){ 
   return (this->grid_x == other.grid_x) && (this->grid_y == other.grid_y);

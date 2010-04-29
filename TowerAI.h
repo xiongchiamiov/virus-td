@@ -1,5 +1,6 @@
 #pragma once
 #include "Unit.h"
+#include <list>
 
 enum target_mode{
   TM_FIRST,
@@ -14,11 +15,16 @@ public:
   inline float getX(){return x;}
   inline float getY(){return y;}
   inline float getZ(){return z;}
-private:
+  void shoot();
+  void getNewTarget();
+  float getDistance(Unit& other);
+  //Data
+  int atk_dmg;   //Amount of damage
+  float range;   //This tower's maximum range
   float x;
   float y;
   float z;
   Unit* target;
+  std::list<Unit*> *targetList;
   bool hasTarget;
-  float getDistance(Unit& other);
 };

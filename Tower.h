@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "TowerAI.h"
 #include "constants.h"
+#include <list>
 
 enum tower_t{
   T_BASIC,
@@ -20,9 +21,20 @@ struct g_elem{
   { return (this->x == other.x) && (this->y == other.y);}
 };
 
+class Unit;
+
 class Tower :
   public GameObject
 {
+  protected:
+  int hp;        //Current HP
+  int max_hp;    //Maximum HP
+  tower_t type;  //Type of tower
+  int build_time;//Measured in milliseconds
+  int stage;     //Upgrade stage
+  int grid_x;    //Coordinates with respect
+  int grid_y;    //  to the game grid
+  TowerAI ai;    //This tower's AI object
 public:
   Tower(float inx, float iny, float inz, int gx, int gy);
   virtual ~Tower(void);
@@ -33,16 +45,5 @@ public:
   inline float getHeight(){return z + GRID_SIZE * 2.0;}
   bool operator==(const Tower& other);
   bool operator==(const g_elem& other);
-
-protected:
-  int hp;        //Current HP
-  int max_hp;    //Maximum HP
-  int atk_dmg;   //Amount of damage
-  float range;   //This tower's maximum range
-  tower_t type;  //Type of tower
-  int build_time;//Measured in milliseconds
-  int stage;     //Upgrade stage
-  int grid_x;    //Coordinates with respect
-  int grid_y;    //  to the game grid
-  TowerAI ai;    //This tower's AI object
+  inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
 };

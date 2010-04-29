@@ -10,5 +10,4 @@ public:
   ~BasicTower(void);
   void draw();
   void step(float dt);
-  virtual void shoot();
 };

@@ -382,7 +382,7 @@ void processHits(GLint hits, GLuint buffer[])
 {
    // this function goes through the selection hit list of object names
 
-   int i, j;
+   int i;
    GLuint *ptr, *closestPtr;
    GLfloat closestFront = 0.0;
    
