@@ -18,7 +18,7 @@ public:
   bool setTower(int x, int y);
   bool setUnit(int x, int y);
   bool removeTower(int x, int y, std::list<Tower*>& towers);
-  bool isWall(int x, int y);
+  bool isWall(g_elem cur);
   static const int G_WIDTH = 16;
   static const int G_HEIGHT = 32;
 private:

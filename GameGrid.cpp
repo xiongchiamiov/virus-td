@@ -111,9 +111,9 @@ bool GameGrid::setUnit(int x, int y){
   return false;
 }
 
-bool GameGrid::isWall(int x, int y) {
-	if(x >= GRID_WIDTH || x < 0 || y >= GRID_HEIGHT || y < 0)
+bool GameGrid::isWall(g_elem cur) {
+	if(cur.x >= GRID_WIDTH || cur.x < 0 || cur.y >= GRID_HEIGHT || cur.y < 0)
 		return true;
 	else
-		return grid[x][y];
+		return grid[cur.x][cur.y];
 }
