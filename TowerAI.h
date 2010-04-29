@@ -15,11 +15,13 @@ public:
   inline float getX(){return x;}
   inline float getY(){return y;}
   inline float getZ(){return z;}
-  void shoot();
+  bool shoot();
   void getNewTarget();
   float getDistance(Unit& other);
   //Data
   int atk_dmg;   //Amount of damage
+  int atk_dt;    //Time between attacks
+  int last_atk;  //Time since last attack
   float range;   //This tower's maximum range
   float x;
   float y;

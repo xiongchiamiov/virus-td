@@ -23,6 +23,7 @@ public:
   void destroyTower(int x, int y);
   void moveUnits(float dt);
   void draw();
+  void update(int dt);
   std::list<Tower*> tList;
   std::list<Unit*> uList;
 private:

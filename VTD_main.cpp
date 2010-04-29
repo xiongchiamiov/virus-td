@@ -34,6 +34,7 @@ int tlx, tly;
 int ulx, uly;
 std::vector<Button*> buttons;
 bool clicked = false;
+int last_time;
 
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -56,7 +57,6 @@ void display(){
   //testGrid.draw();
   glPushMatrix();
   p1.draw();
-  p1.moveUnits(.01);
   glPopMatrix();
   /*glScalef(-1.0, 1.0, -1.0);
   glTranslatef(0.0, 0.0, GRID_SIZE*GRID_HEIGHT*2.0 + 8.0*GRID_SIZE);
@@ -103,8 +103,13 @@ void init_lighting() {
 }
 
 void update(int param){
+  int this_time = glutGet(GLUT_ELAPSED_TIME);
+  int dt = this_time - last_time;
+  //fps = 1000.00/dt; 
+  last_time = this_time;
+  p1.update(dt);
   glutPostRedisplay();
-  glutTimerFunc(1000/60, update, 0);
+  glutTimerFunc(10, update, 0);
 }
 
 void keyboard(unsigned char key, int x, int y){

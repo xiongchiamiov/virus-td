@@ -2,25 +2,28 @@
 #include <math.h>
 
 TowerAI::TowerAI(float inx, float iny, float inz):
-x(inx), y(iny), z(inz), hasTarget(false)
+x(inx), y(iny), z(inz), hasTarget(false), last_atk(0)
 {
+  atk_dt = 1000;
 }
 
 TowerAI::~TowerAI(void)
 {
 }
 
-#include <iostream>
-void TowerAI::shoot(){
+bool TowerAI::shoot(){
+  bool retVal;
   if(hasTarget && !target->isDead() && getDistance(*target) <= range){
     int dmg = target->takeDamage(atk_dmg); 
     if( 0 >= dmg){
       hasTarget = false;
-      std::cout << "Dead" << std::endl;
     }
+    retVal = true;
   } else {
     getNewTarget();
+    retVal = false;
   }
+  return retVal;
 }
 
 void TowerAI::getNewTarget(){

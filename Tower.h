@@ -38,7 +38,7 @@ class Tower :
 public:
   Tower(float inx, float iny, float inz, int gx, int gy);
   virtual ~Tower(void);
-  virtual void shoot();
+  virtual bool shoot();
   inline int getGridX(){return grid_x;}
   inline int getGridY(){return grid_y;}
   inline float getWidth(){return x + GRID_SIZE * 2.0;}
@@ -46,4 +46,5 @@ public:
   bool operator==(const Tower& other);
   bool operator==(const g_elem& other);
   inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
+  void step(int dt);
 };

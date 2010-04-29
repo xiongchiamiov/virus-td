@@ -12,7 +12,7 @@ public:
   inline float getZ(void){return z;}
   //Virtual functions to implement
   virtual void draw() = 0;
-  virtual void step(float dt) = 0;
+  virtual void step(int dt) = 0;
 protected:
   float x;
   float y; 

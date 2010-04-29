@@ -77,6 +77,15 @@ void Player::spawnUnit(int unitID){
   }
 }
 
+void Player::update(int dt){
+  moveUnits(dt);
+  std::list<Tower*>::iterator t;
+  for(t = tList.begin(); t != tList.end(); ++t){
+    (*t)->step(dt);
+  }
+
+}
+
 void Player::moveUnits(float dt)
 {
   float xdir, zdir, trad, urad;
@@ -148,12 +157,13 @@ void Player::draw(){
   std::list<Tower*>::iterator i; 
   for(i = tList.begin(); i != tList.end(); ++i){
     (*i)->draw();
-    (*i)->shoot();
   }
   
   std::list<Unit*>::iterator p; 
   for(p = uList.begin(); p != uList.end(); ++p){
-    (*p)->draw();
+    if(!(*p)->isDead()){
+      (*p)->draw();
+    }
   }
   glPopMatrix();
 }

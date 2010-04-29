@@ -9,7 +9,7 @@
 namespace b_unit{
   const int MAX_HP = 10;
   const int ATK = 3;
-  const float SPD = 0.5;
+  const float SPD = 0.0012;
 }
 using namespace b_unit;
 
@@ -44,9 +44,9 @@ void BasicUnit::draw()
 
 
 
-void BasicUnit::step(float dt)
+void BasicUnit::step(int dt)
 {
 	//will be changed by waypoint
   if(hp > 0)
-	  z = z + dt;
+	  z = z + float(dt)*speed;
 }
