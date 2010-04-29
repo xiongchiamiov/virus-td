@@ -20,8 +20,6 @@ Button::~Button(void) {
 }
 
 void Button::drawButton(int width, int height) {
-   char * num;
-
    setMaterial(buttonColor);
    drawRectangle(0, 0, width, height);
 }
@@ -347,7 +345,7 @@ void processHits(GLint hits, GLuint buffer[])
 {
    // this function goes through the selection hit list of object names
 
-   int i, j;
+   int i;
    GLuint *ptr, *closestPtr;
    GLfloat closestFront = 0.0;
    

@@ -11,8 +11,7 @@ namespace b_tower{
 using namespace b_tower;
 
 BasicTower::BasicTower(float inx, float iny, float inz, int gx, int gy):
-Tower(inx, iny, inz, gx, gy)/*, hp(MAX_HP), max_hp(MAX_HP), atk_dmg(ATK),
-type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
+Tower(inx, iny, inz, gx, gy)
 {
   hp = MAX_HP;
   max_hp = MAX_HP;

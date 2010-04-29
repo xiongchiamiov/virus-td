@@ -13,11 +13,11 @@ class Unit :
   public GameObject
 {
 public:
-  Unit(void);
+  Unit(float inx, float iny, float inz);
   virtual ~Unit(void);
   void attack();
   void moveToWaypoint();
-
+  int takeDamage(int damage); //returns health left
 protected:
   int hp;
   int max_hp;

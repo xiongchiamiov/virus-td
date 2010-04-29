@@ -11,7 +11,7 @@
  #ifdef _WIN32
      #include <io.h>
      #include <fcntl.h>
-     #include <glut.h>
+     #include <gl/glut.h>
  #endif
 #include "lighting.h"
 #include "constants.h"
@@ -28,6 +28,7 @@ public:
   ~GameGrid(void);
   void draw();
   bool setTower(int x, int y);
+  bool setUnit(int x, int y);
   bool removeTower(int x, int y, std::list<Tower*>& towers);
   bool isWall(int x, int y);
   static const int G_WIDTH = 16;

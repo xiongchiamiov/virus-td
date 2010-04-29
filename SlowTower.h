@@ -1,5 +1,5 @@
 #pragma once
-#include "Tower.h"Slow
+#include "Tower.h"
 #include "lighting.h"
 
 class SlowTower : public Tower {
