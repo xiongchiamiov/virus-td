@@ -8,7 +8,6 @@ class SlowTower : public Tower {
      ~SlowTower(void);
      void draw();
      void step(float dt);
-     virtual void shoot();
 };
 
 

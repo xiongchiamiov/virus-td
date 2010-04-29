@@ -8,7 +8,6 @@ class FreezeTower : public Tower {
      ~FreezeTower(void);
      void draw();
      void step(float dt);
-     virtual void shoot();
 };
 
 

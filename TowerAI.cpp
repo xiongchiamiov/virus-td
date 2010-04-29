@@ -10,17 +10,18 @@ TowerAI::~TowerAI(void)
 {
 }
 
+#include <iostream>
 void TowerAI::shoot(){
   if(hasTarget && !target->isDead() && getDistance(*target) <= range){
-    if( 0 <= target->takeDamage(atk_dmg) ){
+    int dmg = target->takeDamage(atk_dmg); 
+    if( 0 >= dmg){
       hasTarget = false;
+      std::cout << "Dead" << std::endl;
     }
   } else {
     getNewTarget();
   }
 }
-
-
 
 void TowerAI::getNewTarget(){
   std::list<Unit*>::iterator i;
@@ -28,10 +29,12 @@ void TowerAI::getNewTarget(){
   float thisDist, bestDist = range + 1.0;
   //std::cout << bestDist << std::endl;
   for(i = targetList->begin(); i != targetList->end(); ++i){
-    thisDist = getDistance(**i);
-    if( thisDist < bestDist ){
-      target = *i;
-      bestDist = thisDist;
+    if(!(*i)->isDead()){
+      thisDist = getDistance(**i);
+      if( thisDist < bestDist){
+        target = *i;
+        bestDist = thisDist;
+      }
     }
   }
   hasTarget = bestDist < range;

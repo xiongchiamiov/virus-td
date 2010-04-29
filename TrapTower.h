@@ -8,5 +8,4 @@ class TrapTower : public Tower {
      ~TrapTower(void);
      void draw();
      void step(float dt);
-     virtual void shoot();
 };

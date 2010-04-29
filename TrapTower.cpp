@@ -17,7 +17,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   hp = MAX_HP;
   max_hp = MAX_HP;
   ai.atk_dmg = ATK;
-  ai.range = BUILD_TIME;
+  ai.range = RANGE;
   type = T_TRAP;
   build_time = BUILD_TIME;
   stage = 0;
@@ -29,6 +29,13 @@ TrapTower::~TrapTower(void)
 
 void TrapTower::draw(){
   glPushMatrix();
+  setMaterial(RedFlat);
+  if(ai.hasTarget){
+    glBegin(GL_LINES);
+      glVertex3f(x, GRID_SIZE*2.0, z);
+      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
+    glEnd();
+  }
   setMaterial(Exp);
   glTranslatef(x, y, z);
    glutSolidTorus(0.2, 0.25, 10, 10);
@@ -37,7 +44,4 @@ void TrapTower::draw(){
 
 void TrapTower::step(float dt){
 
-}
-
-void TrapTower::shoot(){
 }

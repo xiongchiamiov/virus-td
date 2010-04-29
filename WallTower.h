@@ -8,5 +8,4 @@ class WallTower : public Tower {
       ~WallTower(void);
       void draw();
       void step(float dt);
-      virtual void shoot();
 };

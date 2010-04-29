@@ -17,7 +17,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   hp = MAX_HP;
   max_hp = MAX_HP;
   ai.atk_dmg = ATK;
-  ai.range = BUILD_TIME;
+  ai.range = RANGE;
   type = T_FREEZE;
   build_time = BUILD_TIME;
   stage = 0;
@@ -29,6 +29,13 @@ FreezeTower::~FreezeTower(void)
 
 void FreezeTower::draw(){
   glPushMatrix();
+  setMaterial(RedFlat);
+  if(ai.hasTarget){
+    glBegin(GL_LINES);
+      glVertex3f(x, GRID_SIZE*2.0, z);
+      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
+    glEnd();
+  }
   setMaterial(Purple);
   glTranslatef(x, y, z);
    glutSolidSphere(0.25, 10, 10);
@@ -37,7 +44,4 @@ void FreezeTower::draw(){
 
 void FreezeTower::step(float dt){
 
-}
-
-void FreezeTower::shoot(){
 }

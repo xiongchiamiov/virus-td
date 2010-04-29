@@ -1,5 +1,6 @@
 #include "BasicUnit.h"
 #include "constants.h"
+#include "lighting.h"
 
 // NOTES 
 //add xmin,xman,ymin,ymax,zmin,zmax to GameObject for collision detection
@@ -35,6 +36,7 @@ unit_dir BasicUnit::move(unit_dir direction)
 void BasicUnit::draw()
 {
   glPushMatrix();
+  setMaterial(Fuschia);
   glTranslatef(x, y, z);
   glutSolidSphere(.25,10,10);
   glPopMatrix();
@@ -45,5 +47,6 @@ void BasicUnit::draw()
 void BasicUnit::step(float dt)
 {
 	//will be changed by waypoint
-	z = z + dt;
+  if(hp > 0)
+	  z = z + dt;
 }

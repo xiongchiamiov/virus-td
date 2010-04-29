@@ -17,7 +17,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   hp = MAX_HP;
   max_hp = MAX_HP;
   ai.atk_dmg = ATK;
-  ai.range = BUILD_TIME;
+  ai.range = RANGE;
   type = T_SLOW;
   build_time = BUILD_TIME;
   stage = 0;
@@ -29,6 +29,13 @@ SlowTower::~SlowTower(void)
 
 void SlowTower::draw(){
   glPushMatrix();
+  setMaterial(RedFlat);
+  if(ai.hasTarget){
+    glBegin(GL_LINES);
+      glVertex3f(x, GRID_SIZE*2.0, z);
+      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
+    glEnd();
+  }
   setMaterial(GreenShiny);
   glTranslatef(x, y, z);
    glutSolidCone(0.25, 0.5, 10, 10);
@@ -37,7 +44,4 @@ void SlowTower::draw(){
 
 void SlowTower::step(float dt){
 
-}
-
-void SlowTower::shoot(){
 }
