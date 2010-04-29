@@ -6,7 +6,7 @@ extern int GH, GW;
 extern std::vector<Button *> buttons;
 extern bool clicked;
 GLdouble worldX, worldY, worldZ; //variables to hold world x,y,z coordinates
-extern int tlx, tly;
+extern int tlx, tly, ulx, uly;
 extern Player p1;
 int test = 0;
 
@@ -20,6 +20,8 @@ Button::~Button(void) {
 }
 
 void Button::drawButton(int width, int height) {
+   char * num;
+
    setMaterial(buttonColor);
    drawRectangle(0, 0, width, height);
 }
@@ -192,10 +194,16 @@ void drawMouseBox(bool click) {
       // tly and tlx increment in 0.5 not 1
       tlx = xForm * 2 + 7;
       tly = ((int)worldZ + camera.getZ() - newCam.getZ()) * 2 + 16;
+      ulx = tlx;
+      uly = tly;
       glTranslatef(xForm, (int)worldY, yForm);
-      if (test <= 17 && test >= 12) {
+      if (test <= 17 && test >= 12/* 11 to 9 missing */) {
+         // tower on cursor
          buttons.at(test)->getObject()->draw();
-      }
+      } /*else if (test == 8 && test) {
+         // unit on cursor
+         buttons.at(test)->getObject()->draw();
+      }*/
       glPopMatrix();
    }
 }
@@ -221,7 +229,12 @@ void mouseClick(int button, int state, int x, int y) {
       fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
 
       if (clicked == true) {
-         p1.placeTower(tlx, tly, test);
+         if (test >= 9 && test <= 17) {
+            p1.placeTower(tlx, tly, test);
+         } else if (test >= 0 && test <= 8) {
+            p1.spawnUnit(ulx, uly, test);
+         }
+
          clicked = !clicked;
       }
 
@@ -266,6 +279,8 @@ void mouseMotion(int x, int y) {
             //    worldZ = nearv[1] + (farv[1] - nearv[1]) * ((float)y / (float)GH);
          float xTemp, yTemp;
          
+         // everythign below reorients the screen so there is -0.5x to 0.5x and -0.5 y to 0.5y
+         // then it calculates mouse position
          xTemp = x - (GW / 2);
          yTemp = (GH - y) - (GH / 3.2);  
             if (xTemp <= (GW / 2.5) && xTemp >= 0) {
@@ -345,7 +360,7 @@ void processHits(GLint hits, GLuint buffer[])
 {
    // this function goes through the selection hit list of object names
 
-   int i;
+   int i, j;
    GLuint *ptr, *closestPtr;
    GLfloat closestFront = 0.0;
    

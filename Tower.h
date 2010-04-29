@@ -5,7 +5,10 @@
 enum tower_t{
   T_BASIC,
   T_FREEZE,
-  T_FAST
+  T_FAST,
+  T_SLOW,
+  T_TRAP,
+  T_WALL
 };
 struct g_elem{
   int x;

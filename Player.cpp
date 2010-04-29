@@ -40,16 +40,41 @@ void Player::placeTower(int x, int y, int towerID){
                                      0.0, 
                                      float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
                                      x, y));
+    } else if (towerID == 11) {
+       
+    } else if (towerID == 10) {
+       
+    } else if (towerID == 9) {
+       
+    } else if (towerID == 8) {
+       
     }
   }
 }
 
-void Player::spawnUnit(int x, int y)
-{
-	if(pGrid.setUnit(x, y)){
-    uList.push_back(new BasicUnit(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
+void Player::spawnUnit(int x, int y, int unitID){
+	if(pGrid.setUnit(x, y)) {
+      uList.push_back(new BasicUnit(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
                                    0.0, 
-                                   float(y)*GRID_SIZE*2.0 + GRID_SIZE));
+                                   float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
+                                   x, y));
+      if (unitID == 7) {
+      
+      } else if (unitID == 6) {
+         
+      } else if (unitID == 5) {
+         
+      } else if (unitID == 4) {
+         
+      } else if (unitID == 3) {
+         
+      } else if (unitID == 2) {
+         
+      } else if (unitID == 1) {
+         
+      } else if (unitID == 0) {
+         
+      }
   }
 }
 
@@ -68,8 +93,8 @@ void Player::moveUnits(float dt)
   {
      u_xmin = ((*p)->getX()) - urad;
      u_xmax = ((*p)->getX()) + urad;
-	 u_zmin = ((*p)->getZ()) - urad;
-	 u_zmax = ((*p)->getZ()) + urad;
+     u_zmin = ((*p)->getZ()) - urad;
+     u_zmax = ((*p)->getZ()) + urad;
      bool collision = false;
 	 if(tList.empty())
 	 {
@@ -117,8 +142,7 @@ void Player::destroyTower(int x, int y){
   pGrid.removeTower(x, y, tList);
 }
 
-void Player::draw()
-{
+void Player::draw(){
   glPushMatrix();
   glTranslatef(-GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE, 0.0, -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE);
   pGrid.draw();
@@ -126,22 +150,14 @@ void Player::draw()
   for(i = tList.begin(); i != tList.end(); ++i){
     (*i)->draw();
   }
- 
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(-GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE, 0.0, -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE);
   //pGrid.draw();
   std::list<Unit*>::iterator p; 
   for(p = uList.begin(); p != uList.end(); ++p){
     (*p)->draw();
   }
   glPopMatrix();
-}
-
-void Player::update(int dt){
-  std::list<Tower*>::iterator i; 
-  for(i = tList.begin(); i != tList.end(); ++i){
-    (*i)->step(float(dt));
-  }
-  std::list<Unit*>::iterator p; 
-  for(p = uList.begin(); p != uList.end(); ++p){
-    (*p)->step(float(dt));
-  }
 }

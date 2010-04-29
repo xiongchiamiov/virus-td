@@ -7,11 +7,11 @@ namespace b_tower{
   const float RANGE = 3.0;
   const int BUILD_TIME = 3000;
 }
-
 using namespace b_tower;
 
 BasicTower::BasicTower(float inx, float iny, float inz, int gx, int gy):
-Tower(inx, iny, inz, gx, gy)
+Tower(inx, iny, inz, gx, gy)/*, hp(MAX_HP), max_hp(MAX_HP), atk_dmg(ATK),
+type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
 {
   hp = MAX_HP;
   max_hp = MAX_HP;

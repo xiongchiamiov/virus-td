@@ -14,17 +14,11 @@ public:
   inline float getX(){return x;}
   inline float getY(){return y;}
   inline float getZ(){return z;}
-  inline bool hasTarget(){return hasTarg;}
-  inline void setTargetMode(target_mode newMode){mode = newMode;}
-  //getNewTarget
-  //damageTarget
-
 private:
   float x;
   float y;
   float z;
   Unit* target;
-  bool hasTarg;
+  bool hasTarget;
   float getDistance(Unit& other);
-  target_mode mode;
 };

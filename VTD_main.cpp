@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
-#include <map>
  #ifdef __unix__
      #include <GL/glut.h>
  #endif
@@ -19,14 +18,12 @@
 #include "lighting.h"
 #include "constants.h"
 #include "UI.h"
-#include "Camera.h"
 
 int GW, GH;
 //Camera variables
 MyVector camera;//Camera's positon held by x, y, z,
                 //the lookat held by i, j, k
 MyVector newCam;
-Camera cam;
 MyVector u;
 MyVector v;
 MyVector w;
@@ -34,10 +31,9 @@ float theta = 0.0;
 float phi = 0.0; 
 Player p1;
 int tlx, tly;
+int ulx, uly;
 std::vector<Button*> buttons;
 bool clicked = false;
-std::map<char, bool> keys;
-int last_time = 0;
 
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -60,6 +56,7 @@ void display(){
   //testGrid.draw();
   glPushMatrix();
   p1.draw();
+  p1.moveUnits(.01);
   glPopMatrix();
   /*glScalef(-1.0, 1.0, -1.0);
   glTranslatef(0.0, 0.0, GRID_SIZE*GRID_HEIGHT*2.0 + 8.0*GRID_SIZE);
@@ -106,23 +103,6 @@ void init_lighting() {
 }
 
 void update(int param){
-  if(keys[controls::FOREWARD]){
-    cam.moveForward();
-  }
-  if(keys[controls::BACKWARD]){
-    cam.moveBackward();
-  }
-  if(keys[controls::LEFT]){
-    cam.moveLeft();
-  }
-  if(keys[controls::RIGHT]){
-    cam.moveRight();
-  }
-  int this_time = glutGet(GLUT_ELAPSED_TIME);
-  int dt = this_time - last_time;
-  last_time = this_time;
-  p1.update(dt);
-
   glutPostRedisplay();
   glutTimerFunc(1000/60, update, 0);
 }
@@ -162,38 +142,38 @@ void keyboard(unsigned char key, int x, int y){
                          camera.getZ() - GRID_SIZE*2.0*u.getK());
       break;
     case 't': case 'T':
+      /*if(testGrid.setTower(tlx, tly)){
+        towers.push_back(g_elem(tlx, tly));
+      }*/
       p1.placeTower(tlx, tly, 16);
+      //std::cout << towers.size() << std::endl;
       break;
     case 'r': case 'R':
+      //testGrid.removeTower(tlx, tly, towers);
       p1.destroyTower(tlx, tly);
       break;
     case 'u': case 'U':
-      p1.spawnUnit(GRID_WIDTH/2, 0);
-  }
-  if(!keys[key]){
-    keys[key] = true;
-    std::cout << keys[key] << std::endl;
-  }
-}
-void keyboardUp(unsigned char key, int x, int y){
-  if(keys[key]){
-    keys[key] = false;
-    std::cout << keys[key] << std::endl;
+	   p1.spawnUnit(ulx, uly, 0);
+	   break;
   }
 }
 void specKeys(int key, int x, int y){
   switch(key){
     case GLUT_KEY_DOWN:
     //  ++tly;
+       ++uly;
       break;
     case GLUT_KEY_UP:
     //  --tly;
+        --uly;
       break;
     case GLUT_KEY_RIGHT:
     //  ++tlx;
+        ++ulx;
       break;
     case GLUT_KEY_LEFT:
      // --tlx;
+        --ulx;
       break;
   }
 }
@@ -202,12 +182,14 @@ int main(int argc, char** argv){
   //Initialize globals
   camera.setPosition(0.0, 10.0, 10.0);
   camera.setVector(0.0, 0.0, 0.0);
+  newCam = camera;
   u.setVector(-1.0, 0.0, 0.0);
   v.setVector(0.0, 1.0, 0.0);
   w.setVector(0.0, 0.0, -1.0);
   tlx = 0;
   tly = 0;
-
+  ulx = 0;   
+  uly = 0;
   //Initialize window
   GW = 800;
   GH = 600;
@@ -218,11 +200,8 @@ int main(int argc, char** argv){
     buttons.push_back(newBtn);
   }
   
-  buttons.at(17)->setObject(
-                    new BasicTower(
-                      float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0
-                    )
-                  );
+  buttons.at(17)->setObject(new BasicTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
+     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
   buttons.at(16)->setObject(new FreezeTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
      float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
   buttons.at(15)->setObject(new FastTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
@@ -245,7 +224,6 @@ int main(int argc, char** argv){
   glutDisplayFunc(display);
   glutReshapeFunc(reshape);
   glutKeyboardFunc(keyboard);
-  glutKeyboardUpFunc(keyboardUp); 
   glutSpecialFunc(specKeys);
   glutMouseFunc(mouseClick);
   glutPassiveMotionFunc(mouseMotion);

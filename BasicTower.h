@@ -1,5 +1,6 @@
 #pragma once
 #include "Tower.h"
+#include "lighting.h"
 
 class BasicTower :
   public Tower

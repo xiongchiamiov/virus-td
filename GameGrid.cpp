@@ -18,8 +18,7 @@ GameGrid::~GameGrid(void)
   //delete[] grid;
 }
 
-void GameGrid::draw()
-{
+void GameGrid::draw(){
   glPushMatrix();
   glNormal3f(0.0, 1.0, 0.0);
   float gSize = 0.25;
@@ -83,18 +82,6 @@ bool GameGrid::setTower(int x, int y){
   return false;
 }
 
-bool GameGrid::setUnit(int x, int y){
-  bool retVal;
-  if(x < GRID_WIDTH - 1  && x >= 0 &&
-    y < GRID_HEIGHT - 1 && y >= 0){
-      retVal = grid[x][y] && grid[x + 1][y] &&//Tricky, remember the assignment
-                  grid[x + 1][y + 1] && grid[x][y + 1];
-
-      return retVal;
-  }
-  return false;
-}
-
 bool GameGrid::removeTower(int x, int y, std::list<Tower*>& towers){
   std::list<Tower*>::iterator i;
   g_elem t(x, y);
@@ -108,6 +95,18 @@ bool GameGrid::removeTower(int x, int y, std::list<Tower*>& towers){
       towers.erase(i);
       return true;
     }
+  }
+  return false;
+}
+
+bool GameGrid::setUnit(int x, int y){
+  bool retVal;
+  if(x < GRID_WIDTH - 1  && x >= 0 &&
+    y < GRID_HEIGHT - 1 && y >= 0){
+      retVal = grid[x][y] && grid[x + 1][y] &&//Tricky, remember the assignment
+                  grid[x + 1][y + 1] && grid[x][y + 1];
+
+      return retVal;
   }
   return false;
 }

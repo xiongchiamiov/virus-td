@@ -16,5 +16,5 @@ public:
 protected:
   float x;
   float y; 
-  float z; 
+  float z;
 };
