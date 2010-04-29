@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "TowerAI.h"
+#include "constants.h"
 
 enum tower_t{
   T_BASIC,
@@ -28,8 +29,11 @@ public:
   virtual void shoot();
   inline int getGridX(){return grid_x;}
   inline int getGridY(){return grid_y;}
+  inline float getWidth(){return x + GRID_SIZE * 2.0;}
+  inline float getHeight(){return z + GRID_SIZE * 2.0;}
   bool operator==(const Tower& other);
   bool operator==(const g_elem& other);
+
 protected:
   int hp;        //Current HP
   int max_hp;    //Maximum HP
