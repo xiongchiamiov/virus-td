@@ -218,49 +218,50 @@ void drawPanel(int w, int h) {
 }
 
 void mouseClick(int button, int state, int x, int y) {
-   if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+  int click = determineClickedButton(x, GH - y);
+  if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
     //  int BUFSIZE = 512;
-   //   GLuint selectBuf[BUFSIZE];
+    //   GLuint selectBuf[BUFSIZE];
 
-   /* gl selection code */
-   //   startPicking(x, y, selectBuf, BUFSIZE);
-   //   gluLookAt(camera.getX(), camera.getY(), camera.getZ(), 
-   //         camera.getI(), camera.getJ(), camera.getK(),
-  //          0.0, 1.0, 0.0);
-  //    renderUI(GW, GH, GL_SELECT);
-  //    stopPicking(selectBuf);
+    /* gl selection code */
+    //   startPicking(x, y, selectBuf, BUFSIZE);
+    //   gluLookAt(camera.getX(), camera.getY(), camera.getZ(), 
+    //         camera.getI(), camera.getJ(), camera.getK(),
+    //          0.0, 1.0, 0.0);
+    //    renderUI(GW, GH, GL_SELECT);
+    //    stopPicking(selectBuf);
 
-/* !!!!!! remember to invert y with (GH - y) so that it is on the bottom instead of the top */
-      fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
+    /* !!!!!! remember to invert y with (GH - y) so that it is on the bottom instead of the top */
+    fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
 
-      if (clicked == true) {
-         if (test >= 9 && test <= 17) {
-            p1.placeTower(tlx, tly, test);
-         } else if (test >= 0 && test <= 8) {
-            p1.spawnUnit(test);
-         }
+    if (clicked == true) {
+      if (test >= 9 && test <= 17) {
+        p1.placeTower(tlx, tly, test);
+      } 
 
-         clicked = !clicked;
-      }
+      clicked = !clicked;
+    }
 
-      test = determineClickedButton(x, GH - y);
+    test = click;
 
-      if (test != -1) {
-		  GLfloat col[] = {0.6,0.6,0.6};
-		  buttons.at(test)->setButtonColor(col);
-      }
-   }
-   
-   if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
-      if (test != -1) {
-		  GLfloat col[] = {1.0,1.0,1.0};
-         buttons.at(test)->setButtonColor(col);
-         clicked = !clicked;
-      }
+    if (test != -1) {
+      GLfloat col[] = {0.6,0.6,0.6};
+      buttons.at(test)->setButtonColor(col);
+    }
+  }else if (click >= 0 && click <= 8) {
+    p1.spawnUnit(click);
+  }
 
-   }
-   
-   glutPostRedisplay();
+  if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+    if (test != -1) {
+      GLfloat col[] = {1.0,1.0,1.0};
+      buttons.at(test)->setButtonColor(col);
+      clicked = !clicked;
+    }
+
+  }
+
+  glutPostRedisplay();
 }
 
 void mouseMotion(int x, int y) {

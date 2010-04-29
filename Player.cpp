@@ -57,7 +57,7 @@ void Player::spawnUnit(int unitID){
   if (unitID == 7) {
     uList.push_back(new BasicUnit(GRID_WIDTH*GRID_SIZE, 
       0.0, 
-      4*GRID_SIZE*2.0));
+      -4*GRID_SIZE*2.0));
 
   } else if (unitID == 6) {
 
