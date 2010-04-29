@@ -7,7 +7,7 @@
      #include "GLUT/glut.h"
  #endif
 
- #ifdef _WIN32_ 
+ #ifdef _WIN32 
      #include <gl/glut.h>
  #endif
 #include <stdio.h>

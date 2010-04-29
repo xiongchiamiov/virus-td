@@ -9,7 +9,7 @@ namespace f_unit {
 using namespace f_unit;
 
 FastUnit::FastUnit(float inx, float iny, float inz, int gx, int gy):
-      Unit(inx, iny, inz, gx, gy) {
+      Unit(inx, iny, inz) {
   hp = MAX_HP;
   max_hp = MAX_HP;
   atk_dmg = ATK;

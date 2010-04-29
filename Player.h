@@ -18,7 +18,7 @@ public:
   Player(void);
   ~Player(void);
   void placeTower(int x, int y, int towerID);
-  void spawnUnit(int x, int y, int unitID);
+  void spawnUnit(int unitID);
   void upgradeTower();
   void destroyTower(int x, int y);
   void moveUnits(float dt);

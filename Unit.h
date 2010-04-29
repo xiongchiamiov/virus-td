@@ -21,7 +21,7 @@ class Unit :
   public GameObject
 {
 public:
-  Unit(float inx, float iny, float inz, int gx, int gy);
+  Unit(float inx, float iny, float inz);
   virtual ~Unit(void);
   void attack();
   int takeDamage(int damage); //returns health left
@@ -36,9 +36,6 @@ protected:
   unit_t type;
   int build_time;//Measured in milliseconds
   int stage;     //Upgrade stage
-  int grid_x;    //Coordinates with respect
-  int grid_y;    //  to the game grid
- // UnitsAI ai;    //This unit's AI object
 };
 //
 //class UnitList{

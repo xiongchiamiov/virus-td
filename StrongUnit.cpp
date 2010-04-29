@@ -9,7 +9,7 @@ namespace s_unit {
 using namespace s_unit;
 
 StrongUnit::StrongUnit(float inx, float iny, float inz, int gx, int gy):
-      Unit(inx, iny, inz, gx, gy) {
+      Unit(inx, iny, inz) {
   hp = MAX_HP;
   max_hp = MAX_HP;
   atk_dmg = ATK;

@@ -52,29 +52,27 @@ void Player::placeTower(int x, int y, int towerID){
   }
 }
 
-void Player::spawnUnit(int x, int y, int unitID){
-	if(pGrid.setUnit(x, y)) {
-      uList.push_back(new BasicUnit(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                   0.0, 
-                                   float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                   x, y));
-      if (unitID == 7) {
-      
-      } else if (unitID == 6) {
-         
-      } else if (unitID == 5) {
-         
-      } else if (unitID == 4) {
-         
-      } else if (unitID == 3) {
-         
-      } else if (unitID == 2) {
-         
-      } else if (unitID == 1) {
-         
-      } else if (unitID == 0) {
-         
-      }
+void Player::spawnUnit(int unitID){
+
+  if (unitID == 7) {
+    uList.push_back(new BasicUnit(GRID_WIDTH*GRID_SIZE, 
+      0.0, 
+      4*GRID_SIZE*2.0));
+
+  } else if (unitID == 6) {
+
+  } else if (unitID == 5) {
+
+  } else if (unitID == 4) {
+
+  } else if (unitID == 3) {
+
+  } else if (unitID == 2) {
+
+  } else if (unitID == 1) {
+
+  } else if (unitID == 0) {
+
   }
 }
 
@@ -91,47 +89,47 @@ void Player::moveUnits(float dt)
   std::list<Tower*>::iterator t;
   for(p = uList.begin(); p != uList.end(); ++p)
   {
-     u_xmin = ((*p)->getX()) - urad;
-     u_xmax = ((*p)->getX()) + urad;
-     u_zmin = ((*p)->getZ()) - urad;
-     u_zmax = ((*p)->getZ()) + urad;
-     bool collision = false;
-	 if(tList.empty())
-	 {
-		 //printf("grid heith = %d, u_xmax = %d\n", GRID_HEIGHT, u_xmax);
-		 if(u_zmax <= (GRID_HEIGHT/2))
-		 {
-			(*p)->step(dt);
-		 }
-     }
-	 else
-     {
-		for(t = tList.begin(); t != tList.end(); ++t)
-		{ 
-			 t_xmin = ((*t)->getX()) - trad;
-			 t_xmax = ((*t)->getX()) + trad;
-			 t_zmin = ((*t)->getZ()) - trad;
-			 t_zmax = ((*t)->getZ()) + trad;
-			if((u_zmax > t_zmin) && (u_xmax > t_xmin) && (u_xmin < t_xmax) && (u_zmin < t_zmax))
-			{
-				collision = true;
-				break;
-			}
-			//else if(()) // check for collisions along other paths, will implement, once object has xmin,ect.
-			else
-			{
-				collision = false;
-			}
-		}
-			if(!collision)
-			{
-				 if(u_zmax <= (GRID_HEIGHT/2))
-				 {
-					(*p)->step(dt);
+    u_xmin = ((*p)->getX()) - urad;
+    u_xmax = ((*p)->getX()) + urad;
+    u_zmin = ((*p)->getZ()) - urad;
+    u_zmax = ((*p)->getZ()) + urad;
+    bool collision = false;
+    if(tList.empty())
+    {
+      //printf("grid heith = %d, u_xmax = %d\n", GRID_HEIGHT, u_xmax);
+      if(u_zmax <= (GRID_HEIGHT/2))
+      {
+        (*p)->step(dt);
+      }
+    }
+    else
+    {
+      for(t = tList.begin(); t != tList.end(); ++t)
+      { 
+        t_xmin = ((*t)->getX()) - trad;
+        t_xmax = ((*t)->getX()) + trad;
+        t_zmin = ((*t)->getZ()) - trad;
+        t_zmax = ((*t)->getZ()) + trad;
+        if((u_zmax > t_zmin) && (u_xmax > t_xmin) && (u_xmin < t_xmax) && (u_zmin < t_zmax))
+        {
+          collision = true;
+          break;
+        }
+        //else if(()) // check for collisions along other paths, will implement, once object has xmin,ect.
+        else
+        {
+          collision = false;
+        }
+      }
+      if(!collision)
+      {
+        if(u_zmax <= (GRID_HEIGHT/2))
+        {
+          (*p)->step(dt);
 
-				 }
-			}
-	 }
+        }
+      }
+    }
   }	
 }
 
@@ -150,11 +148,7 @@ void Player::draw(){
   for(i = tList.begin(); i != tList.end(); ++i){
     (*i)->draw();
   }
-  glPopMatrix();
-
-  glPushMatrix();
-  glTranslatef(-GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE, 0.0, -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE);
-  //pGrid.draw();
+  
   std::list<Unit*>::iterator p; 
   for(p = uList.begin(); p != uList.end(); ++p){
     (*p)->draw();

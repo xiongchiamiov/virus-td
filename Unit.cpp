@@ -1,7 +1,7 @@
 #include "Unit.h"
 
-Unit::Unit(float inx, float iny, float inz, int gx, int gy):
-GameObject(inx, iny, inz), grid_x(gx), grid_y(gy)/*, ai(x, y, z)*/
+Unit::Unit(float inx, float iny, float inz):
+GameObject(inx, iny, inz)
 {
   
 }

@@ -5,7 +5,7 @@ class BasicUnit :
 	public Unit
 {
 public:
-	BasicUnit(float inx, float iny, float inz, int gx, int gy);
+	BasicUnit(float inx, float iny, float inz);
 	//BasicUnit(void);
 	~BasicUnit(void);
 	void draw();

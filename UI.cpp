@@ -237,7 +237,7 @@ void mouseClick(int button, int state, int x, int y) {
          if (test >= 9 && test <= 17) {
             p1.placeTower(tlx, tly, test);
          } else if (test >= 0 && test <= 8) {
-            p1.spawnUnit(ulx, uly, test);
+            p1.spawnUnit(test);
          }
 
          clicked = !clicked;

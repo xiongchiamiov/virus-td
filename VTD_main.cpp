@@ -153,7 +153,7 @@ void keyboard(unsigned char key, int x, int y){
       p1.destroyTower(tlx, tly);
       break;
     case 'u': case 'U':
-	   p1.spawnUnit(ulx, uly, 0);
+	   p1.spawnUnit( 0);
 	   break;
   }
 }

@@ -12,8 +12,8 @@ namespace b_unit{
 }
 using namespace b_unit;
 
-BasicUnit::BasicUnit(float inx, float iny, float inz, int gx, int gy):
-Unit(inx, iny, inz, gx, gy)
+BasicUnit::BasicUnit(float inx, float iny, float inz):
+Unit(inx, iny, inz)
 {
   hp = MAX_HP;
   max_hp = MAX_HP;
