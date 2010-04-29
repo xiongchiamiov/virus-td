@@ -171,11 +171,39 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Camera.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FastTower.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FreezeTower.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameObject.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\SlowTower.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TrapTower.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UI.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VTD_main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WallTower.cpp"
 				>
 			</File>
 			<Filter
@@ -249,7 +277,35 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Camera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FastTower.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FreezeTower.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SlowTower.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TrapTower.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UI.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WallTower.h"
 				>
 			</File>
 			<Filter

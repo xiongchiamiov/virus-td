@@ -3,6 +3,14 @@
 #include "GameObject.h"
 #include "MyVector.h"
 
+enum unit_dir{
+  DIR_NORTH,
+  DIR_SOUTH,
+  DIR_EAST,
+  DIR_WEST,
+  DIR_COLLIDE,
+};
+
 enum unit_t{
   U_BASIC,
   U_FAST,
@@ -16,6 +24,7 @@ public:
   Unit(float inx, float iny, float inz, int gx, int gy);
   virtual ~Unit(void);
   void attack();
+  int takeDamage(int damage); //returns health left
   void moveToWaypoint();
 
 protected:

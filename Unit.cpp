@@ -13,6 +13,18 @@ Unit::~Unit(void)
 void Unit::attack(){
 }
 
+int Unit::takeDamage(int damage)
+{
+	int new_hp = hp - damage;
+	if(new_hp <= 0)
+	{
+		
+		return(0);
+	}
+	else
+	return(new_hp);
+}
+
 //void Unit::moveToWaypoint(){
 //}
 //UnitList::UnitList(){
