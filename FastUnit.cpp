@@ -1,5 +1,5 @@
 #include "FastUnit.h"
-
+#include "constants.h"
 namespace f_unit {
   const int MAX_HP = 8;
   const int ATK = 2;
