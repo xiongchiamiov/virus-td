@@ -240,17 +240,21 @@
 				Name="Environment"
 				>
 				<File
+					RelativePath=".\Camera.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\GameGrid.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\UI.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
 				Name="Util"
 				>
-				<File
-					RelativePath=".\Camera.cpp"
-					>
-				</File>
 				<File
 					RelativePath=".\constants.cpp"
 					>
@@ -269,10 +273,6 @@
 				</File>
 				<File
 					RelativePath=".\textures.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\UI.cpp"
 					>
 				</File>
 			</Filter>
@@ -330,17 +330,21 @@
 				Name="Environment"
 				>
 				<File
+					RelativePath=".\Camera.h"
+					>
+				</File>
+				<File
 					RelativePath=".\GameGrid.h"
+					>
+				</File>
+				<File
+					RelativePath=".\UI.h"
 					>
 				</File>
 			</Filter>
 			<Filter
 				Name="Util"
 				>
-				<File
-					RelativePath=".\Camera.h"
-					>
-				</File>
 				<File
 					RelativePath=".\constants.h"
 					>
@@ -359,10 +363,6 @@
 				</File>
 				<File
 					RelativePath=".\textures.h"
-					>
-				</File>
-				<File
-					RelativePath=".\UI.h"
 					>
 				</File>
 			</Filter>

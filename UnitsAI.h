@@ -1,6 +1,8 @@
 #pragma once
 #include "Unit.h"
 #include <list>
+#include "constants.h"
+#include "Tower.h"
 
 class UnitsAI
 {
