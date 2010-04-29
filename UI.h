@@ -1,4 +1,6 @@
 #pragma once
+#include <stdlib.h>
+#include <stdio.h>
  #ifdef __unix__
      #include <GL/glut.h>
  #endif
@@ -8,12 +10,9 @@
  #endif
 
  #ifdef _WIN32
-     #include <io.h>
-     #include <fcntl.h>
-     #include <glut.h>
+     #include <gl/glut.h>
  #endif
 //#include <png.h>
-#include <stdio.h>
 #include "lighting.h"
 #include "MyVector.h"
 #include "GameObject.h"
