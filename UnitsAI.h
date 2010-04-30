@@ -5,13 +5,10 @@
 #include <stack>
 #include <vector>
 #include <math.h>
-#include "constants.h"
-#include "Tower.h"
 #include "GameGrid.h"
+#include "constants.h"
 
 int heuristic(g_elem cur, g_elem goal);
-g_elem loc2grid(float x, float z);
-void grid2loc(g_elem g, float * x, float * z);
 
 struct MyNode {
 	g_elem loc;
@@ -36,8 +33,8 @@ public:
 
 class CompareMyNode {
 public:
-	bool operator()(MyNode& n1, MyNode& n2) {
-		if(n1.f <= n2.f)
+	bool operator()(MyNode * n1, MyNode * n2) {
+		if(n1->f <= n2->f)
 			return true;
 		else
 			return false;

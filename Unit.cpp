@@ -23,6 +23,20 @@ int Unit::takeDamage(int damage)
 	return(hp);
 }
 
+void Unit::step(int dt) {
+	int curX = 0;
+	int curZ = 0;
+
+	
+	if(true) {
+
+	} else {
+		x += speed * dt * dir.getI();
+		y += speed * dt * dir.getJ();
+		z += speed * dt * dir.getK();
+	}
+}
+
 //void Unit::moveToWaypoint(){
 //}
 //UnitList::UnitList(){

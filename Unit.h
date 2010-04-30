@@ -1,7 +1,9 @@
 #pragma once
 #include <list>
-#include "GameObject.h"
+#include <stack>
+#include "constants.h"
 #include "MyVector.h"
+#include "GameObject.h"
 
 enum unit_dir{
   DIR_NORTH,
@@ -27,6 +29,8 @@ public:
   int takeDamage(int damage); //returns health left
   void moveToWaypoint();
   inline bool isDead(){return hp <= 0;}
+  void step(int dt);
+  std::stack<g_elem> path;
 protected:
   int hp;
   int max_hp;

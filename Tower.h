@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "TowerAI.h"
+#include "Unit.h"
 #include "constants.h"
 #include <list>
 
@@ -12,16 +13,8 @@ enum tower_t{
   T_TRAP,
   T_WALL
 };
-struct g_elem{
-  int x;
-  int y;
-  g_elem():x(0),y(0){}
-  g_elem(int nx, int ny):x(nx),y(ny){}
-  bool operator==(const g_elem other)
-  { return (this->x == other.x) && (this->y == other.y);}
-};
 
-class Unit;
+//class Unit;
 
 class Tower :
   public GameObject

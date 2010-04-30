@@ -21,14 +21,14 @@ void UnitsAI::determineUnitsPaths() {
 	for(i = uList.begin(); i != uList.end(); ++i) {
 		g_elem startLoc = loc2grid((*i)->getX(), (*i)->getY());
 		MyNode * cur = &MyNode(startLoc, NULL, 0, heuristic(startLoc, goal));
-		std::priority_queue<MyNode, std::vector<MyNode>, CompareMyNode> fringe;
+		std::priority_queue<MyNode *, std::vector<MyNode *>, CompareMyNode> fringe;
 		std::stack<g_elem> path;
 		bool visited[16][32]; // note GRID_WIDTH and GRID_HEIGHT might change... stupid constants
 
 		// initialize visited array
-		for(int i = 0; i < GRID_WIDTH; ++i){
+		for(int l = 0; l < GRID_WIDTH; ++l){
 			for(int j = 0; j < GRID_HEIGHT; ++j){
-				visited[i][j] = false;
+				visited[l][j] = false;
 			}
 		}
 
@@ -38,31 +38,31 @@ void UnitsAI::determineUnitsPaths() {
 			g_elem left(cur->loc.x - 1, cur->loc.y);
 			if(!gg.isWall(left) && !visited[cur->loc.x - 1][cur->loc.y]) {
 				visited[cur->loc.x - 1][cur->loc.y] = true;
-				fringe.push(MyNode(left, cur, cur->g + 1, heuristic(left, goal)));
+				fringe.push(&MyNode(left, cur, cur->g + 1, heuristic(left, goal)));
 			}
 
 			// right
 			g_elem right(cur->loc.x + 1, cur->loc.y);
 			if(!gg.isWall(right) && !visited[cur->loc.x + 1][cur->loc.y]) {
 				visited[cur->loc.x + 1][cur->loc.y] = true;
-				fringe.push(MyNode(right, cur, cur->g + 1, heuristic(right, goal)));
+				fringe.push(&MyNode(right, cur, cur->g + 1, heuristic(right, goal)));
 			}
 
 			// up
 			g_elem up(cur->loc.x, cur->loc.y - 1);
 			if(!gg.isWall(up) && !visited[cur->loc.x][cur->loc.y - 1]) {
 				visited[cur->loc.x][cur->loc.y - 1] = true;
-				fringe.push(MyNode(up, cur, cur->g + 1, heuristic(up, goal)));
+				fringe.push(&MyNode(up, cur, cur->g + 1, heuristic(up, goal)));
 			}
 
 			// down
 			g_elem down(cur->loc.x, cur->loc.y + 1);
 			if(!gg.isWall(down) && !visited[cur->loc.x][cur->loc.y + 1]) {
 				visited[cur->loc.x][cur->loc.y + 1] = true;
-				fringe.push(MyNode(down, cur, cur->g + 1, heuristic(down, goal)));
+				fringe.push(&MyNode(down, cur, cur->g + 1, heuristic(down, goal)));
 			}
 
-			cur = (MyNode *)&fringe.top();
+			cur = fringe.top();
 			fringe.pop();
 		}
 
@@ -73,19 +73,10 @@ void UnitsAI::determineUnitsPaths() {
 		}
 
 		// set units path
-		// NEED HELP HERE
+		(*i)->path = path;
 	}
 }
 
 int heuristic(g_elem cur, g_elem goal) {
 	return abs(cur.x - goal.x) + abs(cur.y - goal.y);
-}
-
-g_elem loc2grid(float x, float z) {
-	return g_elem((int)((x - GRID_SIZE)/(2.0 * GRID_SIZE)), (int)((z - GRID_SIZE)/(2.0 * GRID_SIZE)));
-}
-
-void grid2loc(g_elem g, float * x, float * z) {
-	*x = GRID_SIZE * 2.0 * g.x + GRID_SIZE;
-	*z = GRID_SIZE * 2.0 * g.y + GRID_SIZE;
 }

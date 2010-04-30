@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;\\marvin\jtrobins\480\project\virus-td\&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;GLUT_BUILDING_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -365,22 +366,22 @@
 					RelativePath=".\textures.h"
 					>
 				</File>
-			</Filter>
-			<Filter
-				Name="Units"
-				>
-				<File
-					RelativePath=".\BasicUnit.h"
+				<Filter
+					Name="Units"
 					>
-				</File>
-				<File
-					RelativePath=".\Unit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\UnitsAI.h"
-					>
-				</File>
+					<File
+						RelativePath=".\BasicUnit.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Unit.h"
+						>
+					</File>
+					<File
+						RelativePath=".\UnitsAI.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
