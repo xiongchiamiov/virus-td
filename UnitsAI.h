@@ -10,6 +10,8 @@
 #include "GameGrid.h"
 
 int heuristic(g_elem cur, g_elem goal);
+g_elem loc2grid(float x, float z);
+void grid2loc(g_elem g, float * x, float * z);
 
 struct MyNode {
 	g_elem loc;
