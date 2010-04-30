@@ -35,6 +35,7 @@ int ulx, uly;
 std::vector<Button*> buttons;
 bool clicked = false;
 int last_time;
+int last_cycle;
 
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -107,6 +108,13 @@ void update(int param){
   int dt = this_time - last_time;
   //fps = 1000.00/dt; 
   last_time = this_time;
+  last_cycle += dt;
+  if(CYCLE_TIME < last_cycle){
+    p1.calcResources();
+    //cpu.getIncome();
+    std::cout << "INCOME! " << p1.getIncome() << std::endl;
+    last_cycle -= CYCLE_TIME;
+  }
   p1.update(dt);
   glutPostRedisplay();
   glutTimerFunc(10, update, 0);

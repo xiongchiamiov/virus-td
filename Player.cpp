@@ -1,6 +1,11 @@
 #include "Player.h"
-
-Player::Player(void)
+namespace vtd_player{
+  const int START_LIVES = 5;
+  const int START_RESOURCES = 10;
+}
+using namespace vtd_player;
+Player::Player(void):
+lives(START_LIVES), resources(START_RESOURCES), income(0)
 {
 }
 
@@ -166,4 +171,12 @@ void Player::draw(){
     }
   }
   glPopMatrix();
+}
+
+int Player::getIncome(){
+  return income;
+}
+int Player::calcResources(){
+  resources += income;
+  return resources;
 }

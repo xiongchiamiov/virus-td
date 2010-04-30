@@ -24,11 +24,14 @@ public:
   void moveUnits(float dt);
   void draw();
   void update(int dt);
+  int getIncome();
+  int calcResources();
   std::list<Tower*> tList;
   std::list<Unit*> uList;
 private:
   int resources;
   int lives;
+  int income;
   GameGrid pGrid;
   UnitsAI uai;
 };

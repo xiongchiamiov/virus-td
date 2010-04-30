@@ -2,6 +2,7 @@
 extern const int GRID_WIDTH;
 extern const int GRID_HEIGHT;
 extern const float GRID_SIZE;
+extern const int CYCLE_TIME;
 //static const int GRID_WIDTH = 16;
 //static const int GRID_HEIGHT = 32;
 //static const float GRID_SIZE = 0.25;
