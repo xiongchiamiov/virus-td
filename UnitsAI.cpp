@@ -22,7 +22,8 @@ void UnitsAI::determineUnitsPaths() {
 		MyNode * cur = &MyNode(startLoc, NULL, 0, heuristic(startLoc, goal));
 		std::priority_queue<MyNode, std::vector<MyNode>, CompareMyNode> fringe;
 		std::stack<g_elem> path;
-		bool visited[GRID_WIDTH][GRID_HEIGHT];
+		// note GRID_WIDTH and GRID_HEIGHT might change... stupid constants
+		bool visited[16][32];
 
 		for(int i = 0; i < GRID_WIDTH; ++i){
 			for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -59,7 +60,8 @@ void UnitsAI::determineUnitsPaths() {
 				fringe.push(MyNode(down, cur, cur->g + 1, heuristic(down, goal)));
 			}
 
-			cur = &fringe.pop();
+			cur = &fringe.top();
+			fringe.pop();
 		}
 
 		while(cur != NULL) {
