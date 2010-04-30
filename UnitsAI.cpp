@@ -62,7 +62,7 @@ void UnitsAI::determineUnitsPaths() {
 				fringe.push(MyNode(down, cur, cur->g + 1, heuristic(down, goal)));
 			}
 
-			cur = &fringe.top();
+			cur = (MyNode *)&fringe.top();
 			fringe.pop();
 		}
 
