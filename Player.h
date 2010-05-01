@@ -11,6 +11,7 @@
 #include "BasicUnit.h"
 #include "UnitsAI.h"
 #include <list>
+#include <stack>
 
 class Player
 {
@@ -33,4 +34,5 @@ private:
   int income;
   GameGrid pGrid;
   UnitsAI uai;
+  std::stack<Unit*> delStack;
 };

@@ -3,6 +3,9 @@ namespace vtd_player{
   const int START_LIVES = 5;
   const int START_RESOURCES = 10;
 }
+const int cleanup_dt = 3000;
+int last_cleanup = 0;
+
 using namespace vtd_player;
 Player::Player(void):
 lives(START_LIVES), resources(START_RESOURCES), income(0),uai(pGrid)
@@ -92,6 +95,27 @@ void Player::update(int dt){
     (*t)->step(dt);
   }
 
+  //Remove dead units
+  while(delStack.size() > 0){
+    delete delStack.top();
+    delStack.pop();
+  }
+  //Get the new dead units
+  last_cleanup += dt;
+  if(last_cleanup > cleanup_dt){
+    std::list<Unit*>::iterator i;
+    Unit* cur;
+    for(i = uai.uList.begin(); i != uai.uList.end(); ){
+      cur = *i;
+      if(cur->isDead()){
+        delStack.push(cur);
+        i = uai.uList.erase(i);
+      } else {
+        ++i;
+      }
+    }
+    lastCleanup = 0;
+  }
 }
 
 void Player::moveUnits(float dt)
