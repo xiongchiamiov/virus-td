@@ -24,10 +24,10 @@ namespace tower_cost{
 }
 
 g_elem loc2grid(float x, float z) {
-	return g_elem((int)((x - GRID_SIZE)/(2.0 * GRID_SIZE) + 0.5), (int)((z - GRID_SIZE)/(2.0 * GRID_SIZE)  + 0.5));
+	return g_elem((int)((x)/(2.0 * GRID_SIZE) + 0.5), (int)((z)/(2.0 * GRID_SIZE) + 0.5));
 }
 
 void grid2loc(g_elem g, float * x, float * z) {
-	*x = GRID_SIZE * 2.0 * g.x + GRID_SIZE;
-	*z = GRID_SIZE * 2.0 * g.y + GRID_SIZE;
+	*x = GRID_SIZE * 2.0 * g.x;
+	*z = GRID_SIZE * 2.0 * g.y;
 }

@@ -62,9 +62,9 @@ void Player::placeTower(int x, int y, int towerID){
 void Player::spawnUnit(int unitID){
 
   if (unitID == 7) {
-    uai.uList.push_back(new BasicUnit(0.0 + GRID_SIZE,//GRID_WIDTH*GRID_SIZE, 
+    uai.uList.push_back(new BasicUnit(0.0,//GRID_WIDTH*GRID_SIZE, 
       0.0, 
-      0.0 + GRID_SIZE//-4*GRID_SIZE*2.0
+      0.0//-4*GRID_SIZE*2.0
 	  ));
 
   } else if (unitID == 6) {

@@ -117,9 +117,11 @@ float MyVector::setZ(float newZ){
 
 void MyVector::normalize(){
   float l = getLength();
-  i = i/l;
-  j = j/l;
-  k = k/l;
+  if(l != 0) {
+    i = i/l;
+    j = j/l;
+    k = k/l;
+  }
 }
 
 MyVector& MyVector::operator=(const MyVector& other){

@@ -19,7 +19,6 @@ struct MyNode {
 	int h;
 	MyNode(g_elem inloc, MyNode* inparent, int ing, int inh):
 		loc(inloc),parent(inparent),g(ing),h(inh),f(ing+inh){}
-	~MyNode(){ delete this; }
 };
 
 class UnitsAI

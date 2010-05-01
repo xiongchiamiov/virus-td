@@ -33,12 +33,12 @@ public:
   inline bool isDead(){return hp <= 0;}
   void step(int dt);
   std::stack<g_elem> path;
+  MyVector dir;
 protected:
   int hp;
   int max_hp;
   int atk_dmg;
   float speed;
-  MyVector dir;
   unit_t type;
   int build_time;//Measured in milliseconds
   int stage;     //Upgrade stage
