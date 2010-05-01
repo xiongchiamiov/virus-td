@@ -114,7 +114,7 @@ void Player::update(int dt){
         ++i;
       }
     }
-    lastCleanup = 0;
+    last_Cleanup = 0;
   }
 }
 
