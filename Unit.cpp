@@ -28,11 +28,11 @@ void Unit::step(int dt) {
 	float nextZ;
 	grid2loc(path.top(), &nextX, &nextZ);
 	
-	std::cout << "cur " << x << " " << z << " " << nextX << " " << nextZ << std::endl;
+	//std::cout << "cur " << x << " " << z << " " << nextX << " " << nextZ << std::endl;
 	if(abs(nextX - x) < 0.2 && abs(nextZ - z) < 0.2) {
 		path.pop();
 		grid2loc(path.top(), &nextX, &nextZ);
-		std::cout << "next " << nextX << " " << nextZ << std::endl;
+		//std::cout << "next " << nextX << " " << nextZ << std::endl;
 		dir.setVector(nextX - x, 0.0, nextZ - z);
 		dir.normalize();
 	}

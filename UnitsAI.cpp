@@ -69,7 +69,7 @@ void UnitsAI::determineUnitsPaths() {
 
 		// roll back and create path
 		while(cur != NULL) {
-			std::cout << cur->loc.x << " " << cur->loc.y << " " << cur->f << std::endl;
+			//std::cout << cur->loc.x << " " << cur->loc.y << " " << cur->f << std::endl;
 			path.push(cur->loc);
 			cur = cur->parent;
 		}
