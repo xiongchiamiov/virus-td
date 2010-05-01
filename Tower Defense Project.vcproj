@@ -366,22 +366,22 @@
 					RelativePath=".\textures.h"
 					>
 				</File>
-				<Filter
-					Name="Units"
+			</Filter>
+			<Filter
+				Name="Units"
+				>
+				<File
+					RelativePath=".\BasicUnit.h"
 					>
-					<File
-						RelativePath=".\BasicUnit.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Unit.h"
-						>
-					</File>
-					<File
-						RelativePath=".\UnitsAI.h"
-						>
-					</File>
-				</Filter>
+				</File>
+				<File
+					RelativePath=".\Unit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\UnitsAI.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

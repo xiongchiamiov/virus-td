@@ -14,7 +14,7 @@ void Unit::attack(){
 }
 int Unit::takeDamage(int damage)
 {
-	hp = hp - damage;
+	hp = hp;// - damage;
 	if(hp <= 0)
 	{
 		return(0);
@@ -24,17 +24,22 @@ int Unit::takeDamage(int damage)
 }
 
 void Unit::step(int dt) {
-	int curX = 0;
-	int curZ = 0;
-
+	float nextX;
+	float nextZ;
+	grid2loc(path.top(), &nextX, &nextZ);
 	
-	if(true) {
-
-	} else {
-		x += speed * dt * dir.getI();
-		y += speed * dt * dir.getJ();
-		z += speed * dt * dir.getK();
+	std::cout << "cur " << x << " " << z << " " << nextX << " " << nextZ << std::endl;
+	if(abs(nextX - x) < 0.2 && abs(nextZ - z) < 0.2) {
+		path.pop();
+		grid2loc(path.top(), &nextX, &nextZ);
+		std::cout << "next " << nextX << " " << nextZ << std::endl;
+		dir.setVector(nextX - x, 0.0, nextZ - z);
+		dir.normalize();
 	}
+
+	x += speed * dt * dir.getI();
+	y += speed * dt * dir.getJ();
+	z += speed * dt * dir.getK();
 }
 
 //void Unit::moveToWaypoint(){

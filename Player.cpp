@@ -5,7 +5,7 @@ namespace vtd_player{
 }
 using namespace vtd_player;
 Player::Player(void):
-lives(START_LIVES), resources(START_RESOURCES), income(0)
+lives(START_LIVES), resources(START_RESOURCES), income(0),uai(pGrid)
 {
 }
 
@@ -54,16 +54,18 @@ void Player::placeTower(int x, int y, int towerID){
     } else if (towerID == 8) {
        
     }
-    tList.back()->setEnemyUnitList(uList);
+    tList.back()->setEnemyUnitList(uai.uList);
   }
+  uai.determineUnitsPaths();
 }
 
 void Player::spawnUnit(int unitID){
 
   if (unitID == 7) {
-    uList.push_back(new BasicUnit(GRID_WIDTH*GRID_SIZE, 
+    uai.uList.push_back(new BasicUnit(0.0 + GRID_SIZE,//GRID_WIDTH*GRID_SIZE, 
       0.0, 
-      -4*GRID_SIZE*2.0));
+      0.0 + GRID_SIZE//-4*GRID_SIZE*2.0
+	  ));
 
   } else if (unitID == 6) {
 
@@ -80,6 +82,7 @@ void Player::spawnUnit(int unitID){
   } else if (unitID == 0) {
 
   }
+  uai.determineUnitsPaths();
 }
 
 void Player::update(int dt){
@@ -102,7 +105,7 @@ void Player::moveUnits(float dt)
   urad = .5;
   std::list<Unit*>::iterator p;
   std::list<Tower*>::iterator t;
-  for(p = uList.begin(); p != uList.end(); ++p)
+  for(p = uai.uList.begin(); p != uai.uList.end(); ++p)
   {
     u_xmin = ((*p)->getX()) - urad;
     u_xmax = ((*p)->getX()) + urad;
@@ -153,6 +156,7 @@ void Player::upgradeTower(){
 
 void Player::destroyTower(int x, int y){
   pGrid.removeTower(x, y, tList);
+  uai.determineUnitsPaths();
 }
 
 void Player::draw(){
@@ -165,7 +169,7 @@ void Player::draw(){
   }
   
   std::list<Unit*>::iterator p; 
-  for(p = uList.begin(); p != uList.end(); ++p){
+  for(p = uai.uList.begin(); p != uai.uList.end(); ++p){
     if(!(*p)->isDead()){
       (*p)->draw();
     }

@@ -27,7 +27,6 @@ public:
   int getIncome();
   int calcResources();
   std::list<Tower*> tList;
-  std::list<Unit*> uList;
 private:
   int resources;
   int lives;

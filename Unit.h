@@ -1,6 +1,8 @@
 #pragma once
 #include <list>
 #include <stack>
+#include <iostream>
+#include <math.h>
 #include "constants.h"
 #include "MyVector.h"
 #include "GameObject.h"

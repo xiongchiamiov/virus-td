@@ -9,6 +9,4 @@ public:
 	//BasicUnit(void);
 	~BasicUnit(void);
 	void draw();
-	void step(int dt);
-   unit_dir move(unit_dir direction);
 };

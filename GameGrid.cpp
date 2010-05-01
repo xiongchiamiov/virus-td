@@ -113,5 +113,5 @@ bool GameGrid::isWall(g_elem cur) {
 	if(cur.x >= GRID_WIDTH || cur.x < 0 || cur.y >= GRID_HEIGHT || cur.y < 0)
 		return true;
 	else
-		return grid[cur.x][cur.y];
+		return !grid[cur.x][cur.y];
 }
