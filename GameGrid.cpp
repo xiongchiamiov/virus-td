@@ -19,7 +19,6 @@ GameGrid::~GameGrid(void)
 void GameGrid::draw(){
   glPushMatrix();
   glNormal3f(0.0, 1.0, 0.0);
-  float gSize = 0.25;
   float posX = 0.0;
   float posZ = 0.0;
   for(int i = 0; i < GRID_WIDTH; i++){

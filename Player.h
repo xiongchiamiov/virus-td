@@ -27,12 +27,13 @@ public:
   void update(int dt);
   int getIncome();
   int calcResources();
-  std::list<Tower*> tList;
+  
 private:
   int resources;
   int lives;
   int income;
   GameGrid pGrid;
+  std::list<Tower*> tList;
   UnitsAI uai;
   std::stack<Unit*> delStack;
 };

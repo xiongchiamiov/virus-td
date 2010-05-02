@@ -76,9 +76,10 @@ void UnitsAI::determineUnitsPaths() {
 				fringe.push(d);
 				dList.push_back(d);
 			}
-
-			cur = fringe.top();
-			fringe.pop();
+      if(!fringe.empty()){
+			  cur = fringe.top();
+			  fringe.pop();
+      }
 		}
 
 		// roll back and create path

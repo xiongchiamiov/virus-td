@@ -30,7 +30,8 @@ void Unit::step(int dt) {
 	float dirK = dir.getK();
 	float approx = 0.001;
 	bool next = false;
-	grid2loc(path.top(), &nextX, &nextZ);
+  if(!path.empty())
+	  grid2loc(path.top(), &nextX, &nextZ);
 
 	if(dirI < approx && dirI > -approx) {
 		if((dirK >= 0 && z >= nextZ) ||
@@ -51,6 +52,7 @@ void Unit::step(int dt) {
 	//std::cout << dirI << " " << dirK << " " << x << " " << z << " " << nextX << " " << nextZ << " " << next << std::endl;
 	if(next && !path.empty()) {
 		path.pop();
+    if(!path.empty())
 		grid2loc(path.top(), &nextX, &nextZ);
 		std::cout << "next " << nextX << " " << nextZ << std::endl;
 		dir.setVector(nextX - x, 0.0, nextZ - z);

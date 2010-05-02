@@ -17,83 +17,100 @@ Player::~Player(void)
 }
 
 void Player::placeTower(int x, int y, int towerID){
-  if(pGrid.setTower(x, y)){
-    if (towerID == 17) {
-      tList.push_back(new BasicTower(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     0.0, 
-                                     float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     x, y));
-    } else if (towerID == 16) {
-      tList.push_back(new FreezeTower(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     0.0, 
-                                     float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     x, y));
-    } else if (towerID == 15) {
-      tList.push_back(new FastTower(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     0.0, 
-                                     float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     x, y));
-    } else if (towerID == 14) {
-      tList.push_back(new SlowTower(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     0.0, 
-                                     float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     x, y));
-    } else if (towerID == 13) {
-      tList.push_back(new TrapTower(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     0.0, 
-                                     float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     x, y));
-    } else if (towerID == 12) {
-      tList.push_back(new WallTower(float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     0.0, 
-                                     float(y)*GRID_SIZE*2.0 + GRID_SIZE, 
-                                     x, y));
-    } else if (towerID == 11) {
-       
-    } else if (towerID == 10) {
-       
-    } else if (towerID == 9) {
-       
-    } else if (towerID == 8) {
-       
-    }
-    tList.back()->setEnemyUnitList(uai.uList);
+  Tower* nTower;
+  int cost = 0;
+  float wx = float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
+    wz = float(y)*GRID_SIZE*2.0 + GRID_SIZE;
+  switch(towerID){
+    case 17:
+      nTower = new BasicTower(wx, 0.0, wz, x, y);
+      cost = tower_cost::BASIC;
+      break;
+    case 16:
+      nTower = new FreezeTower(wx, 0.0, wz, x, y);
+      cost = tower_cost::FREEZE;
+      break;
+    case 15:
+      nTower = new FastTower(wx, 0.0, wz, x, y);
+      cost = tower_cost::FAST;
+      break;
+    case 14:
+      nTower = new SlowTower(wx, 0.0, wz, x, y);
+      cost = tower_cost::SLOW;
+      break;
+    case 13:
+      nTower = new TrapTower(wx, 0.0, wz, x, y);
+      cost = tower_cost::TRAP;
+      break;
+    case 12:
+      nTower = new WallTower(wx, 0.0, wz, x, y);
+      cost = tower_cost::WALL;
+      break;
+    case 11:
+      break;
+    case 10:
+      break;
+    case 9:
+      break;
+    case 8:
+      break;
   }
-  uai.determineUnitsPaths();
+  if(resources >= cost && pGrid.setTower(x, y)){
+    nTower->setEnemyUnitList(uai.uList);
+    tList.push_back(nTower);
+    //resources -= cost;
+    uai.determineUnitsPaths();
+  } else {
+    delete nTower;
+  }
 }
 
 void Player::spawnUnit(int unitID){
+  Unit* nUnit;
+  int cost, bonus;
 
-  if (unitID == 7) {
-    uai.uList.push_back(new BasicUnit(0.0,//GRID_WIDTH*GRID_SIZE, 
-      0.0, 
-      0.0//-4*GRID_SIZE*2.0
-	  ));
-
-  } else if (unitID == 6) {
-
-  } else if (unitID == 5) {
-
-  } else if (unitID == 4) {
-
-  } else if (unitID == 3) {
-
-  } else if (unitID == 2) {
-
-  } else if (unitID == 1) {
-
-  } else if (unitID == 0) {
-
+  switch(unitID){
+    case 7:
+      nUnit = new BasicUnit(0.0, 0.0, 0.0);
+      cost = unit_cost::BASIC;
+      bonus = unit_bonus::BASIC;
+      break;
+    case 6:
+      break;
+    case 5:
+      break;
+    case 4:
+      break;
+    case 3:
+      break;
+    case 2:
+      break;
+    case 1:
+      break;
+    case 0:
+      break;
   }
-  uai.determineUnitsPaths();
+  if(resources >= cost){
+    uai.uList.push_back(nUnit);
+    //resources -= cost;
+    income += bonus;
+    uai.determineUnitsPaths();
+  } else {
+    delete nUnit;
+  }
 }
 
 void Player::update(int dt){
-  moveUnits(dt);
+  std::list<Unit*>::iterator i;
   std::list<Tower*>::iterator t;
   for(t = tList.begin(); t != tList.end(); ++t){
     (*t)->step(dt);
   }
+
+  for(i = uai.uList.begin(); i != uai.uList.end(); ++i){
+    (*i)->step(dt);
+  }
+
 
   //Remove dead units
   while(delStack.size() > 0){
@@ -103,7 +120,6 @@ void Player::update(int dt){
   //Get the new dead units
   last_cleanup += dt;
   if(last_cleanup > cleanup_dt){
-    std::list<Unit*>::iterator i;
     Unit* cur;
     for(i = uai.uList.begin(); i != uai.uList.end(); ){
       cur = *i;
@@ -114,7 +130,7 @@ void Player::update(int dt){
         ++i;
       }
     }
-    last_Cleanup = 0;
+    last_cleanup = 0;
   }
 }
 
