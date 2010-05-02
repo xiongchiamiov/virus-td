@@ -1,6 +1,11 @@
 #include "constants.h"
+
 const int GRID_WIDTH = 16;
 const int GRID_HEIGHT = 32;
+const float GOAL_X = 7.5;
+const float GOAL_Z = 15.5;
+const float START_X = 0;
+const float START_Z = 0;
 const float GRID_SIZE = 0.25;
 const int CYCLE_TIME = 25000;
 

@@ -3,7 +3,7 @@
 Unit::Unit(float inx, float iny, float inz):
 GameObject(inx, iny, inz)
 {
-  
+  foundGoal = false;
 }
 
 Unit::~Unit(void)
@@ -24,14 +24,15 @@ int Unit::takeDamage(int damage)
 }
 
 void Unit::step(int dt) {
+	if(foundGoal)
+		return;
 	float nextX = 0;
 	float nextZ = 0;
 	float dirI = dir.getI();
 	float dirK = dir.getK();
 	float approx = 0.001;
 	bool next = false;
-  if(!path.empty())
-	  grid2loc(path.top(), &nextX, &nextZ);
+	grid2loc(path.top(), &nextX, &nextZ);
 
 	if(dirI < approx && dirI > -approx) {
 		if((dirK >= 0 && z >= nextZ) ||
@@ -52,11 +53,15 @@ void Unit::step(int dt) {
 	//std::cout << dirI << " " << dirK << " " << x << " " << z << " " << nextX << " " << nextZ << " " << next << std::endl;
 	if(next && !path.empty()) {
 		path.pop();
-    if(!path.empty())
-		grid2loc(path.top(), &nextX, &nextZ);
-		std::cout << "next " << nextX << " " << nextZ << std::endl;
-		dir.setVector(nextX - x, 0.0, nextZ - z);
-		dir.normalize();
+		
+		if(nextX == GOAL_X && nextZ == GOAL_Z)
+			foundGoal = true;
+		else {
+			grid2loc(path.top(), &nextX, &nextZ);
+			//std::cout << "next " << nextX << " " << nextZ << std::endl;
+			dir.setVector(nextX - x, 0.0, nextZ - z);
+			dir.normalize();
+		}
 	}
 
 	x += speed * dt * dir.getI();

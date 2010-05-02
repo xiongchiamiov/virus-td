@@ -11,8 +11,11 @@ UnitsAI::~UnitsAI(void)
 void UnitsAI::determineUnitsPaths() {
 	std::list<Unit*>::iterator i;
 	g_elem goal(GRID_WIDTH - 1, GRID_HEIGHT - 1); // goal location will change
+
 	// find path for every unit
 	for(i = uList.begin(); i != uList.end(); ++i) {
+		if((*i)->foundGoal)
+			continue;
 		g_elem startLoc = loc2grid((*i)->getX(), (*i)->getZ());
 		std::list<MyNode*>::iterator m;
 		MyNode* cur = new MyNode(startLoc, NULL, 0, heuristic(startLoc, goal));
@@ -76,10 +79,9 @@ void UnitsAI::determineUnitsPaths() {
 				fringe.push(d);
 				dList.push_back(d);
 			}
-      if(!fringe.empty()){
-			  cur = fringe.top();
-			  fringe.pop();
-      }
+
+			cur = fringe.top();
+			fringe.pop();
 		}
 
 		// roll back and create path

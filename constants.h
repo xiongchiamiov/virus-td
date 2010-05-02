@@ -3,6 +3,10 @@ extern const int GRID_WIDTH;
 extern const int GRID_HEIGHT;
 extern const float GRID_SIZE;
 extern const int CYCLE_TIME;
+extern const float GOAL_X;
+extern const float GOAL_Z;
+extern const float START_X;
+extern const float START_Z;
 
 namespace unit_cost{
   extern const int BASIC;

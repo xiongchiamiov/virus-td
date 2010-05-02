@@ -43,6 +43,7 @@ public:
   void step(int dt);
   std::stack<g_elem> path;
   MyVector dir;
+  bool foundGoal;
 };
 //
 //class UnitList{
