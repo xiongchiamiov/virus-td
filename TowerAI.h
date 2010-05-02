@@ -29,4 +29,6 @@ public:
   Unit* target;
   std::list<Unit*> *targetList;
   bool hasTarget;
+  target_mode mode;
+  inline void setMode(target_mode n_mode){ mode = n_mode;}
 };

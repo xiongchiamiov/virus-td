@@ -19,7 +19,7 @@ enum tower_t{
 class Tower :
   public GameObject
 {
-  protected:
+protected:
   int hp;        //Current HP
   int max_hp;    //Maximum HP
   tower_t type;  //Type of tower
@@ -40,4 +40,5 @@ public:
   bool operator==(const g_elem& other);
   inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
   void step(int dt);
+  //inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
 };

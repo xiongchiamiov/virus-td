@@ -24,16 +24,6 @@ enum unit_t{
 class Unit :
   public GameObject
 {
-public:
-  Unit(float inx, float iny, float inz);
-  virtual ~Unit(void);
-  void attack();
-  int takeDamage(int damage); //returns health left
-  void moveToWaypoint();
-  inline bool isDead(){return hp <= 0;}
-  void step(int dt);
-  std::stack<g_elem> path;
-  MyVector dir;
 protected:
   int hp;
   int max_hp;
@@ -42,6 +32,17 @@ protected:
   unit_t type;
   int build_time;//Measured in milliseconds
   int stage;     //Upgrade stage
+public:
+  Unit(float inx, float iny, float inz);
+  virtual ~Unit(void);
+  void attack();
+  int takeDamage(int damage); //returns health left
+  void moveToWaypoint();
+  inline bool isDead(){return hp <= 0;}
+  inline int getHP(){return hp;}
+  void step(int dt);
+  std::stack<g_elem> path;
+  MyVector dir;
 };
 //
 //class UnitList{
