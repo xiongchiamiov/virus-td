@@ -30,6 +30,7 @@ public:
 	UnitsAI(GameGrid& ingg);
 	~UnitsAI(void);
 	void determineUnitsPaths();
+  void setGrid(GameGrid& inGrid);
 };
 
 class CompareMyNode {

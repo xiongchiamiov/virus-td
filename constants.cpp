@@ -2,10 +2,10 @@
 
 const int GRID_WIDTH = 16;
 const int GRID_HEIGHT = 32;
-const float GOAL_X = 3.5;
-const float GOAL_Z = 17.5;
-const float START_X = 3.5;
-const float START_Z = -2.0;
+const float GOAL_X = 7.5;
+const float GOAL_Z = 15.5;
+const float START_X = 0;
+const float START_Z = 0;
 const float GRID_SIZE = 0.25;
 const int CYCLE_TIME = 25000;
 
@@ -29,10 +29,10 @@ namespace tower_cost{
 }
 
 g_elem loc2grid(float x, float z) {
-	return g_elem((int)((x)/(2.0 * GRID_SIZE) + 0.5), (int)((z)/(2.0 * GRID_SIZE) + 0.5 + 4.0));
+	return g_elem((int)((x)/(2.0 * GRID_SIZE) + 0.5), (int)((z)/(2.0 * GRID_SIZE) + 0.5));
 }
 
 void grid2loc(g_elem g, float * x, float * z) {
 	*x = GRID_SIZE * 2.0 * g.x;
-	*z = GRID_SIZE * 2.0 * g.y - 2.0;
+	*z = GRID_SIZE * 2.0 * g.y;
 }

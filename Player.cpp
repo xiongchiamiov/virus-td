@@ -3,12 +3,13 @@ namespace vtd_player{
   const int START_LIVES = 5;
   const int START_RESOURCES = 10;
 }
-const int cleanup_dt = 3000;
+const int cleanup_dt = 500;
 int last_cleanup = 0;
 
 using namespace vtd_player;
 Player::Player(void):
-lives(START_LIVES), resources(START_RESOURCES), income(0),uai(pGrid)
+lives(START_LIVES), resources(START_RESOURCES), income(0),
+uai(pGrid), opponent(this)
 {
 }
 
@@ -56,10 +57,10 @@ void Player::placeTower(int x, int y, int towerID){
       break;
   }
   if(resources >= cost && pGrid.setTower(x, y)){
-    nTower->setEnemyUnitList(uai.uList);
+    nTower->setEnemyUnitList(opponent->uai.uList);
     tList.push_back(nTower);
     //resources -= cost;
-    uai.determineUnitsPaths();
+    opponent->uai.determineUnitsPaths();
   } else {
     delete nTower;
   }
@@ -71,7 +72,7 @@ void Player::spawnUnit(int unitID){
 
   switch(unitID){
     case 7:
-      nUnit = new BasicUnit(START_X, 0.0, START_Z);
+      nUnit = new BasicUnit(0.0, 0.0, 0.0);
       cost = unit_cost::BASIC;
       bonus = unit_bonus::BASIC;
       break;
@@ -123,9 +124,12 @@ void Player::update(int dt){
     Unit* cur;
     for(i = uai.uList.begin(); i != uai.uList.end(); ){
       cur = *i;
-      if(cur->isDead()){
+      if(cur->isDead() || cur->foundGoal){
         delStack.push(cur);
         i = uai.uList.erase(i);
+        if(cur->foundGoal){
+          --lives;
+        }
       } else {
         ++i;
       }
@@ -223,4 +227,10 @@ int Player::getIncome(){
 int Player::calcResources(){
   resources += income;
   return resources;
+}
+
+void Player::setOpponent(Player* newOpp){
+  opponent = newOpp;
+  this->uai.setGrid(opponent->pGrid);
+  opponent->uai.setGrid(pGrid);
 }

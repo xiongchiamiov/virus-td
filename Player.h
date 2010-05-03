@@ -27,6 +27,7 @@ public:
   void update(int dt);
   int getIncome();
   int calcResources();
+  void setOpponent(Player* newOpp);
   
 private:
   int resources;
@@ -36,4 +37,5 @@ private:
   std::list<Tower*> tList;
   UnitsAI uai;
   std::stack<Unit*> delStack;
+  Player* opponent;
 };
