@@ -264,17 +264,17 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 	}
 	if(buttonNumber >= 9 && buttonNumber <= 14) {
 		buttonNumber -= 9;
-		strcpy_s(name,10,tower_names[buttonNumber]);
-		strcat_s(name,30," Tower");
+		strcpy(name,tower_names[buttonNumber]);
+		strcat(name," Tower");
 
 		char desc[300];
 		int len = 2;
 		if(buttonNumber == 0) {
-			strcpy_s(desc,300,"This is the description for one of the towers\nIt is a different length and size of the others\nBut the info GUI should compensate for it.");
+			strcpy(desc,"This is the description for one of the towers\nIt is a different length and size of the others\nBut the info GUI should compensate for it.");
 			len = 3;
 		}
 		else
-			strcpy_s(desc,300,"This is the description for a tower\nIts not as long as one of the other descriptions.");
+			strcpy(desc,"This is the description for a tower\nIts not as long as one of the other descriptions.");
 
 		//float w = (float)getBitmapStringWidth(info_font_bold,name);
 		float w = (float)getBitmapStringWidth(info_font,desc);
