@@ -27,12 +27,14 @@ void setOrthographicProjection(int w, int h);
 void resetPerspectiveProjection();
 void drawMouseBox(bool click);
 void drawPanel(int w, int h);
+void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumber);
 void startPicking(int cursorX, int cursorY, GLuint buffer[], int bufferSize);
 void stopPicking(GLuint buffer[]);
 void processHits(GLint hits, GLuint buffer[]);
 int determineClickedButton(int mouseX, int mouseY);
 void drawRectangle(float xp, float yp, float w, float h, GLuint texture);
 void renderBitmapString(float x, float y, void *font,char *string);
+int getBitmapStringWidth(void *font,char *string);
 float p2w_y(int y);
 float p2w_x(int x);
 //void readPNG(file)

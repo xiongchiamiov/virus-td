@@ -1,6 +1,12 @@
 #include "UI.h"
 #include "Player.h"
 
+#define info_font GLUT_BITMAP_HELVETICA_10
+#define info_font_height 10
+#define info_font_bold GLUT_BITMAP_HELVETICA_12
+#define info_font_bold_height 12
+const char tower_names[6][10] = {"Basic", "Fast","Freeze","Slow","Trap","Wall"};
+
 extern MyVector camera, newCam;
 extern int GH, GW;
 extern std::vector<Button *> buttons;
@@ -8,10 +14,12 @@ extern bool clicked;
 GLdouble worldX, worldY, worldZ; //variables to hold world x,y,z coordinates
 extern int tlx, tly, ulx, uly;
 extern Player p1;
-int prevBtn = -1;
+int curBtn = -1;
+GLfloat mx,my;
 int test = 0;
 GLuint panel_tex;
 GLuint button_tex;
+GLuint info_tex[10];
 
 Button::Button(int bNum, GLfloat bColor[3], GameObject * obj) {
    buttonNumber = bNum;
@@ -55,6 +63,16 @@ void initializeUI()
 {
 	panel_tex = LoadTexture("GUI.bmp");
 	button_tex = LoadTexture("Button.bmp");
+	info_tex[0] = LoadTexture("info_tlcorner.bmp");
+	info_tex[1] = LoadTexture("info_trcorner.bmp");
+	info_tex[2] = LoadTexture("info_brcorner.bmp");
+	info_tex[3] = LoadTexture("info_blcorner.bmp");
+	info_tex[4] = LoadTexture("info_tlcorner.bmp");
+	info_tex[5] = LoadTexture("info_middle.bmp");
+	info_tex[6] = LoadTexture("info_left.bmp");
+	info_tex[7] = LoadTexture("info_right.bmp");
+	info_tex[8] = LoadTexture("info_top.bmp");
+	info_tex[9] = LoadTexture("info_bottom.bmp");
 }
 
 void renderUI(int w, int h, GLuint mode)
@@ -125,12 +143,14 @@ void renderUI(int w, int h, GLuint mode)
      setMaterial(Black);
 //   sprintf(timeRemainingString, "Time Remaining: %d", timeRemaining);
  //  sprintf(currencyString, "Objects Remaining: %d", currency);
-   glPushMatrix();
+
    renderBitmapString(1.0 * GW / 4.0, GH - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
-   glPopMatrix();
-   glPushMatrix();
+
    renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
-   glPopMatrix();
+
+   if(curBtn != -1)
+	drawInfoPanel(mx,my,GW,GH,curBtn);
+
    glPopMatrix();
 
 	glPopMatrix();
@@ -174,13 +194,13 @@ void drawRectangle(float xp, float yp, float w, float h, GLuint texture)
     glBindTexture(GL_TEXTURE_2D, texture);
 
 	glBegin(GL_QUADS);
-    glTexCoord2f(0,0);
-    glVertex2f(xp,yp+h);
-    glTexCoord2f(1,0);
-    glVertex2f(xp+w,yp+h);
-    glTexCoord2f(1,1);
-    glVertex2f(xp+w,yp);
     glTexCoord2f(0,1);
+    glVertex2f(xp,yp+h);
+    glTexCoord2f(1,1);
+    glVertex2f(xp+w,yp+h);
+    glTexCoord2f(1,0);
+    glVertex2f(xp+w,yp);
+    glTexCoord2f(0,0);
     glVertex2f(xp,yp);
     glEnd();
 
@@ -215,6 +235,93 @@ void drawMouseBox(bool click) {
 
 void drawPanel(int w, int h) {
 	drawRectangle(0, 0, w, h, panel_tex);
+}
+
+/*
+info_tex[0] = LoadTexture("info_tlcorner.bmp");
+info_tex[1] = LoadTexture("info_trcorner.bmp");
+info_tex[2] = LoadTexture("info_brcorner.bmp");
+info_tex[3] = LoadTexture("info_blcorner.bmp");
+info_tex[4] = LoadTexture("info_tlcorner.bmp");
+info_tex[5] = LoadTexture("info_middle.bmp");
+info_tex[6] = LoadTexture("info_left.bmp");
+info_tex[7] = LoadTexture("info_right.bmp");
+info_tex[8] = LoadTexture("info_top.bmp");
+info_tex[9] = LoadTexture("info_bottom.bmp");
+*/
+void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumber)
+{
+	char name[30];
+	const int sep = 12;
+   /* Option 1: button number layout
+      6 7 8         17 16 15
+      3 4 5         14 13 12
+      0 1 2         11 10 9
+   */
+	if(buttonNumber < 0 || buttonNumber > 17) {
+		printf("Invalid button number in drawInfoPanel\n");
+		return;
+	}
+	if(buttonNumber >= 9 && buttonNumber <= 14) {
+		buttonNumber -= 9;
+		strcpy_s(name,10,tower_names[buttonNumber]);
+		strcat_s(name,30," Tower");
+
+		char desc[300];
+		int len = 2;
+		if(buttonNumber == 0) {
+			strcpy_s(desc,300,"This is the description for one of the towers\nIt is a different length and size of the others\nBut the info GUI should compensate for it.");
+			len = 3;
+		}
+		else
+			strcpy_s(desc,300,"This is the description for a tower\nIts not as long as one of the other descriptions.");
+
+		//float w = (float)getBitmapStringWidth(info_font_bold,name);
+		float w = (float)getBitmapStringWidth(info_font,desc);
+		float h = 4*sep + 4 + len*info_font_height;
+		int yp = y + h;
+
+		float xp = x - w/2;
+		if(xp + w + 16 > GW)
+			xp = GW - w - 16;
+		else if (xp < 0)
+			xp = 0;
+
+	    renderBitmapString(xp, yp, info_font_bold, name);
+		yp -= sep;
+		renderBitmapString(xp, yp, info_font, "Cost: 40");
+		yp -= sep;
+		renderBitmapString(xp, yp, info_font, "Damage: 40");
+		yp -= sep;
+		renderBitmapString(xp, yp, info_font, "Speed: 40");
+		yp -= (sep + 4);
+		renderBitmapString(xp, yp, info_font, desc);
+
+		yp = y + h;
+		glPushMatrix();
+		glTranslatef(0,0,0.1);
+		//Draw Corners
+		//TL
+		drawRectangle(xp - 8,yp + 2,16,16,info_tex[0]);
+		//TR
+		drawRectangle(xp + w - 8,yp + 2,16,16,info_tex[1]);
+		//BR
+		drawRectangle(xp + w - 8,yp + 2 - h,16,16,info_tex[2]);
+		//BL
+		drawRectangle(xp - 8,yp + 2 - h,16,16,info_tex[3]);
+
+		//Top
+		drawRectangle(xp - 8 + 16,yp + 2,w - 16,16,info_tex[8]);
+		//Bottom
+		drawRectangle(xp - 8 + 16,yp + 2 - h,w - 16,16,info_tex[9]);
+		//Left
+		drawRectangle(xp - 8,yp + 2 + 16 - h,16,h - 16,info_tex[6]);
+		//Left
+		drawRectangle(xp + w - 8,yp + 2 + 16 - h,16,h - 16,info_tex[7]);
+		//Middle
+		drawRectangle(xp - 8 + 16,yp + 2 + 16 - h,w - 16,h - 16,info_tex[5]);
+		glPopMatrix();
+	}
 }
 
 void mouseClick(int button, int state, int x, int y) {
@@ -265,6 +372,8 @@ void mouseClick(int button, int state, int x, int y) {
 }
 
 void mouseMotion(int x, int y) {
+   mx = x;
+   my = GH - y;
    if (clicked) {
 	     GLint viewport[4]; //var to hold the viewport info
         GLdouble modelview[16]; //var to hold the modelview info
@@ -324,17 +433,17 @@ void mouseMotion(int x, int y) {
    }
 
    int btn = determineClickedButton(x,GH- y);
-   if(prevBtn != -1 && btn != prevBtn)
+   if(curBtn != -1 && btn != curBtn)
    {
 	   GLfloat col[] = {1.0,1.0,1.0};
-       buttons.at(prevBtn)->setButtonColor(col);
+       buttons.at(curBtn)->setButtonColor(col);
    }
    if(btn != -1)
    {
 	   GLfloat col[] = {0.8,0.8,0.8};
        buttons.at(btn)->setButtonColor(col);
    }
-   prevBtn = btn;
+   curBtn = btn;
 
    
    glutPostRedisplay();
@@ -454,12 +563,36 @@ int determineClickedButton(int mouseX, int mouseY) {
 }
 
 void renderBitmapString(float x, float y, void *font,char *string) {
-  
+  glPushMatrix();
   char *c;
-  glRasterPos2f(x, y);
+  glRasterPos3f(x, y, 0.1);
   for (c=string; *c != '\0'; c++) {
-    glutBitmapCharacter(font, *c);
+	  if(*c == '\n') {
+		  y -= 10;
+		  glRasterPos3f(x, y, 0.1);
+	  }
+	  else
+		  glutBitmapCharacter(font, *c);
   }
+  glPopMatrix();
+}
+
+int getBitmapStringWidth(void *font,char *string) {
+  int w = 0;
+  int maxW = 0;
+  char *c;
+  for (c=string; *c != '\0'; c++) {
+	  if(*c == '\n') {
+		  if(w > maxW)
+			  maxW = w;
+		  w = 0;
+	  }
+	  else
+		  w += glutBitmapWidth(font, *c);
+  }
+  if(w > maxW)
+	  return w;
+  return maxW;
 }
 
 float p2w_x(int x){
