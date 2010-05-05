@@ -7,8 +7,8 @@ class PlayerAI {
     PlayerAI(void);
     ~PlayerAI(void);
     void update(int dt);
-  private:
     Player player;
+  private:
     int towers;
     int units;
     int updates;

@@ -18,7 +18,7 @@ Player::~Player(void)
 }
 
 void Player::placeTower(int x, int y, int towerID){
-  Tower* nTower;
+  Tower* nTower = NULL;
   int cost = 0;
   float wx = float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
     wz = float(y)*GRID_SIZE*2.0 + GRID_SIZE;
@@ -56,7 +56,7 @@ void Player::placeTower(int x, int y, int towerID){
     case 8:
       break;
   }
-  if(resources >= cost && pGrid.setTower(x, y)){
+  if(nTower != NULL && resources >= cost && pGrid.setTower(x, y)){
     nTower->setEnemyUnitList(opponent->uai.uList);
     tList.push_back(nTower);
     //resources -= cost;
@@ -67,7 +67,7 @@ void Player::placeTower(int x, int y, int towerID){
 }
 
 void Player::spawnUnit(int unitID){
-  Unit* nUnit;
+  Unit* nUnit = NULL;
   int cost, bonus;
 
   switch(unitID){
@@ -91,7 +91,7 @@ void Player::spawnUnit(int unitID){
     case 0:
       break;
   }
-  if(resources >= cost){
+  if(nUnit != NULL && resources >= cost){
     uai.uList.push_back(nUnit);
     //resources -= cost;
     income += bonus;
@@ -211,9 +211,11 @@ void Player::draw(){
   for(i = tList.begin(); i != tList.end(); ++i){
     (*i)->draw();
   }
-  
+
+  //glScalef(-1.0, 1.0, -1.0);
+  //glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 4)*2.0);
   std::list<Unit*>::iterator p; 
-  for(p = uai.uList.begin(); p != uai.uList.end(); ++p){
+  for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
     if(!(*p)->isDead()){
       (*p)->draw();
     }
@@ -231,6 +233,7 @@ int Player::calcResources(){
 
 void Player::setOpponent(Player* newOpp){
   opponent = newOpp;
+  opponent->opponent = this;
   this->uai.setGrid(opponent->pGrid);
   opponent->uai.setGrid(pGrid);
 }

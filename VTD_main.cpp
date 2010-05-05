@@ -60,10 +60,10 @@ void display(){
   //testGrid.draw();
   glPushMatrix();
   p1.draw();
+  glScalef(-1.0, 1.0, -1.0);
+  glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 4)*2.0);
+  opponent.player.draw();
   glPopMatrix();
-  /*glScalef(-1.0, 1.0, -1.0);
-  glTranslatef(0.0, 0.0, GRID_SIZE*GRID_HEIGHT*2.0 + 8.0*GRID_SIZE);
-  cpuGrid.draw();*/
   glPushMatrix();
   renderUI(GW, GH, GL_RENDER);
   glPopMatrix();
@@ -202,6 +202,7 @@ int main(int argc, char** argv){
   u.setVector(-1.0, 0.0, 0.0);
   v.setVector(0.0, 1.0, 0.0);
   w.setVector(0.0, 0.0, -1.0);
+  p1.setOpponent(&(opponent.player));
   tlx = 0;
   tly = 0;
   ulx = 0;   
