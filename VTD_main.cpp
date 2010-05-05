@@ -15,6 +15,7 @@
 #include "MyVector.h"
 #include "GameGrid.h"
 #include "Player.h"
+#include "PlayerAI.h"
 #include "lighting.h"
 #include "constants.h"
 #include "UI.h"
@@ -30,6 +31,7 @@ MyVector w;
 float theta = 0.0;
 float phi = 0.0; 
 Player p1;
+PlayerAI opponent;
 int tlx, tly;
 int ulx, uly;
 std::vector<Button*> buttons;
@@ -116,6 +118,7 @@ void update(int param){
     last_cycle -= CYCLE_TIME;
   }
   p1.update(dt);
+  opponent.update(dt);
   glutPostRedisplay();
   glutTimerFunc(10, update, 0);
 }
