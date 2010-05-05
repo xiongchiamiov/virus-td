@@ -13,6 +13,7 @@
  #endif
 //#include <png.h>
 #include <stdio.h>
+#include <string.h>
 #include "lighting.h"
 #include "MyVector.h"
 #include "GameObject.h"
