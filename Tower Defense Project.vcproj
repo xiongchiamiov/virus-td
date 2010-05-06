@@ -184,6 +184,10 @@
 					RelativePath=".\Player.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\PlayerAI.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Towers"
@@ -288,6 +292,10 @@
 				>
 				<File
 					RelativePath=".\Player.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PlayerAI.h"
 					>
 				</File>
 			</Filter>
