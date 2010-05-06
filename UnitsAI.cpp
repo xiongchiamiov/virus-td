@@ -10,7 +10,7 @@ UnitsAI::~UnitsAI(void)
 
 void UnitsAI::determineUnitsPaths() {
 	std::list<Unit*>::iterator i;
-	g_elem goal(GRID_WIDTH - 1, GRID_HEIGHT - 1); // goal location will change
+	g_elem goal(GOAL_X * 2, GOAL_Z * 2 + 4); // note MAGIC NUMBERS
 
 	// find path for every unit
 	for(i = uList.begin(); i != uList.end(); ++i) {
@@ -24,11 +24,11 @@ void UnitsAI::determineUnitsPaths() {
 		std::list<MyNode*> dList;
 		float nextX = 0;
 		float nextZ = 0;
-		bool visited[16][32]; // note GRID_WIDTH and GRID_HEIGHT might change... stupid constants
+		bool visited[16][40]; // note MAGIC NUMBERS
 
 		// initialize visited array
 		for(int l = 0; l < GRID_WIDTH; ++l){
-			for(int j = 0; j < GRID_HEIGHT; ++j){
+			for(int j = 0; j < GRID_HEIGHT + 8; ++j){ // note MAGIC NUMBERS
 				visited[l][j] = false;
 			}
 		}
@@ -99,8 +99,14 @@ void UnitsAI::determineUnitsPaths() {
 		// set units path
 		(*i)->path = path;
 		grid2loc(path.top(), &nextX, &nextZ);
-		(*i)->dir.setVector(nextX - (*i)->getX(), 0.0, nextZ - (*i)->getZ());
-		(*i)->dir.normalize();
+		if(nextX == GOAL_X && nextZ == GOAL_Z)
+			(*i)->foundGoal = true;
+		else { 
+			path.pop();
+			grid2loc(path.top(), &nextX, &nextZ);
+			(*i)->dir.setVector(nextX - (*i)->getX(), 0.0, nextZ - (*i)->getZ());
+			(*i)->dir.normalize();
+		}
 	}
 }
 

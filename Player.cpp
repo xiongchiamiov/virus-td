@@ -72,7 +72,7 @@ void Player::spawnUnit(int unitID){
 
   switch(unitID){
     case 7:
-      nUnit = new BasicUnit(0.0, 0.0, 0.0);
+      nUnit = new BasicUnit(START_X, 0.0, START_Z);
       cost = unit_cost::BASIC;
       bonus = unit_bonus::BASIC;
       break;
