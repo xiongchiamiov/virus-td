@@ -99,9 +99,7 @@ void UnitsAI::determineUnitsPaths() {
 		// set units path
 		(*i)->path = path;
 		grid2loc(path.top(), &nextX, &nextZ);
-		if(nextX == GOAL_X && nextZ == GOAL_Z)
-			(*i)->foundGoal = true;
-		else { 
+		if(!(nextX == GOAL_X && nextZ == GOAL_Z)) { 
 			path.pop();
 			grid2loc(path.top(), &nextX, &nextZ);
 			(*i)->dir.setVector(nextX - (*i)->getX(), 0.0, nextZ - (*i)->getZ());
