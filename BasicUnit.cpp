@@ -1,6 +1,7 @@
 #include "BasicUnit.h"
 #include "constants.h"
 #include "lighting.h"
+#include "models.h"
 
 // NOTES 
 //add xmin,xman,ymin,ymax,zmin,zmax to GameObject for collision detection
@@ -31,8 +32,15 @@ BasicUnit::~BasicUnit(void)
 void BasicUnit::draw()
 {
   glPushMatrix();
-  setMaterial(Fuschia);
   glTranslatef(x, y, z);
-  glutSolidSphere(.25,10,10);
+
+  glPushMatrix();
+  // Setup so to scale and orient with the game grid
+  glScaled(0.1, 0.1, 0.1);
+  glTranslatef(0.0, 15.0, 5.0);
+  glRotatef(-90, 0.0, 1.0, 0.0);
+  drawWorm();
+  glPopMatrix();
+
   glPopMatrix();
 }

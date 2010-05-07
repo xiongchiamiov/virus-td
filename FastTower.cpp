@@ -1,5 +1,6 @@
 #include "FastTower.h"
 #include "constants.h"
+#include "models.h"
 
 namespace fs_tower{
   const int MAX_HP = 6;
@@ -36,9 +37,16 @@ void FastTower::draw(){
       glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
     glEnd();
   }
-  setMaterial(FieryOrange);
+  setMaterial(Black);
   glTranslatef(x, y, z);
-   glutSolidTeapot(0.25);
+    glPushMatrix();
+       // Scale and orient model to fit grid
+       glTranslatef(0.2, 1.0, 0.0);
+       // Mini Tower Defense TBQH
+       glScaled(0.025, 0.025, 0.025);
+       glRotated(90, 0.0, 1.0, 0.0);
+       drawBackTrack();
+    glPopMatrix();
   glPopMatrix();
 }
 

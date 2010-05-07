@@ -11,3 +11,4 @@
 #endif
 
 void drawWorm();
+void drawBackTrack();
