@@ -9,6 +9,7 @@ const float START_Z = -2.0;
 const float GRID_SIZE = 0.25;
 const int CYCLE_TIME = 25000;
 
+
 namespace unit_cost{
   const int BASIC = 5;
   const int FAST = 10;

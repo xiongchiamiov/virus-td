@@ -61,7 +61,7 @@ void display(){
   glPushMatrix();
   p1.draw();
   glScalef(-1.0, 1.0, -1.0);
-  glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 4)*2.0);
+  glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 8)*2.0);
   opponent.player.draw();
   glPopMatrix();
   glPushMatrix();

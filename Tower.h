@@ -36,9 +36,11 @@ public:
   inline int getGridY(){return grid_y;}
   inline float getWidth(){return x + GRID_SIZE * 2.0;}
   inline float getHeight(){return z + GRID_SIZE * 2.0;}
+  inline int getStage(){return stage;}
   bool operator==(const Tower& other);
   bool operator==(const g_elem& other);
   inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
   void step(int dt);
+  void upgrade();
   //inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
 };
