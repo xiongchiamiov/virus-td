@@ -48,7 +48,7 @@ class Button {
    public:
       Button(int bNum, GLfloat bColor[3], GameObject * obj);
       ~Button(void);
-      void drawButton(int width, int height);
+      void drawButton(int width, int height, GLuint bIcon);
       int getButtonNumber();
       void setButtonNumer(int num);
       void setButtonColor(GLfloat color[3]);

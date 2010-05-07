@@ -18,7 +18,7 @@ int curBtn = -1;
 GLfloat mx,my;
 int test = 0;
 GLuint panel_tex;
-GLuint button_tex;
+GLuint button_tex[18];
 GLuint info_tex[10];
 
 Button::Button(int bNum, GLfloat bColor[3], GameObject * obj) {
@@ -32,9 +32,9 @@ Button::Button(int bNum, GLfloat bColor[3], GameObject * obj) {
 Button::~Button(void) {
 }
 
-void Button::drawButton(int width, int height) {
+void Button::drawButton(int width, int height, GLuint bIcon) {
    glColor3f( color[0],color[1],color[2] );
-   drawRectangle(0, 0, width, height, button_tex);
+   drawRectangle(0, 0, width, height, bIcon);
 }
 
 int Button::getButtonNumber() {
@@ -62,7 +62,27 @@ void Button::setObject(GameObject * gObj){
 void initializeUI()
 {
 	panel_tex = LoadTexture("GUI.bmp");
-	button_tex = LoadTexture("Button.bmp");
+   // Unit Icons
+	button_tex[0] = LoadTexture("Button.bmp");
+	button_tex[1] = LoadTexture("Button.bmp");
+	button_tex[2] = LoadTexture("Button.bmp");
+	button_tex[3] = LoadTexture("Button.bmp");
+	button_tex[4] = LoadTexture("Button.bmp");
+	button_tex[5] = LoadTexture("Button.bmp");
+	button_tex[6] = LoadTexture("Button.bmp");
+   button_tex[7] = LoadTexture("Button.bmp");
+	button_tex[8] = LoadTexture("Button.bmp");
+   // Tower Icons
+	button_tex[9] = LoadTexture("Button.bmp");
+	button_tex[10] = LoadTexture("Button.bmp");
+	button_tex[11] = LoadTexture("Button.bmp");
+	button_tex[12] = LoadTexture("Tower6.bmp");
+	button_tex[13] = LoadTexture("Tower5.bmp");
+	button_tex[14] = LoadTexture("Tower4.bmp");
+	button_tex[15] = LoadTexture("Tower3.bmp");
+	button_tex[16] = LoadTexture("Tower2.bmp");
+	button_tex[17] = LoadTexture("Tower1.bmp");
+   //button_tex = LoadTexture("SecurityIcons1.bmp");
 	info_tex[0] = LoadTexture("info_tlcorner.bmp");
 	info_tex[1] = LoadTexture("info_trcorner.bmp");
 	info_tex[2] = LoadTexture("info_brcorner.bmp");
@@ -97,13 +117,13 @@ void renderUI(int w, int h, GLuint mode)
 
       glPushMatrix();
       glTranslatef(5, 0, 0);
-      buttons.at(bNumber)->drawButton(60, 60);
+      buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
       bNumber++;
       glTranslatef(65, 0, 0);
-      buttons.at(bNumber)->drawButton(60, 60);
+      buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
       bNumber++;
       glTranslatef(65, 0, 0);
-      buttons.at(bNumber)->drawButton(60, 60);
+      buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
       bNumber++;
       glPopMatrix();
    }
@@ -126,13 +146,13 @@ void renderUI(int w, int h, GLuint mode)
 
       glPushMatrix();
       glTranslatef(-5, 0, 0);
-      buttons.at(bNumber)->drawButton(60, 60);
+      buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
       bNumber++;
       glTranslatef(-65, 0, 0);
-      buttons.at(bNumber)->drawButton(60, 60);
+      buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
       bNumber++;
       glTranslatef(-65, 0, 0);
-      buttons.at(bNumber)->drawButton(60, 60);
+      buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
       bNumber++;
       glPopMatrix();
    }
