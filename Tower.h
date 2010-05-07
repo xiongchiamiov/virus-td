@@ -42,5 +42,6 @@ public:
   inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
   void step(int dt);
   void upgrade();
+  int getKill();
   //inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
 };

@@ -14,7 +14,7 @@ void Unit::attack(){
 }
 int Unit::takeDamage(int damage)
 {
-	hp = hp;// - damage;
+	hp = hp - damage;
 	if(hp <= 0)
 	{
 		return(0);

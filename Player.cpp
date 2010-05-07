@@ -59,7 +59,7 @@ void Player::placeTower(int x, int y, int towerID){
   if(nTower != NULL && resources >= cost && pGrid.setTower(x, y)){
     nTower->setEnemyUnitList(opponent->uai.uList);
     tList.push_back(nTower);
-    //resources -= cost;
+    resources -= cost;
     opponent->uai.determineUnitsPaths();
   } else {
     delete nTower;
@@ -93,7 +93,7 @@ void Player::spawnUnit(int unitID){
   }
   if(nUnit != NULL && resources >= cost){
     uai.uList.push_back(nUnit);
-    //resources -= cost;
+    resources -= cost;
     income += bonus;
     uai.determineUnitsPaths();
   } else {
@@ -106,6 +106,7 @@ void Player::update(int dt){
   std::list<Tower*>::iterator t;
   for(t = tList.begin(); t != tList.end(); ++t){
     (*t)->step(dt);
+    resources += (*t)->getKill();
   }
 
   for(i = uai.uList.begin(); i != uai.uList.end(); ++i){

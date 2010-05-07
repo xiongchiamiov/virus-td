@@ -7,7 +7,7 @@ const float GOAL_Z = 17.5;
 const float START_X = 3.5;
 const float START_Z = -2.0;
 const float GRID_SIZE = 0.25;
-const int CYCLE_TIME = 25000;
+const int CYCLE_TIME = 5000;
 
 
 namespace unit_cost{
@@ -16,9 +16,9 @@ namespace unit_cost{
   const int STRONG = 20;
 }
 namespace unit_bonus{
-  extern const int BASIC = 1;
-  extern const int FAST = 2;
-  extern const int STRONG = 5;
+  const int BASIC = 1;
+  const int FAST = 2;
+  const int STRONG = 5;
 }
 namespace tower_cost{
   const int BASIC = 5;

@@ -5,7 +5,9 @@
 enum target_mode{
   TM_FIRST,
   TM_LOW_HP,
-  TM_HIGH_HP
+  TM_HIGH_HP,
+  TM_FASTEST,
+  TM_SLOWEST
 };
 class TowerAI
 {
@@ -29,6 +31,7 @@ public:
   Unit* target;
   std::list<Unit*> *targetList;
   bool hasTarget;
+  bool hasKill; 
   target_mode mode;
   inline void setMode(target_mode n_mode){ mode = n_mode;}
 };

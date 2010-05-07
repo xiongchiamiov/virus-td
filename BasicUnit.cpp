@@ -22,6 +22,7 @@ Unit(inx, iny, inz)
   atk_dmg = ATK;
   speed = SPD;
   type = U_BASIC;
+  value = unit_bonus::BASIC;
 }
 
 BasicUnit::~BasicUnit(void)

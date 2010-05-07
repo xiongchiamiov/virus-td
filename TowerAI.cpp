@@ -2,7 +2,8 @@
 #include <math.h>
 
 TowerAI::TowerAI(float inx, float iny, float inz):
-x(inx), y(iny), z(inz), hasTarget(false), last_atk(0)
+x(inx), y(iny), z(inz), hasTarget(false), 
+hasKill(false), last_atk(0)
 {
   mode = TM_FIRST;
   atk_dt = 1000;
@@ -18,6 +19,7 @@ bool TowerAI::shoot(){
     int dmg = target->takeDamage(atk_dmg); 
     if( 0 >= dmg){
       hasTarget = false;
+      hasKill = true;
     }
     retVal = true;
   } else {
@@ -31,6 +33,7 @@ void TowerAI::getNewTarget(){
   std::list<Unit*>::iterator i;
   float thisDist, bestDist = range + 1.0;
   int low_hp = 2147483647, high_hp = -1;
+  float fast_spd = 0.0, slow_spd = 100.0;
   //std::cout << bestDist << std::endl;
   for(i = targetList->begin(); i != targetList->end(); ++i){
     if(!(*i)->isDead()){
@@ -41,9 +44,19 @@ void TowerAI::getNewTarget(){
         hasTarget = bestDist < range;
       } else if(mode == TM_LOW_HP && (*i)->getHP() < low_hp && thisDist <= range){
         target = *i;
+        low_hp = (*i)->getHP();
         hasTarget = true;
       } else if(mode == TM_HIGH_HP && (*i)->getHP() > high_hp && thisDist <= range){
         target = *i;
+        high_hp = (*i)->getHP();
+        hasTarget = true;
+      } else if(mode == TM_FASTEST && (*i)->getSpeed() > fast_spd && thisDist <= range){
+        target = *i;
+        fast_spd = (*i)->getSpeed();
+        hasTarget = true;
+      } else if(mode == TM_SLOWEST && (*i)->getSpeed() < slow_spd && thisDist <= range){
+        target = *i;
+        slow_spd = (*i)->getSpeed();
         hasTarget = true;
       }
     }

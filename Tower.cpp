@@ -27,3 +27,11 @@ void Tower::step(int dt){
     }
   }
 }
+
+int Tower::getKill(){
+  if(ai.hasKill){
+    ai.hasKill = false;
+    return ai.target->getValue();
+  }
+  return 0;
+}

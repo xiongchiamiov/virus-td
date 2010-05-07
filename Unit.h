@@ -30,6 +30,7 @@ protected:
   int atk_dmg;
   float speed;
   unit_t type;
+  int value;
   int build_time;//Measured in milliseconds
   int stage;     //Upgrade stage
 public:
@@ -40,6 +41,8 @@ public:
   void moveToWaypoint();
   inline bool isDead(){return hp <= 0;}
   inline int getHP(){return hp;}
+  inline float getSpeed(){return speed;}
+  inline unit_t getValue(){return type;}
   void step(int dt);
   std::stack<g_elem> path;
   MyVector dir;

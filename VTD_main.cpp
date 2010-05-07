@@ -9,7 +9,7 @@
      #include "GLUT/glut.h"
  #endif
 
- #ifdef _WIN32_ 
+ #ifdef _WIN32
      #include <gl/glut.h>
  #endif
 #include "MyVector.h"
@@ -113,7 +113,7 @@ void update(int param){
   last_cycle += dt;
   if(CYCLE_TIME < last_cycle){
     p1.calcResources();
-    //cpu.getIncome();
+    opponent.player.calcResources();
     std::cout << "INCOME! " << p1.getIncome() << std::endl;
     last_cycle -= CYCLE_TIME;
   }
