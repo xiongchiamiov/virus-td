@@ -67,6 +67,49 @@ materialStruct White = {
   {1.0, 1.0, 1.0, 1.0},
   {0.0}
 };
+
+materialStruct PureRed = {
+  {1.0, 0.0, 0.0, 1.0}, 
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0}
+};
+
+materialStruct Brown = {
+  {0.4, 0.2, 0.1, 1.0}, 
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0}
+};
+
+materialStruct ShinyMetal = {
+  {0.4, 0.4, 0.4, 1.0}, 
+  {1.0, 1.0, 1.0, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {1.0}
+};
+
+materialStruct DarkGrey = {
+  {0.2, 0.2, 0.2, 1.0}, 
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.8}
+};
+
+materialStruct DarkDarkGrey = {
+  {0.1, 0.1, 0.1, 1.0}, 
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.8}
+};
+
+materialStruct Yellow = {
+  {0.5, 0.5, 0.0, 1.0}, 
+  {0.9, 0.9, 0.9, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.2}
+};
+
 //sets up a specific material
 void setMaterial(materialStruct materials) {
   glMaterialfv(GL_FRONT, GL_AMBIENT, materials.ambient);

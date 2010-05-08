@@ -1,7 +1,7 @@
 #include "Player.h"
 namespace vtd_player{
   const int START_LIVES = 5;
-  const int START_RESOURCES = 10;
+  const int START_RESOURCES = 100000; /* originally 10, but 100000 for debug */
 }
 const int cleanup_dt = 500;
 int last_cleanup = 0;

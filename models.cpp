@@ -13,10 +13,7 @@ void drawWorm() {
 
    // Eyes
    glPushMatrix();
-   diffuseColor[0] = 1.0;
-   diffuseColor[1] = 1.0;
-   diffuseColor[2] = 1.0;
-   glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseColor);
+   setMaterial(White);
    glScaled(0.5, 2.0, 0.5);
    glTranslatef(3.5, 1.4, 2.0);
    glutSolidSphere(0.45, 10, 10);
@@ -24,10 +21,7 @@ void drawWorm() {
    glutSolidSphere(0.45, 10, 10);
    glPopMatrix();
    
-   diffuseColor[0] = 1.0;
-   diffuseColor[1] = 1.0;
-   diffuseColor[2] = 0.0;
-   glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseColor);
+   setMaterial(Yellow);
 
    // Hierarchical transforms
    glScaled(2.0, 2.0, 2.0);
@@ -103,9 +97,7 @@ void drawWorm() {
 void drawBackTrack() {
    // save the transformation state
    glPushMatrix();
-      // set the material
-      GLfloat diffuseColor[] = {1.0, 1.0, 1.0, 1.0};
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseColor);
+      setMaterial(DarkDarkGrey);
 
       // locate it in the scene
       glMatrixMode(GL_MODELVIEW);
@@ -326,10 +318,7 @@ void drawBackTrack() {
          glutSolidSphere(2.0, 10, 10);
 
          // Eyes 
-         diffuseColor[0] = 1.0;
-         diffuseColor[1] = 0.0;
-         diffuseColor[2] = 0.0;
-         glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseColor);
+         setMaterial(PureRed);
 
          glPushMatrix();
             glTranslatef(1.2, 0.0, 1.5);
@@ -347,10 +336,7 @@ void drawBackTrack() {
             glutSolidSphere(0.5, 10, 10);
          glPopMatrix();
          
-         diffuseColor[0] = 1.0;
-         diffuseColor[1] = 1.0;
-         diffuseColor[2] = 1.0;
-         glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseColor);
+         setMaterial(DarkDarkGrey);
          
          glTranslatef(1.0, -1.0, 0.0);
          glRotatef(180, 1.0, 0.0, 0.0);
@@ -456,5 +442,297 @@ void drawBackTrack() {
       
    glPopMatrix();
 
+   return;
+}
+
+void drawTeslaCoil() {
+   // save the transformation state
+   glPushMatrix();
+
+   // locate it in the scene
+   glMatrixMode(GL_MODELVIEW);
+   
+   // orient entire hierarchy
+   glTranslatef(0.0, 5.0, 0.0);
+   glRotatef(90, 1.0, 0.0, 0.0);
+   
+   setMaterial(ShinyMetal);
+   
+   // Coil Head
+   glPushMatrix();
+      glutSolidSphere(2, 30, 30);
+      glTranslatef(0.0, 0.0, 2.0);
+      gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+      glTranslatef(0.0, 0.0, 1.5);
+      glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+      glTranslatef(0.0, 0.0, 2.0);
+      glutSolidTorus(0.4, 3.1, 20, 40);
+      glTranslatef(0.0, 0.0, 2.0);
+      glutSolidTorus(0.4, 4.1, 20, 40);
+   glPopMatrix();
+
+   // relative to outward transform. Position Coild sides
+   glTranslatef(0.0, 0.0, 13.0); 
+   glRotatef(-90, 1.0, 0.0, 0.0);
+   glScaled(0.5, 0.5, 0.5); 
+
+   // Three Coil Heads on Sides
+   // Grey
+   setMaterial(ShinyMetal);
+   glPushMatrix();
+      glTranslatef(-5.0, 0.0, 0.0);
+      glRotatef(45, 0.0, 0.0, 1.0);
+      glTranslatef(0.0, 11.5, 0.0); // move outward, relative to xform after coil head
+      glPushMatrix();
+         glTranslatef(0.0, 5.0, 0.0);
+         glRotatef(90, 1.0, 0.0, 0.0);
+         glutSolidSphere(2, 30, 30);
+         glTranslatef(0.0, 0.0, 2.0);
+         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+         glTranslatef(0.0, 0.0, 1.0);
+         glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+         glTranslatef(0.0, 0.0, 2.0);
+         glutSolidTorus(0.4, 3.1, 20, 40);
+         glTranslatef(0.0, 0.0, 2.0);
+         glutSolidTorus(0.4, 4.1, 20, 40);
+      glPopMatrix();
+   glPopMatrix();
+   
+   glRotatef(60, 0.0, 1.0, 0.0);
+
+   // Red
+   setMaterial(PureRed);
+   
+   glPushMatrix(); // side block
+      glTranslatef(-2.0, -3.0, 0.0); // outwardness
+      glRotatef(45, 0.0, 0.0, 1.0); // tilt
+      glTranslatef(0.0, 11.0, 0.0); // up down along tilt
+      glScaled(1.5, 1.0, 3.0);
+      glutSolidCube(3);
+   glPopMatrix();
+
+   glRotatef(60, 0.0, 1.0, 0.0);
+
+   // Grey
+   setMaterial(ShinyMetal);
+      
+   glPushMatrix();
+      glTranslatef(-5.0, 0.0, 0.0);
+      glRotatef(45, 0.0, 0.0, 1.0);
+      glTranslatef(0.0, 11.5, 0.0); // move outward, relative to xform after coil head
+      glPushMatrix();
+         glTranslatef(0.0, 5.0, 0.0);
+         glRotatef(90, 1.0, 0.0, 0.0);
+         glutSolidSphere(2, 30, 30);
+         glTranslatef(0.0, 0.0, 2.0);
+         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+         glTranslatef(0.0, 0.0, 1.0);
+         glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+         glTranslatef(0.0, 0.0, 2.0);
+         glutSolidTorus(0.4, 3.1, 20, 40);
+         glTranslatef(0.0, 0.0, 2.0);
+         glutSolidTorus(0.4, 4.1, 20, 40);
+      glPopMatrix();
+   glPopMatrix();
+   
+   glRotatef(60, 0.0, 1.0, 0.0);
+   
+   // Red
+   setMaterial(PureRed);
+   
+   glPushMatrix(); // side block
+      glTranslatef(-2.0, -3.0, 0.0); // outwardness
+      glRotatef(45, 0.0, 0.0, 1.0); // tilt
+      glTranslatef(0.0, 11.0, 0.0); // up down along tilt
+      glScaled(1.5, 1.0, 3.0);
+      glutSolidCube(3);
+   glPopMatrix();
+
+   glRotatef(60, 0.0, 1.0, 0.0);
+   
+   // Grey
+   setMaterial(ShinyMetal);
+   
+   glPushMatrix();
+      glTranslatef(-5.0, 0.0, 0.0);
+      glRotatef(45, 0.0, 0.0, 1.0);
+      glTranslatef(0.0, 11.5, 0.0); // move outward, relative to xform after coil head
+      glPushMatrix();
+         glTranslatef(0.0, 5.0, 0.0);
+         glRotatef(90, 1.0, 0.0, 0.0);
+         glutSolidSphere(2, 30, 30);
+         glTranslatef(0.0, 0.0, 2.0);
+         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+         glTranslatef(0.0, 0.0, 1.0);
+         glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+         glTranslatef(0.0, 0.0, 2.0);
+         glutSolidTorus(0.4, 3.1, 20, 40);
+         glTranslatef(0.0, 0.0, 2.0);
+         glutSolidTorus(0.4, 4.1, 20, 40);
+      glPopMatrix();
+   glPopMatrix();
+
+   glRotatef(60, 0.0, 1.0, 0.0);
+
+   setMaterial(PureRed);
+
+   glPushMatrix(); // side block
+      glTranslatef(-2.0, -3.0, 0.0); // outwardness
+      glRotatef(45, 0.0, 0.0, 1.0); // tilt
+      glTranslatef(0.0, 11.0, 0.0); // up down along tilt
+      glScaled(1.5, 1.0, 3.0);
+      glutSolidCube(3);
+   glPopMatrix();
+
+   // Center Base fork
+   glPushMatrix();
+      glRotatef(60, 0.0, 1.0, 0.0);
+      glPushMatrix();
+         glTranslatef(5.0, 5.1, 0.0); // x is outwardness in this case
+         glScaled(3.0, 1.0, 2.0);
+         glutSolidCube(3);
+      glPopMatrix();
+
+      glRotatef(120, 0.0, 1.0, 0.0);
+      glPushMatrix();
+         glTranslatef(5.0, 5.1, 0.0); // x is outwardness in this case
+         glScaled(3.0, 1.0, 2.0);
+         glutSolidCube(3);
+      glPopMatrix();
+
+      glRotatef(120, 0.0, 1.0, 0.0);
+      glPushMatrix();
+         glTranslatef(5.0, 5.1, 0.0); // x is outwardness in this case
+         glScaled(3.0, 1.0, 2.0);
+         glutSolidCube(3);
+      glPopMatrix();
+   glPopMatrix();
+   
+   // Dark Grey
+   setMaterial(DarkGrey);
+   
+   // Orient base
+   glRotatef(270, 1.0, 0.0, 0.0);
+   glTranslatef(0.0, 0.0, 5.5);
+   // Tower Base
+   glPushMatrix();
+      // Brown
+      setMaterial(Brown);
+      
+      glPushMatrix(); // don't let scale trickle down
+         glScaled(0.9, 0.9, 1.0); // at this point up/down == z, left/right == y
+         gluDisk(gluNewQuadric(), 0.0, 10, 6, 10);
+         glTranslatef(0.0, 0.0, -3.5);
+         gluCylinder(gluNewQuadric(), 13.0, 10.0, 3.5, 6, 10);
+      glPopMatrix();
+      
+      glTranslatef(0.0, 0.0, -3.5);
+
+      // Grey
+      setMaterial(Grey);
+     
+       glPushMatrix(); // again, don't let scale tirckle down
+         glScaled(0.97, 0.97, 1.0);
+         gluDisk(gluNewQuadric(), 0.0, 13, 8, 10);
+         glTranslatef(0.0, 0.0, -1.0);
+         gluCylinder(gluNewQuadric(), 13.0, 13.0, 1.0, 8, 10);
+      glPopMatrix();
+      
+      glTranslatef(0.0, 0.0, -1.0);
+
+      // Dark Grey
+      setMaterial(DarkGrey);
+   
+      gluDisk(gluNewQuadric(), 0.0, 13, 8, 10);
+      glTranslatef(0.0, 0.0, -15.0);
+      gluCylinder(gluNewQuadric(), 13.0, 13.0, 15.0, 8, 10);
+   glPopMatrix();
+   
+   // Orient for base bottom/sides
+   glRotatef(22.5, 0.0, 0.0, 1.0);
+   // Tower Base Sides
+   glPushMatrix();
+      glTranslatef(0.0, 12.0, -14.5);
+      // Dark Dark Grey
+      setMaterial(DarkDarkGrey);
+
+      glPushMatrix();
+         glScaled(2.0, 0.25, 2.0);
+         glutSolidCube(5);
+      glPopMatrix();
+
+      setMaterial(PureRed);
+
+      glTranslatef(0.0, 3.0, -4.0);
+      glRotatef(45, 1.0, 0.0, 0.0);
+      glScaled(1.0, 0.7, 2.0);
+      glutSolidCube(5);
+   glPopMatrix();
+   
+   glRotatef(90, 0.0, 0.0, 1.0);
+   glPushMatrix();
+      glTranslatef(0.0, 12.0, -14.5);
+      // Dark Dark Grey
+      setMaterial(DarkDarkGrey);
+
+      glPushMatrix();
+         glScaled(2.0, 0.25, 2.0);
+         glutSolidCube(5);
+      glPopMatrix();
+
+      // Red
+      setMaterial(PureRed);
+
+      glTranslatef(0.0, 3.0, -4.0);
+      glRotatef(45, 1.0, 0.0, 0.0);
+      glScaled(1.0, 0.7, 2.0);
+      glutSolidCube(5);
+   glPopMatrix();
+   
+   glRotatef(90, 0.0, 0.0, 1.0);
+   glPushMatrix();
+      glTranslatef(0.0, 12.0, -14.5);
+      // Dark Dark Grey
+      setMaterial(DarkDarkGrey);
+
+      glPushMatrix();
+         glScaled(2.0, 0.25, 2.0);
+         glutSolidCube(5);
+      glPopMatrix();
+
+      setMaterial(PureRed);
+
+      glTranslatef(0.0, 3.0, -4.0);
+      glRotatef(45, 1.0, 0.0, 0.0);
+      glScaled(1.0, 0.7, 2.0);
+      glutSolidCube(5);
+   glPopMatrix();
+
+   glRotatef(90, 0.0, 0.0, 1.0);
+   glPushMatrix();
+      glTranslatef(0.0, 12.0, -14.5);
+      // Dark Dark Grey
+      setMaterial(DarkDarkGrey);
+   
+      glPushMatrix();
+         glScaled(2.0, 0.25, 2.0);
+         glutSolidCube(5);
+      glPopMatrix();
+      
+      setMaterial(PureRed);
+   
+      glTranslatef(0.0, 3.0, -4.0);
+      glRotatef(45, 1.0, 0.0, 0.0);
+      glScaled(1.0, 0.7, 2.0);
+      glutSolidCube(5);
+   glPopMatrix();
+   
+   // Grey
+   setMaterial(Grey);
+   
+   glTranslatef(0.0, 0.0, -21.5);
+   gluCylinder(gluNewQuadric(), 23.5, 16.5, 2.0, 4, 10);
+   
+   glPopMatrix();
    return;
 }

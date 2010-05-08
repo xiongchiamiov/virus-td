@@ -10,5 +10,8 @@
    #include <gl/glut.h>
 #endif
 
+#include "lighting.h"
+
 void drawWorm();
 void drawBackTrack();
+void drawTeslaCoil();

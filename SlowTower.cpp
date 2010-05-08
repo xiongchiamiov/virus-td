@@ -1,5 +1,6 @@
 #include "SlowTower.h"
 #include "constants.h"
+#include "models.h"
 
 namespace sl_tower{
   const int MAX_HP = 12;
@@ -38,7 +39,14 @@ void SlowTower::draw(){
   }
   setMaterial(GreenShiny);
   glTranslatef(x, y, z);
-   glutSolidCone(0.25, 0.5, 10, 10);
+     glPushMatrix();
+        // Scale and orient model to fit grid
+        glTranslatef(0.0, 1.25, 0.0);
+        // Mini Tower Defense TBQH
+        glScaled(0.06, 0.08, 0.06);
+        glRotated(83, 0.0, 1.0, 0.0);
+        drawTeslaCoil();
+     glPopMatrix();
   glPopMatrix();
 }
 

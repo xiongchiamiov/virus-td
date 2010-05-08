@@ -39,6 +39,12 @@ extern materialStruct Purple;
 extern materialStruct Fuschia;
 extern materialStruct FieryOrange;
 extern materialStruct White;
+extern materialStruct PureRed;
+extern materialStruct Brown;
+extern materialStruct ShinyMetal;
+extern materialStruct DarkGrey;
+extern materialStruct DarkDarkGrey;
+extern materialStruct Yellow;
 
 //sets up a specific material
 void setMaterial(materialStruct materials);
