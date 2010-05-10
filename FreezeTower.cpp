@@ -1,5 +1,6 @@
 #include "FreezeTower.h"
 #include "constants.h"
+#include "models.h"
 
 namespace f_tower{
   const int MAX_HP = 8;
@@ -36,9 +37,15 @@ void FreezeTower::draw(){
       glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
     glEnd();
   }
-  setMaterial(Purple);
+
   glTranslatef(x, y, z);
-   glutSolidSphere(0.25, 10, 10);
+     glPushMatrix();
+        // Scale and orient model to fit grid
+        glTranslatef(0.0, 0.4, 0.0);
+        // Mini Tower Defense TBQH
+        glScaled(0.035, 0.035, 0.035);
+        drawCPUFan();
+     glPopMatrix();
   glPopMatrix();
 }
 

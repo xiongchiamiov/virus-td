@@ -736,3 +736,286 @@ void drawTeslaCoil() {
    glPopMatrix();
    return;
 }
+
+void drawCPUFan() {
+   glPushMatrix();
+      glTranslatef(0.0, 0.0, -6.0);
+      // Fan 1
+      glPushMatrix();
+         // Heatsink
+         glPushMatrix();
+            setMaterial(FieryOrange);
+            glRotatef(210, 0.0, 0.0, 1.0);
+            for (int i = 0; i < 100; i++) {
+               glRotatef(3.0, 0.0, 0.0, 1.0);
+               
+               glPushMatrix();
+                  // blade height
+                  glTranslatef(0.0, 13.0, 0.0);
+                  glScaled(0.05, 1.0, 5.0);
+                  glutSolidCube(2.0);
+               glPopMatrix();
+            }
+         glPopMatrix();
+         
+         // Heatsink Rim
+         glPushMatrix();
+            glTranslatef(0.0, 0.0, -1.0);
+            glutSolidTorus(0.30, 13, 8, 30);
+            glTranslatef(0.0, 0.0, 2.0);
+            glutSolidTorus(0.25, 13, 8, 30);
+         glPopMatrix();
+
+         glTranslatef(0.0, 0.0, -1.0);
+
+         // Center Core
+         glPushMatrix();
+            setMaterial(Grey);
+            gluCylinder(gluNewQuadric(), 4.0, 4.0, 5.0, 20, 8);
+            
+            // Draw faces for cover core
+            glPushMatrix();
+               // Flip disk to face outward (for lighting)
+               glRotatef(180, 1.0, 0.0, 0.0);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+               glTranslatef(0.0, 0.0, -5.0);
+               glRotatef(180, 1.0, 0.0, 0.0);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+            glPopMatrix();
+         glPopMatrix();
+         
+         // Fan Blades
+         glPushMatrix();
+            setMaterial(ShinyMetal);
+            glTranslatef(0.0, 0.0, 1.0);
+
+            for (int i = 0; i < 7; i++) {
+               glRotatef(51.4, 0.0, 0.0, 1.0);
+               glPushMatrix();
+               glRotatef(-40, 0.0, 1.0, 0.0);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, 0, 51.4);
+               
+               glRotatef(180, 0.0, 1.0, 0.0);
+               glTranslatef(0.0, 0.0, 0.5);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, -51.4, 51.4);
+               glPopMatrix();
+            }
+         glPopMatrix();
+        
+         // Base
+         glPushMatrix();
+            glTranslatef(0.0, -12.0, 1.0);
+            glScaled(3.0, 0.65, 2.0);
+            glutSolidCube(3.0);
+         glPopMatrix();
+         
+         // Back
+         glPushMatrix();
+            setMaterial(Grey);
+            glRotatef(90, 1.0, 0.0, 0.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+            glTranslatef(2.0, 0.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+         glPopMatrix();
+      glPopMatrix();
+      
+      glTranslatef(0.0, 0.0, 12.0);
+      
+      // Fan 2
+      glPushMatrix();
+         // Heatsink
+         glPushMatrix();
+            setMaterial(FieryOrange);
+            glRotatef(210, 0.0, 0.0, 1.0);
+            for (int i = 0; i < 100; i++) {
+               glRotatef(3.0, 0.0, 0.0, 1.0);
+               
+               glPushMatrix();
+                  // blade height
+                  glTranslatef(0.0, 13.0, 0.0);
+                  glScaled(0.05, 1.0, 5.0);
+                  glutSolidCube(2.0);
+               glPopMatrix();
+            }
+         glPopMatrix();
+         
+         // Heatsink Rim
+         glPushMatrix();
+            glTranslatef(0.0, 0.0, -1.0);
+            glutSolidTorus(0.30, 13, 8, 30);
+            glTranslatef(0.0, 0.0, 2.0);
+            glutSolidTorus(0.25, 13, 8, 30);
+         glPopMatrix();
+
+         glTranslatef(0.0, 0.0, -1.0);
+
+         // Center Core
+         glPushMatrix();
+            setMaterial(Grey);
+            gluCylinder(gluNewQuadric(), 4.0, 4.0, 5.0, 20, 8);
+            
+            // Draw faces for cover core
+            glPushMatrix();
+               // Flip disk to face outward (for lighting)
+               glRotatef(180, 1.0, 0.0, 0.0);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+               glTranslatef(0.0, 0.0, -5.0);
+               glRotatef(180, 1.0, 0.0, 0.0);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+            glPopMatrix();
+         glPopMatrix();
+         
+         // Fan Blades
+         glPushMatrix();
+            setMaterial(ShinyMetal);
+            glTranslatef(0.0, 0.0, 1.0);
+
+            for (int i = 0; i < 7; i++) {
+               glRotatef(51.4, 0.0, 0.0, 1.0);
+               glPushMatrix();
+               glRotatef(-40, 0.0, 1.0, 0.0);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, 0, 51.4);
+               
+               glRotatef(180, 0.0, 1.0, 0.0);
+               glTranslatef(0.0, 0.0, 0.5);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, -51.4, 51.4);
+               glPopMatrix();
+            }
+         glPopMatrix();
+        
+         // Base
+         glPushMatrix();
+            glTranslatef(0.0, -12.0, 1.0);
+            glScaled(3.0, 0.65, 2.0);
+            glutSolidCube(3.0);
+         glPopMatrix();
+         
+         // Back
+         glPushMatrix();
+            setMaterial(Grey);
+            glRotatef(90, 1.0, 0.0, 0.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+            glTranslatef(2.0, 0.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+         glPopMatrix();
+      glPopMatrix();
+      
+      // Circuit
+      glPushMatrix();
+         setMaterial(Black);
+         glTranslatef(0.0, -13.0, -6.0);
+         glScaled(27.0, 0.5, 27.0);
+         glutSolidCube(1.0);
+      glPopMatrix();
+   glPopMatrix();
+
+   return;
+}
+
+void drawShield() {
+   glPushMatrix();
+   glTranslatef(-10.0, 0.0, 0.0);
+   glRotatef(90, 1.0, 0.0, 0.0);
+   glRotatef(180, 0.0, 0.0, 1.0);
+
+   for (int i = 0; i < 25; i++) {
+      glTranslatef(0.0, 0.2, 0.2); // y = up, z = forward
+      glScaled(0.95, 0.95, 0.95);
+      
+      glPushMatrix();
+         glTranslatef(-8.0, 0.0, 0.0);
+         drawShieldBase(i);
+      glPopMatrix();
+   }
+
+   // Center crest
+   glScaled(3.5, 3.5, 3.5);
+   setMaterial(Purple);
+   glTranslatef(0.0, 0.0, 2.0);
+   glutSolidDodecahedron();
+   glPopMatrix();
+}
+
+void drawShieldBase(int set) {
+   glPushMatrix();
+      setMaterial(Grey);
+      
+      // Half 1
+      glPushMatrix();
+         // Top
+         glPushMatrix();
+            if(set > 0) {  
+               setMaterial(RedFlat);
+            } 
+
+            glRotatef(90, 0.0, 1.0, 0.0);
+        
+            for (int i = 0; i < 9; i++) {
+               if (i > 0) {
+                  glTranslatef(0.0, 0.0, 1.0);
+               }
+
+               glRotatef(5.0, 0.0, 1.0, 0.0);
+               gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.1, 9, 8);
+            }
+         glPopMatrix();
+      
+         // Bottom
+         if(set > 0) {  
+            setMaterial(GreenShiny);
+         } 
+         
+         for (int i = 0; i < 20; i++) {
+            if (i > 0) {
+               glTranslatef(0.0, 0.0, 1.0);
+            }
+
+            glRotatef(2.25, 0.0, 1.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, 8, 8);
+         }
+      glPopMatrix();
+      
+      
+      // Half 2
+      glPushMatrix();
+         glTranslatef(16.0, 0.0, 0.0);
+         glRotatef(180, 0.0, 0.0, 1.0);
+         
+         // Top
+         glPushMatrix();
+            if(set > 0) {  
+               setMaterial(Yellow);
+            } 
+
+            glRotatef(90, 0.0, 1.0, 0.0);
+        
+            for (int i = 0; i < 9; i++) {
+               if (i > 0) {
+                  glTranslatef(0.0, 0.0, 1.0);
+               }
+
+               glRotatef(5.0, 0.0, 1.0, 0.0);
+               gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, 9, 8);
+            }
+         glPopMatrix();
+
+         // Bottom
+         if(set > 0) {  
+            setMaterial(Exp);
+         } 
+         
+         for (int i = 0; i < 20; i++) {
+            if (i > 0) {
+               glTranslatef(0.0, 0.0, 1.0);
+            }
+        
+            glRotatef(2.25, 0.0, 1.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, 8, 8);
+         }
+      glPopMatrix();
+   glPopMatrix();
+
+   return;
+}

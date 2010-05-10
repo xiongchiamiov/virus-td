@@ -1,6 +1,7 @@
 #include "BasicTower.h"
 #include "constants.h"
 #include "lighting.h"
+#include "models.h"
 
 namespace b_tower{
   const int MAX_UPGRADES = 3;
@@ -36,9 +37,9 @@ void BasicTower::draw(){
       glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
     glEnd();
   }
-  setMaterial(Exp);
+
   glTranslatef(x, y, z);
-  //Front
+/*  //Front
   glNormal3f(0.0, 0.0, -1.0);
   glBegin(GL_POLYGON);{
     glVertex3f(-GRID_SIZE*2.0, 0.0, -GRID_SIZE*2.0);
@@ -78,6 +79,13 @@ void BasicTower::draw(){
   glBegin(GL_LINES);
     glVertex3f(0.0, 0.0, 0.0);
     glVertex3f(0.0, GRID_SIZE*2.0, 0.0);
-  glEnd();
+  glEnd();*/
+      glPushMatrix();
+         // Scale and orient model to fit grid
+         glTranslatef(0.5, 1.0, 0.0);
+         // Mini Tower Defense TBQH
+         glScaled(0.05, 0.05, 0.05);
+         drawShield();
+      glPopMatrix();
   glPopMatrix();
 }
