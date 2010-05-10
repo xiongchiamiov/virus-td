@@ -45,7 +45,8 @@ void SlowTower::draw(){
         // Mini Tower Defense TBQH
         glScaled(0.06, 0.08, 0.06);
         glRotated(83, 0.0, 1.0, 0.0);
-        drawTeslaCoil();
+        //drawTeslaCoil();
+        glCallList(vtd_dl::teslaDL);
      glPopMatrix();
   glPopMatrix();
 }

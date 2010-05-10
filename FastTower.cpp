@@ -45,7 +45,8 @@ void FastTower::draw(){
        // Mini Tower Defense TBQH
        glScaled(0.03, 0.03, 0.03);
        glRotated(90, 0.0, 1.0, 0.0);
-       drawBackTrack();
+       //drawBackTrack();
+       glCallList(vtd_dl::backtrackDL);
     glPopMatrix();
   glPopMatrix();
 }

@@ -19,6 +19,7 @@
 #include "lighting.h"
 #include "constants.h"
 #include "UI.h"
+#include "models.h"
 
 int GW, GH;
 //Camera variables
@@ -249,6 +250,7 @@ int main(int argc, char** argv){
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_LIGHTING);
   init_lighting();
+  composeDisplayLists();
   glutTimerFunc(1000/60, update, 0);
   initializeUI();
   glutMainLoop();

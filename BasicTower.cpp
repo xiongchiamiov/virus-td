@@ -85,7 +85,8 @@ void BasicTower::draw(){
          glTranslatef(0.5, 1.0, 0.0);
          // Mini Tower Defense TBQH
          glScaled(0.05, 0.05, 0.05);
-         drawShield();
+         //drawShield();
+         glCallList(vtd_dl::shieldDL);
       glPopMatrix();
   glPopMatrix();
 }

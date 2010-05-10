@@ -1,5 +1,13 @@
 #include "models.h"
 
+namespace vtd_dl{
+  GLuint wormDL;
+  GLuint backtrackDL;
+  GLuint teslaDL;
+  GLuint fanDL;
+  GLuint shieldDL;
+};
+
 void drawWorm() {
    // save the transformation state
    glPushMatrix();
@@ -1018,4 +1026,33 @@ void drawShieldBase(int set) {
    glPopMatrix();
 
    return;
+}
+
+using namespace vtd_dl;
+void composeDisplayLists(){
+  wormDL = glGenLists(1);
+  backtrackDL = glGenLists(1);
+  teslaDL = glGenLists(1);
+  fanDL = glGenLists(1);
+  shieldDL = glGenLists(1);
+
+  glNewList(wormDL, GL_COMPILE);
+    drawWorm();
+  glEndList();
+
+  glNewList(backtrackDL, GL_COMPILE);
+    drawBackTrack();
+  glEndList();
+
+  glNewList(teslaDL, GL_COMPILE);
+    drawTeslaCoil();
+  glEndList();
+
+  glNewList(fanDL, GL_COMPILE);
+    drawCPUFan();
+  glEndList();
+
+  glNewList(shieldDL, GL_COMPILE);
+    drawShield();
+  glEndList();
 }

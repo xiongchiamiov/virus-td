@@ -44,7 +44,8 @@ void FreezeTower::draw(){
         glTranslatef(0.0, 0.4, 0.0);
         // Mini Tower Defense TBQH
         glScaled(0.035, 0.035, 0.035);
-        drawCPUFan();
+        //drawCPUFan();
+        glCallList(vtd_dl::fanDL);
      glPopMatrix();
   glPopMatrix();
 }
