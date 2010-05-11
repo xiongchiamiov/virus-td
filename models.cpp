@@ -9,6 +9,7 @@ namespace vtd_dl{
 };
 
 void drawWorm() {
+   int tesallation = 6;
    // save the transformation state
    glPushMatrix();
 
@@ -24,9 +25,9 @@ void drawWorm() {
    setMaterial(White);
    glScaled(0.5, 2.0, 0.5);
    glTranslatef(3.5, 1.4, 2.0);
-   glutSolidSphere(0.45, 10, 10);
+   glutSolidSphere(0.45, tesallation, tesallation);
    glTranslatef(0.0, 0.0, -4.0);
-   glutSolidSphere(0.45, 10, 10);
+   glutSolidSphere(0.45, tesallation, tesallation);
    glPopMatrix();
    
    setMaterial(Yellow);
@@ -34,43 +35,43 @@ void drawWorm() {
    // Hierarchical transforms
    glScaled(2.0, 2.0, 2.0);
    glTranslatef(0.0, 1.0, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
    
    // Head
    for (int i = 0; i < 10; i++) {
       glScaled(0.95, 0.95, 0.95);
       glRotatef(15.0, 0.0, 0.0, 1.0);
       glTranslatef(-0.5, 0.4, 0.0);
-      glutSolidSphere(1.0, 20, 20);
+      glutSolidSphere(1.0, tesallation, tesallation);
    }
 
    // Mid Section
    glTranslatef(-0.6, 0.2, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
 
    glTranslatef(-0.6, 0.12, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
 
    glTranslatef(-0.6, 0.17, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
 
    glTranslatef(-0.6, 0.2, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
 
    glTranslatef(-0.6, 0.22, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
    
    glTranslatef(-0.7, 0.27, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
    
    glTranslatef(-0.7, 0.3, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
    
    glTranslatef(-0.9, 0.42, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
    
    glTranslatef(-0.9, 0.62, 0.0);
-   glutSolidSphere(1.0, 20, 20);
+   glutSolidSphere(1.0, tesallation, tesallation);
    
    glRotatef(180, 0.0, 1.0, 0.0);
    glRotatef(-180, 0.0, 0.0, 1.0);
@@ -80,13 +81,13 @@ void drawWorm() {
       glScaled(0.95, 0.95, 0.95);
       glRotatef(15.0, 0.0, 0.0, 1.0);
       glTranslatef(-0.6, -0.4, 0.0);
-      glutSolidSphere(1.0, 20, 20);
+      glutSolidSphere(1.0, tesallation, tesallation);
    }
    
    // Lower Mid Body
    for (int i = 0; i < 2; i++) {
       glTranslatef(-0.5, -0.6, 0.0);
-      glutSolidSphere(1.0, 20, 20);
+      glutSolidSphere(1.0, tesallation, tesallation);
    }
 
    // Tail
@@ -94,7 +95,7 @@ void drawWorm() {
       glScaled(0.95, 0.95, 0.95);
       glRotatef(15.0, 0.0, 0.0, 1.0);
       glTranslatef(-0.6, -0.4, 0.0);
-      glutSolidSphere(1.0, 20, 20);
+      glutSolidSphere(1.0, tesallation, tesallation);
    }
 
    glPopMatrix();
@@ -103,6 +104,7 @@ void drawWorm() {
 }
 
 void drawBackTrack() {
+   int tesallation = 6;
    // save the transformation state
    glPushMatrix();
       setMaterial(DarkDarkGrey);
@@ -163,7 +165,7 @@ void drawBackTrack() {
                   // Right Wing Arm
                   glScaled(0.50, 1.0, 0.50);
                   glRotatef(-90, 1.0, 0.0, 0.0);
-                  glutSolidCone(1.0, 1.5, 10, 10);
+                  glutSolidCone(1.0, 1.5, tesallation, tesallation);
                glPopMatrix();
 
                for (int i = 0; i < 8; i++) {
@@ -236,7 +238,7 @@ void drawBackTrack() {
                   // Wing Arm
                   glScaled(0.50, 1.0, 0.50);
                   glRotatef(-90, 1.0, 0.0, 0.0);
-                  glutSolidCone(1.0, 1.5, 10, 10);
+                  glutSolidCone(1.0, 1.5, tesallation, tesallation);
                glPopMatrix();
 
                for (int i = 0; i < 8; i++) {
@@ -270,7 +272,7 @@ void drawBackTrack() {
             glRotatef(0.8, 0.0, 0.0, 1.0);
             glTranslatef(0.8, -0.1 - (i * 1.0 / 35), 0.0);
             glScaled(0.98, 0.98, 0.98);
-            glutSolidSphere(1.0, 12, 12);
+            glutSolidSphere(1.0, tesallation, tesallation);
          }
          
          // Neck Horns
@@ -280,13 +282,13 @@ void drawBackTrack() {
             glRotatef(-90, 1.0, 0.0, 0.0);
             glRotatef(-40, 0.0, 1.0, 0.0); // z == y, y ==z
             glScaled(0.75, 0.5, 1.5);
-            glutSolidCone(1.0, 2.0, 10, 10);
+            glutSolidCone(1.0, 2.0, tesallation, tesallation);
             
             glTranslatef(-2.0, 0.0, 1.2);
-            glutSolidCone(1.0, 2.0, 10, 10);
+            glutSolidCone(1.0, 2.0, tesallation, tesallation);
 
             glTranslatef(-2.0, 0.0, 1.2);
-            glutSolidCone(1.0, 2.0, 10, 10);
+            glutSolidCone(1.0, 2.0, tesallation, tesallation);
          glPopMatrix();
 
          // Right Antenna
@@ -323,7 +325,7 @@ void drawBackTrack() {
          
          glScaled(1.5, 0.95, 1.5);
          glTranslatef(0.8, -1.0, 0.0);
-         glutSolidSphere(2.0, 10, 10);
+         glutSolidSphere(2.0, tesallation, tesallation);
 
          // Eyes 
          setMaterial(PureRed);
@@ -333,7 +335,7 @@ void drawBackTrack() {
             glRotatef(45, 1.0, 0.0, 0.0);
             glRotatef(45.0, 0.0, 0.0, 1.0);
             glScaled(0.7, 1.5, 0.7);
-            glutSolidSphere(0.5, 10, 10);
+            glutSolidSphere(0.5, tesallation, tesallation);
          glPopMatrix();
 
          glPushMatrix();
@@ -341,7 +343,7 @@ void drawBackTrack() {
             glRotatef(-45, 1.0, 0.0, 0.0);
             glRotatef(45.0, 0.0, 0.0, 1.0);
             glScaled(0.7, 1.5, 0.7);
-            glutSolidSphere(0.5, 10, 10);
+            glutSolidSphere(0.5, tesallation, tesallation);
          glPopMatrix();
          
          setMaterial(DarkDarkGrey);
@@ -399,33 +401,33 @@ void drawBackTrack() {
             glRotatef(0.8, 0.0, 0.0, 1.0);
             glTranslatef(-0.7, 0.1, 0.0);
             glScaled(1.01, 1.01, 1.01);
-            glutSolidSphere(1.0, 10, 10);
+            glutSolidSphere(1.0, tesallation, tesallation);
          }
 
          for (int i = 0; i < 17; i++) {
             glRotatef(5.0, 0.0, 0.0, 1.0);
             glTranslatef(-0.7, 0.1 + (i * 1.0 / 50), 0.0);
             glScaled(1.03, 1.03, 1.03);
-            glutSolidSphere(1.0, 10, 10);
+            glutSolidSphere(1.0, tesallation, tesallation);
          }
 
          for (int i = 17; i > -2; i--) {
             glRotatef(5.0, 0.0, 0.0, 1.0);
             glTranslatef(-0.9, + (0.1 + (i * 1.0 / 50)), 0.0);
             glScaled(0.99, 0.99, 0.99);
-            glutSolidSphere(1.0, 10, 10);
+            glutSolidSphere(1.0, tesallation, tesallation);
          }
 
          for (int i = 0; i < 5; i++) {
             glTranslatef(-0.8, 0.05, 0.0);
             glScaled(0.999, 0.999, 0.999);
-            glutSolidSphere(1.0, 10, 10);
+            glutSolidSphere(1.0, tesallation, tesallation);
          }
 
          for (int i = 0; i < 5; i++) {
             glTranslatef(-0.8, 0.05, 0.0);
             glScaled(1.03, 1.03, 1.03);
-            glutSolidSphere(1.0, 10, 10);
+            glutSolidSphere(1.0, tesallation, tesallation);
          }
 
          // Left Tail Fork
@@ -434,7 +436,7 @@ void drawBackTrack() {
                glRotatef(-5.0, 0.0, 0.0, 1.0);
                glTranslatef(-0.85, -0.1 * (i * 0.5), -0.2);
                glScaled(1.0, 0.925, 0.90);
-               glutSolidSphere(1.0, 10, 10);
+               glutSolidSphere(1.0, tesallation, tesallation);
             }
          glPopMatrix();
          // Right Tail Fork
@@ -443,7 +445,7 @@ void drawBackTrack() {
                glRotatef(-5.0, 0.0, 0.0, 1.0);
                glTranslatef(-0.85, -0.1 * (i * 0.5), 0.2);
                glScaled(1.0, 0.925, 0.90);
-               glutSolidSphere(1.0, 10, 10);
+               glutSolidSphere(1.0, tesallation, tesallation);
             }
          glPopMatrix();
       glPopMatrix();
@@ -454,6 +456,7 @@ void drawBackTrack() {
 }
 
 void drawTeslaCoil() {
+   int tesallation = 6;
    // save the transformation state
    glPushMatrix();
 
@@ -468,15 +471,15 @@ void drawTeslaCoil() {
    
    // Coil Head
    glPushMatrix();
-      glutSolidSphere(2, 30, 30);
+      glutSolidSphere(2, tesallation, tesallation);
       glTranslatef(0.0, 0.0, 2.0);
-      gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+      gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, tesallation, tesallation);
       glTranslatef(0.0, 0.0, 1.5);
-      glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+      glutSolidTorus(0.4, 2.1, tesallation, tesallation); // inner radius really means thinness
       glTranslatef(0.0, 0.0, 2.0);
-      glutSolidTorus(0.4, 3.1, 20, 40);
+      glutSolidTorus(0.4, 3.1, tesallation, tesallation);
       glTranslatef(0.0, 0.0, 2.0);
-      glutSolidTorus(0.4, 4.1, 20, 40);
+      glutSolidTorus(0.4, 4.1, tesallation, tesallation);
    glPopMatrix();
 
    // relative to outward transform. Position Coild sides
@@ -494,15 +497,15 @@ void drawTeslaCoil() {
       glPushMatrix();
          glTranslatef(0.0, 5.0, 0.0);
          glRotatef(90, 1.0, 0.0, 0.0);
-         glutSolidSphere(2, 30, 30);
+         glutSolidSphere(2, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 2.0);
-         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 1.0);
-         glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+         glutSolidTorus(0.4, 2.1, tesallation, tesallation); // inner radius really means thinness
          glTranslatef(0.0, 0.0, 2.0);
-         glutSolidTorus(0.4, 3.1, 20, 40);
+         glutSolidTorus(0.4, 3.1, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 2.0);
-         glutSolidTorus(0.4, 4.1, 20, 40);
+         glutSolidTorus(0.4, 4.1, tesallation, tesallation);
       glPopMatrix();
    glPopMatrix();
    
@@ -531,15 +534,15 @@ void drawTeslaCoil() {
       glPushMatrix();
          glTranslatef(0.0, 5.0, 0.0);
          glRotatef(90, 1.0, 0.0, 0.0);
-         glutSolidSphere(2, 30, 30);
+         glutSolidSphere(2, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 2.0);
-         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 1.0);
-         glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+         glutSolidTorus(0.4, 2.1, tesallation, tesallation); // inner radius really means thinness
          glTranslatef(0.0, 0.0, 2.0);
-         glutSolidTorus(0.4, 3.1, 20, 40);
+         glutSolidTorus(0.4, 3.1, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 2.0);
-         glutSolidTorus(0.4, 4.1, 20, 40);
+         glutSolidTorus(0.4, 4.1, tesallation, tesallation);
       glPopMatrix();
    glPopMatrix();
    
@@ -568,15 +571,15 @@ void drawTeslaCoil() {
       glPushMatrix();
          glTranslatef(0.0, 5.0, 0.0);
          glRotatef(90, 1.0, 0.0, 0.0);
-         glutSolidSphere(2, 30, 30);
+         glutSolidSphere(2, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 2.0);
-         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, 20, 20);
+         gluCylinder(gluNewQuadric(), 0.4, 0.4, 10, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 1.0);
-         glutSolidTorus(0.4, 2.1, 20, 40); // inner radius really means thinness
+         glutSolidTorus(0.4, 2.1, tesallation, tesallation); // inner radius really means thinness
          glTranslatef(0.0, 0.0, 2.0);
-         glutSolidTorus(0.4, 3.1, 20, 40);
+         glutSolidTorus(0.4, 3.1, tesallation, tesallation);
          glTranslatef(0.0, 0.0, 2.0);
-         glutSolidTorus(0.4, 4.1, 20, 40);
+         glutSolidTorus(0.4, 4.1, tesallation, tesallation);
       glPopMatrix();
    glPopMatrix();
 
@@ -629,9 +632,9 @@ void drawTeslaCoil() {
       
       glPushMatrix(); // don't let scale trickle down
          glScaled(0.9, 0.9, 1.0); // at this point up/down == z, left/right == y
-         gluDisk(gluNewQuadric(), 0.0, 10, 6, 10);
+         gluDisk(gluNewQuadric(), 0.0, 10, tesallation, tesallation);
          glTranslatef(0.0, 0.0, -3.5);
-         gluCylinder(gluNewQuadric(), 13.0, 10.0, 3.5, 6, 10);
+         gluCylinder(gluNewQuadric(), 13.0, 10.0, 3.5, tesallation, tesallation);
       glPopMatrix();
       
       glTranslatef(0.0, 0.0, -3.5);
@@ -641,9 +644,9 @@ void drawTeslaCoil() {
      
        glPushMatrix(); // again, don't let scale tirckle down
          glScaled(0.97, 0.97, 1.0);
-         gluDisk(gluNewQuadric(), 0.0, 13, 8, 10);
+         gluDisk(gluNewQuadric(), 0.0, 13, tesallation, tesallation);
          glTranslatef(0.0, 0.0, -1.0);
-         gluCylinder(gluNewQuadric(), 13.0, 13.0, 1.0, 8, 10);
+         gluCylinder(gluNewQuadric(), 13.0, 13.0, 1.0, tesallation, tesallation);
       glPopMatrix();
       
       glTranslatef(0.0, 0.0, -1.0);
@@ -651,9 +654,9 @@ void drawTeslaCoil() {
       // Dark Grey
       setMaterial(DarkGrey);
    
-      gluDisk(gluNewQuadric(), 0.0, 13, 8, 10);
+      gluDisk(gluNewQuadric(), 0.0, 13, tesallation, tesallation);
       glTranslatef(0.0, 0.0, -15.0);
-      gluCylinder(gluNewQuadric(), 13.0, 13.0, 15.0, 8, 10);
+      gluCylinder(gluNewQuadric(), 13.0, 13.0, 15.0, tesallation, tesallation);
    glPopMatrix();
    
    // Orient for base bottom/sides
@@ -739,13 +742,15 @@ void drawTeslaCoil() {
    setMaterial(Grey);
    
    glTranslatef(0.0, 0.0, -21.5);
-   gluCylinder(gluNewQuadric(), 23.5, 16.5, 2.0, 4, 10);
+   // dont alter the 4, it is the ground base
+   gluCylinder(gluNewQuadric(), 23.5, 16.5, 2.0, 4, tesallation);
    
    glPopMatrix();
    return;
 }
 
 void drawCPUFan() {
+   int tesallation = 6;
    glPushMatrix();
       glTranslatef(0.0, 0.0, -6.0);
       // Fan 1
@@ -769,9 +774,9 @@ void drawCPUFan() {
          // Heatsink Rim
          glPushMatrix();
             glTranslatef(0.0, 0.0, -1.0);
-            glutSolidTorus(0.30, 13, 8, 30);
+            glutSolidTorus(0.30, 13, tesallation, tesallation);
             glTranslatef(0.0, 0.0, 2.0);
-            glutSolidTorus(0.25, 13, 8, 30);
+            glutSolidTorus(0.25, 13, tesallation, tesallation);
          glPopMatrix();
 
          glTranslatef(0.0, 0.0, -1.0);
@@ -779,16 +784,16 @@ void drawCPUFan() {
          // Center Core
          glPushMatrix();
             setMaterial(Grey);
-            gluCylinder(gluNewQuadric(), 4.0, 4.0, 5.0, 20, 8);
+            gluCylinder(gluNewQuadric(), 4.0, 4.0, 5.0, tesallation, tesallation);
             
             // Draw faces for cover core
             glPushMatrix();
                // Flip disk to face outward (for lighting)
                glRotatef(180, 1.0, 0.0, 0.0);
-               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, tesallation, 1);
                glTranslatef(0.0, 0.0, -5.0);
                glRotatef(180, 1.0, 0.0, 0.0);
-               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, tesallation, 1);
             glPopMatrix();
          glPopMatrix();
          
@@ -801,11 +806,11 @@ void drawCPUFan() {
                glRotatef(51.4, 0.0, 0.0, 1.0);
                glPushMatrix();
                glRotatef(-40, 0.0, 1.0, 0.0);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, 0, 51.4);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, 0, 51.4);
                
                glRotatef(180, 0.0, 1.0, 0.0);
                glTranslatef(0.0, 0.0, 0.5);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, -51.4, 51.4);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, -51.4, 51.4);
                glPopMatrix();
             }
          glPopMatrix();
@@ -822,9 +827,9 @@ void drawCPUFan() {
             setMaterial(Grey);
             glRotatef(90, 1.0, 0.0, 0.0);
             glTranslatef(-1.0, 0.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, tesallation, tesallation);
             glTranslatef(2.0, 0.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, tesallation, tesallation);
          glPopMatrix();
       glPopMatrix();
       
@@ -851,9 +856,9 @@ void drawCPUFan() {
          // Heatsink Rim
          glPushMatrix();
             glTranslatef(0.0, 0.0, -1.0);
-            glutSolidTorus(0.30, 13, 8, 30);
+            glutSolidTorus(0.30, 13, tesallation, tesallation);
             glTranslatef(0.0, 0.0, 2.0);
-            glutSolidTorus(0.25, 13, 8, 30);
+            glutSolidTorus(0.25, 13, tesallation, tesallation);
          glPopMatrix();
 
          glTranslatef(0.0, 0.0, -1.0);
@@ -861,16 +866,16 @@ void drawCPUFan() {
          // Center Core
          glPushMatrix();
             setMaterial(Grey);
-            gluCylinder(gluNewQuadric(), 4.0, 4.0, 5.0, 20, 8);
+            gluCylinder(gluNewQuadric(), 4.0, 4.0, 5.0, tesallation, tesallation);
             
             // Draw faces for cover core
             glPushMatrix();
                // Flip disk to face outward (for lighting)
                glRotatef(180, 1.0, 0.0, 0.0);
-               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, tesallation, 1);
                glTranslatef(0.0, 0.0, -5.0);
                glRotatef(180, 1.0, 0.0, 0.0);
-               gluDisk(gluNewQuadric(), 0.0, 4.0, 20, 1);
+               gluDisk(gluNewQuadric(), 0.0, 4.0, tesallation, 1);
             glPopMatrix();
          glPopMatrix();
          
@@ -883,11 +888,11 @@ void drawCPUFan() {
                glRotatef(51.4, 0.0, 0.0, 1.0);
                glPushMatrix();
                glRotatef(-40, 0.0, 1.0, 0.0);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, 0, 51.4);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, 0, 51.4);
                
                glRotatef(180, 0.0, 1.0, 0.0);
                glTranslatef(0.0, 0.0, 0.5);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, 10, 1, -51.4, 51.4);
+               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, -51.4, 51.4);
                glPopMatrix();
             }
          glPopMatrix();
@@ -904,9 +909,9 @@ void drawCPUFan() {
             setMaterial(Grey);
             glRotatef(90, 1.0, 0.0, 0.0);
             glTranslatef(-1.0, 0.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, tesallation, tesallation);
             glTranslatef(2.0, 0.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, 10, 8);
+            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, tesallation, tesallation);
          glPopMatrix();
       glPopMatrix();
       
@@ -947,6 +952,7 @@ void drawShield() {
 }
 
 void drawShieldBase(int set) {
+   int tesallation = 7;
    glPushMatrix();
       setMaterial(Grey);
       
@@ -966,7 +972,7 @@ void drawShieldBase(int set) {
                }
 
                glRotatef(5.0, 0.0, 1.0, 0.0);
-               gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.1, 9, 8);
+               gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.1, tesallation, tesallation);
             }
          glPopMatrix();
       
@@ -981,7 +987,7 @@ void drawShieldBase(int set) {
             }
 
             glRotatef(2.25, 0.0, 1.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, 8, 8);
+            gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, tesallation, tesallation);
          }
       glPopMatrix();
       
@@ -1005,7 +1011,7 @@ void drawShieldBase(int set) {
                }
 
                glRotatef(5.0, 0.0, 1.0, 0.0);
-               gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, 9, 8);
+               gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, tesallation, tesallation);
             }
          glPopMatrix();
 
@@ -1020,7 +1026,7 @@ void drawShieldBase(int set) {
             }
         
             glRotatef(2.25, 0.0, 1.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, 8, 8);
+            gluCylinder(gluNewQuadric(), 0.25, 0.25, 1.0, tesallation, tesallation);
          }
       glPopMatrix();
    glPopMatrix();
