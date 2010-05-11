@@ -39,6 +39,7 @@ std::vector<Button*> buttons;
 bool clicked = false;
 int last_time;
 int last_cycle;
+bool paused;
 
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -107,21 +108,25 @@ void init_lighting() {
 }
 
 void update(int param){
+  
   int this_time = glutGet(GLUT_ELAPSED_TIME);
   int dt = this_time - last_time;
   //fps = 1000.00/dt; 
   last_time = this_time;
   last_cycle += dt;
-  if(CYCLE_TIME < last_cycle){
-    p1.calcResources();
-    opponent.player.calcResources();
-    std::cout << "INCOME! " << p1.getIncome() << std::endl;
-    last_cycle -= CYCLE_TIME;
+  if(!paused){
+    if(CYCLE_TIME < last_cycle){
+      p1.calcResources();
+      opponent.player.calcResources();
+      std::cout << "INCOME! " << p1.getIncome() << std::endl;
+      last_cycle -= CYCLE_TIME;
+    }
+    p1.update(dt);
+    opponent.update(dt);  
   }
-  p1.update(dt);
-  opponent.update(dt);
   glutPostRedisplay();
   glutTimerFunc(10, update, 0);
+  
 }
 
 void keyboard(unsigned char key, int x, int y){
@@ -169,9 +174,10 @@ void keyboard(unsigned char key, int x, int y){
       //testGrid.removeTower(tlx, tly, towers);
       p1.destroyTower(tlx, tly);
       break;
-    case 'u': case 'U':
-	   p1.spawnUnit( 0);
-	   break;
+    case 'p': case 'P':
+      paused = !paused;
+      break;
+
   }
 }
 void specKeys(int key, int x, int y){
@@ -255,3 +261,16 @@ int main(int argc, char** argv){
   initializeUI();
   glutMainLoop();
 }
+
+class GridElement{
+private:
+  std::list<Unit*> *units;
+  Tower* tower;
+  bool isDrawn;
+  float x;
+  float y;
+  float z;
+public:
+  GridElement();
+  ~GridElement();
+};
