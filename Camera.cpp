@@ -1,9 +1,10 @@
 #include "Camera.h"
 namespace vtd_cam{
-  const float CAM_SPD = 0.0025;
-  const float ROT_SPD = 0.0025;
+  const float CAM_SPD = 0.05;
+  const float ROT_SPD = 0.15;
 }
 namespace controls{
+  std::map<char, bool> keyMap;
   const char FOREWARD = 'w';
   const char BACKWARD = 's';
   const char LEFT = 'a';

@@ -1,11 +1,13 @@
 #pragma once
 #include "MyVector.h"
+#include <map>
 
 namespace vtd_cam{
   extern const float CAM_SPD;
   extern const float ROT_SPD;
 }
 namespace controls{
+  extern std::map<char, bool> keyMap;
   extern const char FOREWARD;
   extern const char BACKWARD;
   extern const char LEFT;

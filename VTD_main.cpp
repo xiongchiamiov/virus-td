@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
+#include <map> 
  #ifdef __unix__
      #include <GL/glut.h>
  #endif
@@ -13,6 +14,7 @@
      #include <gl/glut.h>
  #endif
 #include "MyVector.h"
+#include "Camera.h"
 #include "GameGrid.h"
 #include "Player.h"
 #include "PlayerAI.h"
@@ -25,6 +27,7 @@ int GW, GH;
 //Camera variables
 MyVector camera;//Camera's positon held by x, y, z,
                 //the lookat held by i, j, k
+Camera cam;
 MyVector newCam;
 MyVector u;
 MyVector v;
@@ -46,9 +49,12 @@ void display(){
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   glPushMatrix();
-  gluLookAt(camera.getX(), camera.getY(), camera.getZ(), 
-            camera.getI(), camera.getJ(), camera.getK(),
-            0.0, 1.0, 0.0);
+  //gluLookAt(camera.getX(), camera.getY(), camera.getZ(), 
+            //camera.getI(), camera.getJ(), camera.getK(),
+            //0.0, 1.0, 0.0);
+  gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
+    cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
+    0.0, 1.0, 0.0);
   glColor3f(0.8, 0.5, 0.3);
   float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
   float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
@@ -114,6 +120,19 @@ void update(int param){
   //fps = 1000.00/dt; 
   last_time = this_time;
   last_cycle += dt;
+  if(controls::keyMap[controls::BACKWARD]){
+    cam.moveBackward();
+  }
+  if(controls::keyMap[controls::FOREWARD]){
+    cam.moveForward();
+  }
+  if(controls::keyMap[controls::RIGHT]){
+    cam.moveRight();
+  }
+  if(controls::keyMap[controls::LEFT]){
+    cam.moveLeft();
+  }
+
   if(!paused){
     if(CYCLE_TIME < last_cycle){
       p1.calcResources();
@@ -130,56 +149,61 @@ void update(int param){
 }
 
 void keyboard(unsigned char key, int x, int y){
-  switch(key){
-    case 'w': case 'W':
-      camera.setVector(camera.getI() + GRID_SIZE*2.0*w.getI(),
-                       camera.getJ() + GRID_SIZE*2.0*w.getJ(),
-                       camera.getK() + GRID_SIZE*2.0*w.getK());
-      camera.setPosition(camera.getX() + GRID_SIZE*2.0*w.getI(),
-                         camera.getY() + GRID_SIZE*2.0*w.getJ(),
-                         camera.getZ() + GRID_SIZE*2.0*w.getK());
-      break;
-    case 'a': case 'A':
-      camera.setVector(camera.getI() + GRID_SIZE*2.0*u.getI(),
-                       camera.getJ() + GRID_SIZE*2.0*u.getJ(),
-                       camera.getK() + GRID_SIZE*2.0*u.getK());
-      camera.setPosition(camera.getX() + GRID_SIZE*2.0*u.getI(),
-                         camera.getY() + GRID_SIZE*2.0*u.getJ(),
-                         camera.getZ() + GRID_SIZE*2.0*u.getK());
-      break;
-    case 's': case 'S':
-      camera.setVector(camera.getI() - GRID_SIZE*2.0*w.getI(),
-                       camera.getJ() - GRID_SIZE*2.0*w.getJ(),
-                       camera.getK() - GRID_SIZE*2.0*w.getK());
-      camera.setPosition(camera.getX() - GRID_SIZE*2.0*w.getI(),
-                         camera.getY() - GRID_SIZE*2.0*w.getJ(),
-                         camera.getZ() - GRID_SIZE*2.0*w.getK());
-      break;
-    case 'd': case 'D':
-      camera.setVector(camera.getI() - GRID_SIZE*2.0*u.getI(),
-                       camera.getJ() - GRID_SIZE*2.0*u.getJ(),
-                       camera.getK() - GRID_SIZE*2.0*u.getK());
-      camera.setPosition(camera.getX() - GRID_SIZE*2.0*u.getI(),
-                         camera.getY() - GRID_SIZE*2.0*u.getJ(),
-                         camera.getZ() - GRID_SIZE*2.0*u.getK());
-      break;
-    case 't': case 'T':
-      /*if(testGrid.setTower(tlx, tly)){
-        towers.push_back(g_elem(tlx, tly));
-      }*/
-      p1.placeTower(tlx, tly, 16);
-      //std::cout << towers.size() << std::endl;
-      break;
-    case 'r': case 'R':
-      //testGrid.removeTower(tlx, tly, towers);
-      p1.destroyTower(tlx, tly);
-      break;
-    case 'p': case 'P':
-      paused = !paused;
-      break;
-
-  }
+  //switch(key){
+  //  case 'w': case 'W':
+  //    camera.setVector(camera.getI() + GRID_SIZE*2.0*w.getI(),
+  //                     camera.getJ() + GRID_SIZE*2.0*w.getJ(),
+  //                     camera.getK() + GRID_SIZE*2.0*w.getK());
+  //    camera.setPosition(camera.getX() + GRID_SIZE*2.0*w.getI(),
+  //                       camera.getY() + GRID_SIZE*2.0*w.getJ(),
+  //                       camera.getZ() + GRID_SIZE*2.0*w.getK());
+  //    break;
+  //  case 'a': case 'A':
+  //    camera.setVector(camera.getI() + GRID_SIZE*2.0*u.getI(),
+  //                     camera.getJ() + GRID_SIZE*2.0*u.getJ(),
+  //                     camera.getK() + GRID_SIZE*2.0*u.getK());
+  //    camera.setPosition(camera.getX() + GRID_SIZE*2.0*u.getI(),
+  //                       camera.getY() + GRID_SIZE*2.0*u.getJ(),
+  //                       camera.getZ() + GRID_SIZE*2.0*u.getK());
+  //    break;
+  //  case 's': case 'S':
+  //    camera.setVector(camera.getI() - GRID_SIZE*2.0*w.getI(),
+  //                     camera.getJ() - GRID_SIZE*2.0*w.getJ(),
+  //                     camera.getK() - GRID_SIZE*2.0*w.getK());
+  //    camera.setPosition(camera.getX() - GRID_SIZE*2.0*w.getI(),
+  //                       camera.getY() - GRID_SIZE*2.0*w.getJ(),
+  //                       camera.getZ() - GRID_SIZE*2.0*w.getK());
+  //    break;
+  //  case 'd': case 'D':
+  //    camera.setVector(camera.getI() - GRID_SIZE*2.0*u.getI(),
+  //                     camera.getJ() - GRID_SIZE*2.0*u.getJ(),
+  //                     camera.getK() - GRID_SIZE*2.0*u.getK());
+  //    camera.setPosition(camera.getX() - GRID_SIZE*2.0*u.getI(),
+  //                       camera.getY() - GRID_SIZE*2.0*u.getJ(),
+  //                       camera.getZ() - GRID_SIZE*2.0*u.getK());
+  //    break;
+  //  case 't': case 'T':
+  //    /*if(testGrid.setTower(tlx, tly)){
+  //      towers.push_back(g_elem(tlx, tly));
+  //    }*/
+  //    p1.placeTower(tlx, tly, 16);
+  //    //std::cout << towers.size() << std::endl;
+  //    break;
+  //  case 'r': case 'R':
+  //    //testGrid.removeTower(tlx, tly, towers);
+  //    p1.destroyTower(tlx, tly);
+  //    break;
+  //  case 'p': case 'P':
+  //    paused = !paused;
+  //    break;
+  //}
+  controls::keyMap[key] = true;
 }
+
+void keyboardUp(unsigned char key, int x, int y){
+  controls::keyMap[key] = false;
+}
+
 void specKeys(int key, int x, int y){
   switch(key){
     case GLUT_KEY_DOWN:
@@ -249,6 +273,7 @@ int main(int argc, char** argv){
   glutDisplayFunc(display);
   glutReshapeFunc(reshape);
   glutKeyboardFunc(keyboard);
+  glutKeyboardUpFunc(keyboardUp);
   glutSpecialFunc(specKeys);
   glutMouseFunc(mouseClick);
   glutPassiveMotionFunc(mouseMotion);
