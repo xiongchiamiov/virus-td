@@ -24,6 +24,7 @@ void UnitsAI::determineUnitsPaths() {
 		std::list<MyNode*> dList;
 		float nextX = 0;
 		float nextZ = 0;
+		bool attackMode = false;
 		bool visited[16][40]; // note MAGIC NUMBERS
 
 		// initialize visited array
@@ -80,8 +81,21 @@ void UnitsAI::determineUnitsPaths() {
 				dList.push_back(d);
 			}
 
+			if(fringe.empty()) {
+				attackMode = true;
+				break;
+			}
+
 			cur = fringe.top();
 			fringe.pop();
+		}
+
+		if(attackMode) {
+			path.push(goal);
+			(*i)->path = path;
+			(*i)->dir.setVector(GOAL_X - (*i)->getX(), 0.0, GOAL_Z - (*i)->getZ());
+			(*i)->dir.normalize();
+			continue;
 		}
 
 		// roll back and create path

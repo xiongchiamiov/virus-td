@@ -273,6 +273,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\models.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\MyVector.cpp"
 					>
 				</File>
@@ -364,6 +368,10 @@
 				</File>
 				<File
 					RelativePath=".\lighting.h"
+					>
+				</File>
+				<File
+					RelativePath=".\models.h"
 					>
 				</File>
 				<File
