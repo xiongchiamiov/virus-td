@@ -5,7 +5,6 @@
 #define info_font_height 12
 #define info_font_bold GLUT_BITMAP_HELVETICA_12
 #define info_font_bold_height 14
-const char tower_names[6][10] = {"Basic", "Fast","Freeze","Slow","Trap","Wall"};
 
 extern MyVector camera, newCam;
 extern int GH, GW;
@@ -214,13 +213,13 @@ void drawRectangle(float xp, float yp, float w, float h, GLuint texture)
     glBindTexture(GL_TEXTURE_2D, texture);
 
 	glBegin(GL_QUADS);
-    glTexCoord2f(0,1);
+    glTexCoord2f(0.0,1.0);
     glVertex2f(xp,yp+h);
-    glTexCoord2f(1,1);
+    glTexCoord2f(1.0,1.0);
     glVertex2f(xp+w,yp+h);
-    glTexCoord2f(1,0);
+    glTexCoord2f(1.0,0.0);
     glVertex2f(xp+w,yp);
-    glTexCoord2f(0,0);
+    glTexCoord2f(0.0,0.0);
     glVertex2f(xp,yp);
     glEnd();
 
@@ -291,19 +290,15 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		char cost[30] = "Cost: ";
 		char damage[30] = "Damage: ";
 		char speed[30] = "Speed : ";
-		char num[10];
 		strcpy(desc,getTowerDescription(buttonNumber));
 		int len = 1;
 		for(char* c = &desc[0]; *c != '\0'; c++) {
 			if (*c == '\n')
 				len++;
 		}
-		itoa(getTowerCost(buttonNumber),num,10);
-		strcat(cost,num);
-		itoa(getTowerDamage(buttonNumber),num,10);
-		strcat(damage,num);
-		itoa(getTowerSpeed(buttonNumber),num,10);
-		strcat(speed,num);
+		sprintf( cost, "Cost: %d", getTowerCost(buttonNumber) );
+		sprintf( damage, "Damage: %d", getTowerDamage(buttonNumber) );
+		sprintf( speed, "Speed: %d", getTowerSpeed(buttonNumber) );
 
 		//float w = (float)getBitmapStringWidth(info_font_bold,name);
 		float w = (float)getBitmapStringWidth(info_font,desc);
@@ -327,6 +322,7 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		renderBitmapString(xp, yp, info_font, desc);
 
 		yp = y + h;
+
 		glPushMatrix();
 		glTranslatef(0,0,0.1);
 		//Draw Corners
@@ -345,7 +341,7 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		drawRectangle(xp - 8 + 16,yp + 2 - h,w - 16,16,info_tex[9]);
 		//Left
 		drawRectangle(xp - 8,yp + 2 + 16 - h,16,h - 16,info_tex[6]);
-		//Left
+		//Right
 		drawRectangle(xp + w - 8,yp + 2 + 16 - h,16,h - 16,info_tex[7]);
 		//Middle
 		drawRectangle(xp - 8 + 16,yp + 2 + 16 - h,w - 16,h - 16,info_tex[5]);
