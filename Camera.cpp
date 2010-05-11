@@ -1,6 +1,6 @@
 #include "Camera.h"
 namespace vtd_cam{
-  const float CAM_SPD = 0.05;
+  const float CAM_SPD = 0.15;
   const float ROT_SPD = 0.15;
 }
 namespace controls{

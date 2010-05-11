@@ -4,7 +4,7 @@
 class FastUnit : public Unit
 {
    public:
-   	FastUnit(float inx, float iny, float inz, int gx, int gy);
+   	FastUnit(float inx, float iny, float inz);
    	//BasicUnit(void);
    	~FastUnit(void);
    	void draw();

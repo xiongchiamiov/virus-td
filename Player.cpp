@@ -84,6 +84,9 @@ void Player::spawnUnit(int unitID){
       bonus = unit_bonus::BASIC;
       break;
     case 6:
+      nUnit = new FastUnit(START_X, 0.0, START_Z);
+      cost = unit_cost::FAST;
+      bonus = unit_bonus::FAST;
       break;
     case 5:
       break;
