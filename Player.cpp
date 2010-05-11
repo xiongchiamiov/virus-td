@@ -17,7 +17,7 @@ Player::~Player(void)
 {
 }
 
-void Player::placeTower(int x, int y, int towerID){
+ReturnCode Player::placeTower(int x, int y, int towerID){
   Tower* nTower = NULL;
   int cost = 0;
   float wx = float(x)*GRID_SIZE*2.0 + GRID_SIZE, 
@@ -56,7 +56,12 @@ void Player::placeTower(int x, int y, int towerID){
     case 8:
       break;
   }
-  if(nTower != NULL && resources >= cost && pGrid.setTower(x, y)){
+  
+  ReturnCode returnCode = (nTower == NULL) ? INVALID_TOWER
+                        : (resources < cost) ? INSUFFICIENT_BYTES
+                        : (!pGrid.setTower(x, y)) ? INVALID_LOCATION
+                        : SUCCESS;
+  if (returnCode == SUCCESS) {
     nTower->setEnemyUnitList(opponent->uai.uList);
     tList.push_back(nTower);
     resources -= cost;
@@ -64,6 +69,8 @@ void Player::placeTower(int x, int y, int towerID){
   } else {
     delete nTower;
   }
+  
+  return returnCode;
 }
 
 void Player::spawnUnit(int unitID){

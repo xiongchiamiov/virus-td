@@ -13,12 +13,14 @@
 #include <list>
 #include <stack>
 
+enum ReturnCode {SUCCESS, INSUFFICIENT_BYTES, INVALID_LOCATION, INVALID_TOWER};
+
 class Player
 {
 public:
   Player(void);
   ~Player(void);
-  void placeTower(int x, int y, int towerID);
+  ReturnCode placeTower(int x, int y, int towerID);
   void spawnUnit(int unitID);
   void upgradeTower();
   void destroyTower(int x, int y);
