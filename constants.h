@@ -27,6 +27,24 @@ namespace tower_cost{
   extern const int WALL;
 }
 
+namespace tower_name{
+  extern const char* BASIC;
+  extern const char* FAST;
+  extern const char* FREEZE;
+  extern const char* SLOW;
+  extern const char* TRAP;
+  extern const char* WALL;
+}
+
+namespace tower_description{
+  extern const char* BASIC;
+  extern const char* FAST;
+  extern const char* FREEZE;
+  extern const char* SLOW;
+  extern const char* TRAP;
+  extern const char* WALL;
+}
+
 struct g_elem{
   int x;
   int y;
@@ -38,3 +56,9 @@ struct g_elem{
 
 g_elem loc2grid(float x, float z);
 void grid2loc(g_elem g, float * x, float * z);
+
+const char* getTowerName(int index);
+const char* getTowerDescription(int index);
+int getTowerCost(int index);
+int getTowerDamage(int index);
+int getTowerSpeed(int index);

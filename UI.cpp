@@ -2,9 +2,9 @@
 #include "Player.h"
 
 #define info_font GLUT_BITMAP_HELVETICA_10
-#define info_font_height 10
+#define info_font_height 12
 #define info_font_bold GLUT_BITMAP_HELVETICA_12
-#define info_font_bold_height 12
+#define info_font_bold_height 14
 const char tower_names[6][10] = {"Basic", "Fast","Freeze","Slow","Trap","Wall"};
 
 extern MyVector camera, newCam;
@@ -70,7 +70,7 @@ void initializeUI()
 	button_tex[4] = LoadTexture("Button.bmp");
 	button_tex[5] = LoadTexture("Button.bmp");
 	button_tex[6] = LoadTexture("Button.bmp");
-   button_tex[7] = LoadTexture("Button.bmp");
+    button_tex[7] = LoadTexture("Button.bmp");
 	button_tex[8] = LoadTexture("Button.bmp");
    // Tower Icons
 	button_tex[9] = LoadTexture("Button.bmp");
@@ -271,7 +271,7 @@ info_tex[9] = LoadTexture("info_bottom.bmp");
 */
 void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumber)
 {
-	char name[30];
+	char name[80];
 	const int sep = 12;
    /* Option 1: button number layout
       6 7 8         17 16 15
@@ -282,19 +282,28 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		printf("Invalid button number in drawInfoPanel\n");
 		return;
 	}
-	if(buttonNumber >= 9 && buttonNumber <= 14) {
-		buttonNumber -= 9;
-		strcpy(name,tower_names[buttonNumber]);
+	if(buttonNumber >= 12 && buttonNumber <= 17) {
+		buttonNumber = 8 - (buttonNumber - 9);
+		strcpy(name,getTowerName(buttonNumber));
 		strcat(name," Tower");
 
-		char desc[300];
-		int len = 2;
-		if(buttonNumber == 0) {
-			strcpy(desc,"This is the description for one of the towers\nIt is a different length and size of the others\nBut the info GUI should compensate for it.");
-			len = 3;
+		char desc[400];
+		char cost[30] = "Cost: ";
+		char damage[30] = "Damage: ";
+		char speed[30] = "Speed : ";
+		char num[10];
+		strcpy(desc,getTowerDescription(buttonNumber));
+		int len = 1;
+		for(char* c = &desc[0]; *c != '\0'; c++) {
+			if (*c == '\n')
+				len++;
 		}
-		else
-			strcpy(desc,"This is the description for a tower\nIts not as long as one of the other descriptions.");
+		itoa(getTowerCost(buttonNumber),num,10);
+		strcat(cost,num);
+		itoa(getTowerDamage(buttonNumber),num,10);
+		strcat(damage,num);
+		itoa(getTowerSpeed(buttonNumber),num,10);
+		strcat(speed,num);
 
 		//float w = (float)getBitmapStringWidth(info_font_bold,name);
 		float w = (float)getBitmapStringWidth(info_font,desc);
@@ -309,11 +318,11 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 
 	    renderBitmapString(xp, yp, info_font_bold, name);
 		yp -= sep;
-		renderBitmapString(xp, yp, info_font, "Cost: 40");
+		renderBitmapString(xp, yp, info_font, cost);
 		yp -= sep;
-		renderBitmapString(xp, yp, info_font, "Damage: 40");
+		renderBitmapString(xp, yp, info_font, damage);
 		yp -= sep;
-		renderBitmapString(xp, yp, info_font, "Speed: 40");
+		renderBitmapString(xp, yp, info_font, speed);
 		yp -= (sep + 4);
 		renderBitmapString(xp, yp, info_font, desc);
 
@@ -588,7 +597,7 @@ void renderBitmapString(float x, float y, void *font,char *string) {
   glRasterPos3f(x, y, 0.1);
   for (c=string; *c != '\0'; c++) {
 	  if(*c == '\n') {
-		  y -= 10;
+		  y -= info_font_height;
 		  glRasterPos3f(x, y, 0.1);
 	  }
 	  else
