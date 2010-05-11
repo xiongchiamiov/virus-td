@@ -40,7 +40,7 @@ void BasicUnit::draw()
   glScaled(0.1, 0.1, 0.1);
   glTranslatef(0.0, 15.0, 5.0);
   glRotatef(-90, 0.0, 1.0, 0.0);
-  drawWorm();
+  glCallList(vtd_dl::wormDL);
   glPopMatrix();
 
   glPopMatrix();
