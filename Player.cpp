@@ -9,7 +9,7 @@ int last_cleanup = 0;
 using namespace vtd_player;
 Player::Player(void):
 lives(START_LIVES), resources(START_RESOURCES), income(0),
-uai(pGrid), opponent(this)
+uai(pGrid, tList), opponent(this)
 {
 }
 

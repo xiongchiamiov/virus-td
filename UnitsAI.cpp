@@ -1,6 +1,6 @@
 #include "UnitsAI.h"
 
-UnitsAI::UnitsAI(GameGrid& ingg):gg(&ingg)
+UnitsAI::UnitsAI(GameGrid& ingg, std::list<Tower*> &intList):gg(&ingg),tList(intList)
 {
 }
 
@@ -10,7 +10,31 @@ UnitsAI::~UnitsAI(void)
 
 void UnitsAI::determineUnitsPaths() {
 	std::list<Unit*>::iterator i;
+	std::list<Tower*>::iterator t;
 	g_elem goal(GOAL_X * 2, GOAL_Z * 2 + 4); // note MAGIC NUMBERS
+	int inRangeGrid[16][40]; // note MAGIC NUMBERS
+
+	// populate inRangeGrid
+	for(int m = 0; m < 16; m++) { // note MAGIC NUMBERS
+		for(int n = 0; n < 40; n++) { // note MAGIC NUMBERS
+			inRangeGrid[m][n] = 0;
+			if(!(*gg).isWall(g_elem(m, n))) {
+				for(t = tList.begin(); t != tList.end(); ++t) {
+					float gX = 0;
+					float gZ = 0;
+					float tX = (*t)->getX();
+					float tZ = (*t)->getZ();
+					grid2loc(g_elem(m, n), &gX, &gZ);
+					float dist = sqrt((gX - tX)*(gX - tX) + (gZ - tZ)*(gZ - tZ));
+					std::cout << dist << " " << m << " " << n << " " << inRangeGrid[m][n] << std::endl;
+					if(dist < (*t)->ai.range) {
+						inRangeGrid[m][n]++;
+						
+					}
+				}
+			}
+		}
+	}
 
 	// find path for every unit
 	for(i = uList.begin(); i != uList.end(); ++i) {
@@ -18,7 +42,7 @@ void UnitsAI::determineUnitsPaths() {
 			continue;
 		g_elem startLoc = loc2grid((*i)->getX(), (*i)->getZ());
 		std::list<MyNode*>::iterator m;
-		MyNode* cur = new MyNode(startLoc, NULL, 0, heuristic(startLoc, goal));
+		MyNode* cur = new MyNode(startLoc, NULL, 0, heuristic(startLoc, goal, inRangeGrid));
 		std::priority_queue<MyNode*, std::vector<MyNode*>, CompareMyNode> fringe;
 		std::stack<g_elem> path;
 		std::list<MyNode*> dList;
@@ -46,7 +70,7 @@ void UnitsAI::determineUnitsPaths() {
 			if(!(*gg).isWall(left) && !visited[cur->loc.x - 1][cur->loc.y]) {
 				//std::cout << "left " << cur->loc.x - 1 << " "  << cur->loc.y << std::endl;
 				visited[cur->loc.x - 1][cur->loc.y] = true;
-				MyNode* d = new MyNode(left, cur, cur->g + 1, heuristic(left, goal));
+				MyNode* d = new MyNode(left, cur, cur->g + 1, heuristic(left, goal, inRangeGrid));
 				fringe.push(d);
 				dList.push_back(d);
 			}
@@ -56,7 +80,7 @@ void UnitsAI::determineUnitsPaths() {
 			if(!(*gg).isWall(right) && !visited[cur->loc.x + 1][cur->loc.y]) {
 				//std::cout << "right " << cur->loc.x + 1 << " "  << cur->loc.y << std::endl;
 				visited[cur->loc.x + 1][cur->loc.y] = true;
-				MyNode* d = new MyNode(right, cur, cur->g + 1, heuristic(right, goal));
+				MyNode* d = new MyNode(right, cur, cur->g + 1, heuristic(right, goal, inRangeGrid));
 				fringe.push(d);
 				dList.push_back(d);
 			}
@@ -66,7 +90,7 @@ void UnitsAI::determineUnitsPaths() {
 			if(!(*gg).isWall(up) && !visited[cur->loc.x][cur->loc.y - 1]) {
 				//std::cout << "up " << cur->loc.x << " " << cur->loc.y - 1 << std::endl;
 				visited[cur->loc.x][cur->loc.y - 1] = true;
-				MyNode* d = new MyNode(up, cur, cur->g + 1, heuristic(up, goal));
+				MyNode* d = new MyNode(up, cur, cur->g + 1, heuristic(up, goal, inRangeGrid));
 				fringe.push(d);
 				dList.push_back(d);
 			}
@@ -76,7 +100,7 @@ void UnitsAI::determineUnitsPaths() {
 			if(!(*gg).isWall(down) && !visited[cur->loc.x][cur->loc.y + 1]) {
 				//std::cout << "down " << cur->loc.x << " "  << cur->loc.y + 1 << std::endl;
 				visited[cur->loc.x][cur->loc.y + 1] = true;
-				MyNode* d = new MyNode(down, cur, cur->g + 1, heuristic(down, goal));
+				MyNode* d = new MyNode(down, cur, cur->g + 1, heuristic(down, goal, inRangeGrid));
 				fringe.push(d);
 				dList.push_back(d);
 			}
@@ -126,6 +150,6 @@ void UnitsAI::setGrid(GameGrid& inGrid){
   gg = &inGrid;
 }
 
-int heuristic(g_elem cur, g_elem goal) {
-	return abs(cur.x - goal.x) + abs(cur.y - goal.y);
+int heuristic(g_elem cur, g_elem goal, int inRangeGrid[][40]) { // note MAGIC NUMBERS
+	return abs(cur.x - goal.x) + abs(cur.y - goal.y) + inRangeGrid[cur.x][cur.y];
 }

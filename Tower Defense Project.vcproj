@@ -233,6 +233,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\FastUnit.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Unit.cpp"
 					>
 				</File>
@@ -388,6 +392,10 @@
 				>
 				<File
 					RelativePath=".\BasicUnit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FastUnit.h"
 					>
 				</File>
 				<File
