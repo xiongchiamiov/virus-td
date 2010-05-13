@@ -33,6 +33,8 @@ protected:
   int value;
   int build_time;//Measured in milliseconds
   int stage;     //Upgrade stage
+  int last_atk; //Time since last attack
+  int atk_dt; //Attack speed (number of milliseconds between attacks)
 public:
   Unit(float inx, float iny, float inz);
   virtual ~Unit(void);
@@ -44,19 +46,8 @@ public:
   inline float getSpeed(){return speed;}
   inline unit_t getValue(){return type;}
   void step(int dt);
+  void checkCollison(GameObject* other);
   std::stack<g_elem> path;
   MyVector dir;
   bool foundGoal;
 };
-//
-//class UnitList{
-//public:
-//  UnitList();
-//  ~UnitList();
-//  std::list<Unit*>::iterator begin();
-//  std::list<Unit*>::iterator end();
-//  void remove(std::list<Unit*>::iterator& iter);
-//  
-//private:
-//  std::list<Unit*>* uList;
-//};

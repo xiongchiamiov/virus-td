@@ -19,10 +19,13 @@ public:
   bool setUnit(int x, int y);
   bool removeTower(int x, int y, std::list<Tower*>& towers);
   bool isWall(g_elem cur);
+  void setTowerGrid(int x, int y, Tower* tPtr);
+  Tower* checkCollision(Unit* unit);
   static const int G_WIDTH = 16;
   static const int G_HEIGHT = 32;
 private:
   float x;
   float y;
   bool grid[G_WIDTH][G_HEIGHT];
+  Tower* tGrid[G_WIDTH][G_HEIGHT];
 };

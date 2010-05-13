@@ -64,6 +64,7 @@ ReturnCode Player::placeTower(int x, int y, int towerID){
   if (returnCode == SUCCESS) {
     nTower->setEnemyUnitList(opponent->uai.uList);
     tList.push_back(nTower);
+    pGrid.setTowerGrid(x, y, nTower);
     resources -= cost;
     opponent->uai.determineUnitsPaths();
   } else {

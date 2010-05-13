@@ -1,5 +1,8 @@
 #include "Unit.h"
 
+float x_extents = 0.5*GRID_SIZE;
+float z_extents = 0.5*GRID_SIZE;
+
 Unit::Unit(float inx, float iny, float inz):
 GameObject(inx, iny, inz)
 {
@@ -69,19 +72,15 @@ void Unit::step(int dt) {
 	z += speed * dt * dir.getK();
 }
 
+void Unit::checkCollison(GameObject* other){
+  if(dir.getI() < 0){
+
+  } else {
+  }
+  if(dir.getK() < 0){
+  } else {
+  }  
+}
+
 //void Unit::moveToWaypoint(){
-//}
-//UnitList::UnitList(){
-//}
-//
-//UnitList::~UnitList(){
-//}
-//
-//std::list<Unit*>::iterator UnitList::begin(){
-//}
-//
-//std::list<Unit*>::iterator UnitList::end(){
-//}
-//
-//void UnitList::remove(std::list<Unit*>::iterator& iter){
 //}

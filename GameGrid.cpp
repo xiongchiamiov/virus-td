@@ -7,6 +7,7 @@ x(0.0), y(0.0)
   for(int i = 0; i < GRID_WIDTH; ++i){
     for(int j = 0; j < GRID_HEIGHT; ++j){
       grid[i][j] = true;
+      tGrid[i][j] = NULL;
     }
   }
 }
@@ -68,7 +69,7 @@ bool GameGrid::setTower(int x, int y){
     y < GRID_HEIGHT - 1 && y >= 0){
       if(retVal = grid[x][y] && grid[x + 1][y] &&//Tricky, remember the assignment
                   grid[x + 1][y + 1] && grid[x][y + 1]){
-        grid[x][y] = false; 
+        grid[x][y] = false;
         grid[x + 1][y] = false;
         grid[x + 1][y + 1] = false;
         grid[x][y + 1] = false;
@@ -77,6 +78,16 @@ bool GameGrid::setTower(int x, int y){
       return retVal;
   }
   return false;
+}
+
+void GameGrid::setTowerGrid(int x, int y, Tower* tPtr){
+  if(x < GRID_WIDTH - 1  && x >= 0 &&
+    y < GRID_HEIGHT - 1 && y >= 0){
+      tGrid[x][y] = tPtr;
+      tGrid[x + 1][y] = tPtr;
+      tGrid[x + 1][y + 1] = tPtr;
+      tGrid[x][y + 1] = tPtr;
+  }
 }
 
 bool GameGrid::removeTower(int x, int y, std::list<Tower*>& towers){
@@ -88,6 +99,10 @@ bool GameGrid::removeTower(int x, int y, std::list<Tower*>& towers){
       grid[x + 1][y] = true;
       grid[x + 1][y + 1] = true;
       grid[x][y + 1] = true;
+      tGrid[x][y] = NULL;
+      tGrid[x + 1][y] = NULL;
+      tGrid[x + 1][y + 1] = NULL;
+      tGrid[x][y + 1] = NULL;
       delete (*i); 
       towers.erase(i);
       return true;
@@ -100,7 +115,7 @@ bool GameGrid::setUnit(int x, int y){
   bool retVal;
   if(x < GRID_WIDTH - 1  && x >= 0 &&
     y < GRID_HEIGHT - 1 && y >= 0){
-      retVal = grid[x][y] && grid[x + 1][y] &&//Tricky, remember the assignment
+      retVal = grid[x][y] && grid[x + 1][y] &&
                   grid[x + 1][y + 1] && grid[x][y + 1];
 
       return retVal;
@@ -115,4 +130,21 @@ bool GameGrid::isWall(g_elem cur) {
 		return false;
 	else
 		return !grid[cur.x][cur.y - 4];
+}
+
+Tower* GameGrid::checkCollision(Unit* unit){
+  Tower* retTower;
+  g_elem spot = loc2grid(unit->getX(), unit->getZ());
+  if(unit->dir.getK() < 0.0 && spot.y > 0){
+    retTower = tGrid[spot.x][spot.y - 1];
+    //if(
+  }else if(spot.y > 0){
+    retTower = tGrid[spot.x][spot.y + 1];
+  }
+  if(unit->dir.getI() < 0.0 && spot.x > 0 && retTower == NULL){
+    retTower = tGrid[spot.x - 1][spot.y]; 
+  } else if(spot.x < GRID_WIDTH - 1 && retTower == NULL){
+    retTower = tGrid[spot.x + 1][spot.y];
+  }
+  return retTower;
 }
