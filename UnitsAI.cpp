@@ -27,7 +27,7 @@ void UnitsAI::determineUnitsPaths() {
 					grid2loc(g_elem(m, n), &gX, &gZ);
 					float dist = sqrt((gX - tX)*(gX - tX) + (gZ - tZ)*(gZ - tZ));
 					std::cout << dist << " " << m << " " << n << " " << inRangeGrid[m][n] << std::endl;
-					if(dist < (*t)->ai.range) {
+          if(dist < (*t)->getRange()) {
 						inRangeGrid[m][n]++;
 						
 					}

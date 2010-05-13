@@ -27,6 +27,7 @@ protected:
   int stage;     //Upgrade stage
   int grid_x;    //Coordinates with respect
   int grid_y;    //  to the game grid
+  TowerAI ai;    //This tower's AI object
 public:
   Tower(float inx, float iny, float inz, int gx, int gy);
   virtual ~Tower(void);
@@ -42,6 +43,6 @@ public:
   void step(int dt);
   void upgrade();
   int getKill();
-  TowerAI ai;    //This tower's AI object
+  inline float getRange(){return ai.range;}
   //inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
 };

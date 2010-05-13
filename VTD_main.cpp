@@ -132,6 +132,12 @@ void update(int param){
   if(controls::keyMap[controls::LEFT]){
     cam.moveLeft();
   }
+  if(controls::keyMap[controls::ZOOM_IN]){
+    cam.zoomIn();
+  }
+  if(controls::keyMap[controls::ZOOM_OUT]){
+    cam.zoomOut();
+  }
 
   if(!paused){
     if(CYCLE_TIME < last_cycle){

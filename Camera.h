@@ -25,6 +25,8 @@ public:
   void moveBackward();
   void moveLeft();
   void moveRight();
+  void zoomIn();
+  void zoomOut();
   void rotateUp();
   void rotateDown();
   void rotateLeft();
@@ -32,9 +34,9 @@ public:
   inline float getCamX(){return cam.getX();}
   inline float getCamY(){return cam.getY();}
   inline float getCamZ(){return cam.getZ();}
-  inline float getLookAtX(){return cam.getI();}
-  inline float getLookAtY(){return cam.getJ();}
-  inline float getLookAtZ(){return cam.getK();}
+  inline float getLookAtX(){return cam.getX() + cam.getI();}
+  inline float getLookAtY(){return cam.getY() + cam.getJ();}
+  inline float getLookAtZ(){return cam.getZ() + cam.getK();}
 private:
   MyVector cam;
   MyVector u;
