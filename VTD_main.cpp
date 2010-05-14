@@ -64,8 +64,6 @@ void display(){
     glVertex3f(lx, 5.0, lz);
   }
   glEnd();
-  
-  //testGrid.draw();
   glPushMatrix();
   p1.draw();
   glScalef(-1.0, 1.0, -1.0);
@@ -155,7 +153,7 @@ void update(int param){
 }
 
 void keyboard(unsigned char key, int x, int y){
-  //switch(key){
+  switch(key){
   //  case 'w': case 'W':
   //    camera.setVector(camera.getI() + GRID_SIZE*2.0*w.getI(),
   //                     camera.getJ() + GRID_SIZE*2.0*w.getJ(),
@@ -188,21 +186,21 @@ void keyboard(unsigned char key, int x, int y){
   //                       camera.getY() - GRID_SIZE*2.0*u.getJ(),
   //                       camera.getZ() - GRID_SIZE*2.0*u.getK());
   //    break;
-  //  case 't': case 'T':
-  //    /*if(testGrid.setTower(tlx, tly)){
-  //      towers.push_back(g_elem(tlx, tly));
-  //    }*/
-  //    p1.placeTower(tlx, tly, 16);
-  //    //std::cout << towers.size() << std::endl;
-  //    break;
-  //  case 'r': case 'R':
-  //    //testGrid.removeTower(tlx, tly, towers);
-  //    p1.destroyTower(tlx, tly);
-  //    break;
-  //  case 'p': case 'P':
-  //    paused = !paused;
-  //    break;
-  //}
+    case 't': case 'T':
+      /*if(testGrid.setTower(tlx, tly)){
+        towers.push_back(g_elem(tlx, tly));
+      }*/
+      p1.placeTower(tlx, tly, 16);
+      //std::cout << towers.size() << std::endl;
+      break;
+    case 'r': case 'R':
+      //testGrid.removeTower(tlx, tly, towers);
+      p1.destroyTower(tlx, tly);
+      break;
+    case 'p': case 'P':
+      paused = !paused;
+      break;
+  }
   controls::keyMap[key] = true;
 }
 

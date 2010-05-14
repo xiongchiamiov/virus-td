@@ -72,14 +72,8 @@ void Unit::step(int dt) {
 	z += speed * dt * dir.getK();
 }
 
-void Unit::checkCollison(GameObject* other){
-  if(dir.getI() < 0){
-
-  } else {
-  }
-  if(dir.getK() < 0){
-  } else {
-  }  
+bool Unit::checkCollison(GameObject* other){
+  return false;
 }
 
 //void Unit::moveToWaypoint(){

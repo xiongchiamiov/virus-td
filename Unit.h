@@ -46,7 +46,7 @@ public:
   inline float getSpeed(){return speed;}
   inline unit_t getValue(){return type;}
   void step(int dt);
-  void checkCollison(GameObject* other);
+  bool checkCollison(GameObject* other);
   std::stack<g_elem> path;
   MyVector dir;
   bool foundGoal;
