@@ -71,9 +71,27 @@ void Unit::step(int dt) {
 	y += speed * dt * dir.getJ();
 	z += speed * dt * dir.getK();
 }
+float uXExt = 0.3;
+float uZExt = 0.3;
+
+inline bool checkBounds(float top, float bottom, float left, float right, float checkX, float checkY){
+  return (top > checkX && bottom < checkX && left < checkY && right > checkY); 
+}
 
 bool Unit::checkCollison(GameObject* other){
-  return false;
+  float uTop = z + uZExt,
+        uBottom = z - uZExt,
+        uLeft = x - uXExt,
+        uRight = x + uXExt,
+        tTop = other->getZ() + GRID_SIZE*2.0,
+        tBottom = other->getZ() - GRID_SIZE*2.0,
+        tLeft = other->getX() - GRID_SIZE*2.0,
+        tRight = other->getX() + GRID_SIZE*2.0;
+  
+  return checkBounds(tTop, tBottom, tLeft, tRight, uTop, uLeft) || //Top left corner 
+         checkBounds(tTop, tBottom, tLeft, tRight, uTop, uRight) || //Top right corner
+         checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uLeft) || //Bottom left corner
+         checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uLeft); //Bottom right corner
 }
 
 //void Unit::moveToWaypoint(){

@@ -16,6 +16,7 @@
 #include <string.h>
 #include "lighting.h"
 #include "MyVector.h"
+#include "Camera.h"
 #include "GameObject.h"
 #include <vector>
 #include "textures.h"

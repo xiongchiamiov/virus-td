@@ -230,6 +230,13 @@ void Player::draw(){
   for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
     if(!(*p)->isDead()){
       (*p)->draw();
+      if(opponent->pGrid.checkCollision(*p) != NULL){
+        setMaterial(RedFlat);
+        glPushMatrix();
+        glTranslatef((*p)->getX(), (*p)->getY(), (*p)->getZ());
+        glutSolidSphere(GRID_SIZE*3.0, 4, 4); 
+        glPopMatrix();
+      }
     }
   }
   glPopMatrix();

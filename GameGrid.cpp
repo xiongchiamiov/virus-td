@@ -81,6 +81,12 @@ bool GameGrid::setTower(int x, int y){
 }
 
 void GameGrid::setTowerGrid(int x, int y, Tower* tPtr){
+  std::cout << "Tower set at " << x << " " << y << std::endl;
+  if(tPtr != NULL){
+    std::cout << "Tower not null" << std::endl;
+  } else {
+    std::cout << "Tower null" << std::endl;
+  }
   if(x < GRID_WIDTH - 1  && x >= 0 &&
     y < GRID_HEIGHT - 1 && y >= 0){
       tGrid[x][y] = tPtr;
@@ -133,18 +139,24 @@ bool GameGrid::isWall(g_elem cur) {
 }
 
 Tower* GameGrid::checkCollision(Unit* unit){
-  Tower* retTower;
+  Tower* retTower = NULL;
   g_elem spot = loc2grid(unit->getX(), unit->getZ());
   if(unit->dir.getK() < 0.0 && spot.y > 0){
+    
     retTower = tGrid[spot.x][spot.y - 1];
     //if(
-  }else if(spot.y > 0){
+  }else if(spot.y < GRID_HEIGHT - 1){
+    std::cout << (tGrid[spot.x][spot.y + 1] == NULL) << std::endl;
+    //std::cout << "Checking lower grid" << std::endl;
     retTower = tGrid[spot.x][spot.y + 1];
   }
   if(unit->dir.getI() < 0.0 && spot.x > 0 && retTower == NULL){
     retTower = tGrid[spot.x - 1][spot.y]; 
   } else if(spot.x < GRID_WIDTH - 1 && retTower == NULL){
     retTower = tGrid[spot.x + 1][spot.y];
+  }
+  if(retTower != NULL && !unit->checkCollison(retTower)){
+    retTower = NULL;
   }
   return retTower;
 }

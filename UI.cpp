@@ -7,6 +7,7 @@
 #define info_font_bold_height 14
 
 extern MyVector camera, newCam;
+extern Camera cam;
 extern int GH, GW;
 extern std::vector<Button *> buttons;
 extern bool clicked;
@@ -233,11 +234,11 @@ void drawMouseBox(bool click) {
       double xForm, yForm;
       glPushMatrix();
       setMaterial(Teal);
-      xForm = ((int)worldX + camera.getX() - newCam.getX());
-      yForm = ((int)worldZ + camera.getZ() - newCam.getZ() + 0.5);
+      xForm = ((int)worldX + cam.getCamX() - newCam.getX());
+      yForm = ((int)worldZ + cam.getCamZ() - newCam.getZ() + 0.5);
       // tly and tlx increment in 0.5 not 1
       tlx = xForm * 2 + 7;
-      tly = ((int)worldZ + camera.getZ() - newCam.getZ()) * 2 + 16;
+      tly = ((int)worldZ + cam.getCamZ() - newCam.getZ()) * 2 + 16;
       ulx = tlx;
       uly = tly;
       glTranslatef(xForm, (int)worldY, yForm);
