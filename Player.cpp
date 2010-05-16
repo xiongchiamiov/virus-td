@@ -214,7 +214,7 @@ void Player::destroyTower(int x, int y){
   pGrid.removeTower(x, y, tList);
   uai.determineUnitsPaths();
 }
-
+#include "Camera.h"
 void Player::draw(){
   glPushMatrix();
   glTranslatef(-GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE, 0.0, -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE);
@@ -230,7 +230,8 @@ void Player::draw(){
   for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
     if(!(*p)->isDead()){
       (*p)->draw();
-      if(opponent->pGrid.checkCollision(*p) != NULL){
+      if(/*controls::keyMap['o'] &&*/ pGrid.checkCollision(*p) != NULL){
+        std::cout << "Hit" << std::endl;
         setMaterial(RedFlat);
         glPushMatrix();
         glTranslatef((*p)->getX(), (*p)->getY(), (*p)->getZ());

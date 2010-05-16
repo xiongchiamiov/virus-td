@@ -74,8 +74,8 @@ void Unit::step(int dt) {
 float uXExt = 0.3;
 float uZExt = 0.3;
 
-inline bool checkBounds(float top, float bottom, float left, float right, float checkX, float checkY){
-  return (top > checkX && bottom < checkX && left < checkY && right > checkY); 
+inline bool checkBounds(float top, float bottom, float left, float right, float checkY, float checkX){
+  return (top > checkY && bottom < checkY && left < checkX && right > checkX); 
 }
 
 bool Unit::checkCollison(GameObject* other){
@@ -91,7 +91,7 @@ bool Unit::checkCollison(GameObject* other){
   return checkBounds(tTop, tBottom, tLeft, tRight, uTop, uLeft) || //Top left corner 
          checkBounds(tTop, tBottom, tLeft, tRight, uTop, uRight) || //Top right corner
          checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uLeft) || //Bottom left corner
-         checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uLeft); //Bottom right corner
+         checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uRight); //Bottom right corner
 }
 
 //void Unit::moveToWaypoint(){
