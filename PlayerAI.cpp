@@ -13,7 +13,21 @@ void PlayerAI::update(int dt) {
 	// we don't want to do anything right at the very, very beginning
 	if (updates) {
 		if (!(updates % 200)) {
-			player.placeTower(1, 1, 17);
+			/* randomly place towers
+			 *
+			 * NUMBER_OF_TOWERS is the number of different towers we can build
+			 * STARTING_TOWER is the identifier for the lower-numbered tower
+			 * These need to be modified when the towers in Player are changed,
+			 * which means we probably shouldn't have them defined here. Oh well.
+			 */
+			srand(time(NULL));
+			const int NUMBER_OF_TOWERS = 6;
+			const int STARTING_TOWER = 12;
+			
+			while(player.placeTower(rand() % player.pGrid.G_WIDTH + 1,
+			                        rand() % player.pGrid.G_HEIGHT + 1,
+			                        rand() % NUMBER_OF_TOWERS + STARTING_TOWER)
+			   == INVALID_LOCATION);
 		}
 		if (!(updates % 500)) {
 			player.spawnUnit(7);

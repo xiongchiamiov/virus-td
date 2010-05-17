@@ -31,12 +31,12 @@ public:
   int getIncome();
   int calcResources();
   void setOpponent(Player* newOpp);
+  GameGrid pGrid;
   
 private:
   int resources;
   int lives;
   int income;
-  GameGrid pGrid;
   std::list<Tower*> tList;
   UnitsAI uai;
   std::stack<Unit*> delStack;
