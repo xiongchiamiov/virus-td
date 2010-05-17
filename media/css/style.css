@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+	font-family: verdana, "Lucida Grande", arial, helvetica, sans-serif;
 }
 
 #header,
@@ -87,6 +88,19 @@ body {
 .date {
 	float: right;
 	font-size: small;
+}
+
+.bio {
+	display: block;
+	clear: both;
+	min-height: 100px;
+	margin-bottom: 28px;
+}
+.bio img {
+	float: left;
+	margin-right: 2em;
+	border: 1px solid #ccc;
+	padding: 1px;
 }
 
 /* Footer */
