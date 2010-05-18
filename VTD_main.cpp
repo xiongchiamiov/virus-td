@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <map> 
+#include <time.h>
  #ifdef __unix__
      #include <GL/glut.h>
  #endif
@@ -71,7 +72,7 @@ void display(){
   opponent.player.draw();
   glPopMatrix();
   glPushMatrix();
-  renderUI(GW, GH, GL_RENDER);
+  renderUI(GW, GH,&p1,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
   glPopMatrix();
   
   drawMouseBox(clicked);
@@ -238,7 +239,7 @@ void specKeys(int key, int x, int y){
 
 int main(int argc, char** argv){
   //Initialize globals
-  srand(time(NULL));
+  //srand(time(NULL));
   camera.setPosition(0.0, 10.0, 10.0);
   camera.setVector(0.0, 0.0, 0.0);
   newCam = camera;

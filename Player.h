@@ -31,6 +31,7 @@ public:
   void draw();
   void update(int dt);
   int getIncome();
+  int getResources();
   int calcResources();
   void setOpponent(Player* newOpp);
   GameGrid pGrid;

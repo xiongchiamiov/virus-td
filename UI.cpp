@@ -96,7 +96,7 @@ void initializeUI()
 	info_tex[9] = LoadTexture("info_bottom.bmp");
 }
 
-void renderUI(int w, int h, GLuint mode)
+void renderUI(int w, int h,Player* p, float time_left, GLuint mode)
 {
    int bNumber = 0;
 
@@ -165,9 +165,16 @@ void renderUI(int w, int h, GLuint mode)
 //   sprintf(timeRemainingString, "Time Remaining: %d", timeRemaining);
  //  sprintf(currencyString, "Objects Remaining: %d", currency);
 
-   renderBitmapString(1.0 * GW / 4.0, GH - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
+	 char str[200];
+	 sprintf( str, "Time until next wave: %2.2f", time_left );
+	 renderBitmapString(8, GH - 24, GLUT_BITMAP_HELVETICA_18 , str);
+	 sprintf( str, "Income: %d", p->getIncome() );
+	 renderBitmapString(8, GH - 24 - 22, GLUT_BITMAP_HELVETICA_18 , str);
+	 sprintf( str, "Bytes: %d", p->getResources() );
+	 renderBitmapString(8, GH - 24 - 22 - 22, GLUT_BITMAP_HELVETICA_18 , str);
+   //renderBitmapString(1.0 * GW / 4.0, GH - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
 
-   renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
+   //renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
 
    if(curBtn != -1)
 	drawInfoPanel(mx,my,GW,GH,curBtn);

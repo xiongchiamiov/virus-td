@@ -15,7 +15,7 @@
 //};
 
 const int FRACTAL_DEPTH = 2;
-const float FRACTAL_VAR = 1.0;
+const float FRACTAL_VAR = 0.75;
 
 class FractalSet {
 public:
