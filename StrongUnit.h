@@ -3,7 +3,7 @@
 
 class StrongUnit : public Unit {
    public:
-   	StrongUnit(float inx, float iny, float inz, int gx, int gy);
+   	StrongUnit(float inx, float iny, float inz);
    	//BasicUnit(void);
    	~StrongUnit(void);
    	void draw();

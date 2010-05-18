@@ -30,6 +30,7 @@ typedef struct materialStruct {
 
 extern materialStruct RedFlat;
 extern materialStruct GreenShiny;
+extern materialStruct Metal;
 extern materialStruct Exp;
 extern materialStruct Exp2;
 extern materialStruct Grey;

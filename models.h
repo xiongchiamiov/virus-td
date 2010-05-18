@@ -1,6 +1,9 @@
 #include "lighting.h"
 
 namespace vtd_dl{
+  extern GLuint blkhatDL;
+  extern GLuint virusDL;
+  extern GLuint forkbDL;
   extern GLuint wormDL;
   extern GLuint backtrackDL;
   extern GLuint teslaDL;
@@ -8,6 +11,9 @@ namespace vtd_dl{
   extern GLuint shieldDL;
 };
 
+void drawBlackHat();
+void drawForkBomb();
+void drawVirus();
 void drawWorm();
 void drawBackTrack();
 void drawTeslaCoil();

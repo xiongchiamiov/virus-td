@@ -9,6 +9,7 @@
 #include "WallTower.h"
 #include "Unit.h"
 #include "BasicUnit.h"
+#include "StrongUnit.h"
 #include "FastUnit.h"
 #include "UnitsAI.h"
 #include <list>

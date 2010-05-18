@@ -1,12 +1,303 @@
 #include "models.h"
 
+
 namespace vtd_dl{
+  GLuint blkhatDL;
+  GLuint forkbDL;
+  GLuint virusDL;
   GLuint wormDL;
   GLuint backtrackDL;
   GLuint teslaDL;
   GLuint fanDL;
   GLuint shieldDL;
 };
+
+void drawBlackHat()
+{
+	glPushMatrix();
+	glTranslatef(0,.2,0);
+	glRotatef(-90,1,0,0);
+	glPushMatrix();
+	GLUquadricObj *quadObj = gluNewQuadric();
+	gluDisk(quadObj,0,1,50,1);
+	//glutSolidTorus(.1,.2,10,50);
+	//gluCylinder(quadObj, base, top, height, slices, stacks);
+	glPopMatrix();
+	glPushMatrix();
+	glutSolidCone(.5,3,10,10);
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
+void drawForkBomb()
+{
+	float animate_fork = 0.25;
+	glPushMatrix(); /** Entire forkbomb **/
+		//insert entire forkbomb animations
+		glPushMatrix(); /** Entire Bomb **/
+			setMaterial(Black);
+			//insert bomb animation
+		    glRotatef(-90,1,0,0);
+			glRotatef(22,0,1,0);
+			glPushMatrix(); /** Circular Element in Bomb **/
+				glutSolidSphere(1.0, 12, 12);
+			glPopMatrix();
+			glPushMatrix(); /** Wick to bomb transition **/
+				setMaterial(DarkGrey);
+				//glRotatef(-90,1,0,0);
+				//glRotatef(22,0,1,0);
+				glTranslatef(0,0,.95);
+				GLUquadricObj *quadObj = gluNewQuadric();
+				gluCylinder(quadObj, .15, .15, .25, 6, 6);				
+			glPopMatrix();
+			glPushMatrix();
+			setMaterial(Metal);
+			glPushMatrix(); /** Wick **/
+				glTranslatef(0,0,1.2);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glTranslatef(0,0,1.3);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glTranslatef(0,0,1.4);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glTranslatef(0,0,1.5);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(.1,1,0,0);
+				glTranslatef(0,0,1.55);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(.2,1,0,0);
+				glTranslatef(0,0,1.6);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(.4,1,0,0);
+				glTranslatef(0,0,1.65);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(.5,1,0,0);
+				glTranslatef(0,0,1.7);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(.7,1,0,0);
+				glTranslatef(0,0,1.75);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(.8,1,0,0);
+				glTranslatef(0,0,1.8);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(1.0,1,0,0);
+				glTranslatef(0,0,1.85);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(1.1,1,0,0);
+				glTranslatef(0,0,1.9);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(1.3,1,0,0);
+				glTranslatef(0,0,1.95);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPushMatrix(); /** Wick **/
+				glRotatef(1.4,1,0,0);
+				glTranslatef(0,0,2.0);
+				glutSolidSphere(0.1, 3, 3);
+			glPopMatrix();
+			glPopMatrix();
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(0,animate_fork,0);
+		glRotatef(-90,1,0,0);
+		glRotatef(-10,0,1,0);
+		glScalef(.5,.5,.5);
+			glPushMatrix(); /** Entire Fork **/
+				setMaterial(ShinyMetal);
+				quadObj = gluNewQuadric();
+				//gluCylinder(quadObj, base, top, height, slices, stacks);
+				gluCylinder(quadObj,.125,.125,3,10,10);
+			glPopMatrix();
+			glPushMatrix();
+				quadObj = gluNewQuadric();
+				glTranslatef(0,0,2);
+				gluCylinder(quadObj,.125,.07,.5,10,10);
+			glPopMatrix();
+			glPushMatrix();
+				glRotatef(90,1,0,0);
+				glTranslatef(0,3,-.285);
+				glScalef(1,.75,.125);
+				glScalef(.75,.75,.75);
+				//glTranslatef(0,0,2.4);
+				glPushMatrix();
+				quadObj = gluNewQuadric();
+				glTranslatef(0,0,2.4);
+				glBegin(GL_TRIANGLES);
+					glVertex3f(0,-1,0);
+					glVertex3f(1,1,0);
+					glVertex3f(-1,1,0);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,0,3.4);
+				glBegin(GL_TRIANGLES);
+					glVertex3f(0,-1,0);
+					glVertex3f(1,1,0);
+					glVertex3f(-1,1,0);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,0,2.9);
+				glRotatef(90,0,1,0);
+				glBegin(GL_QUADS);
+					glVertex3f(.5,1,1);
+					glVertex3f(.5,-1,0);
+					glVertex3f(-.5,-1,0);
+					glVertex3f(-.5,1,1);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,0,2.9);
+				glRotatef(-90,0,1,0);
+				glBegin(GL_QUADS);
+					glVertex3f(.5,1,1);
+					glVertex3f(.5,-1,0);
+					glVertex3f(-.5,-1,0);
+					glVertex3f(-.5,1,1);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,1,2.9);
+				glRotatef(-90,1,0,0);
+				glScalef(2,.5,1);
+				glBegin(GL_QUADS);
+					glVertex3f(.5,1,0);
+					glVertex3f(.5,-1,0);
+					glVertex3f(-.5,-1,0);
+					glVertex3f(-.5,1,0);
+				glEnd();
+				glPopMatrix();
+				//glutSolidTetrahedron();
+				//gluCylinder(quadObj,.07,.5,.4,10,1);			
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(-.69,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(-.245,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);	
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(.245,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(.69,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+		glPopMatrix();
+	glPopMatrix();
+	if((animate_fork + 0.01)<0.95)
+	{
+		animate_fork = animate_fork + 0.01;
+	}
+	else
+	{
+		animate_fork =  0.1;
+	}
+}
+
+void drawVirus()
+{
+	glPushMatrix();
+	int list[6] = {60,120,180,240,300,360};
+	float animate_virus = 0.25;
+
+	setMaterial(GreenShiny);
+	glutSolidSphere(1.0, 12, 12);
+	glPushMatrix();
+	glTranslatef(0,0,0.75);
+	GLUquadricObj *quadObj = gluNewQuadric();
+	//gluCylinder(quadObj, base, top, height, slices, stacks);
+	//gluCylinder(quadObj, 0.125, 0, 0.5, 12, 12);
+	glPopMatrix();
+	int i;
+	setMaterial(RedFlat);
+	for(i = 0; i < 6; i++)
+	{
+		glPushMatrix();
+		glColor3f(1,0,0);
+		glRotatef(list[i],1,0,0);
+		glTranslatef(0,0,animate_virus);
+		quadObj = gluNewQuadric();
+		//gluCylinder(quadObj, base, top, height, slices, stacks);
+		gluCylinder(quadObj, 0.2, 0, 1.1, 12, 12);
+		glPopMatrix();
+	}
+	for(i = 0; i < 6; i++)
+	{
+		glPushMatrix();
+		glColor3f(1,0,0);
+		glRotatef(list[i],0,1,0);
+		glTranslatef(0,0,animate_virus);
+		quadObj = gluNewQuadric();
+		//gluCylinder(quadObj, base, top, height, slices, stacks);
+		gluCylinder(quadObj, 0.2, 0, 1.1, 12, 12);
+		glPopMatrix();
+	}
+	for(i = 0; i < 6; i++)
+	{
+		glPushMatrix();
+		glColor3f(1,0,0);
+		glRotatef(list[i],1,1,0);
+		glTranslatef(0,0,animate_virus);
+		quadObj = gluNewQuadric();
+		//gluCylinder(quadObj, base, top, height, slices, stacks);
+		gluCylinder(quadObj, 0.2, 0, 1.1, 12, 12);
+		glPopMatrix();
+	}
+	glPopMatrix();
+	//printf("animate virus = %f \n", animate_virus);
+	if((animate_virus + 0.01)<0.95)
+	{
+		animate_virus = animate_virus + 0.01;
+	}
+	else
+	{
+		animate_virus =  0.25;
+	}
+}
 
 void drawWorm() {
    int tesallation = 6;
@@ -1036,11 +1327,26 @@ void drawShieldBase(int set) {
 
 using namespace vtd_dl;
 void composeDisplayLists(){
+  blkhatDL = glGenLists(1);
+  forkbDL = glGenLists(1);
+  virusDL = glGenLists(1);
   wormDL = glGenLists(1);
   backtrackDL = glGenLists(1);
   teslaDL = glGenLists(1);
   fanDL = glGenLists(1);
   shieldDL = glGenLists(1);
+  
+    glNewList(blkhatDL, GL_COMPILE);
+    drawBlackHat();
+  glEndList();
+
+    glNewList(forkbDL, GL_COMPILE);
+    drawForkBomb();
+  glEndList();
+
+    glNewList(virusDL, GL_COMPILE);
+    drawVirus();
+  glEndList();
 
   glNewList(wormDL, GL_COMPILE);
     drawWorm();

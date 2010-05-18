@@ -9,8 +9,15 @@ materialStruct RedFlat = {
 materialStruct GreenShiny = {
   {0.0, 0.3, 0.0, 1.0},
   {0.0, 0.9, 0.0, 1.0},
-  {0.2, 1.0, 0.2, 1.0},
-  {8.0}
+  {0.2, 0.8, 0.2, 1.0},
+  {6.0}
+};
+
+materialStruct Metal = {
+{0.33, 0.22, 0.03, 1.0},
+{0.78, 0.57, 0.11, 1.0},
+{0.99, 0.91, 0.81, 1.0},
+{27.8}
 };
 
 materialStruct Exp = {

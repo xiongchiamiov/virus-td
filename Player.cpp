@@ -90,6 +90,9 @@ void Player::spawnUnit(int unitID){
       bonus = unit_bonus::FAST;
       break;
     case 5:
+      nUnit = new StrongUnit(START_X, 0.0, START_Z);
+      cost = unit_cost::STRONG;
+      bonus = unit_bonus::STRONG;
       break;
     case 4:
       break;

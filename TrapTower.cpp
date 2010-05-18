@@ -1,5 +1,6 @@
 #include "TrapTower.h"
 #include "constants.h"
+#include "models.h"
 
 namespace tr_tower{
   const int MAX_HP = 8;
@@ -38,7 +39,12 @@ void TrapTower::draw(){
   }
   setMaterial(Exp);
   glTranslatef(x, y, z);
-   glutSolidTorus(0.2, 0.25, 10, 10);
+  glPushMatrix();
+   setMaterial(Black);
+   glScalef(.5,.5,.5);
+   glCallList(vtd_dl::blkhatDL);
+   //glutSolidTorus(0.2, 0.25, 10, 10);
+  glPopMatrix();
   glPopMatrix();
 }
 
