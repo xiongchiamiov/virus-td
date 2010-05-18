@@ -27,7 +27,7 @@ Git is pretty awesome, and you can use it to contribute to this project.
 ## Making changes
 
 	git pull
-	git rebase
+	git svn rebase
 	[hack hack hack]
 	git add .
 	git commit -m 'a super-helpful message'
