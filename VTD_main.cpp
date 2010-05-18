@@ -188,6 +188,11 @@ void keyboard(unsigned char key, int x, int y){
   //                       camera.getY() - GRID_SIZE*2.0*u.getJ(),
   //                       camera.getZ() - GRID_SIZE*2.0*u.getK());
   //    break;
+    case 'l': case 'L':
+      for(int i = 0; i < GRID_WIDTH; i+=2){
+        p1.placeTower(i, GRID_HEIGHT/2, 12);
+      }
+      break;
     case 't': case 'T':
       /*if(testGrid.setTower(tlx, tly)){
         towers.push_back(g_elem(tlx, tly));
@@ -293,15 +298,3 @@ int main(int argc, char** argv){
   glutMainLoop();
 }
 
-class GridElement{
-private:
-  std::list<Unit*> *units;
-  Tower* tower;
-  bool isDrawn;
-  float x;
-  float y;
-  float z;
-public:
-  GridElement();
-  ~GridElement();
-};

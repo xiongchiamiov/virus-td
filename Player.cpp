@@ -124,11 +124,10 @@ void Player::update(int dt){
     (*i)->step(dt);
     if(!(*i)->hasPath()){
       Tower* targ = opponent->pGrid.checkCollision(*i);
-      if(targ != NULL) std::cout << "Colliding" << std::endl;
       (*i)->attack(targ);
       if(targ != NULL && targ->isDead()){
         pGrid.destroyTower(targ->getGridX(), targ->getGridY());
-        opponent->uai.determineUnitsPaths();
+        uai.determineUnitsPaths();
       }
     }
   }
@@ -169,63 +168,6 @@ void Player::update(int dt){
   }
 }
 
-void Player::moveUnits(float dt)
-{
-  float xdir, zdir, trad, urad;
-  float u_xmin,u_xmax,u_zmin,u_zmax;
-  float t_xmin,t_xmax,t_zmin,t_zmax;
-  zdir = dt;
-  xdir = 0;
-  trad = .5;
-  urad = .5;
-  std::list<Unit*>::iterator p;
-  std::list<Tower*>::iterator t;
-  for(p = uai.uList.begin(); p != uai.uList.end(); ++p)
-  {
-    u_xmin = ((*p)->getX()) - urad;
-    u_xmax = ((*p)->getX()) + urad;
-    u_zmin = ((*p)->getZ()) - urad;
-    u_zmax = ((*p)->getZ()) + urad;
-    bool collision = false;
-    if(tList.empty())
-    {
-      //printf("grid heith = %d, u_xmax = %d\n", GRID_HEIGHT, u_xmax);
-      if(u_zmax <= (GRID_HEIGHT/2))
-      {
-        (*p)->step(dt);
-      }
-    }
-    else
-    {
-      for(t = tList.begin(); t != tList.end(); ++t)
-      { 
-        t_xmin = ((*t)->getX()) - trad;
-        t_xmax = ((*t)->getX()) + trad;
-        t_zmin = ((*t)->getZ()) - trad;
-        t_zmax = ((*t)->getZ()) + trad;
-        if((u_zmax > t_zmin) && (u_xmax > t_xmin) && (u_xmin < t_xmax) && (u_zmin < t_zmax))
-        {
-          collision = true;
-          break;
-        }
-        //else if(()) // check for collisions along other paths, will implement, once object has xmin,ect.
-        else
-        {
-          collision = false;
-        }
-      }
-      if(!collision)
-      {
-        if(u_zmax <= (GRID_HEIGHT/2))
-        {
-          (*p)->step(dt);
-
-        }
-      }
-    }
-  }	
-}
-
 void Player::upgradeTower(){
 }
 
@@ -244,21 +186,10 @@ void Player::draw(){
       (*i)->draw();
     }
   }
-
-  //glScalef(-1.0, 1.0, -1.0);
-  //glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 4)*2.0);
   std::list<Unit*>::iterator p; 
   for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
     if(!(*p)->isDead()){
       (*p)->draw();
-      //(*p)->attack( pGrid.checkCollision(*p)); ){
-        /*std::cout << "Hit" << std::endl;
-        setMaterial(RedFlat);
-        glPushMatrix();
-        glTranslatef((*p)->getX(), (*p)->getY(), (*p)->getZ());
-        glutSolidSphere(GRID_SIZE*3.0, 4, 4); 
-        glPopMatrix();
-      }*/
     }
   }
   glPopMatrix();
