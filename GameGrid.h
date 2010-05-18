@@ -19,11 +19,12 @@ const float FRACTAL_VAR = 1.0;
 
 class FractalSet {
 public:
+	FractalSet(int s_i,int e_i,int s_j,int e_j);
+	void draw(void);
+private:
 	int start_i, end_i;
 	int start_j, end_j;
-	std::vector<std::vector<GLfloat> > zVals;
-	FractalSet(int s_i,int e_i,int s_j,int e_j);
-private:
+	std::vector<std::vector<GLfloat>> zVals;
 	void createFractals(int start_i, int h_cnt, int v_cnt);
 };
 

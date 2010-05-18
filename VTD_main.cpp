@@ -238,6 +238,7 @@ void specKeys(int key, int x, int y){
 
 int main(int argc, char** argv){
   //Initialize globals
+  srand(time(NULL));
   camera.setPosition(0.0, 10.0, 10.0);
   camera.setVector(0.0, 0.0, 0.0);
   newCam = camera;
