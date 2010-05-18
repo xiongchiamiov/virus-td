@@ -1,6 +1,7 @@
 #include "lighting.h"
 
 namespace vtd_dl{
+  extern GLuint lockDL;
   extern GLuint blkhatDL;
   extern GLuint virusDL;
   extern GLuint forkbDL;
@@ -13,6 +14,7 @@ namespace vtd_dl{
   extern GLuint trojanDL;
 };
 
+void drawLock();
 void drawBlackHat();
 void drawForkBomb();
 void drawVirus();

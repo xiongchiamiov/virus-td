@@ -13,6 +13,13 @@ materialStruct GreenShiny = {
   {6.0}
 };
 
+materialStruct BlueFlat = {
+  {0.0, 0.0, 0.3, 1.0},
+  {0.0, 0.0, 0.9, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0}
+};
+
 materialStruct Metal = {
 {0.33, 0.22, 0.03, 1.0},
 {0.78, 0.57, 0.11, 1.0},

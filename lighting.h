@@ -28,6 +28,7 @@ typedef struct materialStruct {
   GLfloat shininess[1];
 } materialStruct;
 
+extern materialStruct BlueFlat;
 extern materialStruct RedFlat;
 extern materialStruct GreenShiny;
 extern materialStruct Metal;

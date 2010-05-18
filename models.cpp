@@ -2,6 +2,7 @@
 
 
 namespace vtd_dl{
+  GLuint lockDL;
   GLuint blkhatDL;
   GLuint forkbDL;
   GLuint virusDL;
@@ -13,6 +14,157 @@ namespace vtd_dl{
   GLuint turretDL;
   GLuint trojanDL;
 };
+
+void drawLock()
+{
+	GLUquadricObj *quadObj = gluNewQuadric();
+	glPushMatrix();
+		
+		glTranslatef(0,.2,0);
+		glPushMatrix();
+			setMaterial(ShinyMetal);
+			gluCylinder(quadObj, .5, .5, .5, 10, 10);
+		glPopMatrix();
+		glPushMatrix();
+			setMaterial(ShinyMetal);
+			quadObj = gluNewQuadric();
+			gluDisk(quadObj,0,.5,10,1);
+		glPopMatrix();
+		glPushMatrix();
+			setMaterial(BlueFlat);
+			glTranslatef(0,0,.5);
+			quadObj = gluNewQuadric();
+			gluDisk(quadObj,0,.5,10,1);
+		glPopMatrix();
+		glPushMatrix();
+			setMaterial(ShinyMetal);
+			glTranslatef(0,.425,.25);
+			glutSolidTorus(.080,.4,10,50);
+		glPopMatrix();
+		glPushMatrix();
+			setMaterial(ShinyMetal);
+			glTranslatef(0,0,0.50);
+			gluCylinder(quadObj, .25, .25, .25, 20, 20);
+		glPopMatrix();
+		glPushMatrix();
+			setMaterial(ShinyMetal);
+			glTranslatef(0,0,.75);
+			quadObj = gluNewQuadric();
+			gluDisk(quadObj,0,.25,20,1);			
+		glPopMatrix();
+		glPushMatrix();
+			setMaterial(Black);
+			glPushMatrix();
+					glBegin(GL_LINES);
+						glVertex3f(0,.5,.51);
+						glVertex3f(0,.35,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glBegin(GL_LINES);
+						glVertex3f(0,-.5,.51);
+						glVertex3f(0,-.35,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(90,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(-90,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(45,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(-45,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(135,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(-135,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glBegin(GL_LINES);
+						glVertex3f(.01,.5,.51);
+						glVertex3f(.01,.35,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glBegin(GL_LINES);
+						glVertex3f(.01,-.5,.51);
+						glVertex3f(.01,-.35,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(91,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(-91,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(46,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(-46,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(136,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+			glPushMatrix();
+					glRotatef(-136,0,0,1);
+					glBegin(GL_LINES);
+						glVertex3f(0,.475,.51);
+						glVertex3f(0,.325,.51);
+					glEnd();
+			glPopMatrix();
+		glPopMatrix();
+	glPopMatrix();
+}
 
 void drawBlackHat()
 {
@@ -1612,6 +1764,7 @@ void drawTrojan() {
 
 using namespace vtd_dl;
 void composeDisplayLists(){
+  lockDL = glGenLists(1);
   blkhatDL = glGenLists(1);
   forkbDL = glGenLists(1);
   virusDL = glGenLists(1);
@@ -1622,6 +1775,10 @@ void composeDisplayLists(){
   shieldDL = glGenLists(1);
   turretDL = glGenLists(1);
   trojanDL  = glGenLists(1);
+
+  glNewList(lockDL, GL_COMPILE);
+    drawLock();
+  glEndList();
 
   glNewList(blkhatDL, GL_COMPILE);
     drawBlackHat();
