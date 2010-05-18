@@ -122,8 +122,14 @@ void Player::update(int dt){
 
   for(i = uai.uList.begin(); i != uai.uList.end(); ++i){
     (*i)->step(dt);
+    if(!(*i)->hasPath()){
+      Tower* targ = pGrid.checkCollision(*i);
+      (*i)->attack(targ);
+      if(targ != NULL && targ->isDead()){
+        pGrid.destroyTower(targ->getGridX(), targ->getGridY());
+      }
+    }
   }
-
 
   //Remove dead units
   while(delStack.size() > 0){
@@ -133,8 +139,19 @@ void Player::update(int dt){
   //Get the new dead units
   last_cleanup += dt;
   if(last_cleanup > cleanup_dt){
+    Tower* curT;
     Unit* cur;
-    for(i = uai.uList.begin(); i != uai.uList.end(); ){
+    for(t = tList.begin(); t != tList.end(); ){
+      curT = *t;
+      if(curT->isDead()){
+        pGrid.destroyTower(curT->getGridX(), curT->getGridY());
+        delStack.push(curT);
+        t = tList.erase(t);
+      } else {
+        ++t;
+      }
+    }
+    for(i= uai.uList.begin(); i != uai.uList.end(); ){
       cur = *i;
       if(cur->isDead() || cur->foundGoal){
         delStack.push(cur);
@@ -214,14 +231,16 @@ void Player::destroyTower(int x, int y){
   pGrid.removeTower(x, y, tList);
   uai.determineUnitsPaths();
 }
-#include "Camera.h"
+
 void Player::draw(){
   glPushMatrix();
   glTranslatef(-GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE, 0.0, -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE);
   pGrid.draw();
   std::list<Tower*>::iterator i; 
   for(i = tList.begin(); i != tList.end(); ++i){
-    (*i)->draw();
+    if(!(*i)->isDead()){
+      (*i)->draw();
+    }
   }
 
   //glScalef(-1.0, 1.0, -1.0);
@@ -230,14 +249,14 @@ void Player::draw(){
   for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
     if(!(*p)->isDead()){
       (*p)->draw();
-      if(/*controls::keyMap['o'] &&*/ pGrid.checkCollision(*p) != NULL){
-        //std::cout << "Hit" << std::endl;
+      (*p)->attack( pGrid.checkCollision(*p)); //){
+        /*std::cout << "Hit" << std::endl;
         setMaterial(RedFlat);
         glPushMatrix();
         glTranslatef((*p)->getX(), (*p)->getY(), (*p)->getZ());
         glutSolidSphere(GRID_SIZE*3.0, 4, 4); 
         glPopMatrix();
-      }
+      }*/
     }
   }
   glPopMatrix();
@@ -255,7 +274,7 @@ void Player::setOpponent(Player* newOpp){
   opponent = newOpp;
   opponent->opponent = this;
   this->uai.setGrid(opponent->pGrid);
-  this->uai.setTowers(opponent->tList);
   opponent->uai.setGrid(pGrid);
-  opponent->uai.setTowers(tList);
+  this->uai.setTowers(opponent->tList);
+  opponent->uai.setTowers(opponent->tList);
 }
