@@ -18,6 +18,7 @@ public:
   bool setTower(int x, int y);
   bool setUnit(int x, int y);
   bool removeTower(int x, int y, std::list<Tower*>& towers);
+  bool destroyTower(int x, int y);
   bool isWall(g_elem cur);
   void setTowerGrid(int x, int y, Tower* tPtr);
   Tower* checkCollision(Unit* unit);

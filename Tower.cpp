@@ -20,7 +20,9 @@ bool Tower::operator==(const g_elem& other){
   return (this->grid_x == other.x) && (this->grid_y == other.y);
 }
 void Tower::step(int dt){
-  ai.last_atk += dt;
+  if(ai.last_atk <= ai.atk_dt){
+    ai.last_atk += dt;
+  }
   if(ai.atk_dt < ai.last_atk){
     if(shoot()){
       ai.last_atk = 0;
@@ -34,4 +36,15 @@ int Tower::getKill(){
     return ai.target->getValue();
   }
   return 0;
+}
+
+int Tower::takeDamage(int damage)
+{
+	hp = hp - damage;
+	if(hp <= 0)
+	{
+		return 0;
+	}
+	else
+	return hp;
 }

@@ -39,6 +39,6 @@ private:
   int income;
   std::list<Tower*> tList;
   UnitsAI uai;
-  std::stack<Unit*> delStack;
+  std::stack<GameObject*> delStack;
   Player* opponent;
 };

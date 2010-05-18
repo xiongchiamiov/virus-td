@@ -117,7 +117,9 @@ void update(int param){
   int dt = this_time - last_time;
   //fps = 1000.00/dt; 
   last_time = this_time;
-  last_cycle += dt;
+  if(!paused) {
+    last_cycle += dt;
+  }
   if(controls::keyMap[controls::BACKWARD]){
     cam.moveBackward();
   }

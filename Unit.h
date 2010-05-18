@@ -38,13 +38,14 @@ protected:
 public:
   Unit(float inx, float iny, float inz);
   virtual ~Unit(void);
-  void attack();
+  void attack(GameObject* other);
   int takeDamage(int damage); //returns health left
   void moveToWaypoint();
   inline bool isDead(){return hp <= 0;}
   inline int getHP(){return hp;}
   inline float getSpeed(){return speed;}
   inline unit_t getValue(){return type;}
+  inline bool hasPath(){return false;}
   void step(int dt);
   bool checkCollison(GameObject* other);
   std::stack<g_elem> path;

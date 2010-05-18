@@ -1,10 +1,11 @@
 #include "Unit.h"
+#include "Tower.h"
 
 float x_extents = 0.5*GRID_SIZE;
 float z_extents = 0.5*GRID_SIZE;
-
+class Tower;
 Unit::Unit(float inx, float iny, float inz):
-GameObject(inx, iny, inz)
+GameObject(inx, iny, inz), last_atk(0)
 {
   foundGoal = false;
 }
@@ -13,20 +14,30 @@ Unit::~Unit(void)
 {
 }
 
-void Unit::attack(){
+void Unit::attack(GameObject* other){
+  if(other == NULL){
+    return;
+  }
+  Tower *target = (Tower*)other;
+  if(last_atk >= atk_dt){
+    std::cout << target->takeDamage(atk_dmg) << std::endl;
+  }
 }
 int Unit::takeDamage(int damage)
 {
 	hp = hp - damage;
 	if(hp <= 0)
 	{
-		return(0);
+		return 0;
 	}
 	else
-	return(hp);
+	return hp;
 }
 
 void Unit::step(int dt) {
+  if(last_atk <= atk_dt){
+    last_atk += dt;
+  }
 	if(foundGoal)
 		return;
 	float nextX = 0;

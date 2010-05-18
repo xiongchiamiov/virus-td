@@ -122,6 +122,21 @@ bool GameGrid::removeTower(int x, int y, std::list<Tower*>& towers){
   }
   return false;
 }
+bool GameGrid::destroyTower(int x, int y){
+  if(x >= 0 && x < GRID_WIDTH - 1 &&
+    y >= 0 && y < GRID_HEIGHT - 1){
+    grid[x][y] = true; 
+    grid[x + 1][y] = true;
+    grid[x + 1][y + 1] = true;
+    grid[x][y + 1] = true;
+    tGrid[x][y] = NULL;
+    tGrid[x + 1][y] = NULL;
+    tGrid[x + 1][y + 1] = NULL;
+    tGrid[x][y + 1] = NULL;
+    return true;
+  }
+  return false;
+}
 
 bool GameGrid::setUnit(int x, int y){
   bool retVal;
@@ -148,7 +163,6 @@ Tower* GameGrid::checkCollision(Unit* unit){
   Tower* retTower = NULL;
   g_elem spot = loc2grid(unit->getX(), unit->getZ());
   spot.y -= 4;
-  std::cout << spot.x << " " << spot.y << std::endl;
   if(unit->dir.getK() < 0.0 && spot.y > 0){
     retTower = tGrid[spot.x][spot.y - 1];
   }else if(spot.y < GRID_HEIGHT - 1 && retTower == NULL){

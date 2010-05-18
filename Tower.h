@@ -44,5 +44,7 @@ public:
   void upgrade();
   int getKill();
   inline float getRange(){return ai.range;}
-  //inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
+  inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
+  inline bool isDead(){return hp <= 0;}
+  int takeDamage(int damage);
 };
