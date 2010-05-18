@@ -7,6 +7,7 @@ extern const float GOAL_X;
 extern const float GOAL_Z;
 extern const float START_X;
 extern const float START_Z;
+extern bool RAND_SEEDED;
 
 namespace unit_cost{
   extern const int BASIC;

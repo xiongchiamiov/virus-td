@@ -34,9 +34,16 @@ void FastUnit::draw() {
   glTranslatef(x, y, z);
 
   glPushMatrix();
+
+  glPushMatrix();
+  glTranslatef(0.0,1.0,0.0);
+  this->drawHealthBar();
+  glPopMatrix();
+
   // Setup so to scale and orient with the game grid
   glScaled(0.25, 0.25, 0.25);
   glTranslatef(0, 1, 0);
+
   //glRotatef(-90, 0.0, 1.0, 0.0);
   glCallList(vtd_dl::virusDL);
   //glCallList(vtd_dl::forkbDL);

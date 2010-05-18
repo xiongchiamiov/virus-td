@@ -33,6 +33,11 @@ void StrongUnit::draw() {
   glPushMatrix();
   glTranslatef(x, y, z);
      glPushMatrix();
+		glPushMatrix();
+		glTranslatef(0.0,1.2,0.0);
+		this->drawHealthBar();
+		glPopMatrix();
+
         glScaled(0.25, 0.25, 0.25);
         glTranslatef(0, 1, 0);
         glCallList(vtd_dl::forkbDL);

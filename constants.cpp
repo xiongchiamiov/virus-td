@@ -8,6 +8,7 @@ const float START_X = 3.5;
 const float START_Z = -2.0;
 const float GRID_SIZE = 0.25;
 const int CYCLE_TIME = 5000;
+bool RAND_SEEDED = false;
 
 
 namespace unit_cost{

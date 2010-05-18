@@ -20,6 +20,10 @@ GameGrid::~GameGrid(void)
 GameGrid::GameGrid(char *filename):
 x(0.0), y(0.0)
 {
+	if(!RAND_SEEDED){
+		srand(time(NULL));
+		RAND_SEEDED = true;
+	}
 	std::ifstream file;
 	file.open(filename);
 	if(file.is_open())
@@ -113,12 +117,12 @@ void GameGrid::createFractals()
 	}
 
 	//Print out the setup
-	for(int j = 0; j < GRID_HEIGHT; ++j){
+	/*for(int j = 0; j < GRID_HEIGHT; ++j){
 		for(int i = 0; i < GRID_WIDTH; ++i){
 			printf("%1d",tests[i][j]);
 		}
 		printf("\n");
-	}
+	}*/
 }
 
 FractalSet::FractalSet(int s_i,int e_i,int s_j,int e_j):
@@ -135,11 +139,11 @@ FractalSet::FractalSet(int s_i,int e_i,int s_j,int e_j):
 	h_cnt -= 2;
 	v_cnt -= 2;
 	createFractals(start_i,h_cnt,v_cnt);
-	for(int y = 0; y < zVals[0].size(); y++) {
+	/*for(int y = 0; y < zVals[0].size(); y++) {
 		for(int x = 0; x < zVals.size(); x++)
 			printf("%2.3f ",zVals[x][y]);
 		printf("\n");
-	}
+	}*/
 }
 
 void FractalSet::createFractals(int start_i, int h_cnt, int v_cnt)

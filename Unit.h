@@ -6,6 +6,7 @@
 #include "constants.h"
 #include "MyVector.h"
 #include "GameObject.h"
+#include "lighting.h"
 
 enum unit_dir{
   DIR_NORTH,
@@ -35,6 +36,7 @@ protected:
   int stage;     //Upgrade stage
   int last_atk; //Time since last attack
   int atk_dt; //Attack speed (number of milliseconds between attacks)
+  void drawHealthBar(void);
 public:
   Unit(float inx, float iny, float inz);
   virtual ~Unit(void);

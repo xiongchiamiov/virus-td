@@ -104,6 +104,33 @@ bool Unit::checkCollison(GameObject* other){
          checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uLeft) || //Bottom left corner
          checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uRight); //Bottom right corner
 }
+#define MAX_HB_WID 1.2
+void Unit::drawHealthBar()
+{
+	glPushMatrix();
+	GLfloat color[4] = {1.0,0.0,0.0,1.0};
+	
+	float ratio = ((float)this->hp / this->max_hp);
+	float val = ratio * MAX_HB_WID;
+	if(ratio >= 0.8) {
+		color[0] = 0.0; color[1] = 1.0; color[2] = 0.0;
+	}
+	else if (ratio >= 0.5) {
+		color[0] = 1.0; color[1] = 1.0; color[2] = 0.0;
+	}
+	else if (ratio >= 0.3) {
+		color[0] = 1.0; color[1] = 0.5; color[2] = 0.0;
+	}
+	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
+
+	glTranslatef(-MAX_HB_WID/2.0,0.0,0.0);
+	glScalef(val,1.0,1.0);
+	glRotatef(180.0,0.0,0.0,1.0);
+	glTranslatef(-0.5,0.0,0.0);
+	glScalef(1.0,0.1,0.1);
+	glutSolidCube(1.0);
+	glPopMatrix();
+}
 
 //void Unit::moveToWaypoint(){
 //}

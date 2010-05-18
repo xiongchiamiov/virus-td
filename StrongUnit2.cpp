@@ -33,6 +33,12 @@ void StrongUnit2::draw() {
   glPushMatrix();
   glTranslatef(x, y, z);
      glPushMatrix();
+
+		glPushMatrix();
+		glTranslatef(0.0,2.3,0.5);
+		this->drawHealthBar();
+		glPopMatrix();
+
         glScaled(0.15, 0.15, 0.15);
         glTranslatef(0, 10, 0);
         glCallList(vtd_dl::trojanDL);

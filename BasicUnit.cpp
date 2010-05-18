@@ -36,9 +36,16 @@ void BasicUnit::draw()
   glTranslatef(x, y, z);
 
   glPushMatrix();
+
+  glPushMatrix();
+  glTranslatef(0.0,2.2,0.0);
+  this->drawHealthBar();
+  glPopMatrix();
+
   // Setup so to scale and orient with the game grid
   glScaled(0.1, 0.1, 0.1);
   glTranslatef(0.0, 15.0, 5.0);
+
   glRotatef(-90, 0.0, 1.0, 0.0);
   glCallList(vtd_dl::wormDL);
   glPopMatrix();
