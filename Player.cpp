@@ -231,7 +231,7 @@ void Player::draw(){
     if(!(*p)->isDead()){
       (*p)->draw();
       if(/*controls::keyMap['o'] &&*/ pGrid.checkCollision(*p) != NULL){
-        std::cout << "Hit" << std::endl;
+        //std::cout << "Hit" << std::endl;
         setMaterial(RedFlat);
         glPushMatrix();
         glTranslatef((*p)->getX(), (*p)->getY(), (*p)->getZ());
@@ -255,5 +255,7 @@ void Player::setOpponent(Player* newOpp){
   opponent = newOpp;
   opponent->opponent = this;
   this->uai.setGrid(opponent->pGrid);
+  this->uai.setTowers(opponent->tList);
   opponent->uai.setGrid(pGrid);
+  opponent->uai.setTowers(tList);
 }

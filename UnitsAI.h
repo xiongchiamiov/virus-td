@@ -9,7 +9,7 @@
 #include "GameGrid.h"
 #include "constants.h"
 
-int heuristic(g_elem cur, g_elem goal, int inRangeGrid[][40]); // note MAGIC NUMBERS
+int heuristic(g_elem cur, g_elem goal); // note MAGIC NUMBERS
 
 struct MyNode {
 	g_elem loc;
@@ -25,13 +25,14 @@ class UnitsAI
 {
 public:
 	std::list<Unit*> uList;
-	std::list<Tower*> tList;
+	std::list<Tower*> * tList;
 	GameGrid * gg;
 	UnitsAI(void);
 	UnitsAI(GameGrid& ingg, std::list<Tower*> &intList);
 	~UnitsAI(void);
 	void determineUnitsPaths();
     void setGrid(GameGrid& inGrid);
+    void setTowers(std::list<Tower*> &intList);
 };
 
 class CompareMyNode {
