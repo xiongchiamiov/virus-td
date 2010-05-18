@@ -48,6 +48,7 @@ private:
   float x;
   float y;
   bool grid[G_WIDTH][G_HEIGHT];
+  bool frac[G_WIDTH][G_HEIGHT];
   Tower* tGrid[G_WIDTH][G_HEIGHT];
   void createFractals(void);
   void drawFractals(void);

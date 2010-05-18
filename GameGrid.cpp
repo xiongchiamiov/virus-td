@@ -36,10 +36,14 @@ x(0.0), y(0.0)
 				}
 				while (val == '\n');
 				val = val-48; //Convert to # values
-				if(val == 0)
+				if(val == 0) {
 					grid[i][j] = true;
-				else
+					frac[i][j] = false;
+				}
+				else {
 					grid[i][j] = false;
+					frac[i][j] = true;
+				}
 				tGrid[i][j] = NULL;
 			}
 		}
@@ -282,7 +286,7 @@ void GameGrid::draw(){
   float posZ = 0.0;
   for(int i = 0; i < GRID_WIDTH; i++){
     for(int j = 0; j < GRID_HEIGHT; j++){
-      if(grid[i][j]){
+      if(!frac[i][j]){
         glLineWidth(2.0);
         glColor3f(0.3, 0.7, 0.3);
         setMaterial(Exp);
@@ -298,6 +302,7 @@ void GameGrid::draw(){
           glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
         }
         glEnd();
+		if(grid[i][j]){
         setMaterial(Teal);
         glColor3f(0.3, 0.7, 0.7);
         glBegin(GL_LINE_LOOP);{
@@ -312,6 +317,7 @@ void GameGrid::draw(){
           glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
         }
         glEnd();
+		}
       }
       posZ += GRID_SIZE*2.0;
     }
