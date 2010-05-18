@@ -5,7 +5,7 @@ float x_extents = 0.5*GRID_SIZE;
 float z_extents = 0.5*GRID_SIZE;
 class Tower;
 Unit::Unit(float inx, float iny, float inz):
-GameObject(inx, iny, inz), last_atk(0)
+GameObject(inx, iny, inz), last_atk(0), hasPathB(false)
 {
   foundGoal = false;
 }

@@ -249,7 +249,7 @@ void Player::draw(){
   for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
     if(!(*p)->isDead()){
       (*p)->draw();
-      (*p)->attack( pGrid.checkCollision(*p)); //){
+      //(*p)->attack( pGrid.checkCollision(*p)); ){
         /*std::cout << "Hit" << std::endl;
         setMaterial(RedFlat);
         glPushMatrix();

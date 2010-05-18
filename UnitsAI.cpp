@@ -33,12 +33,12 @@ void UnitsAI::determineUnitsPaths() {
 		}
 	}
 
-	for(int a = 0; a < 16; a++) { // note MAGIC NUMBERS
+	/*for(int a = 0; a < 16; a++) { // note MAGIC NUMBERS
 		for(int b = 0; b < 40; b++) { // note MAGIC NUMBERS
 			if(inRangeGrid[a][b] > 0)
 				std::cout << a << " " << b << " " << inRangeGrid[a][b] << std::endl;
 		}
-	}
+	}*/
 
 	// find path for every unit
 	for(i = uList.begin(); i != uList.end(); ++i) {
@@ -122,12 +122,13 @@ void UnitsAI::determineUnitsPaths() {
 			(*i)->path = path;
 			(*i)->dir.setVector(GOAL_X - (*i)->getX(), 0.0, GOAL_Z - (*i)->getZ());
 			(*i)->dir.normalize();
+			(*i)->hasPathB = false;
 			continue;
 		}
 
 		// roll back and create path
 		while(cur != NULL) {
-			std::cout << cur->loc.x << " " << cur->loc.y << " " << cur->f << std::endl;
+			//std::cout << cur->loc.x << " " << cur->loc.y << " " << cur->f << std::endl;
 			path.push(cur->loc);
 			cur = cur->parent;
 		}
@@ -146,6 +147,8 @@ void UnitsAI::determineUnitsPaths() {
 			(*i)->dir.setVector(nextX - (*i)->getX(), 0.0, nextZ - (*i)->getZ());
 			(*i)->dir.normalize();
 		}
+
+		(*i)->hasPathB = true;
 	}
 }
 
