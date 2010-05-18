@@ -45,7 +45,7 @@ x(0.0), y(0.0)
 	}
 	else
 	{
-		printf("Error loading grid file\n");
+		printf("Error loading grid file: %s\n", filename);
 		//grid = new bool[16][32];
 		for(int i = 0; i < GRID_WIDTH; ++i){
 			for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -59,29 +59,13 @@ x(0.0), y(0.0)
 int my_test = 1;
 void GameGrid::createFractals()
 {
-	//int c_val[G_WIDTH][G_HEIGHT];
 	bool assigned[G_WIDTH][G_HEIGHT];
 	int tests[G_WIDTH][G_HEIGHT];
 	//Initial pass to assign corner values
 	for(int j = 0; j < GRID_HEIGHT; ++j){
 		for(int i = 0; i < GRID_WIDTH; ++i){
-			//c_val[i][j] = 0;
 			assigned[i][j] = false;
 			tests[i][j] = 0;
-			/*if(grid[i][j] != true){
-				//Check the left for open space
-				if(i-1 < 0 || grid[i-1][j] == true)
-					c_val[i][j] = c_val[i][j] | G_L;
-				//Check the right for open space
-				if(i+1 >= G_WIDTH || grid[i+1][j] == true)
-					c_val[i][j] = c_val[i][j] | G_R;
-				//Check the top for open space
-				if(j-1 < 0 || grid[i][j-1] == true)
-					c_val[i][j] = c_val[i][j] | G_T;
-				//Check the bottom for open space
-				if(j+1 >= G_HEIGHT || grid[i][j+1] == true)
-					c_val[i][j] = c_val[i][j] | G_B;
-			}*/
 		}
 	}
 	//Now group the empty spots together
@@ -150,7 +134,6 @@ FractalSet::FractalSet(int s_i,int e_i,int s_j,int e_j):
 	int start_i = 1;
 	h_cnt -= 2;
 	v_cnt -= 2;
-	srand(time(NULL));
 	createFractals(start_i,h_cnt,v_cnt);
 	for(int y = 0; y < zVals[0].size(); y++) {
 		for(int x = 0; x < zVals.size(); x++)
@@ -159,13 +142,19 @@ FractalSet::FractalSet(int s_i,int e_i,int s_j,int e_j):
 	}
 }
 
-int new_test = 1;
 void FractalSet::createFractals(int start_i, int h_cnt, int v_cnt)
 {
 	GLfloat val;
 	if(start_i % 2 == 1) {
-		GLfloat test = (FRACTAL_VAR * (2.0*((float)rand()/RAND_MAX) - 1.0));
-		val =  this->zVals[start_i-1][start_i-1] + test;
+		if(start_i != 1)
+			val =  this->zVals[start_i-1][start_i-1] + (FRACTAL_VAR * (2.0*((float)rand()/RAND_MAX) - 1.0));
+		else{
+			float v = ((float)rand()/RAND_MAX);
+			if(v < 0.5)
+				val = 0.5; //+ FRACTAL_VAR * ((float)rand()/RAND_MAX);
+			else
+				val = -0.5;// + FRACTAL_VAR * ((float)rand()/RAND_MAX);
+		}
 	}
 	else
 		val = this->zVals[start_i-1][start_i-1];
@@ -181,6 +170,105 @@ void FractalSet::createFractals(int start_i, int h_cnt, int v_cnt)
 		start_i++;
 		createFractals(start_i,h_cnt,v_cnt);
 	}
+}
+
+void normalize(float v[3]) {
+   // normalize v[] and return the result in v[]
+   // from OpenGL Programming Guide, p. 58
+   GLfloat d = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
+   if (d == 0.0) {
+      printf("zero length vector");
+      return;
+   }
+   v[0] = v[0]/d; v[1] = v[1]/d; v[2] = v[2]/d;
+}
+
+void normCrossProd(float v1[3], float v2[3], float out[3]) {
+   // cross v1[] and v2[] and return the result in out[]
+   // from OpenGL Programming Guide, p. 58
+   out[0] = v1[1]*v2[2] - v1[2]*v2[1];
+   out[1] = v1[2]*v2[0] - v1[0]*v2[2];
+   out[2] = v1[0]*v2[1] - v1[1]*v2[0];
+   normalize(out);
+}
+
+void FractalSet::draw()
+{
+	glBegin(GL_TRIANGLES);
+	setMaterial(Exp);
+	float v1[3];
+	float v2[3];
+	float n[3];
+	GLfloat inc = ((float)1/FRACTAL_DEPTH) * GRID_SIZE;
+	GLfloat posX;
+	GLfloat posZ = this->start_j * GRID_SIZE * 2.0 - inc;
+	int x_size = zVals.size() - 1;
+	int y_size = zVals[0].size() - 1;
+
+	for(int y = 0; y < y_size; ++y) {
+		posX = this->start_i* GRID_SIZE * 2.0 - inc;
+		for(int x = 0; x < x_size; ++x) {
+			if((x < x_size/2 && y < y_size/2) || (x >= x_size/2 && y >= y_size/2)) {
+				v1[0] = 1.0 - 0.0;
+				v1[1] = zVals[x+1][y+1] - zVals[x][y];
+				v1[2] = 1.0 - 0.0;
+
+				v2[0] = 1.0 - 0.0;
+				v2[1] = zVals[x+1][y+1] - zVals[x][y+1];
+				v2[2] = 0.0;				
+				normCrossProd(v1,v2,n);
+				glNormal3f(n[0], n[1], n[2]);
+				glVertex3f(posX - inc, zVals[x][y], posZ - inc);
+				glVertex3f(posX - inc, zVals[x][y+1], posZ + inc);
+				glVertex3f(posX + inc, zVals[x+1][y+1], posZ + inc);
+
+				v1[0] = 1.0 - 0.0;
+				v1[1] = zVals[x+1][y+1] - zVals[x][y];
+				v1[2] = 1.0 - 0.0;
+
+				v2[0] = 1.0 - 0.0;
+				v2[1] = zVals[x+1][y] - zVals[x][y];
+				v2[2] = 0.0 - 0.0;				
+				normCrossProd(v1,v2,n);
+				glNormal3f(n[0], n[1], n[2]);
+				glVertex3f(posX + inc, zVals[x+1][y+1], posZ + inc);
+				glVertex3f(posX + inc, zVals[x+1][y], posZ - inc);
+				glVertex3f(posX - inc, zVals[x][y], posZ - inc);
+			}
+			else {
+				v1[0] = 1.0 - 0.0;
+				v1[1] = zVals[x+1][y+1] - zVals[x][y];
+				v1[2] = 1.0 - 0.0;
+
+				v2[0] = 1.0 - 0.0;
+				v2[1] = zVals[x+1][y+1] - zVals[x][y+1];
+				v2[2] = 0.0;				
+				normCrossProd(v1,v2,n);
+				glNormal3f(n[0], n[1], n[2]);
+				glVertex3f(posX - inc, zVals[x][y], posZ - inc);
+				glVertex3f(posX - inc, zVals[x][y+1], posZ + inc);
+				glVertex3f(posX + inc, zVals[x+1][y], posZ - inc);
+
+
+				v1[0] = 1.0 - 0.0;
+				v1[1] = zVals[x+1][y+1] - zVals[x][y];
+				v1[2] = 1.0 - 0.0;
+
+				v2[0] = 1.0 - 0.0;
+				v2[1] = zVals[x+1][y] - zVals[x][y];
+				v2[2] = 0.0 - 0.0;				
+				normCrossProd(v1,v2,n);
+				glNormal3f(n[0], n[1], n[2]);
+				glVertex3f(posX + inc, zVals[x+1][y], posZ - inc);
+				glVertex3f(posX - inc, zVals[x][y+1], posZ + inc);
+				glVertex3f(posX + inc, zVals[x+1][y+1], posZ + inc);
+			}
+			posX += 2.0*inc;
+		}
+		posZ += 2.0*inc;
+	}
+
+	glEnd();
 }
 
 void GameGrid::draw(){
@@ -226,11 +314,16 @@ void GameGrid::draw(){
     posZ = 0.0;
     posX += GRID_SIZE*2.0;
   }
+  drawFractals();
   glPopMatrix();
 }
 
 void GameGrid::drawFractals()
 {
+	std::list<FractalSet*>::iterator i;
+	for(i = f_sets.begin(); i != f_sets.end(); ++i){
+		(*i)->draw();
+	}
 }
 
 bool GameGrid::setTower(int x, int y){
