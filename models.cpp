@@ -10,6 +10,7 @@ namespace vtd_dl{
   GLuint teslaDL;
   GLuint fanDL;
   GLuint shieldDL;
+  GLuint turretDL;
 };
 
 void drawBlackHat()
@@ -1242,6 +1243,7 @@ void drawShield() {
    glPopMatrix();
 }
 
+/* Used by drawShield */
 void drawShieldBase(int set) {
    int tesallation = 7;
    glPushMatrix();
@@ -1325,6 +1327,100 @@ void drawShieldBase(int set) {
    return;
 }
 
+/* Used by drawMemBase */
+void drawMemStick() {
+   glPushMatrix();
+      glPushMatrix();
+         setMaterial(GreenShiny);
+         glScaled(1.20, 0.075, 5.0);
+         glutSolidCube(1.0);
+      
+         setMaterial(Yellow);
+         glTranslatef(0.58, 0.0, 0.0);
+         glScaled(0.15, 0.80, 0.98);
+         glutSolidCube(1.0);
+      glPopMatrix();
+      
+      glPushMatrix();
+         setMaterial(Black);
+         glTranslatef(-0.075, 0.0, -2.15);
+         glScaled(1.0, 0.15, 0.55);
+         glutSolidCube(1.0);
+         glTranslatef(0.0, 0.0, 1.1);
+         glutSolidCube(1.0);
+         glTranslatef(0.0, 0.0, 1.1);
+         glutSolidCube(1.0);
+         glTranslatef(0.0, 0.0, 1.1);
+         glutSolidCube(1.0);
+         glTranslatef(0.0, 0.0, 1.1);
+         glutSolidCube(1.0);
+         glTranslatef(0.0, 0.0, 1.1);
+         glutSolidCube(1.0);
+         glTranslatef(0.0, 0.0, 1.1);
+         glutSolidCube(1.0);
+         glTranslatef(0.0, 0.0, 1.1);
+         glutSolidCube(1.0);
+
+      glPopMatrix();
+   glPopMatrix();
+   return;
+}
+
+/* Used by drawTurret */
+void drawMemBase() {
+   glPushMatrix();
+      glPushMatrix();
+      glRotatef(0, 0.0, 1.0, 0.0);
+      glTranslatef(0.0, 0.0, 1.5);      
+      glRotatef(35, 1.0, 0.0, 0.0);
+      glRotatef(30, 0.0, 1.0, 0.0);
+      drawMemStick();
+      glPopMatrix();
+      
+      glPushMatrix();
+      glRotatef(90, 0.0, 1.0, 0.0);
+      glTranslatef(0.0, 0.0, 1.5);
+      glRotatef(35, 1.0, 0.0, 0.0);
+      glRotatef(30, 0.0, 1.0, 0.0);
+      drawMemStick();
+      glPopMatrix();
+      
+      glPushMatrix();
+      glRotatef(180, 0.0, 1.0, 0.0);
+      glTranslatef(0.0, 0.0, 1.5);
+      glRotatef(35, 1.0, 0.0, 0.0);
+      glRotatef(30, 0.0, 1.0, 0.0);
+      drawMemStick();
+      glPopMatrix();
+      
+      glPushMatrix();
+      glRotatef(270, 0.0, 1.0, 0.0);
+      glTranslatef(0.0, 0.0, 1.5);
+      glRotatef(35, 1.0, 0.0, 0.0);
+      glRotatef(30, 0.0, 1.0, 0.0);
+      drawMemStick();
+      glPopMatrix();
+   glPopMatrix();
+}
+
+void drawTurret() {
+   glPushMatrix();
+      setMaterial(Black);
+      glTranslatef(0.0, 1.7, -0.8);
+      glScaled(1.1, 0.4, 4.0);
+      glutSolidCube(1.0);
+      setMaterial(Grey);
+      glTranslatef(0.0, 0.0, -0.57);
+      glScaled(0.8, 0.5, 0.15);
+      glutSolidCube(1.0);
+   glPopMatrix();
+   
+   drawMemBase();
+}
+
+
+
+
 using namespace vtd_dl;
 void composeDisplayLists(){
   blkhatDL = glGenLists(1);
@@ -1335,16 +1431,17 @@ void composeDisplayLists(){
   teslaDL = glGenLists(1);
   fanDL = glGenLists(1);
   shieldDL = glGenLists(1);
-  
-    glNewList(blkhatDL, GL_COMPILE);
+  turretDL = glGenLists(1);
+
+  glNewList(blkhatDL, GL_COMPILE);
     drawBlackHat();
   glEndList();
 
-    glNewList(forkbDL, GL_COMPILE);
+  glNewList(forkbDL, GL_COMPILE);
     drawForkBomb();
   glEndList();
 
-    glNewList(virusDL, GL_COMPILE);
+  glNewList(virusDL, GL_COMPILE);
     drawVirus();
   glEndList();
 
@@ -1366,5 +1463,9 @@ void composeDisplayLists(){
 
   glNewList(shieldDL, GL_COMPILE);
     drawShield();
+  glEndList();
+
+  glNewList(turretDL, GL_COMPILE);
+    drawTurret();
   glEndList();
 }

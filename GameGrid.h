@@ -21,7 +21,7 @@ class FractalSet {
 public:
 	int start_i, end_i;
 	int start_j, end_j;
-	std::vector<std::vector<GLfloat>> zVals;
+	std::vector<std::vector<GLfloat> > zVals;
 	FractalSet(int s_i,int e_i,int s_j,int e_j);
 private:
 	void createFractals(int start_i, int h_cnt, int v_cnt);

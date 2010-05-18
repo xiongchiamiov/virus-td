@@ -9,6 +9,7 @@ namespace vtd_dl{
   extern GLuint teslaDL;
   extern GLuint fanDL;
   extern GLuint shieldDL;
+  extern GLuint turretDL;
 };
 
 void drawBlackHat();
@@ -21,5 +22,9 @@ void drawCPUFan();
 
 void drawShield();
 void drawShieldBase(int set);
+
+void drawTurret();
+void drawMemBase();
+void drawMemStick();
 
 void composeDisplayLists();

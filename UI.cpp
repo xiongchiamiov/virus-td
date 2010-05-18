@@ -1,5 +1,6 @@
 #include "UI.h"
 #include "Player.h"
+#include <stdlib.h>
 
 #define info_font GLUT_BITMAP_HELVETICA_10
 #define info_font_height 12

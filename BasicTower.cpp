@@ -39,54 +39,14 @@ void BasicTower::draw(){
   }
 
   glTranslatef(x, y, z);
-/*  //Front
-  glNormal3f(0.0, 0.0, -1.0);
-  glBegin(GL_POLYGON);{
-    glVertex3f(-GRID_SIZE*2.0, 0.0, -GRID_SIZE*2.0);
-    glVertex3f(-GRID_SIZE*2.0, GRID_SIZE*2.0, -GRID_SIZE*2.0);
-    glVertex3f(GRID_SIZE*2.0, GRID_SIZE*2.0, -GRID_SIZE*2.0);
-    glVertex3f(GRID_SIZE*2.0, 0.0, -GRID_SIZE*2.0);
-  }
-  glEnd();
-  //Back
-  glNormal3f(0.0, 0.0, 1.0);
-  glBegin(GL_POLYGON);{
-    glVertex3f(-GRID_SIZE*2.0, 0.0, GRID_SIZE*2.0);
-    glVertex3f(-GRID_SIZE*2.0, GRID_SIZE*2.0, GRID_SIZE*2.0);
-    glVertex3f(GRID_SIZE*2.0, GRID_SIZE*2.0, GRID_SIZE*2.0);
-    glVertex3f(GRID_SIZE*2.0, 0.0, GRID_SIZE*2.0);
-  }
-  glEnd();
-  //Left
-  glNormal3f(-1.0, 0.0, 0.0);
-  glBegin(GL_POLYGON);{
-    glVertex3f(-GRID_SIZE*2.0, 0.0, -GRID_SIZE*2.0);
-    glVertex3f(-GRID_SIZE*2.0, GRID_SIZE*2.0, -GRID_SIZE*2.0);
-    glVertex3f(-GRID_SIZE*2.0, GRID_SIZE*2.0, GRID_SIZE*2.0);
-    glVertex3f(-GRID_SIZE*2.0, 0.0, GRID_SIZE*2.0);
-  }
-  glEnd();
-  //Right
-  glNormal3f(1.0, 0.0, 0.0);
-  glBegin(GL_POLYGON);{
-    glVertex3f(GRID_SIZE*2.0, 0.0, -GRID_SIZE*2.0);
-    glVertex3f(GRID_SIZE*2.0, GRID_SIZE*2.0, -GRID_SIZE*2.0);
-    glVertex3f(GRID_SIZE*2.0, GRID_SIZE*2.0, GRID_SIZE*2.0);
-    glVertex3f(GRID_SIZE*2.0, 0.0, GRID_SIZE*2.0);
-  }
-  glEnd();
-  //Center
-  glBegin(GL_LINES);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(0.0, GRID_SIZE*2.0, 0.0);
-  glEnd();*/
       glPushMatrix();
          // Scale and orient model to fit grid
-         glTranslatef(0.5, 1.0, 0.0);
+         glTranslatef(0.0, 0.25, 0.0);
          // Mini Tower Defense TBQH
-         glScaled(0.05, 0.05, 0.05);
+         glScaled(0.15, 0.15, 0.15);
+
          //drawShield();
-         glCallList(vtd_dl::shieldDL);
+         glCallList(vtd_dl::turretDL);
       glPopMatrix();
   glPopMatrix();
 }

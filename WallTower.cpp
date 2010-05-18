@@ -1,5 +1,7 @@
 #include "WallTower.h"
 #include "constants.h"
+#include "lighting.h"
+#include "models.h"
 
 namespace w_tower{
   const int MAX_HP = 20;
@@ -36,8 +38,14 @@ void WallTower::draw(){
     glEnd();
   }
   glTranslatef(x, y, z);
-  setMaterial(Fuschia);
-  glutSolidSphere(0.5, 10, 10);
+     glPushMatrix();
+        // Scale and orient model to fit grid
+        glTranslatef(0.5, 1.25, 0.0);
+        // Mini Tower Defense TBQH
+        glScaled(0.05, 0.05, 0.05);
+      //  glRotated(83, 0.0, 1.0, 0.0);
+        glCallList(vtd_dl::shieldDL);
+     glPopMatrix();
   glPopMatrix();
 }
 
