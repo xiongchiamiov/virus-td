@@ -2,3 +2,4 @@ pygments: true
 auto: true
 lsi: false
 markdown: rdiscount
+url: /virus-td
