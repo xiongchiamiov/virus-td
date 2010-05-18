@@ -24,7 +24,7 @@ public:
 private:
 	int start_i, end_i;
 	int start_j, end_j;
-	std::vector<std::vector<GLfloat>> zVals;
+	std::vector<std::vector<GLfloat> > zVals;
 	void createFractals(int start_i, int h_cnt, int v_cnt);
 };
 

@@ -11,6 +11,7 @@
 #include "BasicUnit.h"
 #include "StrongUnit.h"
 #include "FastUnit.h"
+#include "StrongUnit2.h"
 #include "UnitsAI.h"
 #include <list>
 #include <stack>

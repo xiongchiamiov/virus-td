@@ -11,6 +11,7 @@ namespace vtd_dl{
   GLuint fanDL;
   GLuint shieldDL;
   GLuint turretDL;
+  GLuint trojanDL;
 };
 
 void drawBlackHat()
@@ -748,7 +749,7 @@ void drawBackTrack() {
 }
 
 void drawTeslaCoil() {
-   int tesallation = 6;
+   int tesallation = 8;
    // save the transformation state
    glPushMatrix();
 
@@ -1418,8 +1419,196 @@ void drawTurret() {
    drawMemBase();
 }
 
+/* Used by drawTrojan */
+void drawLeg(int tes) {
+   int tesallation = tes;
 
+   glPushMatrix();
+      glTranslatef(0.0, -4.0, 0.0);
+      glPushMatrix();
+         glRotatef(90, 1.0, 0.0, 0.0);
+         glScaled(0.5, 0.65, 1.7);
+         glPushMatrix();
+            glRotatef(10, 1.0, 0.0, 0.0);
+            // thigh
+            glutSolidCone(1.0, 2.75, tesallation, tesallation);
+         glPopMatrix();
+         glTranslatef(0.0, -0.2, 1.9);
+         // shin
+         gluCylinder(gluNewQuadric(), 0.55, 0.35, 1.7, tesallation, tesallation);
+      glPopMatrix();
+      
+      // knee
+      glPushMatrix();
+         glScaled(0.6, 1.0, 1.0);
+         glTranslatef(0.0, -2.9, -0.2);
+         glutSolidSphere(0.6, tesallation, tesallation);
+      glPopMatrix();
+      
+      // foot
+      glTranslatef(0.0, -5.7, 0.0);
+      glRotatef(45, 1.0, 0.0, 0.0);
+      glScaled(0.75, 1.0, 1.25);
+      glutSolidCube(1.0);
+   glPopMatrix();
+   return;
+}
 
+/* Used by drawTrojan */
+void drawWheelBase(int tes ) {
+   int tesallation = tes;
+
+   glPushMatrix();
+      glPushMatrix();
+         glScaled(2.25, 0.55, 3.75);
+         glutSolidCube(2.0);
+      glPopMatrix();
+      
+      glTranslatef(2.8, 0.0, -3.0);
+      glRotatef(-90, 0.0, 1.0, 0.0);
+      gluCylinder(gluNewQuadric(), 1.5, 1.5, 0.5, tesallation, tesallation);
+      gluDisk(gluNewQuadric(), 0.0, 1.5, tesallation, tesallation);
+
+      glTranslatef(5.8, 0.0, 0.0);
+      gluCylinder(gluNewQuadric(), 1.5, 1.5, 0.5, tesallation, tesallation);
+      gluDisk(gluNewQuadric(), 0.0, 1.5, tesallation, tesallation);
+      
+      glPushMatrix();
+         glTranslatef(0.0, 0.0, 5.1);
+         gluCylinder(gluNewQuadric(), 1.5, 1.5, 0.5, tesallation, tesallation);
+         glTranslatef(0.0, 0.0, 0.5);
+         gluDisk(gluNewQuadric(), 0.0, 1.5, tesallation, tesallation);
+      glPopMatrix();
+      
+      glPushMatrix();
+         glTranslatef(-5.8, 0.0, 5.1);
+         gluCylinder(gluNewQuadric(), 1.5, 1.5, 0.5, tesallation, tesallation);
+         glTranslatef(0.0, 0.0, 0.5);
+         gluDisk(gluNewQuadric(), 0.0, 1.5, tesallation, tesallation);
+      glPopMatrix();
+   glPopMatrix();
+}
+
+/* This model has a dynamic tail. Tesallations at or below
+   4 will render a different tail vs tesallations greater
+   than 4 */
+void drawTrojan() {
+   int tesallation = 8;
+   
+   glPushMatrix();
+      // Body
+      glPushMatrix();
+         setMaterial(FieryOrange);
+         gluCylinder(gluNewQuadric(), 2.0, 2.0, 3.5, tesallation, tesallation);
+         glutSolidSphere(2.0, tesallation, tesallation);
+         glTranslatef(0.0, 0.0, 3.5);
+         glutSolidSphere(2.0, tesallation, tesallation);
+      glPopMatrix();
+      
+      // Head
+      glPushMatrix();
+         glTranslatef(0.0, 1.30, 4.5);
+         // neck
+         glPushMatrix();
+            glRotatef(-55, 1.0, 0.0, 0.0);
+            glScaled(1.0, 1.4, 1.35);
+            glutSolidCone(1.0, 3.0, tesallation, tesallation);
+         glPopMatrix();
+         
+         glPushMatrix();
+            glTranslatef(0.0, 2.25, 0.5);
+            glRotatef(-35, 1.0, 0.0, 0.0);
+            glScaled(0.3, 0.75, 5.5);
+            glutSolidCube(1.0);
+         glPopMatrix();
+         
+         glTranslatef(0.0, 2.3, 3.0);
+         
+         // neck disc right
+         glPushMatrix();
+            glTranslatef(0.6, 0.0, -0.5);
+            glRotatef(90, 0.0, 1.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.75, 0.75, 0.4, tesallation, tesallation);
+            glTranslatef(0.0, 0.0, 0.4);
+            gluDisk(gluNewQuadric(), 0.0, 0.75, tesallation, tesallation);
+         glPopMatrix();
+         
+         // neck disc left
+         glPushMatrix();
+            glTranslatef(-1.0, 0.0, -0.5);
+            glRotatef(90, 0.0, 1.0, 0.0);
+            gluCylinder(gluNewQuadric(), 0.75, 0.75, 0.4, tesallation, tesallation);
+            gluDisk(gluNewQuadric(), 0.0, 0.75, tesallation, tesallation);
+         glPopMatrix();
+
+         // skull
+         glPushMatrix();
+            glRotatef(55, 1.0, 0.0, 0.0);
+            glScaled(0.60, 0.45, 1.5);
+            glutSolidCube(2.0);
+         glPopMatrix();
+         
+         // ears
+         glPushMatrix();
+            glTranslatef(0.6, 1.25, -0.5);
+            glRotatef(-100, 1.0, 0.0, 0.0);
+            glScaled(0.5, 0.75, 0.75);
+            glutSolidCone(0.4, 1.0, tesallation, tesallation);
+            glTranslatef(-2.4, 0.0, 0.0);
+            glutSolidCone(0.4, 1.0, tesallation, tesallation);
+         glPopMatrix();
+      glPopMatrix();
+   
+      glPushMatrix();
+         // back legs
+         glTranslatef(1.4, 3.5, -0.75);
+         drawLeg(tesallation);
+         glTranslatef(-2.8, 0.0, 0.0);
+         drawLeg(tesallation);
+         // front legs
+         glTranslatef(0.40, 0.0, 4.5);
+         drawLeg(tesallation);
+         glTranslatef(2.00, 0.0, 0.0);
+         drawLeg(tesallation);
+      glPopMatrix();
+      
+      // dynamic tail
+      if (tesallation <= 4) {
+         glPushMatrix();
+            glTranslatef(0.0, 1.25, -1.0);
+            glScaled(0.6, 1.3, 1.3);
+            glutSolidSphere(1.0, tesallation, tesallation);
+         glPopMatrix();
+      } else {
+         glPushMatrix();
+            glScaled(0.8, 0.8, 0.8);
+            glTranslatef(0.0, 1.0, -3.5);
+            glRotatef(25, 1.0, 0.0, 0.0);
+            glPushMatrix();
+               glScaled(0.9, 0.9, 5.0);
+               glutSolidCone(1.0, 1.0, tesallation, tesallation);
+            glPopMatrix();
+            
+            glutSolidSphere(1.0, tesallation, tesallation);
+            
+            glTranslatef(0.0, 0.0, 0.0);
+            glRotatef(80, 1.0, 0.0, 0.0);
+            glPushMatrix();
+               glScaled(0.25, 0.25, 2.0);
+               gluCylinder(gluNewQuadric(), 3.0, 2.0, 2.25, tesallation, tesallation);
+            glPopMatrix();
+             
+            glTranslatef(0.0, 0.0, 5.15);
+            glutSolidSphere(0.8, tesallation, tesallation);
+         glPopMatrix();
+      }
+
+      // base
+      glTranslatef(0.0, -6.8, 1.5);
+      drawWheelBase(tesallation);
+   glPopMatrix();
+   return;
+}
 
 using namespace vtd_dl;
 void composeDisplayLists(){
@@ -1432,6 +1621,7 @@ void composeDisplayLists(){
   fanDL = glGenLists(1);
   shieldDL = glGenLists(1);
   turretDL = glGenLists(1);
+  trojanDL  = glGenLists(1);
 
   glNewList(blkhatDL, GL_COMPILE);
     drawBlackHat();
@@ -1467,5 +1657,9 @@ void composeDisplayLists(){
 
   glNewList(turretDL, GL_COMPILE);
     drawTurret();
+  glEndList();
+  
+  glNewList(trojanDL, GL_COMPILE);
+    drawTrojan();
   glEndList();
 }

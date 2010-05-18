@@ -32,13 +32,12 @@ unit_dir StrongUnit::move(unit_dir direction) {
 void StrongUnit::draw() {
   glPushMatrix();
   glTranslatef(x, y, z);
-  glPushMatrix();
-  glScaled(0.25, 0.25, 0.25);
-  glTranslatef(0, 1, 0);
-  glCallList(vtd_dl::forkbDL);
-  //glCallList(vtd_dl::virusDL);
-  glPopMatrix();
-  //glutSolidSphere(.45,10,10);
+     glPushMatrix();
+        glScaled(0.25, 0.25, 0.25);
+        glTranslatef(0, 1, 0);
+        glCallList(vtd_dl::forkbDL);
+        //glCallList(vtd_dl::virusDL);
+     glPopMatrix();
   glPopMatrix();
 }
 

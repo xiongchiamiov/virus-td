@@ -10,6 +10,7 @@ namespace vtd_dl{
   extern GLuint fanDL;
   extern GLuint shieldDL;
   extern GLuint turretDL;
+  extern GLuint trojanDL;
 };
 
 void drawBlackHat();
@@ -26,5 +27,9 @@ void drawShieldBase(int set);
 void drawTurret();
 void drawMemBase();
 void drawMemStick();
+
+void drawLeg(int tes);
+void drawWheelBase(int tes);
+void drawTrojan();
 
 void composeDisplayLists();
