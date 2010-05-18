@@ -1,5 +1,8 @@
 #pragma once
+#include <iostream>
+#include <fstream>
 #include <list>
+#include <vector>
 //#include <gl/glut.h>
 #include "lighting.h"
 #include "constants.h"
@@ -9,10 +12,24 @@
 //  Tower* tower;
 //  bool isRemoved;
 //};
+
+const int FRACTAL_DEPTH = 2;
+
+class FractalSet {
+public:
+	int start_i, end_i;
+	int start_j, end_j;
+	std::vector<std::vector<GLfloat>> zVals;
+	FractalSet(int s_i,int e_i,int s_j,int e_j);
+private:
+	void createFractals(int start_i, int h_cnt, int v_cnt);
+};
+
 class GameGrid
 {
 public:
   GameGrid(void);
+  GameGrid(char  *filename);
   ~GameGrid(void);
   void draw();
   bool setTower(int x, int y);
@@ -29,4 +46,6 @@ private:
   float y;
   bool grid[G_WIDTH][G_HEIGHT];
   Tower* tGrid[G_WIDTH][G_HEIGHT];
+  void createFractals(void);
+  std::list<FractalSet*> f_sets;
 };

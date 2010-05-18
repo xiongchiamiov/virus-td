@@ -17,6 +17,147 @@ GameGrid::~GameGrid(void)
   //delete[] grid;
 }
 
+GameGrid::GameGrid(char *filename):
+x(0.0), y(0.0)
+{
+	std::ifstream file;
+	file.open(filename);
+	if(file.is_open())
+	{
+		for(int j = 0; j < GRID_HEIGHT; ++j){
+			for(int i = 0; i < GRID_WIDTH; ++i){
+				char val;
+				do {
+					file.read(&val,sizeof(char));
+				}
+				while (val == '\n');
+				val = val-48; //Convert to # values
+				if(val == 0)
+					grid[i][j] = true;
+				else
+					grid[i][j] = false;
+				tGrid[i][j] = NULL;
+			}
+		}
+		file.close();
+		createFractals();
+		printf("Loaded grid file\n");
+	}
+	else
+	{
+		printf("Error loading grid file\n");
+		//grid = new bool[16][32];
+		for(int i = 0; i < GRID_WIDTH; ++i){
+			for(int j = 0; j < GRID_HEIGHT; ++j){
+				grid[i][j] = true;
+				tGrid[i][j] = NULL;
+			}
+		}
+	}
+}
+
+int my_test = 1;
+void GameGrid::createFractals()
+{
+	//int c_val[G_WIDTH][G_HEIGHT];
+	bool assigned[G_WIDTH][G_HEIGHT];
+	int tests[G_WIDTH][G_HEIGHT];
+	//Initial pass to assign corner values
+	for(int j = 0; j < GRID_HEIGHT; ++j){
+		for(int i = 0; i < GRID_WIDTH; ++i){
+			//c_val[i][j] = 0;
+			assigned[i][j] = false;
+			tests[i][j] = 0;
+			/*if(grid[i][j] != true){
+				//Check the left for open space
+				if(i-1 < 0 || grid[i-1][j] == true)
+					c_val[i][j] = c_val[i][j] | G_L;
+				//Check the right for open space
+				if(i+1 >= G_WIDTH || grid[i+1][j] == true)
+					c_val[i][j] = c_val[i][j] | G_R;
+				//Check the top for open space
+				if(j-1 < 0 || grid[i][j-1] == true)
+					c_val[i][j] = c_val[i][j] | G_T;
+				//Check the bottom for open space
+				if(j+1 >= G_HEIGHT || grid[i][j+1] == true)
+					c_val[i][j] = c_val[i][j] | G_B;
+			}*/
+		}
+	}
+	//Now group the empty spots together
+	for(int j = 0; j < GRID_HEIGHT; ++j){
+		for(int i = 0; i < GRID_WIDTH; ++i){
+			if(grid[i][j] != true && assigned[i][j] != true) {
+				//Create a new fractal set
+				int r = i + 1;
+				int b = j + 1;
+				assigned[i][j] = true;
+				while(r < GRID_WIDTH && grid[r][j] != true && assigned[r][j] != true) {
+					assigned[r][j] = true;
+					r++;
+				}
+				r--;
+				bool line_clear = true;
+				while(b < GRID_HEIGHT && line_clear == true) {
+					for(int x = i; x <= r; x++) {
+						if(grid[x][b] == true || assigned[x][b] == true) {
+							line_clear = false;
+							break;
+						}
+					}
+					if(line_clear == true) {
+						for(int x = i; x <= r; x++) {
+							assigned[x][b] = true;
+						}
+						b++;
+					}
+				}
+				b--;
+				for(int u = i; u <= r; u++)
+					for(int v = j; v <= b; v++)
+						tests[u][v] = my_test;
+				my_test++;
+				FractalSet *f_s = new FractalSet(i,r,j,b);
+				f_sets.push_back(f_s);
+			}
+		}
+	}
+
+	std::list<FractalSet*>::iterator i;
+	for(i = f_sets.begin(); i != f_sets.end(); ++i){
+		
+	}
+
+	//Print out the setup
+	for(int j = 0; j < GRID_HEIGHT; ++j){
+		for(int i = 0; i < GRID_WIDTH; ++i){
+			printf("%1d",tests[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+FractalSet::FractalSet(int s_i,int e_i,int s_j,int e_j):
+		start_i(s_i),end_i(e_i),start_j(s_j),end_j(e_j)
+{
+	int h_cnt = FRACTAL_DEPTH * ((e_i-s_i)+1);
+	int v_cnt = FRACTAL_DEPTH * ((e_j-s_j)+1);
+	for(int i = 0; i < h_cnt+1; ++i) {
+		zVals.push_back(std::vector<GLfloat>());
+		for(int j = 0; j < v_cnt+1; ++j)
+			zVals[i].push_back(0.0);
+	}
+	int start_i = 1;
+	h_cnt -= 2;
+	v_cnt -= 2;
+	createFractals(start_i,h_cnt,v_cnt);
+}
+
+void FractalSet::createFractals(int start_i, int h_cnt, int v_cnt)
+{
+
+}
+
 void GameGrid::draw(){
   glPushMatrix();
   glNormal3f(0.0, 1.0, 0.0);
