@@ -3,6 +3,7 @@
 #include <fstream>
 #include <list>
 #include <vector>
+#include <time.h>
 //#include <gl/glut.h>
 #include "lighting.h"
 #include "constants.h"
@@ -14,6 +15,7 @@
 //};
 
 const int FRACTAL_DEPTH = 2;
+const float FRACTAL_VAR = 1.0;
 
 class FractalSet {
 public:
@@ -47,5 +49,6 @@ private:
   bool grid[G_WIDTH][G_HEIGHT];
   Tower* tGrid[G_WIDTH][G_HEIGHT];
   void createFractals(void);
+  void drawFractals(void);
   std::list<FractalSet*> f_sets;
 };

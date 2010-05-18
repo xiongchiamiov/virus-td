@@ -150,12 +150,37 @@ FractalSet::FractalSet(int s_i,int e_i,int s_j,int e_j):
 	int start_i = 1;
 	h_cnt -= 2;
 	v_cnt -= 2;
+	srand(time(NULL));
 	createFractals(start_i,h_cnt,v_cnt);
+	for(int y = 0; y < zVals[0].size(); y++) {
+		for(int x = 0; x < zVals.size(); x++)
+			printf("%2.3f ",zVals[x][y]);
+		printf("\n");
+	}
 }
 
+int new_test = 1;
 void FractalSet::createFractals(int start_i, int h_cnt, int v_cnt)
 {
-
+	GLfloat val;
+	if(start_i % 2 == 1) {
+		GLfloat test = (FRACTAL_VAR * (2.0*((float)rand()/RAND_MAX) - 1.0));
+		val =  this->zVals[start_i-1][start_i-1] + test;
+	}
+	else
+		val = this->zVals[start_i-1][start_i-1];
+	for(int x = start_i; x <= (start_i+h_cnt) && h_cnt > 0; ++x)
+		this->zVals[x][start_i] = zVals[x][start_i + v_cnt] = val;
+	for(int y = start_i; y <= (start_i + v_cnt) && v_cnt > 0; ++y)
+		this->zVals[start_i][y] = zVals[start_i + h_cnt][y] = val;
+	if(v_cnt == 0 && h_cnt == 0)
+		this->zVals[start_i][start_i] = val;
+	if(v_cnt > 0 && h_cnt > 0) {
+		v_cnt -= 2;
+		h_cnt -= 2;
+		start_i++;
+		createFractals(start_i,h_cnt,v_cnt);
+	}
 }
 
 void GameGrid::draw(){
@@ -202,6 +227,10 @@ void GameGrid::draw(){
     posX += GRID_SIZE*2.0;
   }
   glPopMatrix();
+}
+
+void GameGrid::drawFractals()
+{
 }
 
 bool GameGrid::setTower(int x, int y){
