@@ -123,10 +123,12 @@ void Player::update(int dt){
   for(i = uai.uList.begin(); i != uai.uList.end(); ++i){
     (*i)->step(dt);
     if(!(*i)->hasPath()){
-      Tower* targ = pGrid.checkCollision(*i);
+      Tower* targ = opponent->pGrid.checkCollision(*i);
+      if(targ != NULL) std::cout << "Colliding" << std::endl;
       (*i)->attack(targ);
       if(targ != NULL && targ->isDead()){
         pGrid.destroyTower(targ->getGridX(), targ->getGridY());
+        opponent->uai.determineUnitsPaths();
       }
     }
   }
