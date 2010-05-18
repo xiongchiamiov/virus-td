@@ -32,6 +32,24 @@ namespace tower_cost{
   const int WALL = 2;
 }
 
+namespace tower_damage{
+  const int BASIC = 10;
+  const int FAST = 5;
+  const int FREEZE = 10;
+  const int SLOW = 25;
+  const int TRAP = 15;
+  const int WALL = 0;
+}
+
+namespace tower_speed{
+  const int BASIC = 10;
+  const int FAST = 25;
+  const int FREEZE = 10;
+  const int SLOW = 5;
+  const int TRAP = 0;
+  const int WALL = 0;
+}
+
 namespace tower_name{
   extern const char* BASIC = "Basic";
   extern const char* FAST = "Fast";
@@ -42,12 +60,12 @@ namespace tower_name{
 }
 
 namespace tower_description{
-  extern const char* BASIC = "This is the basic tower";
-  extern const char* FAST = "This is the fast tower\nIts description has two lines";
-  extern const char* FREEZE = "This is the freeze tower";
-  extern const char* SLOW = "This is the slow tower";
-  extern const char* TRAP = "This is the trap tower";
-  extern const char* WALL = "This is the wall tower";
+  extern const char* BASIC = "This tower has average speed\nand average damage";
+  extern const char* FAST = "This tower fires very rapidly,\nbut its damage is low";
+  extern const char* FREEZE = "This tower's damage is average,\nbut it causes enemies to slow\ndown after getting shot";
+  extern const char* SLOW = "This tower has a very slow rate of fire,\nbut does a great deal of damage";
+  extern const char* TRAP = "This tower can be placed along the path of\nviruses and it will do damage when\nthey cross the trap";
+  extern const char* WALL = "This tower does not attack enemy units but\nmerely blocks them from passing";
 }
 
 g_elem loc2grid(float x, float z) {
@@ -79,11 +97,41 @@ int getTowerCost(int index) {
 }
 
 int getTowerDamage(int index) {
-	return -1;
+	switch(index) {
+		case 0:	return tower_damage::BASIC;
+			break;
+		case 1: return tower_damage::FAST;
+			break;
+		case 2: return tower_damage::FREEZE;
+			break;
+		case 3: return tower_damage::SLOW;
+			break;
+		case 4: return tower_damage::TRAP;
+			break;
+		case 5: return tower_damage::WALL;
+			break;
+		default: return -1;
+			 break;
+	}
 }
 
 int getTowerSpeed(int index) {
-	return -1;
+	switch(index) {
+		case 0:	return tower_speed::BASIC;
+			break;
+		case 1: return tower_speed::FAST;
+			break;
+		case 2: return tower_speed::FREEZE;
+			break;
+		case 3: return tower_speed::SLOW;
+			break;
+		case 4: return tower_speed::TRAP;
+			break;
+		case 5: return tower_speed::WALL;
+			break;
+		default: return -1;
+			 break;
+	}
 }
 
 const char* getTowerName(int index) {

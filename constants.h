@@ -30,6 +30,15 @@ namespace tower_cost{
   extern const int WALL;
 }
 
+namespace tower_damage{
+  extern const int BASIC;
+  extern const int FAST;
+  extern const int FREEZE;
+  extern const int SLOW;
+  extern const int TRAP;
+  extern const int WALL;
+}
+
 namespace tower_name{
   extern const char* BASIC;
   extern const char* FAST;
