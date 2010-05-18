@@ -45,7 +45,7 @@ public:
   inline int getHP(){return hp;}
   inline float getSpeed(){return speed;}
   inline unit_t getValue(){return type;}
-  inline bool hasPath(){return false;}
+  inline bool hasPath(){return true;}
   void step(int dt);
   bool checkCollison(GameObject* other);
   std::stack<g_elem> path;

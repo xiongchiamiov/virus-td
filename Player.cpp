@@ -276,5 +276,5 @@ void Player::setOpponent(Player* newOpp){
   this->uai.setGrid(opponent->pGrid);
   opponent->uai.setGrid(pGrid);
   this->uai.setTowers(opponent->tList);
-  opponent->uai.setTowers(opponent->tList);
+  opponent->uai.setTowers(tList);
 }

@@ -66,7 +66,7 @@ void UnitsAI::determineUnitsPaths() {
 
 		// A* search
 		while(!(goal == cur->loc)) {
-			std::cout << "cur " << cur->loc.x << " "  << cur->loc.y << " " << cur->f << std::endl;
+			//std::cout << "cur " << cur->loc.x << " "  << cur->loc.y << " " << cur->f << std::endl;
 
 			// left
 			g_elem left(cur->loc.x - 1, cur->loc.y);
