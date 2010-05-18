@@ -215,13 +215,13 @@ void drawRectangle(float xp, float yp, float w, float h, GLuint texture)
 
 	glBegin(GL_QUADS);
     glTexCoord2f(0.0,1.0);
-    glVertex2f(xp,yp+h);
-    glTexCoord2f(1.0,1.0);
-    glVertex2f(xp+w,yp+h);
-    glTexCoord2f(1.0,0.0);
-    glVertex2f(xp+w,yp);
-    glTexCoord2f(0.0,0.0);
     glVertex2f(xp,yp);
+    glTexCoord2f(1.0,1.0);
+    glVertex2f(xp+w,yp);
+    glTexCoord2f(1.0,0.0);
+    glVertex2f(xp+w,yp+h);
+    glTexCoord2f(0.0,0.0);
+    glVertex2f(xp,yp+h);
     glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -312,6 +312,7 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		else if (xp < 0)
 			xp = 0;
 
+		glColor3f(1.0,1.0,1.0);
 	    renderBitmapString(xp, yp, info_font_bold, name);
 		yp -= sep;
 		renderBitmapString(xp, yp, info_font, cost);
@@ -328,18 +329,18 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		glTranslatef(0,0,0.1);
 		//Draw Corners
 		//TL
-		drawRectangle(xp - 8,yp + 2,16,16,info_tex[0]);
+		drawRectangle(xp - 8,yp + 2,16,16,info_tex[3]);
 		//TR
-		drawRectangle(xp + w - 8,yp + 2,16,16,info_tex[1]);
+		drawRectangle(xp + w - 8,yp + 2,16,16,info_tex[2]);
 		//BR
-		drawRectangle(xp + w - 8,yp + 2 - h,16,16,info_tex[2]);
+		drawRectangle(xp + w - 8,yp + 2 - h,16,16,info_tex[1]);
 		//BL
-		drawRectangle(xp - 8,yp + 2 - h,16,16,info_tex[3]);
+		drawRectangle(xp - 8,yp + 2 - h,16,16,info_tex[0]);
 
 		//Top
-		drawRectangle(xp - 8 + 16,yp + 2,w - 16,16,info_tex[8]);
+		drawRectangle(xp - 8 + 16,yp + 2,w - 16,16,info_tex[9]);
 		//Bottom
-		drawRectangle(xp - 8 + 16,yp + 2 - h,w - 16,16,info_tex[9]);
+		drawRectangle(xp - 8 + 16,yp + 2 - h,w - 16,16,info_tex[8]);
 		//Left
 		drawRectangle(xp - 8,yp + 2 + 16 - h,16,h - 16,info_tex[6]);
 		//Right
