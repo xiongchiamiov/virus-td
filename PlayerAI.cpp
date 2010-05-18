@@ -24,10 +24,16 @@ void PlayerAI::update(int dt) {
 			const int NUMBER_OF_TOWERS = 6;
 			const int STARTING_TOWER = 12;
 			
-			/*while(player.placeTower(rand() % player.pGrid.G_WIDTH + 1,
+			int i = 0;
+			while(player.placeTower(rand() % player.pGrid.G_WIDTH + 1,
 			                        rand() % player.pGrid.G_HEIGHT + 1,
 			                        rand() % NUMBER_OF_TOWERS + STARTING_TOWER)
-			   == INVALID_LOCATION);*/
+			   == INVALID_LOCATION
+			   && i < 50) {
+				// increment this so we don't go into infinite loops
+				// when there are no available spots to place towers
+				i++;
+			}
 		}
 		if (!(updates % 1000)) {
 			player.spawnUnit(7);
