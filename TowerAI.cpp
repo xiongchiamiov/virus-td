@@ -34,7 +34,8 @@ void TowerAI::getNewTarget(){
   float thisDist, bestDist = range + 1.0;
   int low_hp = 2147483647, high_hp = -1;
   float fast_spd = 0.0, slow_spd = 100.0;
-  //std::cout << bestDist << std::endl;
+  hasTarget = false;
+  target = NULL;
   for(i = targetList->begin(); i != targetList->end(); ++i){
     if(!(*i)->isDead()){
       thisDist = getDistance(**i);

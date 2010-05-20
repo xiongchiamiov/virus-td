@@ -14,8 +14,6 @@ enum tower_t{
   T_WALL
 };
 
-//class Unit;
-
 class Tower :
   public GameObject
 {
@@ -46,5 +44,6 @@ public:
   inline float getRange(){return ai.range;}
   inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
   inline bool isDead(){return hp <= 0;}
+  inline void retarget(){ if(ai.hasTarget && ai.target->isDead()) ai.hasTarget = false; }
   int takeDamage(int damage);
 };

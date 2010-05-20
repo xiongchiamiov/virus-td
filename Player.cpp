@@ -125,6 +125,9 @@ void Player::update(int dt){
     (*t)->step(dt);
     resources += (*t)->getKill();
   }
+  for(t = tList.begin(); t != tList.end(); ++t){
+    (*t)->retarget();
+  }
 
   for(i = uai.uList.begin(); i != uai.uList.end(); ++i){
     (*i)->step(dt);
