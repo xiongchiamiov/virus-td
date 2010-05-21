@@ -56,6 +56,7 @@ void display(){
   gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
     cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
     0.0, 1.0, 0.0);
+  vfc::extractPlanes();
   glColor3f(0.8, 0.5, 0.3);
   float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
   float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
@@ -63,12 +64,14 @@ void display(){
   glBegin(GL_LINES);{
     glVertex3f(lx, 0.0, lz);
     glVertex3f(lx, 5.0, lz);
+    glVertex3f(0.0, 0.0, 0.0);
+    glVertex3f(0.0, 5.0, 0.0);
   }
   glEnd();
   glPushMatrix();
   p1.draw();
-  glScalef(-1.0, 1.0, -1.0);
-  glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 8)*2.0);
+  //glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 8)*2.0);
+  //glScalef(-1.0, 1.0, -1.0);
   opponent.player.draw();
   glPopMatrix();
   glPushMatrix();
@@ -247,6 +250,8 @@ int main(int argc, char** argv){
   v.setVector(0.0, 1.0, 0.0);
   w.setVector(0.0, 0.0, -1.0);
   p1.setOpponent(&(opponent.player));
+  p1.setPosition(P1_POSX, P1_POSY, P1_POSZ);
+  opponent.player.setPosition(OPP_POSX2, OPP_POSY2, OPP_POSZ2);
   tlx = 0;
   tly = 0;
   ulx = 0;   

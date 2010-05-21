@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\vfc.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VTD_main.cpp"
 				>
 			</File>
@@ -250,6 +254,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\StrongUnit2.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Unit.cpp"
 					>
 				</File>
@@ -312,6 +320,10 @@
 				RelativePath=".\UI.h"
 				>
 			</File>
+			<File
+				RelativePath=".\vfc.h"
+				>
+			</File>
 			<Filter
 				Name="Units"
 				>
@@ -325,6 +337,10 @@
 				</File>
 				<File
 					RelativePath=".\StrongUnit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\StrongUnit2.h"
 					>
 				</File>
 				<File

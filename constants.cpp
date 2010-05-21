@@ -9,6 +9,16 @@ const float START_Z = -2.0;
 const float GRID_SIZE = 0.25;
 const int CYCLE_TIME = 5000;
 bool RAND_SEEDED = false;
+const float P1_POSX = -GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
+const float P1_POSY = 0.0;
+const float P1_POSZ = -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
+const float OPP_POSX = -GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
+const float OPP_POSY = 0.0;
+const float OPP_POSZ = -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE + GRID_SIZE*(GRID_HEIGHT + 8)*2.0;
+const float OPP_POSX2 = -GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE + GRID_SIZE*(GRID_WIDTH + 8)*2.0;
+const float OPP_POSY2 = 0.0;
+const float OPP_POSZ2 = -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
+
 
 
 namespace unit_cost{

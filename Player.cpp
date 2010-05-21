@@ -187,21 +187,29 @@ void Player::destroyTower(int x, int y){
 
 void Player::draw(){
   glPushMatrix();
-  glTranslatef(-GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE, 0.0, -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE);
+  glTranslatef(pos.getX(), pos.getY(), pos.getZ());
   pGrid.draw();
   std::list<Tower*>::iterator i; 
   for(i = tList.begin(); i != tList.end(); ++i){
-    if(!(*i)->isDead()){
+    if(!(*i)->isDead() && !cull(*i)){
       (*i)->draw();
     }
   }
   std::list<Unit*>::iterator p; 
   for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
-    if(!(*p)->isDead()){
+    if(!(*p)->isDead() && !cull(*p)){
       (*p)->draw();
     }
   }
   glPopMatrix();
+}
+
+bool Player::cull(GameObject* obj){
+  MyVector temp(0.0, 0.0, 0.0, 
+    obj->getX() + pos.getX(),
+    obj->getY() + pos.getY(),
+    obj->getZ() + pos.getZ());
+  return !vfc::viewFrustumCull(vfc::planes, &temp);
 }
 
 int Player::getIncome(){

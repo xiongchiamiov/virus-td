@@ -1,4 +1,5 @@
 #pragma once
+#include "MyVector.h"
 extern const int GRID_WIDTH;
 extern const int GRID_HEIGHT;
 extern const float GRID_SIZE;
@@ -8,6 +9,15 @@ extern const float GOAL_Z;
 extern const float START_X;
 extern const float START_Z;
 extern bool RAND_SEEDED;
+extern const float P1_POSX;
+extern const float P1_POSY;
+extern const float P1_POSZ;
+extern const float OPP_POSX;
+extern const float OPP_POSY;
+extern const float OPP_POSZ;
+extern const float OPP_POSX2;
+extern const float OPP_POSY2;
+extern const float OPP_POSZ2;
 
 namespace unit_cost{
   extern const int BASIC;
