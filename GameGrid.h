@@ -40,6 +40,7 @@ public:
   bool removeTower(int x, int y, std::list<Tower*>& towers);
   bool destroyTower(int x, int y);
   bool isWall(g_elem cur);
+  bool origianlIsWall(g_elem cur);
   void setTowerGrid(int x, int y, Tower* tPtr);
   Tower* checkCollision(Unit* unit);
   static const int G_WIDTH = 16;
@@ -48,6 +49,7 @@ private:
   float x;
   float y;
   bool grid[G_WIDTH][G_HEIGHT];
+  bool oGrid[G_WIDTH][G_HEIGHT];
   bool frac[G_WIDTH][G_HEIGHT];
   Tower* tGrid[G_WIDTH][G_HEIGHT];
   void createFractals(void);

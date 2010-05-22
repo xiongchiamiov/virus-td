@@ -38,10 +38,12 @@ x(0.0), y(0.0)
 				val = val-48; //Convert to # values
 				if(val == 0) {
 					grid[i][j] = true;
+					oGrid[i][j] = true;
 					frac[i][j] = false;
 				}
 				else {
 					grid[i][j] = false;
+					oGrid[i][j] = false;
 					frac[i][j] = true;
 				}
 				tGrid[i][j] = NULL;
@@ -58,6 +60,7 @@ x(0.0), y(0.0)
 		for(int i = 0; i < GRID_WIDTH; ++i){
 			for(int j = 0; j < GRID_HEIGHT; ++j){
 				grid[i][j] = true;
+				oGrid[i][j] = true;
 				tGrid[i][j] = NULL;
 			}
 		}
@@ -430,6 +433,15 @@ bool GameGrid::isWall(g_elem cur) {
 		return false;
 	else
 		return !grid[cur.x][cur.y - 4];
+}
+
+bool GameGrid::origianlIsWall(g_elem cur) {
+	if(cur.x >= GRID_WIDTH || cur.x < 0 || cur.y >= GRID_HEIGHT + 8 || cur.y < 0)
+		return true;
+	else if(cur.y < 4 || cur.y > 35)
+		return false;
+	else
+		return !oGrid[cur.x][cur.y - 4];
 }
 
 Tower* GameGrid::checkCollision(Unit* unit){
