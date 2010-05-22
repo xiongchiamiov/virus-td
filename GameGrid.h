@@ -40,7 +40,7 @@ public:
   bool removeTower(int x, int y, std::list<Tower*>& towers);
   bool destroyTower(int x, int y);
   bool isWall(g_elem cur);
-  bool origianlIsWall(g_elem cur);
+  bool originalIsWall(g_elem cur);
   void setTowerGrid(int x, int y, Tower* tPtr);
   Tower* checkCollision(Unit* unit);
   static const int G_WIDTH = 16;

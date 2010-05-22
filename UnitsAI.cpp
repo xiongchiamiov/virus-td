@@ -118,10 +118,97 @@ void UnitsAI::determineUnitsPaths() {
 		}
 
 		if(attackMode) {
-			path.push(goal);
-			(*i)->path = path;
-			(*i)->dir.setVector(GOAL_X - (*i)->getX(), 0.0, GOAL_Z - (*i)->getZ());
-			(*i)->dir.normalize();
+			std::list<MyNode*>::iterator m2;
+			MyNode* cur2 = new MyNode(startLoc, NULL, 0, heuristic(startLoc, goal));
+			std::priority_queue<MyNode*, std::vector<MyNode*>, CompareMyNode> fringe2;
+			std::stack<g_elem> path2;
+			std::list<MyNode*> dList2;
+			bool visited2[16][40]; // note MAGIC NUMBERS
+
+			// initialize visited array
+			for(int l = 0; l < GRID_WIDTH; ++l){
+				for(int j = 0; j < GRID_HEIGHT + 8; ++j){ // note MAGIC NUMBERS
+					visited2[l][j] = false;
+				}
+			}
+
+			dList2.push_back(cur2);
+
+			// A* search
+			while(!(goal == cur2->loc)) {
+				//std::cout << "cur " << cur->loc.x << " "  << cur->loc.y << " " << cur->f << std::endl;
+
+				// left
+				g_elem left(cur2->loc.x - 1, cur2->loc.y);
+				if(!(*gg).originalIsWall(left) && !visited2[cur2->loc.x - 1][cur2->loc.y]) {
+					//std::cout << "left " << cur->loc.x - 1 << " "  << cur->loc.y << std::endl;
+					visited2[cur2->loc.x - 1][cur2->loc.y] = true;
+					MyNode* d = new MyNode(left, cur2, cur2->g + 1, heuristic(left, goal));
+					fringe2.push(d);
+					dList2.push_back(d);
+				}
+
+				// right
+				g_elem right(cur2->loc.x + 1, cur2->loc.y);
+				if(!(*gg).originalIsWall(right) && !visited2[cur2->loc.x + 1][cur2->loc.y]) {
+					//std::cout << "right " << cur->loc.x + 1 << " "  << cur->loc.y << std::endl;
+					visited2[cur2->loc.x + 1][cur2->loc.y] = true;
+					MyNode* d = new MyNode(right, cur2, cur2->g + 1, heuristic(right, goal));
+					fringe2.push(d);
+					dList2.push_back(d);
+				}
+
+				// up
+				g_elem up(cur2->loc.x, cur2->loc.y - 1);
+				if(!(*gg).originalIsWall(up) && !visited2[cur2->loc.x][cur2->loc.y - 1]) {
+					//std::cout << "up " << cur->loc.x << " " << cur->loc.y - 1 << std::endl;
+					visited2[cur2->loc.x][cur2->loc.y - 1] = true;
+					MyNode* d = new MyNode(up, cur2, cur2->g + 1, heuristic(up, goal));
+					fringe2.push(d);
+					dList2.push_back(d);
+				}
+
+				// down
+				g_elem down(cur2->loc.x, cur2->loc.y + 1);
+				if(!(*gg).originalIsWall(down) && !visited2[cur2->loc.x][cur2->loc.y + 1]) {
+					//std::cout << "down " << cur->loc.x << " "  << cur->loc.y + 1 << std::endl;
+					visited2[cur2->loc.x][cur2->loc.y + 1] = true;
+					MyNode* d = new MyNode(down, cur2, cur2->g + 1, heuristic(down, goal));
+					fringe2.push(d);
+					dList2.push_back(d);
+				}
+
+				cur2 = fringe2.top();
+				fringe2.pop();
+			}
+
+			// roll back and create path
+			while(cur2 != NULL) {
+				//std::cout << cur->loc.x << " " << cur->loc.y << " " << cur->f << std::endl;
+				path2.push(cur2->loc);
+				cur2 = cur2->parent;
+			}
+
+			// delete MyNode's
+			for(m2 = dList2.begin(); m2 != dList2.end(); ++m2) {
+				delete (*m2);
+			}
+
+			// delete MyNode's
+			for(m = dList.begin(); m != dList.end(); ++m) {
+				delete (*m);
+			}
+
+			// set units path
+			(*i)->path = path2;
+			grid2loc(path2.top(), &nextX, &nextZ);
+			if(!(nextX == GOAL_X && nextZ == GOAL_Z)) { 
+				path2.pop();
+				grid2loc(path2.top(), &nextX, &nextZ);
+				(*i)->dir.setVector(nextX - (*i)->getX(), 0.0, nextZ - (*i)->getZ());
+				(*i)->dir.normalize();
+			}
+
 			(*i)->hasPathB = false;
 			continue;
 		}
@@ -133,6 +220,7 @@ void UnitsAI::determineUnitsPaths() {
 			cur = cur->parent;
 		}
 
+		
 		// delete MyNode's
 		for(m = dList.begin(); m != dList.end(); ++m) {
 			delete (*m);

@@ -435,7 +435,7 @@ bool GameGrid::isWall(g_elem cur) {
 		return !grid[cur.x][cur.y - 4];
 }
 
-bool GameGrid::origianlIsWall(g_elem cur) {
+bool GameGrid::originalIsWall(g_elem cur) {
 	if(cur.x >= GRID_WIDTH || cur.x < 0 || cur.y >= GRID_HEIGHT + 8 || cur.y < 0)
 		return true;
 	else if(cur.y < 4 || cur.y > 35)
