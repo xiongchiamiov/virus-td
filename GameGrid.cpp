@@ -34,7 +34,7 @@ x(0.0), y(0.0)
 				do {
 					file.read(&val,sizeof(char));
 				}
-				while (val == '\n');
+				while (val == '\n' || val == '\r');
 				val = val-48; //Convert to # values
 				if(val == 0) {
 					grid[i][j] = true;
