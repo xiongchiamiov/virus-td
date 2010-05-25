@@ -104,7 +104,9 @@ bool Unit::checkCollison(GameObject* other){
          checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uLeft) || //Bottom left corner
          checkBounds(tTop, tBottom, tLeft, tRight, uBottom, uRight); //Bottom right corner
 }
-#define MAX_HB_WID 1.2
+
+const int MAX_HB_WID = 1.2;
+
 void Unit::drawHealthBar()
 {
 	glPushMatrix();
@@ -131,6 +133,3 @@ void Unit::drawHealthBar()
 	glutSolidCube(1.0);
 	glPopMatrix();
 }
-
-//void Unit::moveToWaypoint(){
-//}

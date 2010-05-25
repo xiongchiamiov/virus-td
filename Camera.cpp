@@ -50,7 +50,7 @@ void Camera::moveRight(){
 }
 
 void Camera::zoomIn(){
-  if(cam.getY() > 0){
+  if(cam.getY() > 3.0){
     cam.setPosition(cam.getX() + ZOOM_SPD*cam.getI(),
                   cam.getY() + ZOOM_SPD*cam.getJ(),
                   cam.getZ() + ZOOM_SPD*cam.getK());
@@ -58,9 +58,11 @@ void Camera::zoomIn(){
 }
 
 void Camera::zoomOut(){
- cam.setPosition(cam.getX() - ZOOM_SPD*cam.getI(),
+  if(cam.getY() < 15.0){
+    cam.setPosition(cam.getX() - ZOOM_SPD*cam.getI(),
                   cam.getY() - ZOOM_SPD*cam.getJ(),
                   cam.getZ() - ZOOM_SPD*cam.getK());
+  }
 }
 
 void Camera::rotateUp(){
