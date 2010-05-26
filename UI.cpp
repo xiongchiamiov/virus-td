@@ -161,7 +161,7 @@ void renderUI(int w, int h,Player* p, float time_left, GLuint mode)
 
    glPushMatrix();
    glLoadIdentity();
-     setMaterial(Black);
+     setMaterial(White);
 //   sprintf(timeRemainingString, "Time Remaining: %d", timeRemaining);
  //  sprintf(currencyString, "Objects Remaining: %d", currency);
 
@@ -175,7 +175,7 @@ void renderUI(int w, int h,Player* p, float time_left, GLuint mode)
    //renderBitmapString(1.0 * GW / 4.0, GH - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
 
    //renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
-
+   setMaterial(Black);
    if(curBtn != -1)
 	drawInfoPanel(mx,my,GW,GH,curBtn);
 

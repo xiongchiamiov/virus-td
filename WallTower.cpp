@@ -30,7 +30,7 @@ WallTower::~WallTower(void)
 
 void WallTower::draw(){
   glPushMatrix();
-  setMaterial(RedFlat);
+  setMaterial(Yellow);
   if(ai.hasTarget){
     glBegin(GL_LINES);
       glVertex3f(x, GRID_SIZE*2.0, z);

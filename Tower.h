@@ -4,6 +4,7 @@
 #include "Unit.h"
 #include "constants.h"
 #include <list>
+#include "Particles.h"
 
 enum tower_t{
   T_BASIC,
@@ -26,6 +27,7 @@ protected:
   int grid_x;    //Coordinates with respect
   int grid_y;    //  to the game grid
   TowerAI ai;    //This tower's AI object
+  Particles * weapon;// Particle 
 public:
   Tower(float inx, float iny, float inz, int gx, int gy);
   virtual ~Tower(void);
@@ -38,7 +40,7 @@ public:
   bool operator==(const Tower& other);
   bool operator==(const g_elem& other);
   inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
-  void step(int dt);
+  virtual void step(int dt);
   void upgrade();
   int getKill();
   inline float getRange(){return ai.range;}

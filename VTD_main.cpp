@@ -52,6 +52,7 @@ void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
+	glClearColor(0.0f,0.0f,0.0f,0.0f);	// Black Background
   glPushMatrix();
   //gluLookAt(camera.getX(), camera.getY(), camera.getZ(), 
             //camera.getI(), camera.getJ(), camera.getK(),
@@ -388,6 +389,7 @@ int main(int argc, char** argv){
   composeDisplayLists();
   glutTimerFunc(1000/60, update, 0);
   initializeUI();
+  initializeParticleTextures();
   glutMainLoop();
 }
 

@@ -549,7 +549,7 @@ void drawWorm() {
 }
 
 void drawBackTrack() {
-   int tesallation = 6;
+   int tesallation = 2;
    // save the transformation state
    glPushMatrix();
       setMaterial(DarkDarkGrey);
@@ -1398,7 +1398,7 @@ void drawShield() {
 
 /* Used by drawShield */
 void drawShieldBase(int set) {
-   int tesallation = 7;
+   int tesallation = 3;
    glPushMatrix();
       setMaterial(Grey);
       

@@ -294,7 +294,8 @@ void GameGrid::draw(){
       if(!frac[i][j]){
         glLineWidth(2.0);
         glColor3f(0.3, 0.7, 0.3);
-        setMaterial(Exp);
+     //   setMaterial(Exp);
+     setMaterial(Black);
         glBegin(GL_POLYGON);{
           glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
           glVertex3f(posX - GRID_SIZE, 0.0, posZ + GRID_SIZE);

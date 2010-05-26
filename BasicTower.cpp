@@ -1,7 +1,7 @@
 #include "BasicTower.h"
 #include "constants.h"
-#include "lighting.h"
 #include "models.h"
+#include "Particles.h"
 
 namespace b_tower{
   const int MAX_UPGRADES = 3;
@@ -22,6 +22,8 @@ Tower(inx, iny, inz, gx, gy)
   type = T_BASIC;
   build_time = BUILD_TIME;
   stage = 0;
+  weapon = new Particles(0.3);
+  weapon->setWeaponType(particle_texture[0]);
 }
 
 BasicTower::~BasicTower(void)
@@ -30,22 +32,33 @@ BasicTower::~BasicTower(void)
 
 void BasicTower::draw(){
   glPushMatrix();
-  setMaterial(RedFlat);
-  if(ai.hasTarget){
-    glBegin(GL_LINES);
-      glVertex3f(x, GRID_SIZE*2.0, z);
-      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
-    glEnd();
-  }
+     setMaterial(Yellow);
+     if(ai.hasTarget){
+       glBegin(GL_LINES);
+         glVertex3f(x, GRID_SIZE*2.0, z);
+         glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
+       glEnd();
+     }
+     glTranslatef(x, y, z);
+     glPushMatrix();
+         glPushMatrix();
+            // Scale and orient animation to fit grid
+            glTranslatef(0.0, 0.25, 0.0);
+            glScaled(0.15, 0.15, 0.15);
+            if(ai.hasTarget){
+               if(ai.last_atk < ai.atk_dt) {
+                  weapon->drawParticles();
+               }
+            } else {
+               weapon->reset();
+            }
+         glPopMatrix();
 
-  glTranslatef(x, y, z);
-      glPushMatrix();
          // Scale and orient model to fit grid
          glTranslatef(0.0, 0.25, 0.0);
          // Mini Tower Defense TBQH
          glScaled(0.15, 0.15, 0.15);
 
-         //drawShield();
          glCallList(vtd_dl::turretDL);
       glPopMatrix();
   glPopMatrix();
