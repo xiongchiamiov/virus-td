@@ -1,8 +1,14 @@
 #include "GameGrid.h"
 
+const int FRACTAL_DEPTH = 2;
+const float FRACTAL_VAR = 0.75;
+const int BOUNDRY_SPAWN_RATE = 350;
+const float BOUNDRY_HEIGHT = 0.8;
+
 GameGrid::GameGrid(void):
-x(0.0), y(0.0)
+x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 {
+	bound_lines.insert(bound_lines.begin(),0.0);
   //grid = new bool[16][32];
   for(int i = 0; i < GRID_WIDTH; ++i){
     for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -18,8 +24,11 @@ GameGrid::~GameGrid(void)
 }
 
 GameGrid::GameGrid(char *filename):
-x(0.0), y(0.0)
+x(0.0), y(0.0),boundry_cntdown(BOUNDRY_SPAWN_RATE)
 {
+	//bound_lines.push_front(0.0);
+	bound_lines.insert(bound_lines.begin(),0.0);
+
 	if(!RAND_SEEDED){
 		srand(time(NULL));
 		RAND_SEEDED = true;
@@ -67,16 +76,13 @@ x(0.0), y(0.0)
 	}
 }
 
-int my_test = 1;
 void GameGrid::createFractals()
 {
 	bool assigned[G_WIDTH][G_HEIGHT];
-	int tests[G_WIDTH][G_HEIGHT];
 	//Initial pass to assign corner values
 	for(int j = 0; j < GRID_HEIGHT; ++j){
 		for(int i = 0; i < GRID_WIDTH; ++i){
 			assigned[i][j] = false;
-			tests[i][j] = 0;
 		}
 	}
 	//Now group the empty spots together
@@ -108,20 +114,16 @@ void GameGrid::createFractals()
 					}
 				}
 				b--;
-				for(int u = i; u <= r; u++)
-					for(int v = j; v <= b; v++)
-						tests[u][v] = my_test;
-				my_test++;
 				FractalSet *f_s = new FractalSet(i,r,j,b);
 				f_sets.push_back(f_s);
 			}
 		}
 	}
 
-	std::list<FractalSet*>::iterator i;
+	/*std::list<FractalSet*>::iterator i;
 	for(i = f_sets.begin(); i != f_sets.end(); ++i){
 		
-	}
+	}*/
 
 	//Print out the setup
 	/*for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -328,6 +330,7 @@ void GameGrid::draw(){
     posX += GRID_SIZE*2.0;
   }
   drawFractals();
+  drawBoundry();
   glPopMatrix();
 }
 
@@ -337,6 +340,44 @@ void GameGrid::drawFractals()
 	for(i = f_sets.begin(); i != f_sets.end(); ++i){
 		(*i)->draw();
 	}
+}
+
+void GameGrid::drawBoundry()
+{
+	//setMaterial(Teal);
+    //glColor3f(0.3, 0.7, 0.7);
+	for(int i = 0; i < (int)bound_lines.size(); i++)
+	{
+		float t = bound_lines[i] / BOUNDRY_HEIGHT;
+		//GLfloat color[] = {0.0f,0.5f - (t*0.5),0.5f - (t*0.5),1.0f}; //Fade to black
+		GLfloat color[] = {t,0.5f + (t*0.5f),0.5f + (t*0.5f)}; //Fade to white
+		glLineWidth(1.0 - (1.0*t));
+		glMaterialfv(GL_FRONT,GL_AMBIENT,color);
+		glBegin(GL_LINE_LOOP);{
+		  glVertex3f(-GRID_SIZE, bound_lines[i], -GRID_SIZE);
+		  glVertex3f(GRID_WIDTH * 2.0 * GRID_SIZE - GRID_SIZE, bound_lines[i], -GRID_SIZE);
+		  glVertex3f(GRID_WIDTH * 2.0 * GRID_SIZE - GRID_SIZE, bound_lines[i], GRID_HEIGHT * 2.0 * GRID_SIZE - GRID_SIZE);
+		  glVertex3f(-GRID_SIZE, bound_lines[i], GRID_HEIGHT * 2.0 * GRID_SIZE - GRID_SIZE);
+		}
+		glEnd();
+	}
+}
+
+void GameGrid::update(int dt)
+{
+	boundry_cntdown -= dt;
+	if(boundry_cntdown <= 0)
+	{
+		bound_lines.insert(bound_lines.begin(),0.0);
+		boundry_cntdown += BOUNDRY_SPAWN_RATE;
+	}
+	for(int i = 0; i < (int)bound_lines.size(); i++)
+	{
+		float t = bound_lines[i] / BOUNDRY_HEIGHT + 0.1;
+		bound_lines[i] += (float)dt * 0.8 * t / 1000;
+	}
+	if(bound_lines[bound_lines.size()-1] > BOUNDRY_HEIGHT)
+		bound_lines.pop_back();
 }
 
 bool GameGrid::setTower(int x, int y){

@@ -119,6 +119,7 @@ void Player::spawnUnit(int unitID){
 }
 
 void Player::update(int dt){
+  pGrid.update(dt);
   std::list<Unit*>::iterator i;
   std::list<Tower*>::iterator t;
   for(t = tList.begin(); t != tList.end(); ++t){

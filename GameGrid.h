@@ -14,8 +14,11 @@
 //  bool isRemoved;
 //};
 
-const int FRACTAL_DEPTH = 2;
-const float FRACTAL_VAR = 0.75;
+using namespace std;
+
+extern const int FRACTAL_DEPTH;
+extern const float FRACTAL_VAR;
+extern const int BOUNDRY_SPAWN_RATE;
 
 class FractalSet {
 public:
@@ -24,7 +27,7 @@ public:
 private:
 	int start_i, end_i;
 	int start_j, end_j;
-	std::vector<std::vector<GLfloat> > zVals;
+	vector<vector<GLfloat> > zVals;
 	void createFractals(int start_i, int h_cnt, int v_cnt);
 };
 
@@ -35,9 +38,10 @@ public:
   GameGrid(char  *filename);
   ~GameGrid(void);
   void draw();
+  void update(int dt);
   bool setTower(int x, int y);
   bool setUnit(int x, int y);
-  bool removeTower(int x, int y, std::list<Tower*>& towers);
+  bool removeTower(int x, int y, list<Tower*>& towers);
   bool destroyTower(int x, int y);
   bool isWall(g_elem cur);
   bool originalIsWall(g_elem cur);
@@ -54,5 +58,8 @@ private:
   Tower* tGrid[G_WIDTH][G_HEIGHT];
   void createFractals(void);
   void drawFractals(void);
-  std::list<FractalSet*> f_sets;
+  void drawBoundry(void);
+  list<FractalSet*> f_sets;
+  vector<GLfloat> bound_lines;
+  int boundry_cntdown;
 };
