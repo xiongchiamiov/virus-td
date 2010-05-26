@@ -43,7 +43,10 @@ std::vector<Button*> buttons;
 bool clicked = false;
 int last_time;
 int last_cycle;
-bool paused;
+bool paused = false;
+bool gameOver = false;
+
+void drawBlueScreen(void);
 
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -56,29 +59,37 @@ void display(){
   gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
     cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
     0.0, 1.0, 0.0);
-  vfc::extractPlanes();
-  glColor3f(0.8, 0.5, 0.3);
-  float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
-  float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
-  setMaterial(Exp2);
-  glBegin(GL_LINES);{
-    glVertex3f(lx, 0.0, lz);
-    glVertex3f(lx, 5.0, lz);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(0.0, 5.0, 0.0);
+
+  if(!paused)
+  {
+	  vfc::extractPlanes();
+	  glColor3f(0.8, 0.5, 0.3);
+	  float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
+	  float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
+	  setMaterial(Exp2);
+	  glBegin(GL_LINES);{
+		glVertex3f(lx, 0.0, lz);
+		glVertex3f(lx, 5.0, lz);
+		glVertex3f(0.0, 0.0, 0.0);
+		glVertex3f(0.0, 5.0, 0.0);
+	  }
+	  glEnd();
+	  glPushMatrix();
+	  p1.draw();
+	  //glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 8)*2.0);
+	  //glScalef(-1.0, 1.0, -1.0);
+	  opponent.player.draw();
+	  glPopMatrix();
+	  glPushMatrix();
+	  renderUI(GW, GH,&p1,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
+	  glPopMatrix();
+	  
+	  drawMouseBox(clicked);
   }
-  glEnd();
-  glPushMatrix();
-  p1.draw();
-  //glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 8)*2.0);
-  //glScalef(-1.0, 1.0, -1.0);
-  opponent.player.draw();
-  glPopMatrix();
-  glPushMatrix();
-  renderUI(GW, GH,&p1,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
-  glPopMatrix();
-  
-  drawMouseBox(clicked);
+  else
+  {
+	  drawBlueScreen();
+  }
 
   glPopMatrix();
   glutSwapBuffers();
@@ -113,6 +124,81 @@ void init_lighting() {
   glShadeModel(GL_FLAT);
 
   glEnable(GL_NORMALIZE);
+}
+
+void drawBitmapString(float x, float y, void *font,char *string) {
+  glPushMatrix();
+  char *c;
+  glRasterPos3f(x, y, 0.1);
+  for (c=string; *c != '\0'; c++) {
+	  if(*c == '\n') {
+		  y += 18;
+		  glRasterPos3f(x, y, 0.1);
+	  }
+	  else
+		  glutBitmapCharacter(font, *c);
+  }
+  glPopMatrix();
+}
+
+void drawBlueScreen()
+{
+	//Switch to Ortho
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, GW, 0, GH, -5, 5);
+	glScalef(1, -1, 1);
+	glTranslatef(0, -GH, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	
+	//Draw blue screen
+	glDisable(GL_LIGHTING);
+	glColor3f(0.0f,0.0f,1.0f);
+	glBegin(GL_QUADS);
+    glVertex2f(0,0);
+    glVertex2f(GW,0);
+    glVertex2f(GW,GH);
+    glVertex2f(0,GH);
+    glEnd();
+	glTranslatef(0.0f,0.0f,0.1);
+	int center_x = GW/2.0;
+	int center_y = GH/2.0;
+	char *title = "WINDOWS";
+	char *info = "An exception 06 has occured at 0028:C11B3ADC in VxD DiskTSD(03) +\n00001660.   This was called from 0028:C11B40CB in VxD voltrack(04) +\n00000000.   It may be possible to continue normally.";
+	char *instr = "*   Press any key to attempt to continue.\n*   Press CTRL+ALT+RESET to restart your computer.  You will\n    lose any unsaved information in all applications.";
+	char *todo = "Press any key to continue";
+	const int title_W = 63;
+	const int title_Y = -112;
+	const int info_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,info);
+	const int info_Y = -64;
+	const int instr_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,instr);
+	const int instr_Y = 16;
+	const int todo_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,todo);
+	const int todo_Y = 96;
+	glColor3f(1.0f,1.0f,1.0f);
+	glBegin(GL_QUADS);
+    glVertex2f(center_x - title_W/2 - 10,center_y + title_Y-15);
+    glVertex2f(center_x + title_W/2 + 10,center_y + title_Y-15);
+    glVertex2f(center_x + title_W/2 + 10,center_y + title_Y+5);
+    glVertex2f(center_x - title_W/2 - 10,center_y + title_Y+5);
+    glEnd();
+	glColor3f(0.0f,0.0f,1.0f);
+	drawBitmapString(center_x - title_W/2,center_y + title_Y,GLUT_BITMAP_9_BY_15,title);
+	glColor3f(1.0f,1.0f,1.0f);
+	drawBitmapString(center_x - info_W/2,center_y + info_Y,GLUT_BITMAP_9_BY_15,info);
+	drawBitmapString(center_x - instr_W/2,center_y + instr_Y,GLUT_BITMAP_9_BY_15,instr);
+	drawBitmapString(center_x - todo_W/2,center_y + todo_Y,GLUT_BITMAP_9_BY_15,todo);
+
+	glEnable(GL_LIGHTING);
+
+	//Switch back to perspective
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void update(int param){
