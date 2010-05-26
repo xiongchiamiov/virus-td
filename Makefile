@@ -1,6 +1,6 @@
 default: virus-td
 virus-td: clean
-	g++ -o virus-td -lGL -lGLU -lglut *.cpp
+	g++ -g -o virus-td -lGL -lGLU -lglut *.cpp
 
 clean:
-	rm virus-td
+	touch virus-td && rm virus-td
