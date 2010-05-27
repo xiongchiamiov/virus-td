@@ -193,6 +193,7 @@ void drawBlueScreen()
 	drawBitmapString(center_x - instr_W/2,center_y + instr_Y,GLUT_BITMAP_9_BY_15,instr);
 	drawBitmapString(center_x - todo_W/2,center_y + todo_Y,GLUT_BITMAP_9_BY_15,todo);
 
+
 	glEnable(GL_LIGHTING);
 
 	//Switch back to perspective
