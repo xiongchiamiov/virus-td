@@ -84,7 +84,7 @@ void display(){
 	  }
 	  glEnd();
 	  glPushMatrix();
-	  p1.draw(clicked);
+	  p1.draw(placingTower);
 	  opponent.player.draw(false);
 	  glPopMatrix();
 

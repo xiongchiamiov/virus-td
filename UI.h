@@ -40,7 +40,7 @@ void renderBitmapString(float x, float y, void *font,char *string);
 int getBitmapStringWidth(void *font,char *string);
 float p2w_y(int y);
 float p2w_x(int x);
-extern bool clicked;
+extern bool placingTower;
 //void readPNG(file)
 
 class Button {

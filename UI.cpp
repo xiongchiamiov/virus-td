@@ -12,6 +12,7 @@ extern Camera cam;
 extern int GH, GW;
 extern std::vector<Button *> buttons;
 extern bool clicked;
+bool placingTower;
 GLdouble worldX, worldY, worldZ; //variables to hold world x,y,z coordinates
 extern int tlx, tly, ulx, uly;
 extern Player p1;
@@ -385,10 +386,16 @@ void mouseClick(int button, int state, int x, int y) {
     if (clicked == true) {
       if (test >= 9 && test <= 17) {
         p1.placeTower(tlx, tly, test);
+		placingTower = false;
       } 
 
       clicked = !clicked;
     }
+	else
+	{
+		if (click >= 9 && click <= 17)
+			placingTower = true;
+	}
 
     test = click;
 
