@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "models.h"
 #include "Particles.h"
+#include "shadow.h"
 
 namespace sl_tower{
   const int MAX_UPGRADES = 3;
@@ -69,6 +70,9 @@ void SlowTower::draw(){
 
         glCallList(vtd_dl::teslaDL);
      glPopMatrix();
+	 glPushMatrix();
+		draw_shadow(1);
+	 glPopMatrix();
   glPopMatrix();
 }
 

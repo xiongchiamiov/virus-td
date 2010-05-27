@@ -1,6 +1,7 @@
 #include "TrapTower.h"
 #include "constants.h"
 #include "models.h"
+#include "shadow.h"
 
 namespace tr_tower{
   const int MAX_UPGRADES = 3;
@@ -49,6 +50,9 @@ void TrapTower::draw(){
    glCallList(vtd_dl::blkhatDL);
    //glutSolidTorus(0.2, 0.25, 10, 10);
   glPopMatrix();
+	 glPushMatrix();
+		draw_shadow(6);
+	 glPopMatrix();
   glPopMatrix();
 }
 

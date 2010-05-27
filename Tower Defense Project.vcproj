@@ -293,6 +293,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Particles.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Scenery.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\shadow.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\textures.cpp"
 					>
 				</File>
@@ -392,6 +404,18 @@
 				</File>
 				<File
 					RelativePath=".\MyVector.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Particles.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Scenery.h"
+					>
+				</File>
+				<File
+					RelativePath=".\shadow.h"
 					>
 				</File>
 				<File

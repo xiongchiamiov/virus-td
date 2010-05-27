@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "models.h"
 #include "Particles.h"
+#include "shadow.h"
 
 namespace f_tower{
   const int MAX_UPGRADES = 3;
@@ -68,6 +69,9 @@ void FreezeTower::draw(){
 
         glCallList(vtd_dl::fanDL);
      glPopMatrix();
+	 glPushMatrix();
+		draw_shadow(4);
+	 glPopMatrix();
   glPopMatrix();
 }
 

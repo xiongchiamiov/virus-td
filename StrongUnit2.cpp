@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "lighting.h"
 #include "models.h"
+#include "shadow.h"
 
 namespace s2_unit {
   const int MAX_HP = 45;
@@ -43,6 +44,9 @@ void StrongUnit2::draw() {
         glTranslatef(0, 10, 0);
         glCallList(vtd_dl::trojanDL);
      glPopMatrix();
+	 glPushMatrix();
+		draw_shadow(10);
+	 glPopMatrix();
   glPopMatrix();
 }
 

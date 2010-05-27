@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "lighting.h"
 #include "models.h"
+#include "shadow.h"
 
 // NOTES 
 //add xmin,xman,ymin,ymax,zmin,zmax to GameObject for collision detection
@@ -49,6 +50,8 @@ void BasicUnit::draw()
   glRotatef(-90, 0.0, 1.0, 0.0);
   glCallList(vtd_dl::wormDL);
   glPopMatrix();
-
+	 glPushMatrix();
+		draw_shadow(7);
+	 glPopMatrix();
   glPopMatrix();
 }

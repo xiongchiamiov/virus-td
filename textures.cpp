@@ -8,11 +8,11 @@ GLuint LoadTexture(char* image_file) {
   TextureImage = (Image *) malloc(sizeof(Image));
   if (TextureImage == NULL) {
     printf("Error allocating space for image");
-    exit(1);
+    //exit(1);
   }
   cout << "trying to load " << image_file << endl;
   if (!ImageLoad(image_file, TextureImage)) {
-    exit(1);
+    //exit(1);
   }  
   /*  2d texture, level of detail 0 (normal), 3 components (red, green, blue),            */
   /*  x size from image, y size from image,                                              */    

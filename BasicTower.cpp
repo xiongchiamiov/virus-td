@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "models.h"
 #include "Particles.h"
+#include "shadow.h"
 
 namespace b_tower{
   const int MAX_UPGRADES = 3;
@@ -65,5 +66,8 @@ void BasicTower::draw(){
 
          glCallList(vtd_dl::turretDL);
       glPopMatrix();
+	 glPushMatrix();
+		draw_shadow(2);
+	 glPopMatrix();
   glPopMatrix();
 }

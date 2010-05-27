@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "models.h"
 #include "Particles.h"
+#include "shadow.h"
 
 namespace fs_tower{
   const int MAX_UPGRADES = 3;
@@ -69,6 +70,9 @@ void FastTower::draw(){
 
        glCallList(vtd_dl::backtrackDL);
     glPopMatrix();
+	 glPushMatrix();
+		draw_shadow(3);
+	 glPopMatrix();
   glPopMatrix();
 }
 

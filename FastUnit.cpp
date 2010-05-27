@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "lighting.h"
 #include "models.h"
+#include "shadow.h"
 
 namespace f_unit {
   const int MAX_HP = 8;
@@ -48,7 +49,9 @@ void FastUnit::draw() {
   glCallList(vtd_dl::virusDL);
   //glCallList(vtd_dl::forkbDL);
   glPopMatrix();
-
+	 glPushMatrix();
+		draw_shadow(8);
+	 glPopMatrix();
   glPopMatrix();
 }
 

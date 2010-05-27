@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "lighting.h"
 #include "models.h"
+#include "shadow.h"
 
 namespace w_tower{
   const int MAX_UPGRADES = 3;
@@ -42,13 +43,16 @@ void WallTower::draw(){
   glTranslatef(x, y, z);
      glPushMatrix();
         // Scale and orient model to fit grid
-        glTranslatef(0.5, 1.25, 0.0);
+        glTranslatef(0.0, 0.50, 0.0);
         // Mini Tower Defense TBQH
-        glScaled(0.05, 0.05, 0.05);
+        glScaled(0.75, 0.75, 0.75);
       //  glRotated(83, 0.0, 1.0, 0.0);
       //  glCallList(vtd_dl::shieldDL);
         glCallList(vtd_dl::lockDL);
      glPopMatrix();
+	 glPushMatrix();
+		draw_shadow(5);
+	 glPopMatrix();
   glPopMatrix();
 }
 

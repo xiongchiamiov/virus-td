@@ -28,6 +28,7 @@ protected:
   int grid_y;    //  to the game grid
   TowerAI ai;    //This tower's AI object
   Particles * weapon;// Particle 
+  //shadow * the_shadow;
 public:
   Tower(float inx, float iny, float inz, int gx, int gy);
   virtual ~Tower(void);
