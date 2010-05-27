@@ -27,8 +27,8 @@ Tower(inx, iny, inz, gx, gy)
   stage = 0;
   weapon = new Particles(0.5);
   weapon->setDirection(0.0, 1.0, 0.0, false);
-  weapon->setCutOffs(20, 12, 20);
-  weapon->setSpread(5);
+  weapon->setCutOffs(20, 8, 20);
+  weapon->setSpread(6);
   weapon->reset();
 }
 
@@ -60,7 +60,7 @@ void WallTower::draw(){
         weapon->drawParticles();
      glPopMatrix();
 
-     glPopMatrix();
+    glPopMatrix();
 	 glPushMatrix();
 	//	draw_shadow(5);
 	 glPopMatrix();

@@ -34,6 +34,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   weapon->setDirection(1.0, 0.0, 1.0, false);
   weapon->setAoE(true, true);
   weapon->setSpeed(10.0);
+  weapon->setCutOffs(8, 8, 8);
   weapon->reset(); // must call reset before animating to get latest values.
 }
 

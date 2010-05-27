@@ -213,23 +213,23 @@ void Particles::EularIntegrate(void) {
    //   if (pos[i][2] < -12) {
    
       // x cutoff resets
-      if (direction[0] <= 0 && pos[i][0] < -cutoff[0]) {
+      if (/*direction[0] <= 0 &&*/ pos[i][0] < -cutoff[0]) {
          resetSingleParticle(i);
-      } else if (direction[0] >= 0 && pos[i][0] > cutoff[0]) {
+      } else if (/*direction[0] >= 0 &&*/ pos[i][0] > cutoff[0]) {
          resetSingleParticle(i);
       } else
 
       // y cutoff resets
-      if (direction[1] <= 0 && pos[i][1] < -cutoff[1]) {
+      if (/*direction[1] <= 0 &&*/ pos[i][1] < -cutoff[1]) {
          resetSingleParticle(i);
-      } else if (direction[1] >= 0 && pos[i][1] > cutoff[1]) {
+      } else if (/*direction[1] >= 0 && */pos[i][1] > cutoff[1]) {
          resetSingleParticle(i);
       } else
 
       // z cutoff resets
-      if (direction[2] <= 0 && pos[i][2] < -cutoff[2]) {
+      if (/*direction[2] <= 0 &&*/ pos[i][2] < -cutoff[2]) {
          resetSingleParticle(i);
-      } else if (direction[2] >= 0 && pos[i][2] > cutoff[2]) {
+      } else if (/*direction[2] >= 0 &&*/ pos[i][2] > cutoff[2]) {
          resetSingleParticle(i);
       }
    }
