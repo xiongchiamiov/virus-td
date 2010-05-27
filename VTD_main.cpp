@@ -24,6 +24,9 @@
 #include "UI.h"
 #include "models.h"
 
+const int PLAYER_WIN = 0;
+const int COMPUTER_WIN = 1;
+
 int GW, GH;
 //Camera variables
 MyVector camera;//Camera's positon held by x, y, z,
@@ -45,8 +48,11 @@ int last_time;
 int last_cycle;
 bool paused = false;
 bool gameOver = false;
+int winner = 0;
+GLuint winTexture;
 
 void drawBlueScreen(void);
+void drawWinScreen(void);
 
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -61,7 +67,7 @@ void display(){
     cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
     0.0, 1.0, 0.0);
 
-  if(!paused)
+  if(!gameOver)
   {
 	  vfc::extractPlanes();
 	  glColor3f(0.8, 0.5, 0.3);
@@ -77,8 +83,6 @@ void display(){
 	  glEnd();
 	  glPushMatrix();
 	  p1.draw();
-	  //glTranslatef(0.0, 0.0, GRID_SIZE*(GRID_HEIGHT + 8)*2.0);
-	  //glScalef(-1.0, 1.0, -1.0);
 	  opponent.player.draw();
 	  glPopMatrix();
 	  glPushMatrix();
@@ -89,7 +93,10 @@ void display(){
   }
   else
   {
-	  drawBlueScreen();
+	  if(winner == COMPUTER_WIN)
+		drawBlueScreen();
+	  else
+	    drawWinScreen();
   }
 
   glPopMatrix();
@@ -197,8 +204,47 @@ void drawBlueScreen()
 	drawBitmapString(center_x - lose_W/2,center_y + lose_Y,GLUT_BITMAP_9_BY_15,lose);
 	drawBitmapString(center_x - todo_W/2,center_y + todo_Y,GLUT_BITMAP_9_BY_15,todo);
 
+	glEnable(GL_LIGHTING);
+
+	//Switch back to perspective
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void drawWinScreen()
+{
+	//Switch to Ortho
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, GW, 0, GH, -5, 5);
+	glScalef(1, -1, 1);
+	glTranslatef(0, -GH, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
+	glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, winTexture);
+
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0f,1.0f,1.0f);
+	glBegin(GL_QUADS);
+    glVertex2f(0,0);
+	glTexCoord2f(0.0,1.0);
+    glVertex2f(0,GH);
+	glTexCoord2f(1.0,1.0);
+    glVertex2f(GW,GH);
+	glTexCoord2f(1.0,0.0);
+    glVertex2f(GW,0);
+	glTexCoord2f(0.0,0.0);
+    glEnd();
 
 	glEnable(GL_LIGHTING);
+	//glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
 
 	//Switch back to perspective
 	glPopMatrix();
@@ -243,7 +289,18 @@ void update(int param){
       last_cycle -= CYCLE_TIME;
     }
     p1.update(dt);
-    opponent.update(dt);  
+    opponent.update(dt);
+
+	if(p1.getLives() <= 0) {
+		paused = true;
+		gameOver = true;
+		winner = COMPUTER_WIN;
+	}
+	if(opponent.player.getLives() <= 0) {
+		paused = true;
+		gameOver = true;
+		winner = PLAYER_WIN;
+	}
   }
   glutPostRedisplay();
   glutTimerFunc(10, update, 0);
@@ -251,6 +308,9 @@ void update(int param){
 }
 
 void keyboard(unsigned char key, int x, int y){
+	if(gameOver) {
+		exit(0);
+	}
   switch(key){
   //  case 'w': case 'W':
   //    camera.setVector(camera.getI() + GRID_SIZE*2.0*w.getI(),
@@ -301,8 +361,11 @@ void keyboard(unsigned char key, int x, int y){
       p1.destroyTower(tlx, tly);
       break;
     case 'p': case 'P':
-      paused = !paused;
+		if(!gameOver)
+			paused = !paused;
       break;
+	case 27:
+		exit(0);
   }
   controls::keyMap[key] = true;
 }
@@ -371,6 +434,8 @@ int main(int argc, char** argv){
      float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
   buttons.at(12)->setObject(new WallTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
      float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
+
+  winTexture = LoadTexture("Win.bmp");
   
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
