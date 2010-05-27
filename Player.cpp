@@ -168,7 +168,7 @@ void Player::update(int dt){
         delStack.push(cur);
         i = uai.uList.erase(i);
         if(cur->foundGoal){
-          --lives;
+          --opponent->lives;
         }
       } else {
         ++i;
