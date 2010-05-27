@@ -1,4 +1,5 @@
 #include "Scenery.h"
+#include "vfc.h"
 
 const int SCENE_GRID_SIZE = 2;
 const float SCENE_GRID_WIDTH = SCENE_GRID_SIZE * 2.0 * GRID_SIZE;
@@ -117,18 +118,36 @@ void Scenery::normCrossProd(float v1[3], float v2[3], float out[3]) {
    normalize(out);
 }
 
+void Transform(GLfloat *matrix, GLfloat *in, GLfloat *out)
+{
+    int ii;
+
+    for (ii=0; ii<4; ii++) {
+        out[ii] = 
+            in[0] * matrix[0*4+ii] +
+            in[1] * matrix[1*4+ii] +
+            in[2] * matrix[2*4+ii] +
+            in[3] * matrix[3*4+ii];
+    }
+}
+
 void Scenery::draw()
 {
 	glPushMatrix();
 	glTranslatef(player->getPosition().getX(), player->getPosition().getY(), player->getPosition().getZ());
 	glPushMatrix();
 	glTranslatef(0.0,0.0,-GRID_SIZE - game_grid_index[1] * SCENE_GRID_HEIGHT);
+	GLfloat world_pos[] = {player->getPosition().getX(),player->getPosition().getY(),player->getPosition().getZ() - (GRID_SIZE - game_grid_index[1] * SCENE_GRID_HEIGHT) - 44};
 	GLfloat zpos = 0.0;
 	for(int j = 0; j < (int)grids[0].size(); ++j) {
 		glPushMatrix();
 		glTranslatef(-GRID_SIZE - game_grid_index[0] * SCENE_GRID_WIDTH,0.0,0.0);
+		world_pos[0] = -GRID_SIZE - game_grid_index[0] * SCENE_GRID_WIDTH - 3;
 		for(int i = 0; i < (int)grids.size(); ++i) {
 			if(!grids[i][j].isGameplayGrid) {
+				world_pos[1] = grids[i][j].bl;
+				if(vfc::viewFrustumCull(vfc::planes,world_pos,2*SCENE_GRID_WIDTH))
+				{
 				glNormal3f(grids[i][j].norm[0], grids[i][j].norm[1], grids[i][j].norm[2]);
 				setMaterial(Grid);
 				glBegin(GL_QUADS);
@@ -148,11 +167,14 @@ void Scenery::draw()
 					glVertex3f(SCENE_GRID_WIDTH,grids[i][j].tr, 0.0);
 				glEnd();
 				glPopMatrix();
+				}
 			}
 			glTranslatef(SCENE_GRID_WIDTH,0.0,0.0);
+			world_pos[0] += SCENE_GRID_WIDTH;
 		}
 		glPopMatrix();
 		glTranslatef(0.0,0.0,SCENE_GRID_HEIGHT);
+		world_pos[2] += SCENE_GRID_HEIGHT;
 	}
 	glPopMatrix();
 	//Draw the 4 outskirts

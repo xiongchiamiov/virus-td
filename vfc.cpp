@@ -79,4 +79,20 @@ bool viewFrustumCull(plane_t vf_planes[], MyVector* obj){
   return isDrawn;
 }
 
+bool viewFrustumCull(plane_t vf_planes[], GLfloat *position, GLfloat radius){
+  bool isDrawn;
+  if(getPlaneDist(position[0], position[1], position[2], vf_planes[0]) < -radius ||
+     getPlaneDist(position[0], position[1], position[2], vf_planes[1]) < -radius ||
+     getPlaneDist(position[0], position[1], position[2], vf_planes[2]) < -radius ||
+     getPlaneDist(position[0], position[1], position[2], vf_planes[3]) < -radius ||
+     getPlaneDist(position[0], position[1], position[2], vf_planes[4]) < -radius ||
+     getPlaneDist(position[0], position[1], position[2], vf_planes[5]) < -radius ){
+    isDrawn = false;
+  }
+  else{
+    isDrawn = true;
+  }
+  return isDrawn;
+}
+
 }

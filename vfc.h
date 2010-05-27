@@ -13,4 +13,5 @@ namespace vfc{
   extern plane_t planes[6];
   void extractPlanes();
   bool viewFrustumCull(plane_t vf_planes[], MyVector* obj); 
+  bool viewFrustumCull(plane_t vf_planes[], GLfloat *position, GLfloat radius);
 }
