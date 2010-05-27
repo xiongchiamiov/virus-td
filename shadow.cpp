@@ -129,7 +129,8 @@ static void redraw(int object)
 		}
 		else if(object == 5)
 		{
-			glScalef(0.5, 0.5, 0.5);
+			glScalef(0.4, 0.4, 0.4);
+			glTranslatef(-.4,0,-.5);
 			glCallList(vtd_dl::lockDL);
 		}
 		else if(object == 6)
