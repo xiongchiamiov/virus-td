@@ -30,6 +30,9 @@ protected:
   int max_hp;
   int atk_dmg;
   float speed;
+  float max_speed;
+  bool isSlowed;
+  int slowTimer;
   unit_t type;
   int value;
   int build_time;//Measured in milliseconds
@@ -49,6 +52,7 @@ public:
   inline unit_t getValue(){return type;}
   inline bool hasPath(){return hasPathB;}
   void step(int dt);
+  void slow();
   bool checkCollison(GameObject* other);
   std::stack<g_elem> path;
   MyVector dir;

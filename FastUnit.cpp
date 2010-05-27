@@ -19,7 +19,9 @@ Unit(inx, iny, inz)
   max_hp = MAX_HP;
   atk_dmg = ATK;
   speed = SPD;
+  max_speed = SPD;
   type = U_FAST;
+  value = unit_bonus::FAST;
 }
 
 FastUnit::~FastUnit(void) {

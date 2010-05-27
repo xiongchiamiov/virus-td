@@ -8,6 +8,7 @@ const float START_X = 3.5;
 const float START_Z = -2.0;
 const float GRID_SIZE = 0.25;
 const int CYCLE_TIME = 5000;
+const int SLOW_TIME = 3000;
 bool RAND_SEEDED = false;
 const float P1_POSX = -GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
 const float P1_POSY = 0.0;

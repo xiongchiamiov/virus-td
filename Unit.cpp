@@ -5,9 +5,9 @@ float x_extents = 0.5*GRID_SIZE;
 float z_extents = 0.5*GRID_SIZE;
 class Tower;
 Unit::Unit(float inx, float iny, float inz):
-GameObject(inx, iny, inz), last_atk(0), hasPathB(false)
+GameObject(inx, iny, inz), last_atk(0), hasPathB(false), foundGoal(false),
+isSlowed(false), slowTimer(false)
 {
-  foundGoal = false;
 }
 
 Unit::~Unit(void)
@@ -37,6 +37,13 @@ int Unit::takeDamage(int damage)
 void Unit::step(int dt) {
   if(last_atk <= atk_dt){
     last_atk += dt;
+  }
+  if(isSlowed){
+    slowTimer -= dt;
+    if(slowTimer <= 0){
+      isSlowed = false;
+      speed = max_speed;
+    }
   }
 	if(foundGoal)
 		return;
@@ -132,4 +139,10 @@ void Unit::drawHealthBar()
 	glScalef(1.0,0.1,0.1);
 	glutSolidCube(1.0);
 	glPopMatrix();
+}
+
+void Unit::slow(){
+  speed = max_speed/2.0;
+  isSlowed = true;
+  slowTimer = SLOW_TIME; 
 }

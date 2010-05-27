@@ -78,3 +78,11 @@ void FreezeTower::draw(){
 void FreezeTower::step(float dt){
 
 }
+
+bool FreezeTower::shoot(){
+  bool ret = Tower::shoot();
+  if(ret){
+    ai.target->slow();
+  }
+  return ret;
+}
