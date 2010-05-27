@@ -1,63 +1,10 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>      
-#include <GL/glut.h> 
-#include "models.h"
 #include "shadow.h"
 
 
-
-#ifndef M_PI
-#define M_PI 3.14159265
-#endif
-
-/* Variable controlling various rendering modes. */
-static int stencilReflection = 1, stencilShadow = 1, offsetShadow = 1;
-static int renderShadow = 1, renderDinosaur = 1, renderReflection = 1;
-static int linearFiltering = 0, useMipmaps = 0, useTexture = 1;
-static int reportSpeed = 0;
-static int animation = 1;
-static GLboolean lightSwitch = GL_TRUE;
-static int directionalLight = 1;
-static int forceExtension = 0;
-
-/* Time varying or user-controled variables. */
-static float jump = 0.0;
-static float lightAngle = 0.0, lightHeight = 20;
-GLfloat angle = -150;   /* in degrees */
-GLfloat angle2 = 30;   /* in degrees */
-
-int moving, startx, starty;
-int lightMoving = 0, lightStartX, lightStartY;
-
-enum {
-  MISSING, EXTENSION, ONE_DOT_ONE
-};
 int polygonOffsetVersion;
 
-static GLdouble bodyWidth = 3.0;
-/* *INDENT-OFF* */
-static GLfloat light_Position[4] = {1.5, 1.0, 1.5, 1.0};
-//static GLfloat lightPosition[4];
-static GLfloat lightColor[] = {0.8, 1.0, 0.8, 1.0}; /* green-tinted */
-static GLfloat skinColor[] = {0.1, 1.0, 0.1, 1.0}, eyeColor[] = {1.0, 0.2, 0.2, 1.0};
-/* *INDENT-ON* */
-
-
-enum {
-  X, Y, Z, W
-};
-enum {
-  A, B, C, D
-};
-
 /* Create a matrix that will project the desired shadow. */
-void
-shadowMatrix(GLfloat shadowMat[4][4],
-  GLfloat groundplane[4],
-  GLfloat lightpos[4])
+void shadowMatrix(GLfloat shadowMat[4][4],GLfloat groundplane[4],GLfloat lightpos[4])
 {
   GLfloat dot;
 
@@ -88,11 +35,8 @@ shadowMatrix(GLfloat shadowMat[4][4],
   shadowMat[3][3] = dot - lightpos[W] * groundplane[W];
 
 }
-
 /* Find the plane equation given 3 points. */
-void
-findPlane(GLfloat plane[4],
-  GLfloat v0[3], GLfloat v1[3], GLfloat v2[3])
+void findPlane(GLfloat plane[4],GLfloat v0[3], GLfloat v1[3], GLfloat v2[3])
 {
   GLfloat vec0[3], vec1[3];
 
@@ -113,75 +57,20 @@ findPlane(GLfloat plane[4],
   plane[D] = -(plane[A] * v0[X] + plane[B] * v0[Y] + plane[C] * v0[Z]);
 }
 
-
-static GLfloat floorVertices[4][3] = {
-  { -20.0, 0.0, 20.0 },
-  { 20.0, 0.0, 20.0 },
-  { 20.0, 0.0, -20.0 },
-  { -20.0, 0.0, -20.0 },
-};
-
-
-static GLfloat floorPlane[4];
-static GLfloat floorShadow[4][4];
-
-static void
-redraw(int object)
+static void redraw(int object)
 {
   int start, end;
-
-  /* Clear; default stencil clears to zero. */
-  //if ((stencilReflection && renderReflection) || (stencilShadow && renderShadow)) {
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-  //} else {
-    /* Avoid clearing stencil when not using it. */
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  //}
-
-  /* Reposition the light source. */
-  //lightPosition[0] = 12*cos(lightAngle);
-  //lightPosition[1] = lightHeight;
-  //lightPosition[2] = 12*sin(lightAngle);
-  //if (directionalLight) {
-  //  lightPosition[3] = 0.0;
-  //} else {
-  //  lightPosition[3] = 1.0;
-  //}
-
   shadowMatrix(floorShadow, floorPlane, light_Position);
-
   glPushMatrix();
-   
-    //glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-
-
     if (renderShadow) {
       if (stencilShadow) {
-	/* Draw the floor with stencil value 3.  This helps us only 
-	   draw the shadow once per floor pixel (and only on the
-	   floor pixels). */
-        //glEnable(GL_STENCIL_TEST);
-        //glStencilFunc(GL_ALWAYS, 3, 0xffffffff);
-        //glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-      }
-    }
-    if (renderDinosaur) {
-    }
-
-    if (renderShadow) {
-
-      /* Render the projected shadow. */
-
-      if (stencilShadow) {
-
         /* Now, only render where stencil is set above 2 (ie, 3 where
 	   the top floor is).  Update stencil with 2 where the shadow
 	   gets drawn so we don't redraw (and accidently reblend) the
 	   shadow). */
-        glStencilFunc(GL_LESS, 2, 0xffffffff);  /* draw if ==1 */
+        glStencilFunc(GL_LESS, 2, 0xffffffff); 
         glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
       }
-
       /* To eliminate depth buffer artifacts, we use polygon offset
 	 to raise the depth of the projected shadow slightly so
 	 that it does not depth buffer alias with the floor. */
@@ -198,11 +87,9 @@ redraw(int object)
 	  break;
 #endif
 	case MISSING:
-	  /* Oh well. */
 	  break;
 	}
       }
-
       /* Render 50% black shadow color on top of whatever the
          floor appareance is. */
       glEnable(GL_BLEND);
@@ -211,11 +98,8 @@ redraw(int object)
       glColor4f(0.0, 0.0, 0.0, 0.5);
 
       glPushMatrix();
-	/* Project the shadow. */
+		/* Project the shadow. */
         glMultMatrixf((GLfloat *) floorShadow);
-        //drawDinosaur();
-        //glTranslatef(0.0, 1.25, 0.0);
-        // Mini Tower Defense TBQH
 		if(object == 1)
 		{
 			glScaled(.08, .06, .08);
@@ -269,8 +153,6 @@ redraw(int object)
 			glScaled(0.10, 0.10, 0.10);
 			glCallList(vtd_dl::trojanDL);
 		}
-        //glRotated(83, 0.0, 1.0, 0.0);
-		//drawVirus1();
       glPopMatrix();
 
       glDisable(GL_BLEND);
@@ -289,7 +171,6 @@ redraw(int object)
 	  break;
 #endif
 	case MISSING:
-	  /* Oh well. */
 	  break;
 	}
       }
@@ -297,22 +178,10 @@ redraw(int object)
         glDisable(GL_STENCIL_TEST);
       }
     }
-
-
   glPopMatrix();
-
 }
 
-
-enum {
-  M_NONE, M_MOTION, M_LIGHT, M_TEXTURE, M_SHADOWS, M_REFLECTION, M_DINOSAUR,
-  M_STENCIL_REFLECTION, M_STENCIL_SHADOW, M_OFFSET_SHADOW,
-  M_POSITIONAL, M_DIRECTIONAL, M_PERFORMANCE
-};
-
-
-static int
-supportsOneDotOne(void)
+static int supportsOneDotOne(void)
 {
   const char *version;
   int major, minor;
@@ -342,21 +211,10 @@ void draw_shadow(int shad)
 #endif
     {
       polygonOffsetVersion = MISSING;
-      printf("\ndinoshine: Missing polygon offset.\n");
-      printf("           Expect shadow depth aliasing artifacts.\n\n");
+      printf("\nMissing polygon offset.\n");
+      printf("Expect shadow depth aliasing artifacts.\n\n");
     }
   }
-
-  //glEnable(GL_CULL_FACE);
-  //glEnable(GL_DEPTH_TEST);
-  //glEnable(GL_TEXTURE_2D);
-  //glLineWidth(3.0);
-  //glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
-  //glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
-  //glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
-  //glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05);
-  //glEnable(GL_LIGHT0);
-  //glEnable(GL_LIGHTING);
 	findPlane(floorPlane, floorVertices[1], floorVertices[2], floorVertices[3]);
 	redraw(shad);
 }
