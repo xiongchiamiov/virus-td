@@ -31,7 +31,7 @@ static GLfloat floorVertices[4][3] =
   { -20.0, 0.0, -20.0 },
 };
 
-static GLfloat light_Position[4] = {1.5, 1.0, 1.5, 1.0};
+static GLfloat light_Position[4] = {1.5, 2.5, 1.5, 1.0};
 
 
 void shadowMatrix(GLfloat shadowMat[4][4],GLfloat groundplane[4],GLfloat lightpos[4]);

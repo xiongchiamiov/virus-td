@@ -102,24 +102,29 @@ static void redraw(int object)
         glMultMatrixf((GLfloat *) floorShadow);
 		if(object == 1)
 		{
-			glScaled(.08, .06, .08);
-			glRotated(83, 0.0, 1.0, 0.0);
+			glScaled(.07, .05, .07);
+			//glRotated(83, 0.0, 1.0, 0.0);
+			glTranslatef(-6,12,-6);
+			//glRotatef(180,0,0,1);
 		    glCallList(vtd_dl::teslaDL);
 		}
 		else if(object == 2)
 		{
 			glScaled(0.15, 0.15, 0.15);
+			glTranslatef(-.5,1,-.5);
 			glCallList(vtd_dl::turretDL);
 		}
 		else if(object == 3)
 		{
 			 glScaled(0.03, 0.03, 0.03);
 			 glRotated(90, 0.0, 1.0, 0.0);
+			 glTranslatef(-6,12,-6);
 			 glCallList(vtd_dl::backtrackDL);
 		}
 		else if(object == 4)
 		{
 			glScaled(0.035, 0.035, 0.035);
+			glTranslatef(-5,10,-5);
 			glCallList(vtd_dl::fanDL);
 		}
 		else if(object == 5)
@@ -130,27 +135,32 @@ static void redraw(int object)
 		else if(object == 6)
 		{
 			glScaled(.3,.2,.3);
+			glTranslatef(-.5,1,-.5);
 			glCallList(vtd_dl::blkhatDL);			
 		}
 		else if(object == 7)
 		{
 		    glScaled(0.1, 0.1, 0.1);
-			glRotatef(-90, 0.0, 1.0, 0.0);
+			glRotatef(90, 1.0, 1.0, 0.0);
+			glTranslatef(0,0,-3);
 		    glCallList(vtd_dl::wormDL);
 		}
 		else if(object == 8)
 		{
-		    glScaled(0.25, 0.25, 0.25);
-		    glCallList(vtd_dl::virusDL);
+		    //glScaled(0.25, 0.25, 0.25);
+			//glTranslatef(-3,6,-3);
+		    //glCallList(vtd_dl::virusDL);
 		}
 		else if(object == 9)
 		{
 			glScaled(0.20, 0.20, 0.20);
+			glTranslatef(-0.5,1,-0.5);
 			glCallList(vtd_dl::forkbDL);
 		}
 		else if(object == 10)
 		{
 			glScaled(0.10, 0.10, 0.10);
+			glTranslatef(-3,6,-3);
 			glCallList(vtd_dl::trojanDL);
 		}
       glPopMatrix();
