@@ -11,6 +11,8 @@ Particles::Particles(double partSize) {
    /* default is fire */
    weapon_type = particle_texture[0];
 }
+Particles::~Particles(){
+}
 
 void Particles::drawParticles() {
    sumForces();

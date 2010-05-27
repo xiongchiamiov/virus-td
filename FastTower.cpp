@@ -32,6 +32,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
 
 FastTower::~FastTower(void)
 {
+  delete weapon;
 }
 
 void FastTower::draw(){

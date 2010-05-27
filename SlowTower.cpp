@@ -31,6 +31,7 @@ SlowTower::SlowTower(float inx, float iny, float inz, int gx, int gy):
 
 SlowTower::~SlowTower(void)
 {
+  delete weapon;
 }
 
 void SlowTower::draw(){

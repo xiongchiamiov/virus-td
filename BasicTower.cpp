@@ -30,6 +30,7 @@ Tower(inx, iny, inz, gx, gy)
 
 BasicTower::~BasicTower(void)
 {
+  delete weapon;
 }
 
 void BasicTower::draw(){

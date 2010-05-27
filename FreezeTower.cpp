@@ -31,6 +31,7 @@ FreezeTower::FreezeTower(float inx, float iny, float inz, int gx, int gy):
 
 FreezeTower::~FreezeTower(void)
 {
+  delete weapon;
 }
 
 void FreezeTower::draw(){
