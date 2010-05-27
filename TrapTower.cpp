@@ -4,8 +4,8 @@
 
 namespace tr_tower{
   const int MAX_HP = 8;
-  const int ATK = 2;
-  const float RANGE = 3.0;
+  const int ATK = 1;
+  const float RANGE = 1.0;
   const int BUILD_TIME = 4000;
 }
 

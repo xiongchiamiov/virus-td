@@ -4,22 +4,24 @@
 #include "models.h"
 
 namespace w_tower{
-  const int MAX_HP = 20;
-  const int ATK = 0;
-  const float RANGE = 0;
-  const int BUILD_TIME = 1000;
+  const int MAX_UPGRADES = 3;
+  const int MAX_HP[MAX_UPGRADES] = {30, 50, 70};
+  const int ATK[MAX_UPGRADES] = {0, 0, 0};
+  const int ATK_DT[MAX_UPGRADES] = {1000, 1000, 1000}; //Milleseconds between attacks
+  const float RANGE[MAX_UPGRADES] = {0.0, 0.0, 0.0};
+  const int BUILD_TIME = 3000;
 }
 using namespace w_tower;
 
 WallTower::WallTower(float inx, float iny, float inz, int gx, int gy):
-Tower(inx, iny, inz, gx, gy)/*, hp(MAX_HP), max_hp(MAX_HP), atk_dmg(ATK),
-type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
+Tower(inx, iny, inz, gx, gy)
 {
-  hp = MAX_HP;
-  max_hp = MAX_HP;
-  ai.atk_dmg = ATK;
-  ai.range = RANGE;
-  type = T_WALL;
+  hp = MAX_HP[0];
+  max_hp = MAX_HP[0];
+  ai.atk_dmg = ATK[0];
+  ai.atk_dt = ATK[0]; 
+  ai.range = RANGE[0];
+  type = T_BASIC;
   build_time = BUILD_TIME;
   stage = 0;
 }

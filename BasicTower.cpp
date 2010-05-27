@@ -6,8 +6,9 @@
 namespace b_tower{
   const int MAX_UPGRADES = 3;
   const int MAX_HP[MAX_UPGRADES] = {10, 20, 30};
-  const int ATK[MAX_UPGRADES] = {3};
-  const float RANGE[MAX_UPGRADES] = {3.0};
+  const int ATK[MAX_UPGRADES] = {3, 6, 12};
+  const int ATK_DT[MAX_UPGRADES] = {1000, 1000, 1000}; //Milleseconds between attacks
+  const float RANGE[MAX_UPGRADES] = {3.0, 3.0, 3.0};
   const int BUILD_TIME = 3000;
 }
 using namespace b_tower;
@@ -18,6 +19,7 @@ Tower(inx, iny, inz, gx, gy)
   hp = MAX_HP[0];
   max_hp = MAX_HP[0];
   ai.atk_dmg = ATK[0];
+  ai.atk_dt = ATK[0]; 
   ai.range = RANGE[0];
   type = T_BASIC;
   build_time = BUILD_TIME;
