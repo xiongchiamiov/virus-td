@@ -215,19 +215,19 @@ void normCrossProd(float v1[3], float v2[3], float out[3]) {
 
 void FractalSet::draw()
 {
+	glPushMatrix();
 	setMaterial(Grid);
-	glBegin(GL_TRIANGLES);
 	float v1[3];
 	float v2[3];
 	float n[3];
 	GLfloat inc = ((float)1/FRACTAL_DEPTH) * GRID_SIZE;
-	GLfloat posX;
-	GLfloat posZ = this->start_j * GRID_SIZE * 2.0 - inc;
+	glTranslatef(0.0,0.0,this->start_j * GRID_SIZE * 2.0 - inc);
 	int x_size = zVals.size() - 1;
 	int y_size = zVals[0].size() - 1;
 
 	for(int y = 0; y < y_size; ++y) {
-		posX = this->start_i* GRID_SIZE * 2.0 - inc;
+		glPushMatrix();
+		glTranslatef(this->start_i* GRID_SIZE * 2.0 - inc,0.0,0.0);
 		for(int x = 0; x < x_size; ++x) {
 			if((x < x_size/2 && y < y_size/2) || (x >= x_size/2 && y >= y_size/2)) {
 				v1[0] = 1.0 - 0.0;
@@ -239,9 +239,11 @@ void FractalSet::draw()
 				v2[2] = 0.0;				
 				normCrossProd(v1,v2,n);
 				glNormal3f(n[0], n[1], n[2]);
-				glVertex3f(posX - inc, zVals[x][y], posZ - inc);
-				glVertex3f(posX - inc, zVals[x][y+1], posZ + inc);
-				glVertex3f(posX + inc, zVals[x+1][y+1], posZ + inc);
+				glBegin(GL_TRIANGLES);
+				glVertex3f(-inc, zVals[x][y],-inc);
+				glVertex3f(-inc, zVals[x][y+1],inc);
+				glVertex3f(inc, zVals[x+1][y+1],inc);
+				glEnd();
 
 				v1[0] = 1.0 - 0.0;
 				v1[1] = zVals[x+1][y+1] - zVals[x][y];
@@ -252,9 +254,11 @@ void FractalSet::draw()
 				v2[2] = 0.0 - 0.0;				
 				normCrossProd(v1,v2,n);
 				glNormal3f(n[0], n[1], n[2]);
-				glVertex3f(posX + inc, zVals[x+1][y+1], posZ + inc);
-				glVertex3f(posX + inc, zVals[x+1][y], posZ - inc);
-				glVertex3f(posX - inc, zVals[x][y], posZ - inc);
+				glBegin(GL_TRIANGLES);
+				glVertex3f(inc, zVals[x+1][y+1], inc);
+				glVertex3f(inc, zVals[x+1][y], -inc);
+				glVertex3f(-inc, zVals[x][y], -inc);
+				glEnd();
 			}
 			else {
 				v1[0] = 1.0 - 0.0;
@@ -266,9 +270,11 @@ void FractalSet::draw()
 				v2[2] = 0.0;				
 				normCrossProd(v1,v2,n);
 				glNormal3f(n[0], n[1], n[2]);
-				glVertex3f(posX - inc, zVals[x][y], posZ - inc);
-				glVertex3f(posX - inc, zVals[x][y+1], posZ + inc);
-				glVertex3f(posX + inc, zVals[x+1][y], posZ - inc);
+				glBegin(GL_TRIANGLES);
+				glVertex3f(-inc, zVals[x][y], -inc);
+				glVertex3f(-inc, zVals[x][y+1], inc);
+				glVertex3f(inc, zVals[x+1][y], -inc);
+				glEnd();
 
 
 				v1[0] = 1.0 - 0.0;
@@ -280,16 +286,19 @@ void FractalSet::draw()
 				v2[2] = 0.0 - 0.0;				
 				normCrossProd(v1,v2,n);
 				glNormal3f(n[0], n[1], n[2]);
-				glVertex3f(posX + inc, zVals[x+1][y], posZ - inc);
-				glVertex3f(posX - inc, zVals[x][y+1], posZ + inc);
-				glVertex3f(posX + inc, zVals[x+1][y+1], posZ + inc);
+				glBegin(GL_TRIANGLES);
+				glVertex3f(inc, zVals[x+1][y], -inc);
+				glVertex3f(-inc, zVals[x][y+1], inc);
+				glVertex3f(inc, zVals[x+1][y+1],inc);
+				glEnd();
 			}
-			posX += 2.0*inc;
+			glTranslatef(2.0*inc,0.0,0.0);
 		}
-		posZ += 2.0*inc;
+		glPopMatrix();
+		glTranslatef(0.0,0.0,2.0*inc);
 	}
 
-	glEnd();
+	glPopMatrix();
 }
 
 void GameGrid::draw(){
