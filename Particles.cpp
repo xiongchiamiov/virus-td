@@ -10,6 +10,9 @@ Particles::Particles(double partSize) {
    
    /* default is fire */
    weapon_type = particle_texture[0];
+   direction[0] = 0.0;
+   direction[1] = 0.0;
+   direction[2] = 1.0;
 }
 Particles::~Particles(){
 }
@@ -126,7 +129,13 @@ void Particles::sumForces(void) {
       
       // WINDFORCE (X Forces)
    //   force[i][0] += WINDFORCE;
-      force[i][2] -= WINDFORCE;
+      
+      //x direction force
+      force[i][0] -= WINDFORCE * direction[0] * -1;
+      // y direction force
+      force[i][1] -= WINDFORCE * direction[1] * -1;
+      // z direction force
+      force[i][2] -= WINDFORCE * direction[2] * -1;
        
       if (pos[i][1] >= -4 && pos[i][1] <= 4) {
     //     force[i][0] += (WINDFORCE * 0.15);
@@ -190,10 +199,69 @@ void Particles::EularIntegrate(void) {
       vel[i][2] += acc[i][2] * TIMESTEP;
       
    //   if (pos[i][2] < -12) {
-      if (pos[i][2] < -20) {
+   
+      // x cutoff resets
+      if (direction[0] <= 0 && pos[i][0] < -20) {
          pos[i][0] = rand_non_uniform() * 2;
          pos[i][1] = rand_non_uniform() * 2;
-         pos[i][2] = 0.0;//rand_non_uniform() * 2;
+         pos[i][2] = rand_non_uniform() * 2;
+   
+         vel[i][0] = rand_non_uniform() * 1; 
+         vel[i][1] = rand_non_uniform() * 1; 
+         vel[i][2] = rand_non_uniform() * 1; 
+      
+         acc[i][0] = 0.0;
+         acc[i][1] = 0.0;
+         acc[i][2] = 0.0;
+       
+         force[i][0] = 0.0;
+         force[i][1] = 0.0;
+         force[i][2] = 0.0;
+         
+         rotate[i] = 0;
+      } else if (direction[0] >= 0 && pos[i][0] > 20) {
+         pos[i][0] = rand_non_uniform() * 2;
+         pos[i][1] = rand_non_uniform() * 2;
+         pos[i][2] = rand_non_uniform() * 2;
+   
+         vel[i][0] = rand_non_uniform() * 1; 
+         vel[i][1] = rand_non_uniform() * 1; 
+         vel[i][2] = rand_non_uniform() * 1; 
+      
+         acc[i][0] = 0.0;
+         acc[i][1] = 0.0;
+         acc[i][2] = 0.0;
+       
+         force[i][0] = 0.0;
+         force[i][1] = 0.0;
+         force[i][2] = 0.0;
+         
+         rotate[i] = 0;
+      }
+
+      // z cutoff resets
+      if (direction[2] <= 0 && pos[i][2] < -20) {
+         pos[i][0] = rand_non_uniform() * 2;
+         pos[i][1] = rand_non_uniform() * 2;
+         pos[i][2] = rand_non_uniform() * 2;
+   
+         vel[i][0] = rand_non_uniform() * 1; 
+         vel[i][1] = rand_non_uniform() * 1; 
+         vel[i][2] = rand_non_uniform() * 1; 
+      
+         acc[i][0] = 0.0;
+         acc[i][1] = 0.0;
+         acc[i][2] = 0.0;
+       
+         force[i][0] = 0.0;
+         force[i][1] = 0.0;
+         force[i][2] = 0.0;
+         
+         rotate[i] = 0;
+      } else if (direction[2] >= 0 && pos[i][2] > 20) {
+         pos[i][0] = rand_non_uniform() * 2;
+         pos[i][1] = rand_non_uniform() * 2;
+         pos[i][2] = rand_non_uniform() * 2;
    
          vel[i][0] = rand_non_uniform() * 1; 
          vel[i][1] = rand_non_uniform() * 1; 
@@ -256,6 +324,15 @@ double rand_non_uniform() {
    temp -= 6;
    
    return temp / 6;
+}
+
+/* normalizes vectors for you */ 
+void Particles::setDirection(float xDir, float yDir, float zDir) {
+   int magnitude = sqrt(xDir * xDir + yDir * yDir + zDir * zDir);
+
+   direction[0] = xDir / magnitude;
+   direction[1] = yDir / magnitude;
+   direction[2] = zDir / magnitude;
 }
 
 // use the simpler version so it's not dependent on camera

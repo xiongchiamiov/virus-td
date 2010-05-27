@@ -52,6 +52,7 @@ void FreezeTower::draw(){
             glScaled(0.15, 0.15, 0.15);
             if(ai.hasTarget){
                if(ai.last_atk < ai.atk_dt) {
+                  weapon->setDirection(ai.target->getX() - x, 0.0, ai.target->getZ() - z);
                   weapon->drawParticles();
                }
             } else {

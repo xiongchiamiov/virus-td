@@ -1,6 +1,7 @@
 #pragma once
 #include "lighting.h"
 #include "textures.h"
+#include <math.h>
 
 /* How it works: each tower has a particle instance variable/attribute
    in which it initializes the weapon type in it's constructor. The main
@@ -34,6 +35,7 @@ class Particles {
       void EularIntegrate(void);
       void reset(void);
       void setWeaponType(GLuint wepType);
+      void setDirection(float xDir, float yDir, float zDir); /* normalizes vector for you */
    private:
       float mass[NUM_PARTICLES];
       float pos[NUM_PARTICLES][3];
@@ -47,7 +49,8 @@ class Particles {
     // float speed;
     //  int x_cutoff;
     //  int y_cutoff;
-    //  int z_cutoff;  
+    //  int z_cutoff;
+      float direction[3];
 };
 
 /* Wrapper function around rand() to generate non-uniform values */
