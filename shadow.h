@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>      
-#include <GL/glut.h> 
+//#include <GL/glut.h> 
 #include "models.h"
 #ifndef M_PI
 #define M_PI 3.14159265

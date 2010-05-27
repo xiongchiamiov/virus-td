@@ -67,12 +67,12 @@ void initializeUI()
    // Unit Icons
 	button_tex[0] = LoadTexture("Button.bmp");
 	button_tex[1] = LoadTexture("Button.bmp");
-	button_tex[2] = LoadTexture("StrongUnit.bmp");
-	button_tex[3] = LoadTexture("StrongUnit2.bmp");
-	button_tex[4] = LoadTexture("StrongUnit3.bmp");
-	button_tex[5] = LoadTexture("FastUnit.bmp");
-	button_tex[6] = LoadTexture("BasicUnit.bmp");
-    button_tex[7] = LoadTexture("Button.bmp");
+	button_tex[2] = LoadTexture("Button.bmp");
+	button_tex[3] = LoadTexture("StrongUnit3.bmp");
+	button_tex[4] = LoadTexture("StrongUnit2.bmp");
+	button_tex[5] = LoadTexture("StrongUnit.bmp");
+	button_tex[6] = LoadTexture("FastUnit.bmp");
+    button_tex[7] = LoadTexture("BasicUnit.bmp");
 	button_tex[8] = LoadTexture("Button.bmp");
    // Tower Icons
 	button_tex[9] = LoadTexture("Button.bmp");

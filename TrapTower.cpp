@@ -1,6 +1,7 @@
 #include "TrapTower.h"
 #include "constants.h"
 #include "models.h"
+#include "Particles.h"
 #include "shadow.h"
 
 namespace tr_tower{
@@ -27,6 +28,13 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   build_time = BUILD_TIME;
   stage = 0;
   ai.hasTarget = false;
+  weapon = new Particles(0.2);
+  weapon->setWeaponType(particle_texture[2]);
+  weapon->setSpread(0.0);
+  weapon->setDirection(1.0, 0.0, 1.0, false);
+  weapon->setAoE(true, true);
+  weapon->setSpeed(10.0);
+  weapon->reset(); // must call reset before animating to get latest values.
 }
 
 TrapTower::~TrapTower(void)
@@ -45,6 +53,11 @@ void TrapTower::draw(){
   setMaterial(Exp);
   glTranslatef(x, y, z);
   glPushMatrix();
+     glPushMatrix();
+        glTranslatef(-0.2, 0.25, 0.0);
+        glScaled(0.15, 0.15, 0.15);
+        weapon->drawParticles();
+     glPopMatrix();
    setMaterial(Black);
    glScalef(.5,.5,.5);
    glCallList(vtd_dl::blkhatDL);

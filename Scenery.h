@@ -28,7 +28,7 @@ public:
 	~Scenery(void);
 	void draw(void);
 private:
-	vector<vector<SceneryGrid>> grids;
+	vector<vector<SceneryGrid> > grids;
 	void normalize(float v[3]);
 	void normCrossProd(float v1[3], float v2[3], float out[3]);
 	int game_grid_index[2];

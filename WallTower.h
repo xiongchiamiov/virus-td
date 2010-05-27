@@ -1,6 +1,7 @@
 #pragma once
 #include "Tower.h"
 #include "lighting.h"
+#include "Particles.h"
 
 class WallTower : public Tower {
    public:

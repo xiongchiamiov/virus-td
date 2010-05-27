@@ -89,7 +89,7 @@ void display(){
 	  glPopMatrix();
 
 	  glPushMatrix();
-	  scene.draw();
+//	  scene.draw();
 	  glPopMatrix();
 
 	  glPushMatrix();

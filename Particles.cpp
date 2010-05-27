@@ -4,15 +4,25 @@ GLuint particle_texture[4];
 
 Particles::Particles(double partSize) {
    particle_size = partSize;
-
-   // initial values for all the particles
-   reset();
    
    /* default is fire */
    weapon_type = particle_texture[0];
+   
    direction[0] = 0.0;
    direction[1] = 0.0;
    direction[2] = 1.0;
+   
+   spread = 2.0;
+   AoE = false;
+   non_random_AoE = true;
+   speed = 1.0;
+   cutoff[0] = 20;
+   cutoff[1] = 7;
+   cutoff[2] = 20;
+   // initial values for all the particles
+   // must be last thing called cuz it needs the initialized
+   // variables above.
+   reset();
 }
 Particles::~Particles(){
 }
@@ -123,20 +133,22 @@ void Particles::sumForces(void) {
      
    //   if (elapsedTime < 250) {
          // ZERO ALL FORCES
-         force[i][0] = force[i][1] = force[i][2] = 0.0;
+
           // GRAVITY (Y forces)
    //   force[i][1] = -GRAVITY*mass[i] + WINDFORCE;
       
       // WINDFORCE (X Forces)
    //   force[i][0] += WINDFORCE;
-      
-      //x direction force
-      force[i][0] -= WINDFORCE * direction[0] * -1;
-      // y direction force
-      force[i][1] -= WINDFORCE * direction[1] * -1;
-      // z direction force
-      force[i][2] -= WINDFORCE * direction[2] * -1;
-       
+      if (!AoE) {
+         force[i][0] = force[i][1] = force[i][2] = 0.0;
+         //x direction force
+         force[i][0] -= WINDFORCE * direction[0] * -1;
+         // y direction force
+         force[i][1] -= WINDFORCE * direction[1] * -1;
+         // z direction force
+         force[i][2] -= WINDFORCE * direction[2] * -1;
+      }
+
       if (pos[i][1] >= -4 && pos[i][1] <= 4) {
     //     force[i][0] += (WINDFORCE * 0.15);
       }
@@ -201,81 +213,24 @@ void Particles::EularIntegrate(void) {
    //   if (pos[i][2] < -12) {
    
       // x cutoff resets
-      if (direction[0] <= 0 && pos[i][0] < -20) {
-         pos[i][0] = rand_non_uniform() * 2;
-         pos[i][1] = rand_non_uniform() * 2;
-         pos[i][2] = rand_non_uniform() * 2;
-   
-         vel[i][0] = rand_non_uniform() * 1; 
-         vel[i][1] = rand_non_uniform() * 1; 
-         vel[i][2] = rand_non_uniform() * 1; 
-      
-         acc[i][0] = 0.0;
-         acc[i][1] = 0.0;
-         acc[i][2] = 0.0;
-       
-         force[i][0] = 0.0;
-         force[i][1] = 0.0;
-         force[i][2] = 0.0;
-         
-         rotate[i] = 0;
-      } else if (direction[0] >= 0 && pos[i][0] > 20) {
-         pos[i][0] = rand_non_uniform() * 2;
-         pos[i][1] = rand_non_uniform() * 2;
-         pos[i][2] = rand_non_uniform() * 2;
-   
-         vel[i][0] = rand_non_uniform() * 1; 
-         vel[i][1] = rand_non_uniform() * 1; 
-         vel[i][2] = rand_non_uniform() * 1; 
-      
-         acc[i][0] = 0.0;
-         acc[i][1] = 0.0;
-         acc[i][2] = 0.0;
-       
-         force[i][0] = 0.0;
-         force[i][1] = 0.0;
-         force[i][2] = 0.0;
-         
-         rotate[i] = 0;
-      }
+      if (direction[0] <= 0 && pos[i][0] < -cutoff[0]) {
+         resetSingleParticle(i);
+      } else if (direction[0] >= 0 && pos[i][0] > cutoff[0]) {
+         resetSingleParticle(i);
+      } else
+
+      // y cutoff resets
+      if (direction[1] <= 0 && pos[i][1] < -cutoff[1]) {
+         resetSingleParticle(i);
+      } else if (direction[1] >= 0 && pos[i][1] > cutoff[1]) {
+         resetSingleParticle(i);
+      } else
 
       // z cutoff resets
-      if (direction[2] <= 0 && pos[i][2] < -20) {
-         pos[i][0] = rand_non_uniform() * 2;
-         pos[i][1] = rand_non_uniform() * 2;
-         pos[i][2] = rand_non_uniform() * 2;
-   
-         vel[i][0] = rand_non_uniform() * 1; 
-         vel[i][1] = rand_non_uniform() * 1; 
-         vel[i][2] = rand_non_uniform() * 1; 
-      
-         acc[i][0] = 0.0;
-         acc[i][1] = 0.0;
-         acc[i][2] = 0.0;
-       
-         force[i][0] = 0.0;
-         force[i][1] = 0.0;
-         force[i][2] = 0.0;
-         
-         rotate[i] = 0;
-      } else if (direction[2] >= 0 && pos[i][2] > 20) {
-         pos[i][0] = rand_non_uniform() * 2;
-         pos[i][1] = rand_non_uniform() * 2;
-         pos[i][2] = rand_non_uniform() * 2;
-   
-         vel[i][0] = rand_non_uniform() * 1; 
-         vel[i][1] = rand_non_uniform() * 1; 
-         vel[i][2] = rand_non_uniform() * 1; 
-      
-         acc[i][0] = 0.0;
-         acc[i][1] = 0.0;
-         acc[i][2] = 0.0;
-       
-         force[i][0] = 0.0;
-         force[i][1] = 0.0;
-         force[i][2] = 0.0;
-         
-         rotate[i] = 0;
+      if (direction[2] <= 0 && pos[i][2] < -cutoff[2]) {
+         resetSingleParticle(i);
+      } else if (direction[2] >= 0 && pos[i][2] > cutoff[2]) {
+         resetSingleParticle(i);
       }
    }
 }
@@ -285,35 +240,108 @@ void Particles::reset() {
    for (int i=0; i<NUM_PARTICLES; i++) {
       mass[i] = 5.0;//rand_non_uniform() * 2.0;//1.0;
    
-      pos[i][0] = rand_non_uniform() * 3;
-      pos[i][1] = rand_non_uniform() * 3;
-      pos[i][2] = rand_non_uniform() * 3;
+      pos[i][0] = rand_non_uniform() * spread;
+      pos[i][1] = rand_non_uniform() * spread;
+      pos[i][2] = rand_non_uniform() * spread;
    
-      vel[i][0] = rand_non_uniform() * 2; 
-      vel[i][1] = rand_non_uniform() * 2; 
-      vel[i][2] = rand_non_uniform() * 2; 
+      vel[i][0] = rand_non_uniform() * speed; 
+      vel[i][1] = rand_non_uniform() * speed; 
+      vel[i][2] = rand_non_uniform() * speed; 
       
       acc[i][0] = 0.0;
       acc[i][1] = 0.0;
       acc[i][2] = 0.0;
       
-      force[i][0] = 0.0;
-      force[i][1] = 0.0;
-      force[i][2] = 0.0;
-      
+      if (!AoE) {
+         force[i][0] = 0.0;
+         force[i][1] = 0.0;
+         force[i][2] = 0.0;
+      } else {
+         if (non_random_AoE) {
+            pos[i][0] = 0.0;
+            pos[i][1] = 0.0;
+            pos[i][2] = 0.0;
+   
+            vel[i][0] = 0.0; 
+            vel[i][1] = 0.0; 
+            vel[i][2] = 0.0; 
+
+            force[i][0] = speed * rand_non_uniform() * direction[0];
+            force[i][1] = speed * rand_non_uniform() * direction[1];
+            force[i][2] = speed * rand_non_uniform() * direction[2];
+         } else {
+            force[i][0] = rand_non_uniform() * speed * direction[0];
+            force[i][1] = rand_non_uniform() * speed * direction[1];
+            force[i][2] = rand_non_uniform() * speed * direction[2];
+         }
+      }
+
       rotate[i] = 0;
-      color[i][0] = 1.0;
-      color[i][1] = 1.0;
-      color[i][2] = 1.0;
+
+    //  color[i][0] = 1.0;
+    //  color[i][1] = 1.0;
+    //  color[i][2] = 1.0;
    }
 }
 
+void Particles::resetSingleParticle(int index) {
+      mass[index] = 5.0;//rand_non_uniform() * 2.0;//1.0;
+      
+      pos[index][0] = rand_non_uniform() * spread;
+      pos[index][1] = rand_non_uniform() * spread;
+      pos[index][2] = rand_non_uniform() * spread;
+   
+      vel[index][0] = rand_non_uniform() * speed; 
+      vel[index][1] = rand_non_uniform() * speed; 
+      vel[index][2] = rand_non_uniform() * speed; 
+      
+      acc[index][0] = 0.0;
+      acc[index][1] = 0.0;
+      acc[index][2] = 0.0;
+      
+      if (!AoE) {
+         force[index][0] = 0.0;
+         force[index][1] = 0.0;
+         force[index][2] = 0.0;
+      } else {
+         if (non_random_AoE) {
+            pos[index][0] = 0.0;
+            pos[index][1] = 0.0;
+            pos[index][2] = 0.0;
+   
+            vel[index][0] = 0.0; 
+            vel[index][1] = 0.0; 
+            vel[index][2] = 0.0; 
+
+            force[index][0] = speed * rand_non_uniform() * direction[0];
+            force[index][1] = speed * rand_non_uniform() * direction[1];
+            force[index][2] = speed * rand_non_uniform() * direction[2];
+         } else {
+            force[index][0] = rand_non_uniform() * speed * direction[0];
+            force[index][1] = rand_non_uniform() * speed * direction[1];
+            force[index][2] = rand_non_uniform() * speed * direction[2];
+         }
+      }
+
+      rotate[index] = 0;
+
+    //  color[index][0] = 1.0;
+    //  color[index][1] = 1.0;
+    //  color[index][2] = 1.0;
+}
+      
 /* Sets the weapon type of this particle (Set in sub-tower constructors) */
 void Particles::setWeaponType(GLuint wepType) {
    weapon_type = wepType;
 }
 
-// makes rand() non-uniform
+void Particles::setAoE(bool yes, bool uniform) {
+   AoE = yes;
+   non_random_AoE = uniform;
+}
+
+// makes rand() non-uniform is capable of generating negative 
+// values.
 double rand_non_uniform() {
    double temp = 0;
    
@@ -327,12 +355,33 @@ double rand_non_uniform() {
 }
 
 /* normalizes vectors for you */ 
-void Particles::setDirection(float xDir, float yDir, float zDir) {
-   int magnitude = sqrt(xDir * xDir + yDir * yDir + zDir * zDir);
+void Particles::setDirection(float xDir, float yDir, float zDir, bool normalize) {
+   if (normalize) {
+      int magnitude = sqrt(xDir * xDir + yDir * yDir + zDir * zDir);
 
-   direction[0] = xDir / magnitude;
-   direction[1] = yDir / magnitude;
-   direction[2] = zDir / magnitude;
+      direction[0] = xDir / magnitude;
+      direction[1] = yDir / magnitude;
+      direction[2] = zDir / magnitude;
+   } else {
+      direction[0] = xDir;
+      direction[1] = yDir;
+      direction[2] = zDir;
+   }
+}
+
+/* Sets how far the particles will spray out */ 
+void Particles::setSpread(int sp) {
+   spread = sp;      
+}
+
+void Particles::setSpeed(double spd) {
+   speed = spd;
+}
+
+void Particles::setCutOffs(int xCut, int yCut, int zCut) {
+   cutoff[0] = xCut;
+   cutoff[1] = yCut;
+   cutoff[2] = zCut;
 }
 
 // use the simpler version so it's not dependent on camera
@@ -371,4 +420,15 @@ void initializeParticleTextures() {
    particle_texture[1] = LoadTexture("green_fire.bmp");
    particle_texture[2] = LoadTexture("blue_fire.bmp");
    particle_texture[3] = LoadTexture("arcane.bmp");
+}
+
+/* Stupid function that randomizes 1 or -1 */
+int neg_pos_rand() {
+   double temp = rand_non_uniform();
+
+   if (temp <= 0) {
+      return -1;
+   } else {
+      return 1;
+   }
 }

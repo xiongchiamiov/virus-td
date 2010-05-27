@@ -25,6 +25,11 @@ Tower(inx, iny, inz, gx, gy)
   type = T_WALL;
   build_time = BUILD_TIME;
   stage = 0;
+  weapon = new Particles(0.5);
+  weapon->setDirection(0.0, 1.0, 0.0, false);
+  weapon->setCutOffs(20, 12, 20);
+  weapon->setSpread(5);
+  weapon->reset();
 }
 
 WallTower::~WallTower(void)
@@ -43,15 +48,21 @@ void WallTower::draw(){
   glTranslatef(x, y, z);
      glPushMatrix();
         // Scale and orient model to fit grid
-        glTranslatef(0.0, 0.50, 0.0);
+      //  glTranslatef(0.0, 0.50, 0.0);
         // Mini Tower Defense TBQH
-        glScaled(0.75, 0.75, 0.75);
+      //  glScaled(0.75, 0.75, 0.75);
       //  glRotated(83, 0.0, 1.0, 0.0);
       //  glCallList(vtd_dl::shieldDL);
-        glCallList(vtd_dl::lockDL);
+     //   glCallList(vtd_dl::lockDL);
+     glPushMatrix();
+        glTranslatef(-0.2, 0.25, 0.0);
+        glScaled(0.15, 0.15, 0.15);
+        weapon->drawParticles();
+     glPopMatrix();
+
      glPopMatrix();
 	 glPushMatrix();
-		draw_shadow(5);
+	//	draw_shadow(5);
 	 glPopMatrix();
   glPopMatrix();
 }

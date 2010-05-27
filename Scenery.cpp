@@ -20,7 +20,7 @@ player(plyr)
 			int game_grid_x[2];
 			int game_grid_y;
 			int game_grid_w,game_grid_h;
-			vector<vector<GLfloat>> h_buffer;
+			vector<vector<GLfloat> > h_buffer;
 			file >> w_cnt >> h_cnt;
 			file >> game_grid_x[0] >> game_grid_x[1] >> game_grid_w;
 			file >> game_grid_y >> game_grid_h;

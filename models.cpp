@@ -557,10 +557,10 @@ void drawWorm() {
 }
 
 void drawBackTrack() {
-   int tesallation = 2;
+   int tesallation = 3;
    // save the transformation state
    glPushMatrix();
-      setMaterial(DarkDarkGrey);
+      setMaterial(Grey);
 
       // locate it in the scene
       glMatrixMode(GL_MODELVIEW);
@@ -799,7 +799,7 @@ void drawBackTrack() {
             glutSolidSphere(0.5, tesallation, tesallation);
          glPopMatrix();
          
-         setMaterial(DarkDarkGrey);
+         setMaterial(Grey);
          
          glTranslatef(1.0, -1.0, 0.0);
          glRotatef(180, 1.0, 0.0, 0.0);
