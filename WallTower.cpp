@@ -46,7 +46,8 @@ void WallTower::draw(){
         // Mini Tower Defense TBQH
         glScaled(0.05, 0.05, 0.05);
       //  glRotated(83, 0.0, 1.0, 0.0);
-        glCallList(vtd_dl::shieldDL);
+      //  glCallList(vtd_dl::shieldDL);
+        glCallList(vtd_dl::lockDL);
      glPopMatrix();
   glPopMatrix();
 }
