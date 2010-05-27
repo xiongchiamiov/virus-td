@@ -25,12 +25,14 @@ namespace unit_cost{
   extern const int FAST;
   extern const int STRONG;
   extern const int STRONG2;
+  extern const int STRONG3;
 }
 namespace unit_bonus{
   extern const int BASIC;
   extern const int FAST;
   extern const int STRONG;
   extern const int STRONG2;
+  extern const int STRONG3;
 }
 namespace tower_cost{
   extern const int BASIC;

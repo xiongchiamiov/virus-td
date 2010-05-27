@@ -12,6 +12,7 @@
 #include "StrongUnit.h"
 #include "FastUnit.h"
 #include "StrongUnit2.h"
+#include "StrongUnit3.h"
 #include "UnitsAI.h"
 #include "vfc.h"
 #include <list>

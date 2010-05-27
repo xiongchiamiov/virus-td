@@ -27,12 +27,14 @@ namespace unit_cost{
   const int FAST = 10;
   const int STRONG = 20;
   const int STRONG2 = 50;
+  const int STRONG3 = 30;
 }
 namespace unit_bonus{
   const int BASIC = 1;
   const int FAST = 2;
   const int STRONG = 5;
   const int STRONG2 = 7;
+  const int STRONG3 = 6;
 }
 namespace tower_cost{
   const int BASIC = 5;
