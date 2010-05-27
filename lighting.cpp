@@ -89,6 +89,13 @@ materialStruct PureRed = {
   {0.0}
 };
 
+materialStruct PureBlue = {
+  {0.0, 0.0, 1.0, 1.0}, 
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0}
+};
+
 materialStruct Brown = {
   {0.4, 0.2, 0.1, 1.0}, 
   {0.0, 0.0, 0.0, 1.0},

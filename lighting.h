@@ -42,6 +42,7 @@ extern materialStruct Fuschia;
 extern materialStruct FieryOrange;
 extern materialStruct White;
 extern materialStruct PureRed;
+extern materialStruct PureBlue;
 extern materialStruct Brown;
 extern materialStruct ShinyMetal;
 extern materialStruct DarkGrey;

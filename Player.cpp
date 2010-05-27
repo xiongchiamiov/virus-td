@@ -219,6 +219,9 @@ int Player::getIncome(){
 int Player::getResources(){
   return resources;
 }
+int Player::getLives() {
+	return lives;
+}
 int Player::calcResources(){
   resources += income;
   return resources;

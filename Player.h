@@ -43,6 +43,7 @@ public:
   void update(int dt);
   int getIncome();
   int getResources();
+  int getLives();
   int calcResources();
   void setOpponent(Player* newOpp);
   inline void setPosition(float x, float y, float z){ pos.setPosition(x, y, z);}

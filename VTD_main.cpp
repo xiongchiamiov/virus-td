@@ -82,7 +82,7 @@ void display(){
 	  opponent.player.draw();
 	  glPopMatrix();
 	  glPushMatrix();
-	  renderUI(GW, GH,&p1,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
+	  renderUI(GW, GH,&p1,&opponent.player,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
 	  glPopMatrix();
 	  
 	  drawMouseBox(clicked);
@@ -167,18 +167,21 @@ void drawBlueScreen()
 	glTranslatef(0.0f,0.0f,0.1);
 	int center_x = GW/2.0;
 	int center_y = GH/2.0;
-	char *title = "WINDOWS";
-	char *info = "An exception 06 has occured at 0028:C11B3ADC in VxD DiskTSD(03) +\n00001660.   This was called from 0028:C11B40CB in VxD voltrack(04) +\n00000000.   It may be possible to continue normally.";
+	char *title = "GAME OVER";
+	char *info = "An exception 06 has occured at 0028:C11B3ADC in VxD DiskTSD(03) +\n00001660.   This was called from 0028:C11B40CB in VxD voltrack(04) +\n00000000.   System is unable to continue running.";
 	char *instr = "*   Press any key to attempt to continue.\n*   Press CTRL+ALT+RESET to restart your computer.  You will\n    lose any unsaved information in all applications.";
-	char *todo = "Press any key to continue";
-	const int title_W = 63;
-	const int title_Y = -112;
+	char *lose = "Your root folder has been corrupted. You have lost.";
+	char *todo = "Press any key to exit";
+	const int title_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,title);;
+	const int title_Y = -128;
 	const int info_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,info);
-	const int info_Y = -64;
+	const int info_Y = -80;
 	const int instr_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,instr);
-	const int instr_Y = 16;
+	const int instr_Y = 0;
+	const int lose_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,lose);
+	const int lose_Y = 80;
 	const int todo_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,todo);
-	const int todo_Y = 96;
+	const int todo_Y = 120;
 	glColor3f(1.0f,1.0f,1.0f);
 	glBegin(GL_QUADS);
     glVertex2f(center_x - title_W/2 - 10,center_y + title_Y-15);
@@ -191,6 +194,7 @@ void drawBlueScreen()
 	glColor3f(1.0f,1.0f,1.0f);
 	drawBitmapString(center_x - info_W/2,center_y + info_Y,GLUT_BITMAP_9_BY_15,info);
 	drawBitmapString(center_x - instr_W/2,center_y + instr_Y,GLUT_BITMAP_9_BY_15,instr);
+	drawBitmapString(center_x - lose_W/2,center_y + lose_Y,GLUT_BITMAP_9_BY_15,lose);
 	drawBitmapString(center_x - todo_W/2,center_y + todo_Y,GLUT_BITMAP_9_BY_15,todo);
 
 

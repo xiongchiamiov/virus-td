@@ -96,7 +96,7 @@ void initializeUI()
 	info_tex[9] = LoadTexture("info_bottom.bmp");
 }
 
-void renderUI(int w, int h,Player* p, float time_left, GLuint mode)
+void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 {
    int bNumber = 0;
 
@@ -161,17 +161,23 @@ void renderUI(int w, int h,Player* p, float time_left, GLuint mode)
 
    glPushMatrix();
    glLoadIdentity();
-     setMaterial(White);
+     setMaterial(PureBlue);
 //   sprintf(timeRemainingString, "Time Remaining: %d", timeRemaining);
  //  sprintf(currencyString, "Objects Remaining: %d", currency);
 
 	 char str[200];
-	 sprintf( str, "Time until next wave: %2.2f", time_left );
+	 sprintf( str, "Lives: %d", p->getLives() );
 	 renderBitmapString(8, GH - 24, GLUT_BITMAP_HELVETICA_18 , str);
 	 sprintf( str, "Income: %d", p->getIncome() );
-	 renderBitmapString(8, GH - 24 - 22, GLUT_BITMAP_HELVETICA_18 , str);
+	 renderBitmapString(8, GH - 24 - 22.0, GLUT_BITMAP_HELVETICA_18 , str);
 	 sprintf( str, "Bytes: %d", p->getResources() );
-	 renderBitmapString(8, GH - 24 - 22 - 22, GLUT_BITMAP_HELVETICA_18 , str);
+	 renderBitmapString(8, GH - 24 - 2*22.0, GLUT_BITMAP_HELVETICA_18 , str);
+	 sprintf( str, "Next Byte Deposit In: %2.2f", time_left );
+	 renderBitmapString(8, GH - 24 - 3*22, GLUT_BITMAP_HELVETICA_18 , str);
+
+	 setMaterial(PureRed);
+	 sprintf( str, "Enemy Lives: %d", opp->getLives() );
+	 renderBitmapString(GW-156, GH - 24, GLUT_BITMAP_HELVETICA_18 , str);
    //renderBitmapString(1.0 * GW / 4.0, GH - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
 
    //renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
