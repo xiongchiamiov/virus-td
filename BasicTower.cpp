@@ -19,7 +19,7 @@ Tower(inx, iny, inz, gx, gy)
   hp = MAX_HP[0];
   max_hp = MAX_HP[0];
   ai.atk_dmg = ATK[0];
-  ai.atk_dt = ATK[0]; 
+  ai.atk_dt = ATK_DT[0]; 
   ai.range = RANGE[0];
   type = T_BASIC;
   build_time = BUILD_TIME;

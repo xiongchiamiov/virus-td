@@ -4,22 +4,24 @@
 #include "Particles.h"
 
 namespace sl_tower{
-  const int MAX_HP = 12;
-  const int ATK = 6;
-  const float RANGE = 5.0;
-  const int BUILD_TIME = 5500;
+  const int MAX_UPGRADES = 3;
+  const int MAX_HP[MAX_UPGRADES] = {12, 20, 30};
+  const int ATK[MAX_UPGRADES] = {6, 12, 18};
+  const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
+  const float RANGE[MAX_UPGRADES] = {5.0, 6.0, 6.5};
+  const int BUILD_TIME = 3000;
 }
 
 using namespace sl_tower;
 
 SlowTower::SlowTower(float inx, float iny, float inz, int gx, int gy):
-   Tower(inx, iny, inz, gx, gy)/*, hp(MAX_HP), max_hp(MAX_HP), atk_dmg(ATK),
-type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
+   Tower(inx, iny, inz, gx, gy)
 {
-  hp = MAX_HP;
-  max_hp = MAX_HP;
-  ai.atk_dmg = ATK;
-  ai.range = RANGE;
+  hp = MAX_HP[0];
+  max_hp = MAX_HP[0];
+  ai.atk_dmg = ATK[0];
+  ai.atk_dt = ATK_DT[0]; 
+  ai.range = RANGE[0];
   type = T_SLOW;
   build_time = BUILD_TIME;
   stage = 0;
