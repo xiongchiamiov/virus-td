@@ -41,9 +41,10 @@ public:
   void draw();
   bool cull(GameObject* obj);
   void update(int dt);
-  int getIncome();
-  int getResources();
-  int getLives();
+  int getIncome(void);
+  int getResources(void);
+  int getLives(void);
+  MyVector getPosition(void);
   int calcResources();
   void setOpponent(Player* newOpp);
   inline void setPosition(float x, float y, float z){ pos.setPosition(x, y, z);}

@@ -222,6 +222,9 @@ int Player::getResources(){
 int Player::getLives() {
 	return lives;
 }
+MyVector Player::getPosition() {
+	return pos;
+}
 int Player::calcResources(){
   resources += income;
   return resources;

@@ -23,6 +23,7 @@
 #include "constants.h"
 #include "UI.h"
 #include "models.h"
+#include "Scenery.h"
 
 const int PLAYER_WIN = 0;
 const int COMPUTER_WIN = 1;
@@ -50,6 +51,7 @@ bool paused = false;
 bool gameOver = false;
 int winner = 0;
 GLuint winTexture;
+Scenery scene("scenery.grid", &p1);
 
 void drawBlueScreen(void);
 void drawWinScreen(void);
@@ -85,6 +87,11 @@ void display(){
 	  p1.draw();
 	  opponent.player.draw();
 	  glPopMatrix();
+
+	  glPushMatrix();
+	  scene.draw();
+	  glPopMatrix();
+
 	  glPushMatrix();
 	  renderUI(GW, GH,&p1,&opponent.player,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
 	  glPopMatrix();
@@ -463,6 +470,8 @@ int main(int argc, char** argv){
   glutTimerFunc(1000/60, update, 0);
   initializeUI();
   winTexture = LoadTexture("Win.bmp");
+  p1.pGrid.initialize();
+  opponent.player.pGrid.initialize();
   initializeParticleTextures();
   glutMainLoop();
 }

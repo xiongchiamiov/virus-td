@@ -152,6 +152,13 @@ materialStruct PlayerGrid = {
   {120.0}
 };
 
+materialStruct SceneGrid = {
+  {0.0, 0.2, 0.0, 1.0},
+  {0.0, 0.8, 0.0, 1.0},
+  {0.0, 0.4, 0.0, 1.0},
+  {120.0}
+};
+
 //sets up a specific material
 void setMaterial(materialStruct materials) {
   glMaterialfv(GL_FRONT, GL_AMBIENT, materials.ambient);
