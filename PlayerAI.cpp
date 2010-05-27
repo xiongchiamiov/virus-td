@@ -5,6 +5,7 @@ PlayerAI::PlayerAI(void) {
 	units = 0;
 	updates = 0;
 	targetNumTowers = NULL;
+	player.pGrid.setGridColor(EnemyGrid);
 }
 PlayerAI::~PlayerAI(void) {}
 

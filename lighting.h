@@ -47,6 +47,9 @@ extern materialStruct ShinyMetal;
 extern materialStruct DarkGrey;
 extern materialStruct DarkDarkGrey;
 extern materialStruct Yellow;
+extern materialStruct Grid;
+extern materialStruct EnemyGrid;
+extern materialStruct PlayerGrid;
 
 //sets up a specific material
 void setMaterial(materialStruct materials);

@@ -47,6 +47,7 @@ public:
   bool originalIsWall(g_elem cur);
   void setTowerGrid(int x, int y, Tower* tPtr);
   Tower* checkCollision(Unit* unit);
+  void setGridColor(materialStruct material);
   static const int G_WIDTH = 16;
   static const int G_HEIGHT = 32;
 private:
@@ -62,4 +63,5 @@ private:
   list<FractalSet*> f_sets;
   vector<GLfloat> bound_lines;
   int boundry_cntdown;
+  materialStruct gridColor;
 };

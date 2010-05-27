@@ -124,6 +124,27 @@ materialStruct Yellow = {
   {0.2}
 };
 
+materialStruct Grid = {
+  {0.08, 0.08, 0.08, 1.0}, 
+  {0.08, 0.08, 0.08, 1.0},
+  {0.12, 0.12, 0.12, 1.0},
+  {120.0}
+};
+
+materialStruct EnemyGrid = {
+  {0.3, 0.0, 0.0, 1.0},
+  {0.9, 0.0, 0.0, 1.0},
+  {0.4, 0.0, 0.0, 1.0},
+  {120.0}
+};
+
+materialStruct PlayerGrid = {
+  {0.0, 0.0, 0.2, 1.0},
+  {0.0, 0.0, 0.8, 1.0},
+  {0.0, 0.0, 0.4, 1.0},
+  {120.0}
+};
+
 //sets up a specific material
 void setMaterial(materialStruct materials) {
   glMaterialfv(GL_FRONT, GL_AMBIENT, materials.ambient);

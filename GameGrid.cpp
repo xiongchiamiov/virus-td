@@ -9,6 +9,7 @@ GameGrid::GameGrid(void):
 x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 {
 	bound_lines.insert(bound_lines.begin(),0.0);
+	gridColor = PlayerGrid;
   //grid = new bool[16][32];
   for(int i = 0; i < GRID_WIDTH; ++i){
     for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -24,10 +25,12 @@ GameGrid::~GameGrid(void)
 }
 
 GameGrid::GameGrid(char *filename):
-x(0.0), y(0.0),boundry_cntdown(BOUNDRY_SPAWN_RATE)
+x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 {
 	//bound_lines.push_front(0.0);
 	bound_lines.insert(bound_lines.begin(),0.0);
+	//Set the grid's color
+	gridColor = PlayerGrid;
 
 	if(!RAND_SEEDED){
 		srand(time(NULL));
@@ -207,8 +210,8 @@ void normCrossProd(float v1[3], float v2[3], float out[3]) {
 
 void FractalSet::draw()
 {
+	setMaterial(Grid);
 	glBegin(GL_TRIANGLES);
-	setMaterial(Exp);
 	float v1[3];
 	float v2[3];
 	float n[3];
@@ -295,7 +298,7 @@ void GameGrid::draw(){
         glLineWidth(2.0);
         glColor3f(0.3, 0.7, 0.3);
      //   setMaterial(Exp);
-     setMaterial(Black);
+     setMaterial(Grid);
         glBegin(GL_POLYGON);{
           glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
           glVertex3f(posX - GRID_SIZE, 0.0, posZ + GRID_SIZE);
@@ -309,7 +312,7 @@ void GameGrid::draw(){
         }
         glEnd();
 		if(grid[i][j]){
-        setMaterial(Teal);
+        setMaterial(gridColor);
         glColor3f(0.3, 0.7, 0.7);
         glBegin(GL_LINE_LOOP);{
           glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
@@ -350,8 +353,13 @@ void GameGrid::drawBoundry()
 	for(int i = 0; i < (int)bound_lines.size(); i++)
 	{
 		float t = bound_lines[i] / BOUNDRY_HEIGHT;
+		GLfloat color[] = { gridColor.diffuse[0] - t*gridColor.diffuse[0],
+							gridColor.diffuse[1] - t*gridColor.diffuse[1],
+							gridColor.diffuse[2] - t*gridColor.diffuse[2],
+							1.0f
+						   };
 		//GLfloat color[] = {0.0f,0.5f - (t*0.5),0.5f - (t*0.5),1.0f}; //Fade to black
-		GLfloat color[] = {t,0.5f + (t*0.5f),0.5f + (t*0.5f)}; //Fade to white
+		//GLfloat color[] = {t,0.5f + (t*0.5f),0.5f + (t*0.5f)}; //Fade to white
 		glLineWidth(1.0 - (1.0*t));
 		glMaterialfv(GL_FRONT,GL_AMBIENT,color);
 		glBegin(GL_LINE_LOOP);{
@@ -379,6 +387,11 @@ void GameGrid::update(int dt)
 	}
 	if(bound_lines[bound_lines.size()-1] > BOUNDRY_HEIGHT)
 		bound_lines.pop_back();
+}
+
+void GameGrid::setGridColor(materialStruct color)
+{
+	this->gridColor = color;
 }
 
 bool GameGrid::setTower(int x, int y){
