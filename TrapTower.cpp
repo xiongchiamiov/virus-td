@@ -22,6 +22,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   type = T_TRAP;
   build_time = BUILD_TIME;
   stage = 0;
+  ai.hasTarget = false;
 }
 
 TrapTower::~TrapTower(void)
@@ -50,4 +51,16 @@ void TrapTower::draw(){
 
 void TrapTower::step(float dt){
 
+}
+
+bool TrapTower::shoot(){
+  bool ret = false;
+  std::list<Unit*>::iterator i;
+  for(i = ai.targetList->begin(); i != ai.targetList->end(); ++i){
+    if(!(*i)->isDead() && ai.range > ai.getDistance(**i)){
+      (*i)->takeDamage(ai.atk_dmg);
+      ret = true;
+    }
+  }
+  return true;
 }
