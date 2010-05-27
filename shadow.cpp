@@ -147,8 +147,9 @@ static void redraw(int object)
 		}
 		else if(object == 8)
 		{
-		    //glScaled(0.25, 0.25, 0.25);
-			//glTranslatef(-3,6,-3);
+		    //glScaled(0.5, 0.5, 0.5);
+			glTranslatef(-.15,.25,0);
+			glutSolidSphere(.2,10,10);
 		    //glCallList(vtd_dl::virusDL);
 		}
 		else if(object == 9)
