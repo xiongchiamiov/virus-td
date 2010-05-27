@@ -61,6 +61,17 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 				tGrid[i][j] = NULL;
 			}
 		}
+		//Read in texture data
+		for(int j = 0; j < GRID_HEIGHT; ++j){
+			for(int i = 0; i < GRID_WIDTH; ++i){
+				char val;
+				do {
+					file.read(&val,sizeof(char));
+				}
+				while (val == '\n' || val == '\r');
+				grid_texs[i][j] = val-48;
+			}
+		}
 		file.close();
 		createFractals();
 		printf("Loaded grid file\n");
@@ -79,9 +90,43 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 	}
 }
 
-void GameGrid::initialize()
+void GameGrid::initialize(bool enemy)
 {
-	//grid_text = LoadTexture("grid.bmp");
+	if(!enemy)
+	{
+		textures[0] = LoadTexture("grid_0.bmp");
+		textures[1] = LoadTexture("grid_1.bmp");
+		textures[2] = LoadTexture("grid_2.bmp");
+		textures[3] = LoadTexture("grid_3.bmp");
+		textures[4] = LoadTexture("grid_4.bmp");
+		textures[5] = LoadTexture("grid_5.bmp");
+		textures[6] = LoadTexture("grid_6.bmp");
+		textures[7] = LoadTexture("grid_7.bmp");
+		textures[8] = LoadTexture("grid_8.bmp");
+		textures[9] = LoadTexture("grid_9.bmp");
+		textures[10] = LoadTexture("grid_10.bmp");
+		textures[11] = LoadTexture("grid_11.bmp");
+	}
+	else
+	{
+		textures[0] = LoadTexture("grid_0b.bmp");
+		textures[1] = LoadTexture("grid_1b.bmp");
+		textures[2] = LoadTexture("grid_2b.bmp");
+		textures[3] = LoadTexture("grid_3b.bmp");
+		textures[4] = LoadTexture("grid_4b.bmp");
+		textures[5] = LoadTexture("grid_5b.bmp");
+		textures[6] = LoadTexture("grid_6b.bmp");
+		textures[7] = LoadTexture("grid_7b.bmp");
+		textures[8] = LoadTexture("grid_8b.bmp");
+		textures[9] = LoadTexture("grid_9b.bmp");
+		textures[10] = LoadTexture("grid_10b.bmp");
+		textures[11] = LoadTexture("grid_11b.bmp");
+	}
+	for(int j = 0; j < GRID_HEIGHT; ++j){
+			for(int i = 0; i < GRID_WIDTH; ++i){
+				grid_texs[i][j] = textures[grid_texs[i][j]];
+			}
+	}
 }
 
 void GameGrid::createFractals()
@@ -301,56 +346,81 @@ void FractalSet::draw()
 	glPopMatrix();
 }
 
-void GameGrid::draw(){
+void GameGrid::draw(bool isPlacing){
   glPushMatrix();
   glNormal3f(0.0, 1.0, 0.0);
   float posX = 0.0;
   float posZ = 0.0;
-  //glEnable(GL_TEXTURE_2D);
-  //glBindTexture(GL_TEXTURE_2D, grid_text);
   for(int i = 0; i < GRID_WIDTH; i++){
     for(int j = 0; j < GRID_HEIGHT; j++){
       if(!frac[i][j]){
         glLineWidth(2.0);
-        glColor3f(0.3, 0.7, 0.3);
+        //glColor3f(0.3, 0.7, 0.3);
      //   setMaterial(Exp);
-        setMaterial(Grid);
-		//setMaterial(White);
+        //setMaterial(Grid);
+		if(grid[i][j] && !isPlacing) {
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, grid_texs[i][j]);
+			setMaterial(White);
+			
+			glBegin(GL_POLYGON);{
+			  glTexCoord2f(0.0,1.0);
+			  glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
+			  glTexCoord2f(0.0,0.0);
+			  glVertex3f(posX - GRID_SIZE, 0.0, posZ + GRID_SIZE);
+			  glTexCoord2f(1.0,0.0);
+			  glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
+			}
+			glEnd();
+
+			glBegin(GL_POLYGON);{
+			  glTexCoord2f(1.0,0.0);
+			  glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
+			  glTexCoord2f(1.0,1.0);
+			  glVertex3f(posX + GRID_SIZE, 0.0, posZ - GRID_SIZE);
+			  glTexCoord2f(0.0,1.0);
+			  glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
+			}
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+		}
+		else
+		{
+			setMaterial(Grid);			
+			glBegin(GL_POLYGON);{
+			  glTexCoord2f(0.0,1.0);
+			  glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
+			  glVertex3f(posX - GRID_SIZE, 0.0, posZ + GRID_SIZE);
+			  glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
+			}
+			glEnd();
+			glBegin(GL_POLYGON);{
+			  glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
+			  glVertex3f(posX + GRID_SIZE, 0.0, posZ - GRID_SIZE);
+			  glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
+			}
+			glEnd();
+		}
 		
-        glBegin(GL_POLYGON);{
-		  //glTexCoord2f(0.0,1.0);
-          glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
-		  //glTexCoord2f(0.0,0.0);
-          glVertex3f(posX - GRID_SIZE, 0.0, posZ + GRID_SIZE);
-		  //glTexCoord2f(1.0,0.0);
-          glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
-        }
-        glEnd();
-        glBegin(GL_POLYGON);{
-		  //glTexCoord2f(1.0,0.0);
-          glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
-		  //glTexCoord2f(1.0,1.0);
-          glVertex3f(posX + GRID_SIZE, 0.0, posZ - GRID_SIZE);
-		  //glTexCoord2f(0.0,1.0);
-          glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
-        }
-        glEnd();
-		
-		if(grid[i][j]){
+		if(grid[i][j] && isPlacing){
         setMaterial(gridColor);
-        glColor3f(0.3, 0.7, 0.7);
         glBegin(GL_LINE_LOOP);{
-          glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
-          glVertex3f(posX - GRID_SIZE, 0.001, posZ + GRID_SIZE);
-          glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
+			glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
+			glVertex3f(posX - GRID_SIZE, 0.001, posZ + GRID_SIZE);
+			glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
+			glVertex3f(posX + GRID_SIZE, 0.001, posZ - GRID_SIZE);
+          //glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
+          //glVertex3f(posX - GRID_SIZE, 0.001, posZ + GRID_SIZE);
+          //glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
+		  //glVertex3f(posX + GRID_SIZE, 0.001, posZ - GRID_SIZE);
         }
         glEnd();
-        glBegin(GL_LINE_LOOP);{
-          glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
-          glVertex3f(posX + GRID_SIZE, 0.001, posZ - GRID_SIZE);
-          glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
-        }
-        glEnd();
+        //glBegin(GL_LINE_LOOP);{
+        //  glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
+        //  glVertex3f(posX + GRID_SIZE, 0.001, posZ - GRID_SIZE);
+        //  glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
+        //}
+        //glEnd();
 		}
       }
       posZ += GRID_SIZE*2.0;
@@ -358,8 +428,7 @@ void GameGrid::draw(){
     posZ = 0.0;
     posX += GRID_SIZE*2.0;
   }
-  //glBindTexture(GL_TEXTURE_2D, 0);
-  //glDisable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, 0);
   drawFractals();
   drawBoundry();
   glPopMatrix();

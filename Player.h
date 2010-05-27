@@ -38,7 +38,7 @@ public:
   void upgradeTower();
   void destroyTower(int x, int y);
   void moveUnits(float dt);
-  void draw();
+  void draw(bool isPlacing);
   bool cull(GameObject* obj);
   void update(int dt);
   int getIncome(void);

@@ -84,8 +84,8 @@ void display(){
 	  }
 	  glEnd();
 	  glPushMatrix();
-	  p1.draw();
-	  opponent.player.draw();
+	  p1.draw(clicked);
+	  opponent.player.draw(false);
 	  glPopMatrix();
 
 	  glPushMatrix();
@@ -184,7 +184,7 @@ void drawBlueScreen()
 	char *title = "GAME OVER";
 	char *info = "An exception 06 has occured at 0028:C11B3ADC in VxD DiskTSD(03) +\n00001660.   This was called from 0028:C11B40CB in VxD voltrack(04) +\n00000000.   System is unable to continue running.";
 	char *instr = "*   Press any key to attempt to continue.\n*   Press CTRL+ALT+RESET to restart your computer.  You will\n    lose any unsaved information in all applications.";
-	char *lose = "Your root folder has been corrupted. You have lost.";
+	char *lose = "Your root folder has been corrupted. You have lost";
 	char *todo = "Press SPACE key to exit";
 	const int title_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,title);;
 	const int title_Y = -128;
@@ -470,8 +470,8 @@ int main(int argc, char** argv){
   glutTimerFunc(1000/60, update, 0);
   initializeUI();
   winTexture = LoadTexture("Win.bmp");
-  p1.pGrid.initialize();
-  opponent.player.pGrid.initialize();
+  p1.pGrid.initialize(false);
+  opponent.player.pGrid.initialize(true);
   initializeParticleTextures();
   glutMainLoop();
 }

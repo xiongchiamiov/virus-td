@@ -37,7 +37,7 @@ public:
   GameGrid(void);
   GameGrid(char  *filename);
   ~GameGrid(void);
-  void draw();
+  void draw(bool isPlacing);
   void update(int dt);
   bool setTower(int x, int y);
   bool setUnit(int x, int y);
@@ -48,7 +48,7 @@ public:
   void setTowerGrid(int x, int y, Tower* tPtr);
   Tower* checkCollision(Unit* unit);
   void setGridColor(materialStruct material);
-  void initialize(void);
+  void initialize(bool enemy);
   static const int G_WIDTH = 16;
   static const int G_HEIGHT = 32;
 private:
@@ -57,6 +57,7 @@ private:
   bool grid[G_WIDTH][G_HEIGHT];
   bool oGrid[G_WIDTH][G_HEIGHT];
   bool frac[G_WIDTH][G_HEIGHT];
+  GLuint grid_texs[G_WIDTH][G_HEIGHT];
   Tower* tGrid[G_WIDTH][G_HEIGHT];
   void createFractals(void);
   void drawFractals(void);
@@ -65,5 +66,5 @@ private:
   vector<GLfloat> bound_lines;
   int boundry_cntdown;
   materialStruct gridColor;
-  GLuint grid_text;
+  GLuint textures[12];
 };
