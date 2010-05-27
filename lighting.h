@@ -52,6 +52,7 @@ extern materialStruct Grid;
 extern materialStruct EnemyGrid;
 extern materialStruct PlayerGrid;
 extern materialStruct SceneGrid;
+extern materialStruct GridExpanse;
 
 //sets up a specific material
 void setMaterial(materialStruct materials);

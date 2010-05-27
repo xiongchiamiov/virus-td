@@ -1,9 +1,10 @@
 #include "Scenery.h"
 
-const int SCENE_GRID_SIZE = 4;
+const int SCENE_GRID_SIZE = 2;
 const float SCENE_GRID_WIDTH = SCENE_GRID_SIZE * 2.0 * GRID_SIZE;
 const float SCENE_GRID_HEIGHT = SCENE_GRID_SIZE * 2.0 * GRID_SIZE;
 const float SCENE_UNIT_HEIGHT = 1.0;
+const float SCENE_EXPANSE = 200.0;
 
 Scenery::Scenery(char *filename, Player *plyr) :
 player(plyr)
@@ -118,6 +119,7 @@ void Scenery::normCrossProd(float v1[3], float v2[3], float out[3]) {
 
 void Scenery::draw()
 {
+	glPushMatrix();
 	glTranslatef(player->getPosition().getX(), player->getPosition().getY(), player->getPosition().getZ());
 	glPushMatrix();
 	glTranslatef(0.0,0.0,-GRID_SIZE - game_grid_index[1] * SCENE_GRID_HEIGHT);
@@ -152,5 +154,48 @@ void Scenery::draw()
 		glPopMatrix();
 		glTranslatef(0.0,0.0,SCENE_GRID_HEIGHT);
 	}
+	glPopMatrix();
+	//Draw the 4 outskirts
+	glTranslatef(0.0,0.0,-GRID_SIZE - game_grid_index[1] * SCENE_GRID_HEIGHT);
+	glTranslatef(-GRID_SIZE - game_grid_index[0] * SCENE_GRID_WIDTH,0.0,0.0);
+	glNormal3f(0.0,1.0,0.0);
+	setMaterial(GridExpanse);
+
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, grids[0].size() * SCENE_GRID_HEIGHT);
+	glBegin(GL_QUADS);
+	glVertex3f(-SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,0.0);
+	glVertex3f(-SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,SCENE_EXPANSE);
+	glVertex3f(SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,SCENE_EXPANSE);
+	glVertex3f(SCENE_EXPANSE,-SCENE_UNIT_HEIGHT, 0.0);
+	glEnd();
+	glPopMatrix();
+	glPushMatrix();
+	glBegin(GL_QUADS);
+	glVertex3f(-SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,0.0);
+	glVertex3f(SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,0.0);
+	glVertex3f(SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,-SCENE_EXPANSE);
+	glVertex3f(-SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,-SCENE_EXPANSE);
+	glEnd();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(grids.size() * SCENE_GRID_WIDTH, 0.0, 0.0);
+	glBegin(GL_QUADS);
+	glVertex3f(0.0,-SCENE_UNIT_HEIGHT,0.0);
+	glVertex3f(0.0,-SCENE_UNIT_HEIGHT,grids[0].size() * SCENE_GRID_HEIGHT);
+	glVertex3f(SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,grids[0].size() * SCENE_GRID_HEIGHT);
+	glVertex3f(SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,0.0);
+	glEnd();
+	glPopMatrix();
+	glPushMatrix();
+	glBegin(GL_QUADS);
+	glVertex3f(0.0,-SCENE_UNIT_HEIGHT,0.0);
+	glVertex3f(-SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,0.0);
+	glVertex3f(-SCENE_EXPANSE,-SCENE_UNIT_HEIGHT,grids[0].size() * SCENE_GRID_HEIGHT);
+	glVertex3f(0.0,-SCENE_UNIT_HEIGHT,grids[0].size() * SCENE_GRID_HEIGHT);
+	glEnd();
+	glPopMatrix();
+
+
 	glPopMatrix();
 }

@@ -138,6 +138,13 @@ materialStruct Grid = {
   {120.0}
 };
 
+materialStruct GridExpanse = {
+  {0.12, 0.12, 0.12, 1.0}, 
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0, 0.0, 0.0, 1.0},
+  {0.0}
+};
+
 materialStruct EnemyGrid = {
   {0.3, 0.0, 0.0, 1.0},
   {0.9, 0.0, 0.0, 1.0},
