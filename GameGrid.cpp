@@ -79,6 +79,11 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 	}
 }
 
+void GameGrid::initialize()
+{
+	grid_text = LoadTexture("grid.bmp");
+}
+
 void GameGrid::createFractals()
 {
 	bool assigned[G_WIDTH][G_HEIGHT];
@@ -292,25 +297,36 @@ void GameGrid::draw(){
   glNormal3f(0.0, 1.0, 0.0);
   float posX = 0.0;
   float posZ = 0.0;
+  //glEnable(GL_TEXTURE_2D);
+  //glBindTexture(GL_TEXTURE_2D, grid_text);
   for(int i = 0; i < GRID_WIDTH; i++){
     for(int j = 0; j < GRID_HEIGHT; j++){
       if(!frac[i][j]){
         glLineWidth(2.0);
         glColor3f(0.3, 0.7, 0.3);
      //   setMaterial(Exp);
-     setMaterial(Grid);
+        setMaterial(Grid);
+		//setMaterial(White);
+		
         glBegin(GL_POLYGON);{
+		  //glTexCoord2f(0.0,1.0);
           glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
+		  //glTexCoord2f(0.0,0.0);
           glVertex3f(posX - GRID_SIZE, 0.0, posZ + GRID_SIZE);
+		  //glTexCoord2f(1.0,0.0);
           glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
         }
         glEnd();
         glBegin(GL_POLYGON);{
+		  //glTexCoord2f(1.0,0.0);
           glVertex3f(posX + GRID_SIZE, 0.0, posZ + GRID_SIZE);
+		  //glTexCoord2f(1.0,1.0);
           glVertex3f(posX + GRID_SIZE, 0.0, posZ - GRID_SIZE);
+		  //glTexCoord2f(0.0,1.0);
           glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
         }
         glEnd();
+		
 		if(grid[i][j]){
         setMaterial(gridColor);
         glColor3f(0.3, 0.7, 0.7);
@@ -333,6 +349,8 @@ void GameGrid::draw(){
     posZ = 0.0;
     posX += GRID_SIZE*2.0;
   }
+  //glBindTexture(GL_TEXTURE_2D, 0);
+  //glDisable(GL_TEXTURE_2D);
   drawFractals();
   drawBoundry();
   glPopMatrix();

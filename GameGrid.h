@@ -48,6 +48,7 @@ public:
   void setTowerGrid(int x, int y, Tower* tPtr);
   Tower* checkCollision(Unit* unit);
   void setGridColor(materialStruct material);
+  void initialize(void);
   static const int G_WIDTH = 16;
   static const int G_HEIGHT = 32;
 private:
@@ -64,4 +65,5 @@ private:
   vector<GLfloat> bound_lines;
   int boundry_cntdown;
   materialStruct gridColor;
+  GLuint grid_text;
 };
