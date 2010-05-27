@@ -81,7 +81,7 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 
 void GameGrid::initialize()
 {
-	grid_text = LoadTexture("grid.bmp");
+	//grid_text = LoadTexture("grid.bmp");
 }
 
 void GameGrid::createFractals()
