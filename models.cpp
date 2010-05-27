@@ -169,17 +169,25 @@ void drawLock()
 void drawBlackHat()
 {
 	glPushMatrix();
+   setMaterial(Black);
 	glTranslatef(0,.2,0);
 	glRotatef(-90,1,0,0);
 	glPushMatrix();
 	GLUquadricObj *quadObj = gluNewQuadric();
-	gluDisk(quadObj,0,1,50,1);
-	//glutSolidTorus(.1,.2,10,50);
-	//gluCylinder(quadObj, base, top, height, slices, stacks);
+   gluCylinder(gluNewQuadric(), 1.0, 1.0, 0.1, 20, 1);
+   glTranslatef(0.0, 0.0, 0.1);
+	gluDisk(quadObj,0,1,20,1);
+
 	glPopMatrix();
-	glPushMatrix();
-	glutSolidCone(.5,3,10,10);
-	glPopMatrix();
+	   glPushMatrix();
+         gluCylinder(gluNewQuadric(), 0.5, 0.5, 2, 20, 1);
+         glTranslatef(0.0, 0.0, 0.35);
+         setMaterial(RedFlat);
+	      glutSolidTorus(.1,0.5,10,20);
+         glTranslatef(0.0, 0.0, 1.65);
+         setMaterial(Black);
+         gluDisk(gluNewQuadric(), 0.0, 0.5, 20, 1);
+	   glPopMatrix();
 
 	glPopMatrix();
 }

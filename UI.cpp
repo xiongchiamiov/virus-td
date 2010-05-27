@@ -66,23 +66,23 @@ void initializeUI()
    // Unit Icons
 	button_tex[0] = LoadTexture("Button.bmp");
 	button_tex[1] = LoadTexture("Button.bmp");
-	button_tex[2] = LoadTexture("Button.bmp");
-	button_tex[3] = LoadTexture("Button.bmp");
-	button_tex[4] = LoadTexture("Button.bmp");
-	button_tex[5] = LoadTexture("Button.bmp");
-	button_tex[6] = LoadTexture("Button.bmp");
+	button_tex[2] = LoadTexture("StrongUnit.bmp");
+	button_tex[3] = LoadTexture("StrongUnit2.bmp");
+	button_tex[4] = LoadTexture("StrongUnit3.bmp");
+	button_tex[5] = LoadTexture("FastUnit.bmp");
+	button_tex[6] = LoadTexture("BasicUnit.bmp");
     button_tex[7] = LoadTexture("Button.bmp");
 	button_tex[8] = LoadTexture("Button.bmp");
    // Tower Icons
 	button_tex[9] = LoadTexture("Button.bmp");
 	button_tex[10] = LoadTexture("Button.bmp");
-	button_tex[11] = LoadTexture("Button.bmp");
+	button_tex[11] = LoadTexture("TrapTower.bmp");
 	button_tex[12] = LoadTexture("Tower6.bmp");
 	button_tex[13] = LoadTexture("Tower5.bmp");
-	button_tex[14] = LoadTexture("Tower4.bmp");
-	button_tex[15] = LoadTexture("Tower3.bmp");
-	button_tex[16] = LoadTexture("Tower2.bmp");
-	button_tex[17] = LoadTexture("Tower1.bmp");
+	button_tex[14] = LoadTexture("StrongTower.bmp");
+	button_tex[15] = LoadTexture("FastTower.bmp");
+	button_tex[16] = LoadTexture("FreezeTower.bmp");
+	button_tex[17] = LoadTexture("BasicTower.bmp");
    //button_tex = LoadTexture("SecurityIcons1.bmp");
 	info_tex[0] = LoadTexture("info_tlcorner.bmp");
 	info_tex[1] = LoadTexture("info_trcorner.bmp");

@@ -20,7 +20,7 @@ const float HEAT = 10;
 const float DRAG = 0.05;
 const float TIMESTEP = 0.1; 
 const float PULLSTR = 10;
-const float WINDFORCE = 5;
+const float WINDFORCE = 10;
 
 extern GLuint particle_texture[4];
 
