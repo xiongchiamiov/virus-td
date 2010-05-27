@@ -178,7 +178,7 @@ void drawBlueScreen()
 	char *info = "An exception 06 has occured at 0028:C11B3ADC in VxD DiskTSD(03) +\n00001660.   This was called from 0028:C11B40CB in VxD voltrack(04) +\n00000000.   System is unable to continue running.";
 	char *instr = "*   Press any key to attempt to continue.\n*   Press CTRL+ALT+RESET to restart your computer.  You will\n    lose any unsaved information in all applications.";
 	char *lose = "Your root folder has been corrupted. You have lost.";
-	char *todo = "Press any key to exit";
+	char *todo = "Press SPACE key to exit";
 	const int title_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,title);;
 	const int title_Y = -128;
 	const int info_W = getBitmapStringWidth(GLUT_BITMAP_9_BY_15,info);
@@ -232,18 +232,18 @@ void drawWinScreen()
 	glDisable(GL_LIGHTING);
 	glColor3f(1.0f,1.0f,1.0f);
 	glBegin(GL_QUADS);
-    glVertex2f(0,0);
 	glTexCoord2f(0.0,1.0);
-    glVertex2f(0,GH);
-	glTexCoord2f(1.0,1.0);
-    glVertex2f(GW,GH);
-	glTexCoord2f(1.0,0.0);
-    glVertex2f(GW,0);
+    glVertex2f(0,0);
 	glTexCoord2f(0.0,0.0);
+    glVertex2f(0,GH);
+	glTexCoord2f(1.0,0.0);
+    glVertex2f(GW,GH);
+	glTexCoord2f(1.0,1.0);
+    glVertex2f(GW,0);
     glEnd();
 
 	glEnable(GL_LIGHTING);
-	//glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 
 	//Switch back to perspective
@@ -309,8 +309,12 @@ void update(int param){
 
 void keyboard(unsigned char key, int x, int y){
 	if(gameOver) {
-		exit(0);
+		if(key == 32) {
+			exit(0);
+		}
 	}
+	else
+	{
   switch(key){
   //  case 'w': case 'W':
   //    camera.setVector(camera.getI() + GRID_SIZE*2.0*w.getI(),
@@ -368,6 +372,7 @@ void keyboard(unsigned char key, int x, int y){
 		exit(0);
   }
   controls::keyMap[key] = true;
+	}
 }
 
 void keyboardUp(unsigned char key, int x, int y){
@@ -434,8 +439,6 @@ int main(int argc, char** argv){
      float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
   buttons.at(12)->setObject(new WallTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
      float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
-
-  winTexture = LoadTexture("Win.bmp");
   
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -459,6 +462,7 @@ int main(int argc, char** argv){
   composeDisplayLists();
   glutTimerFunc(1000/60, update, 0);
   initializeUI();
+  winTexture = LoadTexture("Win.bmp");
   initializeParticleTextures();
   glutMainLoop();
 }
