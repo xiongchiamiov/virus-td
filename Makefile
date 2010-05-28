@@ -4,3 +4,6 @@ virus-td: clean
 
 clean:
 	touch virus-td && rm virus-td
+
+run:
+	./virus-td
