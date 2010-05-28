@@ -47,6 +47,7 @@ public:
   bool originalIsWall(g_elem cur);
   void setTowerGrid(int x, int y, Tower* tPtr);
   Tower* checkCollision(Unit* unit);
+  Tower* getTowerAt(int x, int y);
   void setGridColor(materialStruct material);
   void initialize(bool enemy);
   static const int G_WIDTH = 16;

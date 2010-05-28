@@ -36,7 +36,7 @@ public:
   ~Player(void);
   ReturnCode placeTower(int x, int y, int towerID);
   void spawnUnit(int unitID);
-  void upgradeTower();
+  void upgradeTower(int x, int y);
   void destroyTower(int x, int y);
   void moveUnits(float dt);
   void draw(bool isPlacing);

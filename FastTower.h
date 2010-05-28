@@ -8,6 +8,7 @@ class FastTower : public Tower {
       ~FastTower(void);
       void draw();
       void step(float dt);
+     bool upgrade();
 };
 
 

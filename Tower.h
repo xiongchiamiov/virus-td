@@ -38,11 +38,12 @@ public:
   inline float getWidth(){return x + GRID_SIZE * 2.0;}
   inline float getHeight(){return z + GRID_SIZE * 2.0;}
   inline int getStage(){return stage;}
+  inline tower_t getType(){return type;}
   bool operator==(const Tower& other);
   bool operator==(const g_elem& other);
   inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
   virtual void step(int dt);
-  void upgrade();
+  virtual bool upgrade() = 0;
   int getKill();
   inline float getRange(){return ai.range;}
   inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}

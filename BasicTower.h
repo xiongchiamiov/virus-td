@@ -10,4 +10,5 @@ public:
   ~BasicTower(void);
   void draw();
   void step(float dt);
+  bool upgrade();
 };

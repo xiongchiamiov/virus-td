@@ -1,14 +1,14 @@
 #include "Player.h"
 namespace vtd_player{
   const int START_LIVES = 5;
-  const int START_RESOURCES = 100000; /* originally 10, but 100000 for debug */
+  const int START_RESOURCES = 15;//00000; /* originally 10, but 100000 for debug */
 }
 const int cleanup_dt = 500;
 int last_cleanup = 0;
 
 using namespace vtd_player;
 Player::Player(void):
-lives(START_LIVES), resources(START_RESOURCES), income(30),
+lives(START_LIVES), resources(START_RESOURCES), income(10),
 pGrid(GameGrid("maingrid.grid")), uai(pGrid, tList), opponent(this)
 {
 }
@@ -181,7 +181,34 @@ void Player::update(int dt){
   }
 }
 
-void Player::upgradeTower(){
+void Player::upgradeTower(int x, int y){
+  Tower* t = pGrid.getTowerAt(x, y);
+  int cost;
+  if(t != NULL){
+    switch(t->getType()){
+    case T_BASIC:
+      cost = tower_cost::BASIC;
+      break;
+    case T_FREEZE:
+      cost = tower_cost::FREEZE;
+      break;
+    case T_FAST:
+      cost = tower_cost::FAST;
+      break;
+    case T_SLOW:
+      cost = tower_cost::SLOW;
+      break;
+    case T_TRAP:
+      cost = tower_cost::TRAP;
+      break;
+    case T_WALL:
+      cost = tower_cost::WALL;
+      break;
+    }
+    if(resources >= cost && t->upgrade()){
+      resources -= cost;
+    }
+  }
 }
 
 void Player::destroyTower(int x, int y){

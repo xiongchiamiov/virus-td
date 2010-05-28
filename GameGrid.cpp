@@ -614,3 +614,10 @@ Tower* GameGrid::checkCollision(Unit* unit){
   }
   return retTower;
 }
+
+Tower* GameGrid::getTowerAt(int x, int y){
+  if(x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT){
+    return tGrid[x][y];
+  }
+  return NULL;
+}

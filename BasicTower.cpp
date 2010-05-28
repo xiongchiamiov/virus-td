@@ -71,3 +71,15 @@ void BasicTower::draw(){
 	 glPopMatrix();
   glPopMatrix();
 }
+
+bool BasicTower::upgrade(){
+  if(stage < MAX_UPGRADES){
+    hp = MAX_HP[stage++];
+    max_hp = MAX_HP[stage];
+    ai.atk_dmg = ATK[stage];
+    ai.atk_dt = ATK_DT[stage]; 
+    ai.range = RANGE[stage];
+    return true;
+  }
+  return false;
+}

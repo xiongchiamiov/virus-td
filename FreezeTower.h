@@ -9,6 +9,7 @@ class FreezeTower : public Tower {
      void draw();
      void step(float dt);
      bool shoot();
+     bool upgrade();
 };
 
 
