@@ -89,7 +89,7 @@ void display(){
 	  glPopMatrix();
 
 	  glPushMatrix();
-//	  scene.draw();
+	  scene.draw();
 	  glPopMatrix();
 
 	  glPushMatrix();
@@ -465,6 +465,7 @@ int main(int argc, char** argv){
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_LIGHTING);
+  initializeParticleTextures();
   init_lighting();
   composeDisplayLists();
   glutTimerFunc(1000/60, update, 0);
@@ -472,7 +473,7 @@ int main(int argc, char** argv){
   winTexture = LoadTexture("Win.bmp");
   p1.pGrid.initialize(false);
   opponent.player.pGrid.initialize(true);
-  initializeParticleTextures();
+
   glutMainLoop();
 }
 

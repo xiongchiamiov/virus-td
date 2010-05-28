@@ -1,5 +1,11 @@
 #include "Scenery.h"
 #include "vfc.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <string.h>
 
 const int SCENE_GRID_SIZE = 2;
 const float SCENE_GRID_WIDTH = SCENE_GRID_SIZE * 2.0 * GRID_SIZE;
@@ -90,8 +96,20 @@ player(plyr)
 			printf("Error while parsing the scenery file (scenery.grid)\nError: %s\n",e.what());
 		}
 	}
-	else
+	else {
 		printf("Error when opening the scenery file (scenery.grid)\n");
+      if(file.rdstate() & ifstream::failbit) {
+         cout << "failbit" << endl;
+      }
+      
+      if (file.rdstate() & ifstream::eofbit) {
+         cout << "eofbit" << endl;
+      }
+      
+      if (file.rdstate() & ifstream::badbit) {
+         cout << "badbit" << endl;
+      }
+   }
 }
 
 Scenery::~Scenery()
