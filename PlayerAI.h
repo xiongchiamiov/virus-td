@@ -14,6 +14,6 @@ class PlayerAI {
     int towers;
     int units;
     int updates;
-	int targetNumTowers; // the number of towers we'd like to have
+	int desiredNumTowers; // the number of towers we'd like to have
 	stack< pair<int, int> > towersToBuild; // just (x,y) coordinates
 };

@@ -4,7 +4,7 @@ PlayerAI::PlayerAI(void) {
 	towers = 0;
 	units = 0;
 	updates = 0;
-	targetNumTowers = NULL;
+	desiredNumTowers = NULL;
 	player.pGrid.setGridColor(EnemyGrid);
 }
 PlayerAI::~PlayerAI(void) {}
@@ -14,16 +14,16 @@ void PlayerAI::update(int dt) {
 	
 	// we don't want to do anything right at the very, very beginning
 	if (updates) {
-		if (targetNumTowers == NULL) {
+		if (desiredNumTowers == NULL) {
 			build_preferred_tower_layout();
-			targetNumTowers = towersToBuild.size();
+			desiredNumTowers = towersToBuild.size();
 		}
 		
 		if (need_more_towers() > 0) {
 			pair<int, int> coordinates = towersToBuild.top();
 			towersToBuild.pop();
 			player.placeTower(coordinates.first, coordinates.second, 12);
-			cout << towersToBuild.size() << "/" << targetNumTowers << "towers left to build"
+			cout << towersToBuild.size() << "/" << desiredNumTowers << "towers left to build"
 			     << " (" << need_more_towers() << "%)." << endl;
 		}
 		
@@ -63,5 +63,5 @@ int PlayerAI::need_more_towers() {
 	if (towersToBuild.size() == 0) {
 		return 0; // avoid divide-by-zero errors
 	}
-	return (int)((((float)towersToBuild.size()) / targetNumTowers) * 100);
+	return (int)((((float)towersToBuild.size()) / desiredNumTowers) * 100);
 }
