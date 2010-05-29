@@ -7,10 +7,10 @@ class PlayerAI {
     PlayerAI(void);
     ~PlayerAI(void);
     void update(int dt);
-	void build_preferred_tower_layout();
-	int need_more_towers();
     Player player;
   private:
+	void build_preferred_tower_layout();
+	int need_more_towers();
     int towers;
     int units;
     int updates;
