@@ -27,8 +27,15 @@ void PlayerAI::update(int dt) {
 			     << " (" << need_more_towers() << "%)." << endl;
 		}
 		
-		if (!(updates % 200)) {
-			player.spawnUnit(7);
+		if (queue_more_units() > 0) {
+			unitsToBuild.push(7);
+		}
+		
+		if (unitsToBuild.size() >= unitBunching) {
+			while (unitsToBuild.size() > 0) {
+				player.spawnUnit(unitsToBuild.top());
+				unitsToBuild.pop();
+			}
 		}
 	}
 	
@@ -64,4 +71,12 @@ int PlayerAI::need_more_towers() {
 		return 0; // avoid divide-by-zero errors
 	}
 	return (int)((((float)towersToBuild.size()) / desiredNumTowers) * 100);
+}
+
+// returns 0 to 100, inclusive
+int PlayerAI::queue_more_units() {
+	if (unitsToBuild.size() == 0) {
+		return 100; // avoid divide-by-zero error
+	}
+	return (int)((((((float)unitsToBuild.size()) / unitBunching) * 100) - 100) * -1);
 }
