@@ -21,21 +21,38 @@ const float OPP_POSY2 = 0.0;
 const float OPP_POSZ2 = -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
 
 
-
-namespace unit_cost{
+namespace unit_cost {
   const int BASIC = 5;
   const int FAST = 10;
   const int STRONG = 20;
   const int STRONG2 = 50;
   const int STRONG3 = 30;
 }
-namespace unit_bonus{
+
+namespace unit_bonus {
   const int BASIC = 1;
   const int FAST = 2;
   const int STRONG = 5;
   const int STRONG2 = 7;
   const int STRONG3 = 6;
 }
+
+namespace unit_name {
+   const char* BASIC = "Worm Unit";
+   const char* FAST = "Virus Unit";
+   const char* STRONG = "Fork Bomb Unit";
+   const char* STRONG2 = "Trojan Horse Unit";
+   const char* STRONG3 = "Lock Unit";
+}
+
+namespace unit_description {
+   const char* BASIC = "This is a basic unit.";
+   const char* FAST = "This unit is very fast, but dosen't\n have a lot of HP.";
+   const char* STRONG = "This unit moves very slowly, but has\n a lot of HP. This unit is stronger\n than Torjan Horse.";
+   const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP.";
+   const char* STRONG3 = "This unit is a stronger, faster worm unit.";
+}
+
 namespace tower_cost{
   const int BASIC = 5;
   const int FAST = 5;
@@ -64,21 +81,21 @@ namespace tower_speed{
 }
 
 namespace tower_name{
-  extern const char* BASIC = "Basic";
-  extern const char* FAST = "Fast";
-  extern const char* FREEZE = "Freeze";
-  extern const char* SLOW = "Slow";
-  extern const char* TRAP = "Trap";
-  extern const char* WALL = "Wall";
+  const char* BASIC = "Memory Turret Tower";
+  const char* FAST = "BackTrack Tower";
+  const char* FREEZE = "8-Core CPU Fan Tower";
+  const char* SLOW = "Tesla Coil Tower";
+  const char* TRAP = "Black Hat Trap Tower";
+  const char* WALL = "Firewall Tower";
 }
 
 namespace tower_description{
-  extern const char* BASIC = "This tower has average speed\nand average damage";
-  extern const char* FAST = "This tower fires very rapidly,\nbut its damage is low";
-  extern const char* FREEZE = "This tower's damage is average,\nbut it causes enemies to slow\ndown after getting shot";
-  extern const char* SLOW = "This tower has a very slow rate of fire,\nbut does a great deal of damage";
-  extern const char* TRAP = "This tower can be placed along the path of\nviruses and it will do damage when\nthey cross the trap";
-  extern const char* WALL = "This tower does not attack enemy units but\nmerely blocks them from passing";
+  const char* BASIC = "This tower has average speed\nand average damage";
+  const char* FAST = "This tower fires very rapidly,\nbut its damage is low";
+  const char* FREEZE = "This tower's damage is average,\nbut it causes enemies to slow\ndown after getting shot";
+  const char* SLOW = "This tower has a very slow rate of fire,\nbut does a great deal of damage";
+  const char* TRAP = "This tower can be placed along the path of\nviruses and it will do damage when\nthey cross the trap";
+  const char* WALL = "This tower does not attack enemy units but\nmerely blocks them from passing";
 }
 
 g_elem loc2grid(float x, float z) {
@@ -90,96 +107,141 @@ void grid2loc(g_elem g, float * x, float * z) {
 	*z = GRID_SIZE * 2.0 * g.y - 2.0;
 }
 
-int getTowerCost(int index) {
+   /* 
+      Button Number Layout for checking the following
+      Index parameters for button numbers on GUI.
+      6 7 8         17 16 15
+      3 4 5         14 13 12
+      0 1 2         11 10 9
+   */
+int getObjectCost(int index) {
 	switch(index) {
-		case 0:	return tower_cost::BASIC;
+		case 17:	return tower_cost::BASIC;
 			break;
-		case 1: return tower_cost::FAST;
+		case 16: return tower_cost::FREEZE;
 			break;
-		case 2: return tower_cost::FREEZE;
+		case 15: return tower_cost::FAST;
 			break;
-		case 3: return tower_cost::SLOW;
+		case 14: return tower_cost::SLOW;
 			break;
-		case 4: return tower_cost::TRAP;
+		case 13: return tower_cost::TRAP;
 			break;
-		case 5: return tower_cost::WALL;
+		case 12: return tower_cost::WALL;
 			break;
+
+      case 7: return unit_cost::BASIC;
+         break;
+      case 6: return unit_cost::FAST;
+         break;
+      case 5: return unit_cost::STRONG;
+         break;
+      case 4: return unit_cost::STRONG2;
+         break;
+      case 3: return unit_cost::STRONG3;
+         break;
+         
 		default: return -1;
 			 break;
 	}
 }
 
-int getTowerDamage(int index) {
+int getObjectDamage(int index) {
 	switch(index) {
-		case 0:	return tower_damage::BASIC;
+		case 17:	return tower_damage::BASIC;
 			break;
-		case 1: return tower_damage::FAST;
+		case 16: return tower_damage::FREEZE;
 			break;
-		case 2: return tower_damage::FREEZE;
+		case 15: return tower_damage::FAST;
 			break;
-		case 3: return tower_damage::SLOW;
+		case 14: return tower_damage::SLOW;
 			break;
-		case 4: return tower_damage::TRAP;
+		case 13: return tower_damage::TRAP;
 			break;
-		case 5: return tower_damage::WALL;
+		case 12: return tower_damage::WALL;
 			break;
+
 		default: return -1;
 			 break;
 	}
 }
 
-int getTowerSpeed(int index) {
+int getObjectSpeed(int index) {
 	switch(index) {
-		case 0:	return tower_speed::BASIC;
+		case 17:	return tower_speed::BASIC;
 			break;
-		case 1: return tower_speed::FAST;
+		case 16: return tower_speed::FREEZE;
 			break;
-		case 2: return tower_speed::FREEZE;
+		case 15: return tower_speed::FAST;
 			break;
-		case 3: return tower_speed::SLOW;
+		case 14: return tower_speed::SLOW;
 			break;
-		case 4: return tower_speed::TRAP;
+		case 13: return tower_speed::TRAP;
 			break;
-		case 5: return tower_speed::WALL;
+		case 12: return tower_speed::WALL;
 			break;
+
 		default: return -1;
 			 break;
 	}
 }
 
-const char* getTowerName(int index) {
+const char* getObjectName(int index) {
 	switch(index) {
-		case 0:	return tower_name::BASIC;
+		case 17:	return tower_name::BASIC;
 			break;
-		case 1: return tower_name::FAST;
+		case 16: return tower_name::FREEZE;
 			break;
-		case 2: return tower_name::FREEZE;
+		case 15: return tower_name::FAST;
 			break;
-		case 3: return tower_name::SLOW;
+		case 14: return tower_name::SLOW;
 			break;
-		case 4: return tower_name::TRAP;
+		case 13: return tower_name::TRAP;
 			break;
-		case 5: return tower_name::WALL;
+		case 12: return tower_name::WALL;
 			break;
+         
+      case 7: return unit_name::BASIC;
+         break;
+      case 6: return unit_name::FAST;
+         break;
+      case 5: return unit_name::STRONG;
+         break;
+      case 4: return unit_name::STRONG2;
+         break;
+      case 3: return unit_name::STRONG3;
+         break;
+
 		default: return "Unnamed";
 			 break;
 	}
 }
 
-const char* getTowerDescription(int index) {
+const char* getObjectDescription(int index) {
 	switch(index) {
-		case 0:	return tower_description::BASIC;
+		case 17:	return tower_description::BASIC;
 			break;
-		case 1: return tower_description::FAST;
+		case 16: return tower_description::FREEZE;
 			break;
-		case 2: return tower_description::FREEZE;
+		case 15: return tower_description::FAST;
 			break;
-		case 3: return tower_description::SLOW;
+		case 14: return tower_description::SLOW;
 			break;
-		case 4: return tower_description::TRAP;
+		case 13: return tower_description::TRAP;
 			break;
-		case 5: return tower_description::WALL;
+		case 12: return tower_description::WALL;
 			break;
+         
+      case 7: return unit_description::BASIC;
+         break;
+      case 6: return unit_description::FAST;
+         break;
+      case 5: return unit_description::STRONG;
+         break;
+      case 4: return unit_description::STRONG2;
+         break;
+      case 3: return unit_description::STRONG3;
+         break;
+         
 		default: return "N/A";
 			 break;
 	}

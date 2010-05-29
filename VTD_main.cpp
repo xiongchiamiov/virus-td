@@ -71,6 +71,11 @@ void display(){
 
   if(!gameOver)
   {
+  	  glPushMatrix();
+	  p1.draw(placingTower);
+	  opponent.player.draw(false);
+	  glPopMatrix();
+
 	  vfc::extractPlanes();
 	  glColor3f(0.8, 0.5, 0.3);
 	  float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
@@ -83,10 +88,7 @@ void display(){
 		glVertex3f(0.0, 5.0, 0.0);
 	  }
 	  glEnd();
-	  glPushMatrix();
-	  p1.draw(placingTower);
-	  opponent.player.draw(false);
-	  glPopMatrix();
+
 
 	  glPushMatrix();
 	  scene.draw();

@@ -46,8 +46,8 @@ void Particles::drawParticles() {
       glTranslatef(pos[i][0], pos[i][1], pos[i][2]);	 
 	glShadeModel(GL_SMOOTH);						           // Enables Smooth Shading
 //	glClearColor(0.0f,0.0f,0.0f,0.0f);					     // Black Background
-	glClearDepth(1.0f);							              // Depth Buffer Setup
-	glDisable(GL_DEPTH_TEST);						           // Disables Depth Testing
+//	glClearDepth(1.0f);							              // Depth Buffer Setup
+   glDisable(GL_DEPTH_TEST);						           // Disables Depth Testing
 	glEnable(GL_BLEND);							              // Enable Blending
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE);					     // Type Of Blending To Perform
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);	  // Really Nice Perspective Calculations

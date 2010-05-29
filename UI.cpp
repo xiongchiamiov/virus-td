@@ -112,7 +112,7 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 
    for (int i = 0; i < 3; i++) {
       if (i == 0) {
-         glTranslatef(0, 5, 0.5);
+         glTranslatef(0, 5, 0.01);
       } else {
          glTranslatef(0, 65, 0);
       }
@@ -288,7 +288,7 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 {
 	char name[80];
 	const int sep = 12;
-   /* Option 1: button number layout
+   /* Button number layout
       6 7 8         17 16 15
       3 4 5         14 13 12
       0 1 2         11 10 9
@@ -297,24 +297,31 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		printf("Invalid button number in drawInfoPanel\n");
 		return;
 	}
-	if(buttonNumber >= 12 && buttonNumber <= 17) {
-		buttonNumber = 8 - (buttonNumber - 9);
-		strcpy(name,getTowerName(buttonNumber));
-		strcat(name," Tower");
+	if(buttonNumber >= 0 && buttonNumber <= 17) {
+      /* Button Number layout changed if the following
+         button conversion was not commented out .
+          11 10 9           0 1 2
+          14 13 12          3 4 5
+          17 16 15          6 7 8
+          
+	//////// 	buttonNumber = 8 - (buttonNumber - 9);  ////////
+        */
+		strcpy(name,getObjectName(buttonNumber));
+	//	strcat(name," Tower");
 
 		char desc[400];
 		char cost[30] = "Cost: ";
 		char damage[30] = "Damage: ";
 		char speed[30] = "Speed : ";
-		strcpy(desc,getTowerDescription(buttonNumber));
+		strcpy(desc,getObjectDescription(buttonNumber));
 		int len = 1;
 		for(char* c = &desc[0]; *c != '\0'; c++) {
 			if (*c == '\n')
 				len++;
 		}
-		sprintf( cost, "Cost: %d", getTowerCost(buttonNumber) );
-		sprintf( damage, "Damage: %d", getTowerDamage(buttonNumber) );
-		sprintf( speed, "Speed: %d", getTowerSpeed(buttonNumber) );
+		sprintf( cost, "Cost: %d", getObjectCost(buttonNumber) );
+		sprintf( damage, "Damage: %d", getObjectDamage(buttonNumber) );
+		sprintf( speed, "Speed: %d", getObjectSpeed(buttonNumber) );
 
 		//float w = (float)getBitmapStringWidth(info_font_bold,name);
 		float w = (float)getBitmapStringWidth(info_font,desc);

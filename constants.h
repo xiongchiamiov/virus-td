@@ -34,6 +34,23 @@ namespace unit_bonus{
   extern const int STRONG2;
   extern const int STRONG3;
 }
+
+namespace unit_name {
+   extern const char* BASIC;
+   extern const char* FAST;
+   extern const char* STRONG;
+   extern const char* STRONG2;
+   extern const char* STRONG3;
+}
+
+namespace unit_description {
+   extern const char* BASIC;
+   extern const char* FAST;
+   extern const char* STRONG;
+   extern const char* STRONG2;
+   extern const char* STRONG3;
+}
+
 namespace tower_cost{
   extern const int BASIC;
   extern const int FAST;
@@ -44,6 +61,15 @@ namespace tower_cost{
 }
 
 namespace tower_damage{
+  extern const int BASIC;
+  extern const int FAST;
+  extern const int FREEZE;
+  extern const int SLOW;
+  extern const int TRAP;
+  extern const int WALL;
+}
+
+namespace tower_speed{
   extern const int BASIC;
   extern const int FAST;
   extern const int FREEZE;
@@ -82,8 +108,8 @@ struct g_elem{
 g_elem loc2grid(float x, float z);
 void grid2loc(g_elem g, float * x, float * z);
 
-const char* getTowerName(int index);
-const char* getTowerDescription(int index);
-int getTowerCost(int index);
-int getTowerDamage(int index);
-int getTowerSpeed(int index);
+const char* getObjectName(int index);
+const char* getObjectDescription(int index);
+int getObjectCost(int index);
+int getObjectDamage(int index);
+int getObjectSpeed(int index);

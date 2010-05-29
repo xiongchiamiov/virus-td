@@ -25,10 +25,10 @@ Tower(inx, iny, inz, gx, gy)
   type = T_WALL;
   build_time = BUILD_TIME;
   stage = 0;
-  weapon = new Particles(0.6);
+  weapon = new Particles(0.7);
   weapon->setDirection(0.0, 1.0, 0.0, false);
   weapon->setCutOffs(20, 9, 20);
-  weapon->setSpread(7);
+  weapon->setSpread(9);
   weapon->reset();
 }
 
