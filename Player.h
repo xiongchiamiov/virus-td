@@ -26,6 +26,7 @@ class Player
   int resources;
   int lives;
   int income;
+  int uCooldown;
   std::list<Tower*> tList;
   UnitsAI uai;
   std::stack<GameObject*> delStack;
@@ -37,6 +38,7 @@ public:
   ReturnCode placeTower(int x, int y, int towerID);
   void spawnUnit(int unitID);
   void upgradeTower(int x, int y);
+  void changeTowerMode(int x, int y, target_mode mode);
   void destroyTower(int x, int y);
   void moveUnits(float dt);
   void draw(bool isPlacing);

@@ -8,7 +8,7 @@ int last_cleanup = 0;
 
 using namespace vtd_player;
 Player::Player(void):
-lives(START_LIVES), resources(START_RESOURCES), income(10),
+lives(START_LIVES), resources(START_RESOURCES), income(10), uCooldown(0),
 pGrid(GameGrid("maingrid.grid")), uai(pGrid, tList), opponent(this)
 {
 }
@@ -111,10 +111,11 @@ void Player::spawnUnit(int unitID){
     case 0:
       break;
   }
-  if(nUnit != NULL && resources >= cost){
+  if(nUnit != NULL && resources >= cost && uCooldown <= 0 && uai.uList.size() <= UNIT_MAX){
     uai.uList.push_back(nUnit);
     resources -= cost;
     income += bonus;
+    uCooldown = UNIT_COOLDOWN;
     uai.determineUnitsPaths();
   } else {
     delete nUnit;
@@ -122,6 +123,9 @@ void Player::spawnUnit(int unitID){
 }
 
 void Player::update(int dt){
+  if(uCooldown > 0){
+    uCooldown -= dt;
+  }
   pGrid.update(dt);
   std::list<Unit*>::iterator i;
   std::list<Tower*>::iterator t;
@@ -208,6 +212,13 @@ void Player::upgradeTower(int x, int y){
     if(resources >= cost && t->upgrade()){
       resources -= cost;
     }
+  }
+}
+
+void Player::changeTowerMode(int x, int y, target_mode mode){
+  Tower* t = pGrid.getTowerAt(x, y);
+  if(t != NULL){
+    t->setTargetMode(mode);
   }
 }
 
