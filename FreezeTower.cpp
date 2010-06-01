@@ -67,7 +67,8 @@ void FreezeTower::draw(){
         glScaled(0.035, 0.035, 0.035);
         glTranslatef(0.0, 2.0, 0.0);
 
-        glCallList(vtd_dl::fanDL);
+    // glCallList(vtd_dl::fanDL);
+     drawFanDLAnimated();
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(4);

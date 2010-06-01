@@ -1202,8 +1202,19 @@ void drawTeslaCoil() {
    return;
 }
 
+void drawFanDLAnimated() {
+   glPushMatrix();
+   glCallList(vtd_dl::fanDL);
+   glTranslatef(0.0, 0.0, -7.0);
+   animateCPUFan(4);
+   glTranslatef(0.0, 0.0, 12.0);
+   animateCPUFan(4);
+   glPopMatrix();
+}
+
 void drawCPUFan() {
    int tesallation = 6;
+
    glPushMatrix();
       glTranslatef(0.0, 0.0, -6.0);
       // Fan 1
@@ -1249,24 +1260,8 @@ void drawCPUFan() {
                gluDisk(gluNewQuadric(), 0.0, 4.0, tesallation, 1);
             glPopMatrix();
          glPopMatrix();
-         
-         // Fan Blades
-         glPushMatrix();
-            setMaterial(ShinyMetal);
-            glTranslatef(0.0, 0.0, 1.0);
 
-            for (int i = 0; i < 7; i++) {
-               glRotatef(51.4, 0.0, 0.0, 1.0);
-               glPushMatrix();
-               glRotatef(-40, 0.0, 1.0, 0.0);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, 0, 51.4);
-               
-               glRotatef(180, 0.0, 1.0, 0.0);
-               glTranslatef(0.0, 0.0, 0.5);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, -51.4, 51.4);
-               glPopMatrix();
-            }
-         glPopMatrix();
+    //     animateCPUFan(tesallation);
         
          // Base
          glPushMatrix();
@@ -1285,99 +1280,48 @@ void drawCPUFan() {
             gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, tesallation, tesallation);
          glPopMatrix();
       glPopMatrix();
-      
-      glTranslatef(0.0, 0.0, 12.0);
-      
-      // Fan 2
-      glPushMatrix();
-         // Heatsink
-         glPushMatrix();
-            setMaterial(FieryOrange);
-            glRotatef(210, 0.0, 0.0, 1.0);
-            for (int i = 0; i < 100; i++) {
-               glRotatef(3.0, 0.0, 0.0, 1.0);
-               
-               glPushMatrix();
-                  // blade height
-                  glTranslatef(0.0, 13.0, 0.0);
-                  glScaled(0.05, 1.0, 5.0);
-                  glutSolidCube(2.0);
-               glPopMatrix();
-            }
-         glPopMatrix();
-         
-         // Heatsink Rim
-         glPushMatrix();
-            glTranslatef(0.0, 0.0, -1.0);
-            glutSolidTorus(0.30, 13, tesallation, tesallation);
-            glTranslatef(0.0, 0.0, 2.0);
-            glutSolidTorus(0.25, 13, tesallation, tesallation);
-         glPopMatrix();
-
-         glTranslatef(0.0, 0.0, -1.0);
-
-         // Center Core
-         glPushMatrix();
-            setMaterial(Grey);
-            gluCylinder(gluNewQuadric(), 4.0, 4.0, 5.0, tesallation, tesallation);
-            
-            // Draw faces for cover core
-            glPushMatrix();
-               // Flip disk to face outward (for lighting)
-               glRotatef(180, 1.0, 0.0, 0.0);
-               gluDisk(gluNewQuadric(), 0.0, 4.0, tesallation, 1);
-               glTranslatef(0.0, 0.0, -5.0);
-               glRotatef(180, 1.0, 0.0, 0.0);
-               gluDisk(gluNewQuadric(), 0.0, 4.0, tesallation, 1);
-            glPopMatrix();
-         glPopMatrix();
-         
-         // Fan Blades
-         glPushMatrix();
-            setMaterial(ShinyMetal);
-            glTranslatef(0.0, 0.0, 1.0);
-
-            for (int i = 0; i < 7; i++) {
-               glRotatef(51.4, 0.0, 0.0, 1.0);
-               glPushMatrix();
-               glRotatef(-40, 0.0, 1.0, 0.0);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, 0, 51.4);
-               
-               glRotatef(180, 0.0, 1.0, 0.0);
-               glTranslatef(0.0, 0.0, 0.5);
-               gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, -51.4, 51.4);
-               glPopMatrix();
-            }
-         glPopMatrix();
-        
-         // Base
-         glPushMatrix();
-            glTranslatef(0.0, -12.0, 1.0);
-            glScaled(3.0, 0.65, 2.0);
-            glutSolidCube(3.0);
-         glPopMatrix();
-         
-         // Back
-         glPushMatrix();
-            setMaterial(Grey);
-            glRotatef(90, 1.0, 0.0, 0.0);
-            glTranslatef(-1.0, 0.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, tesallation, tesallation);
-            glTranslatef(2.0, 0.0, 0.0);
-            gluCylinder(gluNewQuadric(), 0.5, 0.5, 13, tesallation, tesallation);
-         glPopMatrix();
-      glPopMatrix();
-      
-      // Circuit
-      glPushMatrix();
-         setMaterial(Black);
-         glTranslatef(0.0, -13.0, -6.0);
-         glScaled(27.0, 0.5, 27.0);
-         glutSolidCube(1.0);
-      glPopMatrix();
-   glPopMatrix();
+   glPopMatrix();   
 
    return;
+}
+
+void drawCPUFanBase() {
+   // Circuit
+   glPushMatrix();
+      setMaterial(Black);
+      glTranslatef(0.0, -13.0, -6.0);
+      glScaled(27.0, 0.5, 27.0);
+      glutSolidCube(1.0);
+   glPopMatrix();
+}
+
+void animateCPUFan(int tesallation) {
+   int fanSpeed = 5;
+   static int bladesOne = 0, bladesTwo = 0;
+
+   // Fan Blades
+   glPushMatrix();
+      /* animation */
+      if (bladesTwo >= 360) {
+         bladesTwo = 0;
+      }
+      glRotatef(bladesTwo+=fanSpeed, 0.0, 0.0, 1.0);
+
+      setMaterial(ShinyMetal);
+      glTranslatef(0.0, 0.0, 1.0);
+
+      for (int i = 0; i < 7; i++) {
+         glRotatef(51.4, 0.0, 0.0, 1.0);
+         glPushMatrix();
+         glRotatef(-40, 0.0, 1.0, 0.0);
+         gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, 0, 51.4);
+         
+         glRotatef(180, 0.0, 1.0, 0.0);
+         glTranslatef(0.0, 0.0, 0.5);
+         gluPartialDisk(gluNewQuadric(), 0.0, 11.0, tesallation, 1, -51.4, 51.4);
+         glPopMatrix();
+      }
+   glPopMatrix();
 }
 
 void drawShield() {
@@ -1813,7 +1757,13 @@ void composeDisplayLists(){
   glEndList();
 
   glNewList(fanDL, GL_COMPILE);
-    drawCPUFan();
+    glPushMatrix();
+       drawCPUFan();
+       glTranslatef(0.0, 0.0, 12.0);
+       drawCPUFan();
+       glTranslatef(0.0, 0.0, -7.0);
+       drawCPUFanBase();
+    glPopMatrix();
   glEndList();
 
   glNewList(shieldDL, GL_COMPILE);

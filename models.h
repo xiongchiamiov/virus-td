@@ -21,7 +21,14 @@ void drawVirus();
 void drawWorm();
 void drawBackTrack();
 void drawTeslaCoil();
+
+/* All functions needed for CPU Fan model*/
+/* Places parts of the fan model in a display list and animates the rest outside. */
+void drawFanDLAnimated(); /* Use this to draw Fan. The three below are support functions */
 void drawCPUFan();
+void animateCPUFan(int tesallation);
+void drawCPUFanBase();
+
 
 void drawShield();
 void drawShieldBase(int set);
