@@ -20,15 +20,14 @@ void PlayerAI::update(int dt) {
 			desiredNumTowers = towersToBuild.size();
 		}
 		
-		if (need_more_towers() > 0) {
+		if (need_more_towers() > queue_more_units() && need_more_towers() > 0) {
 			pair<int, int> coordinates = towersToBuild.top();
 			towersToBuild.pop();
 			player.placeTower(coordinates.first, coordinates.second, 12);
 			cout << towersToBuild.size() << "/" << desiredNumTowers << "towers left to build"
 			     << " (" << need_more_towers() << "%)." << endl;
 		}
-		
-		if (queue_more_units() > 0) {
+		else if (queue_more_units() > 0) {
 			unitsToBuild.push(7);
 			towersToBuildCost += unit_cost::BASIC;
 		}
