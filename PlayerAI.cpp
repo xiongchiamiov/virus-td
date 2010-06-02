@@ -47,6 +47,7 @@ void PlayerAI::update(int dt) {
 		if (unitsToBuild.size() >= unitBunching && player.resources >= unitsToBuildCost) {
 			while (unitsToBuild.size() > 0) {
 				player.spawnUnit(unitsToBuild.top());
+				unitsToBuildCost -= unit_cost::BASIC;
 				unitsToBuild.pop();
 			}
 		}
