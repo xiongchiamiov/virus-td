@@ -16,7 +16,7 @@ class PlayerAI {
     int units;
     int updates;
 	int desiredNumTowers; // the number of towers we'd like to have
-	stack< pair<int, int> > towersToBuild; // just (x,y) coordinates
+	stack< pair< pair<int, int>, pair<int, int> > > towersToBuild; // tower type and tower cost, and (x,y) coordinates
 	stack<int> unitsToBuild;
 	int unitsToBuildCost;
 	int unitBunching; // number of units to send out in each push
