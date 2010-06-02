@@ -74,6 +74,7 @@ ReturnCode Player::placeTower(int x, int y, int towerID){
   return returnCode;
 }
 
+// this needs to return a useful return code, like placeTower
 void Player::spawnUnit(int unitID){
   Unit* nUnit = NULL;
   int cost, bonus;
