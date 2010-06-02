@@ -59,23 +59,23 @@ void PlayerAI::update(int dt) {
 
 void PlayerAI::build_preferred_tower_layout() {
 	// for now, we'll totally just fake this
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(6, 30)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(9, 30)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(4, 30)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(2, 30)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(0, 30)));
+	towersToBuild.push(make_pair(make_pair(15, tower_cost::FAST), make_pair(6, 30)));
+	towersToBuild.push(make_pair(make_pair(15, tower_cost::FAST), make_pair(9, 30)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(4, 30)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(2, 30)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(0, 30)));
 	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(1, 27)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(3, 27)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(5, 27)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(7, 27)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(13, 28)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(3, 27)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(5, 27)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(7, 27)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(13, 28)));
 	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(14, 26)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(15, 23)));
+	towersToBuild.push(make_pair(make_pair(16, tower_cost::FREEZE), make_pair(14, 20)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(11, 23)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(9, 23)));
 	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(13, 23)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(11, 23)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(9, 23)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(7, 23)));
-	towersToBuild.push(make_pair(make_pair(17, tower_cost::BASIC), make_pair(5, 23)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(7, 23)));
+	towersToBuild.push(make_pair(make_pair(12, tower_cost::WALL), make_pair(5, 23)));
 }
 
 // returns from 0 to 100, inclusive
