@@ -5,6 +5,7 @@ PlayerAI::PlayerAI(void) {
 	units = 0;
 	updates = 0;
 	desiredNumTowers = NULL;
+	towersToBuildCost = 0;
 	player.pGrid.setGridColor(EnemyGrid);
 }
 PlayerAI::~PlayerAI(void) {}
@@ -29,9 +30,10 @@ void PlayerAI::update(int dt) {
 		
 		if (queue_more_units() > 0) {
 			unitsToBuild.push(7);
+			towersToBuildCost += unit_cost::BASIC;
 		}
 		
-		if (unitsToBuild.size() >= unitBunching) {
+		if (unitsToBuild.size() >= unitBunching && player.resources >= towersToBuildCost) {
 			while (unitsToBuild.size() > 0) {
 				player.spawnUnit(unitsToBuild.top());
 				unitsToBuild.pop();

@@ -23,7 +23,6 @@ enum ReturnCode {SUCCESS, INSUFFICIENT_BYTES, INVALID_LOCATION, INVALID_TOWER};
 class Player
 {
   private:
-  int resources;
   int lives;
   int income;
   int uCooldown;
@@ -51,5 +50,6 @@ public:
   int calcResources();
   void setOpponent(Player* newOpp);
   inline void setPosition(float x, float y, float z){ pos.setPosition(x, y, z);}
+  int resources;
   GameGrid pGrid;
 };
