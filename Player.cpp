@@ -117,7 +117,7 @@ void Player::spawnUnit(int unitID){
     resources -= cost;
     income += bonus;
     uCooldown = UNIT_COOLDOWN;
-    uai.determineUnitsPaths();
+    uai.determineUnitPath(nUnit);
   } else {
     delete nUnit;
   }

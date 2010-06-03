@@ -245,6 +245,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\StrongUnit3.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Unit.cpp"
 					>
 				</File>
@@ -444,6 +448,10 @@
 				</File>
 				<File
 					RelativePath=".\StrongUnit2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\StrongUnit3.h"
 					>
 				</File>
 				<File

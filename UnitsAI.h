@@ -31,6 +31,7 @@ public:
 	UnitsAI(GameGrid& ingg, std::list<Tower*> &intList);
 	~UnitsAI(void);
 	void determineUnitsPaths();
+	void determineUnitPath(Unit* u);
     void setGrid(GameGrid& inGrid);
     void setTowers(std::list<Tower*> &intList);
 };
