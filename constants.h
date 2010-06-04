@@ -21,6 +21,7 @@ extern const float OPP_POSZ;
 extern const float OPP_POSX2;
 extern const float OPP_POSY2;
 extern const float OPP_POSZ2;
+//#define VTD_SOUND //Enables sounds
 
 namespace unit_cost{
   extern const int BASIC;

@@ -11,6 +11,7 @@ namespace w_tower{
   const int ATK_DT[MAX_UPGRADES] = {1000, 1000, 1000}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {0.0, 0.0, 0.0};
   const int BUILD_TIME = 3000;
+  char* SOUND = "media/sounds/basic_t.mp3";
 }
 using namespace w_tower;
 
@@ -25,6 +26,7 @@ Tower(inx, iny, inz, gx, gy)
   type = T_WALL;
   build_time = BUILD_TIME;
   stage = 0;
+  sound = SOUND;
   weapon = new Particles(0.7);
   weapon->setDirection(0.0, 1.0, 0.0, false);
   weapon->setCutOffs(20, 9, 20);

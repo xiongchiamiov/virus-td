@@ -41,8 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;\\marvin\jtrobins\480\project\virus-td\&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;GLUT_BUILDING_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,9 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="glut32.lib opengl32.lib glu32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -174,6 +171,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\GameObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GameSounds.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UI.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VTD_main.cpp"
 				>
 			</File>
@@ -261,15 +270,23 @@
 				Name="Environment"
 				>
 				<File
-					RelativePath=".\Camera.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\GameGrid.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\UI.cpp"
+					RelativePath=".\Particles.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Projectile.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Scenery.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\shadow.cpp"
 					>
 				</File>
 			</Filter>
@@ -277,11 +294,11 @@
 				Name="Util"
 				>
 				<File
-					RelativePath=".\constants.cpp"
+					RelativePath=".\Camera.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\GameObject.cpp"
+					RelativePath=".\constants.cpp"
 					>
 				</File>
 				<File
@@ -294,18 +311,6 @@
 				</File>
 				<File
 					RelativePath=".\MyVector.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Particles.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Scenery.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\shadow.cpp"
 					>
 				</File>
 				<File
@@ -323,6 +328,50 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\GameObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GameSounds.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UI.h"
+				>
+			</File>
+			<Filter
+				Name="Units"
+				>
+				<File
+					RelativePath=".\BasicUnit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FastUnit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\StrongUnit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\StrongUnit2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\StrongUnit3.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Unit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\UnitsAI.h"
+					>
+				</File>
+			</Filter>
 			<Filter
 				Name="Player"
 				>
@@ -375,15 +424,23 @@
 				Name="Environment"
 				>
 				<File
-					RelativePath=".\Camera.h"
-					>
-				</File>
-				<File
 					RelativePath=".\GameGrid.h"
 					>
 				</File>
 				<File
-					RelativePath=".\UI.h"
+					RelativePath=".\Particles.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Projectile.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Scenery.h"
+					>
+				</File>
+				<File
+					RelativePath=".\shadow.h"
 					>
 				</File>
 			</Filter>
@@ -391,11 +448,11 @@
 				Name="Util"
 				>
 				<File
-					RelativePath=".\constants.h"
+					RelativePath=".\Camera.h"
 					>
 				</File>
 				<File
-					RelativePath=".\GameObject.h"
+					RelativePath=".\constants.h"
 					>
 				</File>
 				<File
@@ -411,55 +468,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Particles.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Scenery.h"
-					>
-				</File>
-				<File
-					RelativePath=".\shadow.h"
-					>
-				</File>
-				<File
 					RelativePath=".\textures.h"
 					>
 				</File>
 				<File
 					RelativePath=".\vfc.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Units"
-				>
-				<File
-					RelativePath=".\BasicUnit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\FastUnit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\StrongUnit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\StrongUnit2.h"
-					>
-				</File>
-				<File
-					RelativePath=".\StrongUnit3.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Unit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\UnitsAI.h"
 					>
 				</File>
 			</Filter>

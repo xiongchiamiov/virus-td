@@ -24,6 +24,9 @@
 #include "UI.h"
 #include "models.h"
 #include "Scenery.h"
+#if VTD_SOUNDS
+#include "GameSounds.h"
+#endif
 
 const int PLAYER_WIN = 0;
 const int COMPUTER_WIN = 1;
@@ -52,6 +55,9 @@ bool gameOver = false;
 int winner = 0;
 GLuint winTexture;
 Scenery scene("scenery.grid", &p1);
+#ifdef VTD_SOUND
+GameSounds sound; 
+#endif
 
 void drawBlueScreen(void);
 void drawWinScreen(void);
@@ -421,6 +427,10 @@ int main(int argc, char** argv){
   p1.setOpponent(&(opponent.player));
   p1.setPosition(P1_POSX, P1_POSY, P1_POSZ);
   opponent.player.setPosition(OPP_POSX2, OPP_POSY2, OPP_POSZ2);
+#ifdef VTD_SOUND
+  cam.setListenerPos();
+  //sound.toggleMusic();
+#endif
   tlx = 0;
   tly = 0;
   ulx = 0;   

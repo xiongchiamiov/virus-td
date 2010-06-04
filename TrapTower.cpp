@@ -11,6 +11,7 @@ namespace tr_tower{
   const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {1.0, 1.0, 1.5};
   const int BUILD_TIME = 3000;
+  char* SOUND = "media/sounds/basic_t.mp3";
 }
 
 using namespace tr_tower;
@@ -27,6 +28,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   type = T_TRAP;
   build_time = BUILD_TIME;
   stage = 0;
+  sound = SOUND;
   ai.hasTarget = false;
   weapon = new Particles(0.2);
   weapon->setWeaponType(particle_texture[2]);

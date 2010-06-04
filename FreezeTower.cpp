@@ -11,6 +11,7 @@ namespace f_tower{
   const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {2.5, 2.5, 3.0};
   const int BUILD_TIME = 3000;
+  char* SOUND = "media/sounds/basic_t.mp3";
 }
 
 using namespace f_tower;
@@ -26,6 +27,7 @@ FreezeTower::FreezeTower(float inx, float iny, float inz, int gx, int gy):
   type = T_FREEZE;
   build_time = BUILD_TIME;
   stage = 0;
+  sound = SOUND;
   weapon = new Particles(0.3);
   weapon->setWeaponType(particle_texture[2]);
 }

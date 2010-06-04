@@ -1,5 +1,9 @@
 #pragma once
+#include "constants.h"
 #include "MyVector.h"
+#ifdef VTD_SOUND
+#include "GameSounds.h"
+#endif
 #include <map>
 
 namespace vtd_cam{
@@ -31,6 +35,9 @@ public:
   void rotateDown();
   void rotateLeft();
   void rotateRight();
+#ifdef VTD_SOUND
+  inline void setListenerPos(){ gamesounds::setListenerPosition(cam);}
+#endif
   inline float getCamX(){return cam.getX();}
   inline float getCamY(){return cam.getY();}
   inline float getCamZ(){return cam.getZ();}

@@ -21,9 +21,9 @@ void PlayerAI::update(int dt) {
 			desiredNumTowers = towersToBuild.size();
 		}
 		
-		cout << "Opponent's bytes: " << player.resources << endl;
-		cout << "need_more_towers(): " << need_more_towers() << endl;
-		cout << "queue_more_units(): " << queue_more_units() << endl;
+		//cout << "Opponent's bytes: " << player.resources << endl;
+		//cout << "need_more_towers(): " << need_more_towers() << endl;
+		//cout << "queue_more_units(): " << queue_more_units() << endl;
 		
 		if (need_more_towers() >= queue_more_units() && need_more_towers() > 0) {
 			int towerCost = towersToBuild.top().first.second;
@@ -32,17 +32,17 @@ void PlayerAI::update(int dt) {
 				pair<int, int> coordinates = towersToBuild.top().second;
 				towersToBuild.pop();
 				player.placeTower(coordinates.first, coordinates.second, towerType);
-				cout << towersToBuild.size() << "/" << desiredNumTowers << "towers left to build"
-				     << " (" << need_more_towers() << "%)." << endl;
+				//cout << towersToBuild.size() << "/" << desiredNumTowers << "towers left to build"
+				//     << " (" << need_more_towers() << "%)." << endl;
 			}
 			else {
-				cout << "Didn't have " << towerCost << " bytes." << endl;
+				//cout << "Didn't have " << towerCost << " bytes." << endl;
 			}
 		}
 		else if (queue_more_units() > 0) {
 			unitsToBuild.push(7);
 			unitsToBuildCost += unit_cost::BASIC;
-			cout << "Queued up another unit of cost " << unit_cost::BASIC << endl;
+			//cout << "Queued up another unit of cost " << unit_cost::BASIC << endl;
 		}
 		
 		if (unitsToBuild.size() >= unitBunching && player.resources >= unitsToBuildCost) {

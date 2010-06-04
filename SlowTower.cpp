@@ -11,6 +11,7 @@ namespace sl_tower{
   const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {5.0, 6.0, 6.5};
   const int BUILD_TIME = 3000;
+  char* SOUND = "media/sounds/basic_t.mp3";
 }
 
 using namespace sl_tower;
@@ -26,6 +27,7 @@ SlowTower::SlowTower(float inx, float iny, float inz, int gx, int gy):
   type = T_SLOW;
   build_time = BUILD_TIME;
   stage = 0;
+  sound = SOUND;
   weapon = new Particles(0.3);
   weapon->setWeaponType(particle_texture[3]);
 }
