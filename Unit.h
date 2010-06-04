@@ -49,7 +49,7 @@ public:
   inline bool isDead(){return hp <= 0;}
   inline int getHP(){return hp;}
   inline float getSpeed(){return speed;}
-  inline unit_t getValue(){return type;}
+  inline int getValue(){return value;}
   inline bool hasPath(){return hasPathB;}
   void step(int dt);
   void slow();

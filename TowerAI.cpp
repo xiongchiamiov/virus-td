@@ -12,14 +12,16 @@ hasKill(false), last_atk(0)
 TowerAI::~TowerAI(void)
 {
 }
-
+#include <iostream>
+using namespace std;
 bool TowerAI::shoot(){
   bool retVal;
   if(hasTarget && !target->isDead() && getDistance(*target) <= range){
     int dmg = target->takeDamage(atk_dmg); 
-    if( 0 >= dmg){
+    if( target->isDead()){
       hasTarget = false;
       hasKill = true;
+      cout << "Has a kill! Value: " << target->getValue() << endl;
     }
     retVal = true;
   } else {
