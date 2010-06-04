@@ -6,7 +6,9 @@ using namespace std;
 namespace gamesounds{
 
   unsigned int sound_count = 0;
+#ifdef VTD_SOUND
   ISoundEngine* eng;
+#endif
   //Sound filenames
   //Music
   const string music_sound = "media/sounds/11EasyTarget.mp3"; 
@@ -29,9 +31,10 @@ namespace gamesounds{
 }
 
 using namespace gamesounds;
-#include <iostream>
+
 GameSounds::GameSounds(void)
 {
+#ifdef VTD_SOUND
   if(sound_count <= 0){
     eng = engine = createIrrKlangDevice();
     if(engine)
@@ -41,34 +44,43 @@ GameSounds::GameSounds(void)
     engine = eng;
   }
   ++sound_count;
+#endif
 }
 
 GameSounds::~GameSounds(void)
 {
+#ifdef VTD_SOUND
   if(sound_count == 1){
     music->drop();
     eng->drop();
   } 
   --sound_count;
+#endif
 }
 
 void GameSounds::toggleMusic(){
+#ifdef VTD_SOUND
   if(music && music->getIsPaused()){
     music->setIsPaused(false);
   } else if(music){
     music->setIsPaused();
   }
+#endif
 }
 
 namespace gamesounds{
   void playSound(const char* filename, float x, float y, float z){
+#ifdef VTD_SOUND
     vec3df pos(x, y, z);
     eng->play3D(filename, pos);
+#endif
   }
 
   void setListenerPosition(MyVector& camPos){
+#ifdef VTD_SOUND
     vec3df pos(camPos.getX(), camPos.getY(), camPos.getZ());
     vec3df dir(camPos.getI(), camPos.getJ(), camPos.getK());
     eng->setListenerPosition(pos, dir);
+#endif
   }
 }

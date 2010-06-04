@@ -29,36 +29,28 @@ void Camera::moveForward(){
   cam.setPosition(cam.getX() + CAM_SPD*w.getI(),
                   cam.getY() + CAM_SPD*w.getJ(),
                   cam.getZ() + CAM_SPD*w.getK());
-#ifdef SOUND
   setListenerPos();
-#endif
 }
 
 void Camera::moveBackward(){
   cam.setPosition(cam.getX() - CAM_SPD*w.getI(),
                   cam.getY() - CAM_SPD*w.getJ(),
                   cam.getZ() - CAM_SPD*w.getK());
-#ifdef SOUND
   setListenerPos();
-#endif
 }
 
 void Camera::moveLeft(){
   cam.setPosition(cam.getX() + CAM_SPD*u.getI(),
                   cam.getY() + CAM_SPD*u.getJ(),
                   cam.getZ() + CAM_SPD*u.getK());
-#ifdef SOUND
   setListenerPos();
-#endif
 }
 
 void Camera::moveRight(){
   cam.setPosition(cam.getX() - CAM_SPD*u.getI(),
                   cam.getY() - CAM_SPD*u.getJ(),
                   cam.getZ() - CAM_SPD*u.getK());
-#ifdef SOUND
   setListenerPos();
-#endif
 }
 
 void Camera::zoomIn(){
@@ -67,9 +59,7 @@ void Camera::zoomIn(){
                   cam.getY() + ZOOM_SPD*cam.getJ(),
                   cam.getZ() + ZOOM_SPD*cam.getK());
   }
-#ifdef SOUND
   setListenerPos();
-#endif
 }
 
 void Camera::zoomOut(){
@@ -78,9 +68,7 @@ void Camera::zoomOut(){
                   cam.getY() - ZOOM_SPD*cam.getJ(),
                   cam.getZ() - ZOOM_SPD*cam.getK());
   }
-#ifdef SOUND
   setListenerPos();
-#endif
 }
 
 void Camera::rotateUp(){

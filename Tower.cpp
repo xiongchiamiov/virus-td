@@ -1,7 +1,5 @@
 #include "Tower.h"
-#ifdef VTD_SOUND
 #include "GameSounds.h"
-#endif
 
 
 Tower::Tower(float inx, float iny, float inz, int gx, int gy):
@@ -15,11 +13,9 @@ Tower::~Tower(void)
 }
 bool Tower::shoot(){
   bool ret = ai.shoot();
-#ifdef VTD_SOUND
   if(ret){
     gamesounds::playSound(sound, x, y, z);
   }
-#endif
   return ret;
 }
 bool Tower::operator==(const Tower& other){ 
