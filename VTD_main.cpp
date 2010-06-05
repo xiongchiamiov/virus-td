@@ -53,6 +53,7 @@ int last_time;
 int last_cycle;
 bool paused = false;
 bool gameOver = false;
+bool exitting = false;
 int winner = 0;
 GLuint winTexture;
 Scenery scene("scenery.grid", &p1);
@@ -269,7 +270,10 @@ void drawWinScreen()
 }
 
 void update(int param){
-  
+	if(exitting) {
+		exit(0);
+		return;
+	}
   int this_time = glutGet(GLUT_ELAPSED_TIME);
   int dt = this_time - last_time;
   //fps = 1000.00/dt; 
@@ -326,6 +330,7 @@ void update(int param){
 void keyboard(unsigned char key, int x, int y){
 	if(gameOver) {
 		if(key == 32) {
+			exitting = true;
 			exit(0);
 		}
 	}
@@ -385,7 +390,9 @@ void keyboard(unsigned char key, int x, int y){
 			paused = !paused;
       break;
 	case 27:
+		exitting = true;
 		exit(0);
+		break;
   }
   controls::keyMap[key] = true;
 	}
