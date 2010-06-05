@@ -35,8 +35,8 @@ namespace unit_bonus {
   const int BASIC = 1;
   const int FAST = 2;
   const int STRONG = 5;
-  const int STRONG2 = 7;
-  const int STRONG3 = 6;
+  const int STRONG2 = 12;
+  const int STRONG3 = 7;
 }
 
 namespace unit_name {

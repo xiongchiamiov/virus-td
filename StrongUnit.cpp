@@ -5,7 +5,7 @@
 #include "shadow.h"
 
 namespace s_unit {
-  const int MAX_HP = 15;
+  const int MAX_HP = 20;
   const int ATK = 8;
   const float SPD = 0.001;
 }

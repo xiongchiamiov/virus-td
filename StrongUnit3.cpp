@@ -5,7 +5,7 @@
 #include "shadow.h"
 
 namespace s3_unit {
-  const int MAX_HP = 25;
+  const int MAX_HP = 60;
   const int ATK = 7;
   const float SPD = 0.0015;
 }

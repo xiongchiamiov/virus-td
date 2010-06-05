@@ -7,7 +7,7 @@
 namespace f_unit {
   const int MAX_HP = 8;
   const int ATK = 2;
-  const float SPD = 0.0025;
+  const float SPD = 0.003;
 }
 
 using namespace f_unit;

@@ -24,6 +24,7 @@
 #include "UI.h"
 #include "models.h"
 #include "Scenery.h"
+#include "Projectile.h"
 #if VTD_SOUNDS
 #include "GameSounds.h"
 #endif
@@ -78,6 +79,7 @@ void display(){
   	  glPushMatrix();
 	  p1.draw(placingTower);
 	  opponent.player.draw(false);
+    //drawProjectiles();
 	  glPopMatrix();
 
 	  vfc::extractPlanes();
@@ -303,6 +305,7 @@ void update(int param){
     }
     p1.update(dt);
     opponent.update(dt);
+    //stepProjectiles(dt);
 
 	if(p1.getLives() <= 0) {
 		paused = true;
