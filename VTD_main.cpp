@@ -103,7 +103,7 @@ void display(){
   	  glPushMatrix();
 	  p1.draw(placingTower);
 	  opponent.player.draw(false);
-    //drawProjectiles();
+    drawProjectiles();
 	  glPopMatrix();
 
 	  vfc::extractPlanes();
@@ -366,7 +366,7 @@ void update(int param){
     }
     p1.update(dt);
     opponent.update(dt);
-    //stepProjectiles(dt);
+    stepProjectiles(dt);
 
 	if(p1.getLives() <= 0) {
 		paused = true;
