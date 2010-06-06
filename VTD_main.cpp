@@ -168,7 +168,7 @@ void init_lighting() {
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_amb);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_spec);
 
-  const GLfloat light_atten = 0.2f;
+  const GLfloat light_atten = 0.3f;
   //light position
   GLfloat light_pos2[4] = {0.25, 2.0, 0.25, 1.0};
   //light color (ambiant, diffuse and specular)
