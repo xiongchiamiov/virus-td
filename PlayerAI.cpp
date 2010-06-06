@@ -6,7 +6,8 @@ PlayerAI::PlayerAI(void) {
 	updates = 0;
 	desiredNumTowers = NULL;
 	unitsToBuildCost = 0;
-	player.pGrid.setGridColor(EnemyGrid);
+	GLfloat boundCol[] = {0.4,0.0,0.0};
+	player.pGrid.setGridColor(boundCol);
 	unitBunching = 1; // magick
 }
 PlayerAI::~PlayerAI(void) {}
