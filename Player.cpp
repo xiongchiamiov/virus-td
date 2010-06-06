@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "GameSounds.h"
 namespace vtd_player{
   const int START_LIVES = 5;
   const int START_RESOURCES = 15;//00000; /* originally 10, but 100000 for debug */
@@ -69,6 +70,7 @@ ReturnCode Player::placeTower(int x, int y, int towerID){
     opponent->uai.determineUnitsPaths();
   } else {
     delete nTower;
+    gamesounds::playSound("media/sounds/buzzer.wav", 0.0, 0.0, 0.0);
   }
   
   return returnCode;
