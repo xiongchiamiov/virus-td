@@ -366,12 +366,12 @@ void GameGrid::draw(bool isPlacing){
   float posX = 0.0;
   float posZ = 0.0;
 
-  materialStruct col = TexturedPlayerGrid;
+  /*materialStruct col = TexturedPlayerGrid;
   GLfloat amt = GLOW_AMT*sin(GLOW_SPD*glowTimer) + 0.1;
   amt *= amt;
   col.ambient[0] = TexturedPlayerGrid.ambient[0] + amt;
   col.ambient[1] = TexturedPlayerGrid.ambient[1] + amt;
-  col.ambient[2] = TexturedPlayerGrid.ambient[2] + amt;
+  col.ambient[2] = TexturedPlayerGrid.ambient[2] + amt;*/
 
   for(int i = 0; i < GRID_WIDTH; i++){
     for(int j = 0; j < GRID_HEIGHT; j++){
@@ -383,7 +383,7 @@ void GameGrid::draw(bool isPlacing){
 		if(grid[i][j] && !isPlacing) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, grid_texs[i][j]);
-			setMaterial(col);
+			setMaterial(TexturedPlayerGrid);
 			
 			glBegin(GL_POLYGON);{
 			  glTexCoord2f(0.0,1.0);
