@@ -9,7 +9,9 @@ GameGrid::GameGrid(void):
 x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 {
 	bound_lines.insert(bound_lines.begin(),0.0);
-	gridColor = PlayerGrid;
+	boundryColor[0] = 0.0;
+	boundryColor[1] = 0.0;
+	boundryColor[2] = 0.5;
   //grid = new bool[16][32];
   for(int i = 0; i < GRID_WIDTH; ++i){
     for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -30,7 +32,9 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 	//bound_lines.push_front(0.0);
 	bound_lines.insert(bound_lines.begin(),0.0);
 	//Set the grid's color
-	gridColor = PlayerGrid;
+	boundryColor[0] = 0.0;
+	boundryColor[1] = 0.0;
+	boundryColor[2] = 0.5;
 
 	if(!RAND_SEEDED){
 		srand(time(NULL));
@@ -361,7 +365,7 @@ void GameGrid::draw(bool isPlacing){
 		if(grid[i][j] && !isPlacing) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, grid_texs[i][j]);
-			setMaterial(White);
+			setMaterial(TexturedPlayerGrid);
 			
 			glBegin(GL_POLYGON);{
 			  glTexCoord2f(0.0,1.0);
@@ -386,7 +390,7 @@ void GameGrid::draw(bool isPlacing){
 		}
 		else
 		{
-			setMaterial(Grid);			
+			setMaterial(PlayerGrid);			
 			glBegin(GL_POLYGON);{
 			  glTexCoord2f(0.0,1.0);
 			  glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
@@ -403,24 +407,14 @@ void GameGrid::draw(bool isPlacing){
 		}
 		
 		if(grid[i][j] && isPlacing){
-        setMaterial(gridColor);
+        setMaterial(PlayerLine);
         glBegin(GL_LINE_LOOP);{
 			glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
 			glVertex3f(posX - GRID_SIZE, 0.001, posZ + GRID_SIZE);
 			glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
 			glVertex3f(posX + GRID_SIZE, 0.001, posZ - GRID_SIZE);
-          //glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
-          //glVertex3f(posX - GRID_SIZE, 0.001, posZ + GRID_SIZE);
-          //glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
-		  //glVertex3f(posX + GRID_SIZE, 0.001, posZ - GRID_SIZE);
         }
         glEnd();
-        //glBegin(GL_LINE_LOOP);{
-        //  glVertex3f(posX + GRID_SIZE, 0.001, posZ + GRID_SIZE);
-        //  glVertex3f(posX + GRID_SIZE, 0.001, posZ - GRID_SIZE);
-        //  glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
-        //}
-        //glEnd();
 		}
       }
       posZ += GRID_SIZE*2.0;
@@ -444,20 +438,16 @@ void GameGrid::drawFractals()
 
 void GameGrid::drawBoundry()
 {
-	//setMaterial(Teal);
-    //glColor3f(0.3, 0.7, 0.7);
 	for(int i = 0; i < (int)bound_lines.size(); i++)
 	{
 		float t = bound_lines[i] / BOUNDRY_HEIGHT;
-		GLfloat color[] = { gridColor.diffuse[0] - t*gridColor.diffuse[0],
-							gridColor.diffuse[1] - t*gridColor.diffuse[1],
-							gridColor.diffuse[2] - t*gridColor.diffuse[2],
-							1.0f
+		GLfloat color[] = { boundryColor[0] - t*(boundryColor[0]-0.09),
+							boundryColor[1] - t*(boundryColor[1]-0.09),
+							boundryColor[2] - t*(boundryColor[2]-0.09)
 						   };
-		//GLfloat color[] = {0.0f,0.5f - (t*0.5),0.5f - (t*0.5),1.0f}; //Fade to black
-		//GLfloat color[] = {t,0.5f + (t*0.5f),0.5f + (t*0.5f)}; //Fade to white
+		glDisable(GL_LIGHTING);
 		glLineWidth(1.0 - (1.0*t));
-		glMaterialfv(GL_FRONT,GL_AMBIENT,color);
+		glColor3fv(color);
 		glBegin(GL_LINE_LOOP);{
 		  glVertex3f(-GRID_SIZE, bound_lines[i], -GRID_SIZE);
 		  glVertex3f(GRID_WIDTH * 2.0 * GRID_SIZE - GRID_SIZE, bound_lines[i], -GRID_SIZE);
@@ -465,6 +455,7 @@ void GameGrid::drawBoundry()
 		  glVertex3f(-GRID_SIZE, bound_lines[i], GRID_HEIGHT * 2.0 * GRID_SIZE - GRID_SIZE);
 		}
 		glEnd();
+		glEnable(GL_LIGHTING);
 	}
 }
 
@@ -485,9 +476,11 @@ void GameGrid::update(int dt)
 		bound_lines.pop_back();
 }
 
-void GameGrid::setGridColor(materialStruct color)
+void GameGrid::setGridColor(GLfloat *color)
 {
-	this->gridColor = color;
+	this->boundryColor[0] = color[0];
+	this->boundryColor[1] = color[1];
+	this->boundryColor[2] = color[2];
 }
 
 bool GameGrid::setTower(int x, int y){

@@ -20,6 +20,8 @@
 //GLfloat light_diff[4] = {0.6, 0.6, 0.6, 1.0};
 //GLfloat light_spec[4] = {0.8, 0.8, 0.8, 1.0};
 
+extern const GLenum SHADING_MODE;
+
 //Material Properties
 typedef struct materialStruct {
   GLfloat ambient[4];
@@ -49,9 +51,11 @@ extern materialStruct DarkGrey;
 extern materialStruct DarkDarkGrey;
 extern materialStruct Yellow;
 extern materialStruct Grid;
-extern materialStruct EnemyGrid;
 extern materialStruct PlayerGrid;
+extern materialStruct PlayerLine;
+extern materialStruct TexturedPlayerGrid;
 extern materialStruct SceneGrid;
+extern materialStruct SceneLines;
 extern materialStruct GridExpanse;
 
 //sets up a specific material

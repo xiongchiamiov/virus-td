@@ -62,6 +62,15 @@ GameSounds sound;
 void drawBlueScreen(void);
 void drawWinScreen(void);
 
+void place_lights()
+{
+	GLfloat light_pos2[4] = {0.25, 2.0, 0.25, 1.0};
+	glLightfv(GL_LIGHT1, GL_POSITION, light_pos2);
+
+	GLfloat light_pos3[4] = {12.25, 2.0, 0.25, 1.0};
+	glLightfv(GL_LIGHT2, GL_POSITION, light_pos3);
+}
+
 void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
@@ -74,7 +83,21 @@ void display(){
   gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
     cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
     0.0, 1.0, 0.0);
-
+	glPushMatrix();
+		glDisable(GL_LIGHTING);
+		glPushMatrix();
+		glTranslatef(0.25, 2.0, 0.25);
+		glColor3f(0.0,0.0,1.0);
+		glutSolidCube(0.2);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(12.25, 2.0, 0.25);
+		glColor3f(1.0,0.0,0.0);
+		glutSolidCube(0.2);
+		glPopMatrix();
+		glEnable(GL_LIGHTING);
+	glPopMatrix();
+  place_lights();
   if(!gameOver)
   {
   	  glPushMatrix();
@@ -132,11 +155,11 @@ void reshape(int w, int h){
 
 void init_lighting() {
   //light position
-  GLfloat light_pos[4] = {1.0, 1.0, 1.5, 1.0};
+  GLfloat light_pos[4] = {0.0, 0.0, 0.0, 1.0};
   //light color (ambiant, diffuse and specular)
-  GLfloat light_amb[4] = {0.6, 0.6, 0.6, 1.0};
-  GLfloat light_diff[4] = {0.6, 0.6, 0.6, 1.0};
-  GLfloat light_spec[4] = {0.8, 0.8, 0.8, 1.0};
+  GLfloat light_amb[4] = {0.3, 0.3, 0.3, 1.0};
+  GLfloat light_diff[4] = {0.3, 0.3, 0.3, 1.0};
+  GLfloat light_spec[4] = {0.0, 0.0, 0.0, 1.0};
   //turn on light0
   glEnable(GL_LIGHT0);
   glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
@@ -144,8 +167,42 @@ void init_lighting() {
   glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diff);
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_amb);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_spec);
+
+  const GLfloat light_atten = 0.2f;
+  //light position
+  GLfloat light_pos2[4] = {0.25, 2.0, 0.25, 1.0};
+  //light color (ambiant, diffuse and specular)
+  GLfloat light_amb2[4] = {0.0, 0.0, 0.0, 1.0};
+  GLfloat light_diff2[4] = {0.0, 0.0, 0.4, 1.0};
+  GLfloat light_spec2[4] = {0.0, 0.0, 0.8, 1.0};
+  //turn on light0
+  glEnable(GL_LIGHT1);
+  glLightfv(GL_LIGHT1, GL_POSITION, light_pos2);
+  //set up the diffuse, ambient and specular components for the light
+  glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diff2);
+  glLightfv(GL_LIGHT1, GL_AMBIENT, light_amb2);
+  glLightfv(GL_LIGHT1, GL_SPECULAR, light_spec2);
+  glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, light_atten);
+
+  //light position
+  GLfloat light_pos3[4] = {12.25, 2.0, 0.25, 1.0};
+  //light color (ambiant, diffuse and specular)
+  GLfloat light_amb3[4] = {0.0, 0.0, 0.0, 1.0};
+  GLfloat light_diff3[4] = {0.4, 0.0, 0.0, 1.0};
+  GLfloat light_spec3[4] = {0.8, 0.0, 0.0, 1.0};
+  //turn on light0
+  glEnable(GL_LIGHT2);
+  glLightfv(GL_LIGHT2, GL_POSITION, light_pos3);
+  //set up the diffuse, ambient and specular components for the light
+  glLightfv(GL_LIGHT2, GL_DIFFUSE, light_diff3);
+  glLightfv(GL_LIGHT2, GL_AMBIENT, light_amb3);
+  glLightfv(GL_LIGHT2, GL_SPECULAR, light_spec3);
+  glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, light_atten);
+
+
   //specify our lighting model as 1 normal per face
-  glShadeModel(GL_FLAT);
+  glShadeModel(SHADING_MODE);
+  glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, 1.0f);
 
   glEnable(GL_NORMALIZE);
 }

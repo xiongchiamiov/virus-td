@@ -167,7 +167,7 @@ void Scenery::draw()
 				if(vfc::viewFrustumCull(vfc::planes,world_pos,2*SCENE_GRID_WIDTH))
 				{
 				glNormal3f(grids[i][j].norm[0], grids[i][j].norm[1], grids[i][j].norm[2]);
-				setMaterial(Grid);
+				setMaterial(SceneGrid);
 				glBegin(GL_QUADS);
 				glVertex3f(0.0,grids[i][j].tl,0.0);
 				glVertex3f(0.0,grids[i][j].bl,SCENE_GRID_HEIGHT);
@@ -175,7 +175,7 @@ void Scenery::draw()
 				glVertex3f(SCENE_GRID_WIDTH,grids[i][j].tr, 0.0);
 				glEnd();
 
-				setMaterial(SceneGrid);
+				setMaterial(SceneLines);
 				glPushMatrix();
 				glTranslatef(0.0,0.01,0.0);
 				glBegin(GL_LINE_LOOP);

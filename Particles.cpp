@@ -106,6 +106,7 @@ glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
    glDisable(GL_BLEND);
    glEnable(GL_DEPTH_TEST);
+   glShadeModel(SHADING_MODE);
 	//glEnable(GL_LIGHTING); // <-- this makes it look amazing
    
      // recover the transform state
