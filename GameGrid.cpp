@@ -104,18 +104,18 @@ void GameGrid::initialize(bool enemy)
 {
 	if(!enemy)
 	{
-		textures[0] = LoadMipMapTexture("grid_0.bmp");
-		textures[1] = LoadMipMapTexture("grid_1.bmp");
-		textures[2] = LoadMipMapTexture("grid_2.bmp");
-		textures[3] = LoadMipMapTexture("grid_3.bmp");
-		textures[4] = LoadMipMapTexture("grid_4.bmp");
-		textures[5] = LoadMipMapTexture("grid_5.bmp");
-		textures[6] = LoadMipMapTexture("grid_6.bmp");
-		textures[7] = LoadMipMapTexture("grid_7.bmp");
-		textures[8] = LoadMipMapTexture("grid_8.bmp");
-		textures[9] = LoadMipMapTexture("grid_9.bmp");
-		textures[10] = LoadMipMapTexture("grid_10.bmp");
-		textures[11] = LoadMipMapTexture("grid_11.bmp");
+		textures[0] = LoadTexture("grid_0.bmp");
+		textures[1] = LoadTexture("grid_1.bmp");
+		textures[2] = LoadTexture("grid_2.bmp");
+		textures[3] = LoadTexture("grid_3.bmp");
+		textures[4] = LoadTexture("grid_4.bmp");
+		textures[5] = LoadTexture("grid_5.bmp");
+		textures[6] = LoadTexture("grid_6.bmp");
+		textures[7] = LoadTexture("grid_7.bmp");
+		textures[8] = LoadTexture("grid_8.bmp");
+		textures[9] = LoadTexture("grid_9.bmp");
+		textures[10] = LoadTexture("grid_10.bmp");
+		textures[11] = LoadTexture("grid_11.bmp");
 	}
 	else
 	{
