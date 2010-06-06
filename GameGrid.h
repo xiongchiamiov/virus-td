@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include <time.h>
+#include <math.h>
 //#include <gl/glut.h>
 #include "lighting.h"
 #include "constants.h"
@@ -69,4 +70,5 @@ private:
   //materialStruct gridColor;
   GLfloat boundryColor[3];
   GLuint textures[12];
+  GLfloat glowTimer;
 };

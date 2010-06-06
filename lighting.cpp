@@ -137,8 +137,8 @@ materialStruct Yellow = {
 materialStruct Grid = {
   {0.0795, 0.0795, 0.0795, 1.0}, 
   {0.08, 0.08, 0.08, 1.0},
-  {0.0, 0.0, 0.0, 1.0},
-  {0.0}
+  {0.2, 0.2, 0.2, 1.0},
+  {20.0}
 };
 
 materialStruct GridExpanse = {
@@ -151,8 +151,8 @@ materialStruct GridExpanse = {
 materialStruct PlayerLine = {
   {0.25, 0.25, 0.25, 1.0},
   {0.0, 0.0, 0.0, 1.0},
-  {0.0, 0.0, 0.0, 1.0},
-  {0.0}
+  {1.0, 1.0, 1.0, 1.0},
+  {10.0}
 };
 
 materialStruct TexturedPlayerGrid = {

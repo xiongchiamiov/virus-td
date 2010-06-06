@@ -4,6 +4,8 @@ const int FRACTAL_DEPTH = 2;
 const float FRACTAL_VAR = 0.75;
 const int BOUNDRY_SPAWN_RATE = 350;
 const float BOUNDRY_HEIGHT = 0.8;
+const float GLOW_AMT = 0.7;
+const float GLOW_SPD = 1.4;
 
 GameGrid::GameGrid(void):
 x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
@@ -12,6 +14,8 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 	boundryColor[0] = 0.0;
 	boundryColor[1] = 0.0;
 	boundryColor[2] = 0.5;
+
+	glowTimer = 0;
   //grid = new bool[16][32];
   for(int i = 0; i < GRID_WIDTH; ++i){
     for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -35,6 +39,8 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 	boundryColor[0] = 0.0;
 	boundryColor[1] = 0.0;
 	boundryColor[2] = 0.5;
+
+	glowTimer = 0;
 
 	if(!RAND_SEEDED){
 		srand(time(NULL));
@@ -359,6 +365,14 @@ void GameGrid::draw(bool isPlacing){
   glNormal3f(0.0, 1.0, 0.0);
   float posX = 0.0;
   float posZ = 0.0;
+
+  materialStruct col = TexturedPlayerGrid;
+  GLfloat amt = GLOW_AMT*sin(GLOW_SPD*glowTimer) + 0.1;
+  amt *= amt;
+  col.ambient[0] = TexturedPlayerGrid.ambient[0] + amt;
+  col.ambient[1] = TexturedPlayerGrid.ambient[1] + amt;
+  col.ambient[2] = TexturedPlayerGrid.ambient[2] + amt;
+
   for(int i = 0; i < GRID_WIDTH; i++){
     for(int j = 0; j < GRID_HEIGHT; j++){
       if(!frac[i][j]){
@@ -369,7 +383,7 @@ void GameGrid::draw(bool isPlacing){
 		if(grid[i][j] && !isPlacing) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, grid_texs[i][j]);
-			setMaterial(TexturedPlayerGrid);
+			setMaterial(col);
 			
 			glBegin(GL_POLYGON);{
 			  glTexCoord2f(0.0,1.0);
@@ -394,7 +408,7 @@ void GameGrid::draw(bool isPlacing){
 		}
 		else
 		{
-			setMaterial(PlayerGrid);			
+			setMaterial(Grid);			
 			glBegin(GL_POLYGON);{
 			  glTexCoord2f(0.0,1.0);
 			  glVertex3f(posX - GRID_SIZE, 0.0, posZ - GRID_SIZE);
@@ -478,6 +492,9 @@ void GameGrid::update(int dt)
 	}
 	if(bound_lines[bound_lines.size()-1] > BOUNDRY_HEIGHT)
 		bound_lines.pop_back();
+
+	//Grid glow
+	glowTimer += (float)dt / 1000.0;
 }
 
 void GameGrid::setGridColor(GLfloat *color)
