@@ -3,6 +3,28 @@
 Image *TextureImage;
 GLuint curTexId = 1;
 
+GLuint LoadMipMapTexture(char* image_file) { 
+  
+  TextureImage = (Image *) malloc(sizeof(Image));
+  if (TextureImage == NULL) {
+    printf("Error allocating space for image");
+    //exit(1);
+  }
+  cout << "trying to load " << image_file << endl;
+  if (!ImageLoad(image_file, TextureImage)) {
+    //exit(1);
+  }  
+  /*  2d texture, level of detail 0 (normal), 3 components (red, green, blue),            */
+  /*  x size from image, y size from image,                                              */    
+  /*  border 0 (normal), rgb color data, unsigned byte data, data  */ 
+  glBindTexture(GL_TEXTURE_2D, curTexId);
+  gluBuild2DMipmaps(GL_TEXTURE_2D, 3, TextureImage->sizeX, TextureImage->sizeY,
+    GL_RGB, GL_UNSIGNED_BYTE, TextureImage->data);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR_MIPMAP_LINEAR); /*  cheap scaling when image bigger than texture */    
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR); /*  cheap scaling when image smalled than texture*/
+  return curTexId++;
+}
+
 GLuint LoadTexture(char* image_file) { 
   
   TextureImage = (Image *) malloc(sizeof(Image));
@@ -125,3 +147,4 @@ int ImageLoad(char *filename, Image *image) {
   /*  we're done. */
   return 1;
 }
+

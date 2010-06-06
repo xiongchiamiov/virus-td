@@ -64,10 +64,10 @@ void drawWinScreen(void);
 
 void place_lights()
 {
-	GLfloat light_pos2[4] = {0.25, 2.0, 0.25, 1.0};
+	GLfloat light_pos2[4] = {0.25, 3.0, 0.25, 1.0};
 	glLightfv(GL_LIGHT1, GL_POSITION, light_pos2);
 
-	GLfloat light_pos3[4] = {12.25, 2.0, 0.25, 1.0};
+	GLfloat light_pos3[4] = {12.25, 3.0, 0.25, 1.0};
 	glLightfv(GL_LIGHT2, GL_POSITION, light_pos3);
 }
 
