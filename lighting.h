@@ -46,6 +46,7 @@ extern materialStruct White;
 extern materialStruct PureRed;
 extern materialStruct PureBlue;
 extern materialStruct Brown;
+extern materialStruct LightBrown;
 extern materialStruct ShinyMetal;
 extern materialStruct DarkGrey;
 extern materialStruct DarkDarkGrey;

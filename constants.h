@@ -29,6 +29,7 @@ namespace unit_cost{
   extern const int STRONG;
   extern const int STRONG2;
   extern const int STRONG3;
+  extern const int BOSS;
 }
 namespace unit_bonus{
   extern const int BASIC;
@@ -36,6 +37,7 @@ namespace unit_bonus{
   extern const int STRONG;
   extern const int STRONG2;
   extern const int STRONG3;
+  extern const int BOSS;
 }
 
 namespace unit_name {
@@ -44,6 +46,7 @@ namespace unit_name {
    extern const char* STRONG;
    extern const char* STRONG2;
    extern const char* STRONG3;
+   extern const char* BOSS;
 }
 
 namespace unit_description {
@@ -52,6 +55,7 @@ namespace unit_description {
    extern const char* STRONG;
    extern const char* STRONG2;
    extern const char* STRONG3;
+   extern const char* BOSS;
 }
 
 namespace tower_cost{

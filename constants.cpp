@@ -29,6 +29,7 @@ namespace unit_cost {
   const int STRONG = 20;
   const int STRONG2 = 50;
   const int STRONG3 = 30;
+  const int BOSS = 300;
 }
 
 namespace unit_bonus {
@@ -37,6 +38,7 @@ namespace unit_bonus {
   const int STRONG = 5;
   const int STRONG2 = 12;
   const int STRONG3 = 7;
+  const int BOSS = 20;
 }
 
 namespace unit_name {
@@ -45,6 +47,7 @@ namespace unit_name {
    const char* STRONG = "Fork Bomb Unit";
    const char* STRONG2 = "Trojan Horse Unit";
    const char* STRONG3 = "Lock Unit";
+   const char* BOSS = "Pedobear Unit";
 }
 
 namespace unit_description {
@@ -53,6 +56,7 @@ namespace unit_description {
    const char* STRONG = "This unit moves very slowly, but has\n a lot of HP. This unit is stronger\n than Torjan Horse.";
    const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP.";
    const char* STRONG3 = "This unit is a stronger, faster worm unit.";
+   const char* BOSS = "This is a boss unit. It is faster than normal units and extremely strong.";
 }
 
 namespace tower_cost{

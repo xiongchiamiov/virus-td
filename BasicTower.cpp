@@ -29,6 +29,7 @@ Tower(inx, iny, inz, gx, gy)
   sound = SOUND;
   weapon = new Particles(0.3);
   weapon->setWeaponType(particle_texture[0]);
+  animateSpeed = 2;
 }
 
 BasicTower::~BasicTower(void)
@@ -66,7 +67,12 @@ void BasicTower::draw(){
          // Mini Tower Defense TBQH
          glScaled(0.15, 0.15, 0.15);
 
-         glCallList(vtd_dl::turretDL);
+         if (animateSpeed >= 360) {
+            
+         }
+         
+         drawTurretDLAnimated(animateSpeed+=2);
+     //    glCallList(vtd_dl::turretDL);
       glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(2);

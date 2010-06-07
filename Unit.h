@@ -19,7 +19,8 @@ enum unit_dir{
 enum unit_t{
   U_BASIC,
   U_FAST,
-  U_STRONG
+  U_STRONG,
+  U_BOSS
 };
 
 class Unit :
@@ -39,6 +40,7 @@ protected:
   int stage;     //Upgrade stage
   int last_atk; //Time since last attack
   int atk_dt; //Attack speed (number of milliseconds between attacks)
+  int animateSpeed; // animation speed
   void drawHealthBar(void);
 public:
   Unit(float inx, float iny, float inz);

@@ -29,6 +29,7 @@ protected:
   TowerAI ai;    //This tower's AI object
   Particles * weapon;// Particle
   char* sound;
+  int animateSpeed; // animation speed
   //shadow * the_shadow;
 public:
   Tower(float inx, float iny, float inz, int gx, int gy);

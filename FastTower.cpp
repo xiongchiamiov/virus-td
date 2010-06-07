@@ -67,7 +67,7 @@ void FastTower::draw(){
        // Scale and orient model to fit grid
        glTranslatef(0.2, 2.0, 1.0);
        // Mini Tower Defense TBQH
-       glScaled(0.03, 0.03, 0.03);
+       glScaled(0.02, 0.02, 0.02);
        glRotated(90, 0.0, 1.0, 0.0);
 
        glCallList(vtd_dl::backtrackDL);

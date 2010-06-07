@@ -2,7 +2,7 @@
 #include "GameSounds.h"
 namespace vtd_player{
   const int START_LIVES = 5;
-  const int START_RESOURCES = 15;//00000; /* originally 10, but 100000 for debug */
+  const int START_RESOURCES = 1500000;//00000; /* originally 10, but 100000 for debug */
 }
 const int cleanup_dt = 500;
 int last_cleanup = 0;
@@ -111,7 +111,10 @@ void Player::spawnUnit(int unitID){
       break;
     case 1:
       break;
-    case 0:
+    case 0:      
+      nUnit = new BossUnit(START_X, 0.0, START_Z);
+      cost = unit_cost::BOSS;
+      bonus = unit_bonus::BOSS;
       break;
   }
   if(nUnit != NULL && resources >= cost && uCooldown <= 0 && uai.uList.size() <= UNIT_MAX){

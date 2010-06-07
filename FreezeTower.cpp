@@ -30,6 +30,7 @@ FreezeTower::FreezeTower(float inx, float iny, float inz, int gx, int gy):
   sound = SOUND;
   weapon = new Particles(0.3);
   weapon->setWeaponType(particle_texture[2]);
+  animateSpeed = 5;
 }
 
 FreezeTower::~FreezeTower(void)
@@ -70,7 +71,11 @@ void FreezeTower::draw(){
         glTranslatef(0.0, 2.0, 0.0);
 
     // glCallList(vtd_dl::fanDL);
-     drawFanDLAnimated();
+       if (animateSpeed >= 360) {
+          animateSpeed = 0;
+       }
+
+       drawFanDLAnimated(animateSpeed+=5);
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(4);

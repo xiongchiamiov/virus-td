@@ -12,7 +12,9 @@ namespace vtd_dl{
   GLuint fanDL;
   GLuint shieldDL;
   GLuint turretDL;
+  GLuint turretBaseDL;
   GLuint trojanDL;
+  GLuint bearDL;
 };
 
 void drawLock()
@@ -1202,13 +1204,13 @@ void drawTeslaCoil() {
    return;
 }
 
-void drawFanDLAnimated() {
+void drawFanDLAnimated(int speed) {
    glPushMatrix();
    glCallList(vtd_dl::fanDL);
    glTranslatef(0.0, 0.0, -7.0);
-   animateCPUFan(4);
+   animateCPUFan(4, speed);
    glTranslatef(0.0, 0.0, 12.0);
-   animateCPUFan(4);
+   animateCPUFan(4, speed);
    glPopMatrix();
 }
 
@@ -1295,17 +1297,11 @@ void drawCPUFanBase() {
    glPopMatrix();
 }
 
-void animateCPUFan(int tesallation) {
-   int fanSpeed = 5;
-   static int bladesOne = 0, bladesTwo = 0;
-
+void animateCPUFan(int tesallation, int speed) {
    // Fan Blades
    glPushMatrix();
       /* animation */
-      if (bladesTwo >= 360) {
-         bladesTwo = 0;
-      }
-      glRotatef(bladesTwo+=fanSpeed, 0.0, 0.0, 1.0);
+      glRotatef(speed, 0.0, 0.0, 1.0);
 
       setMaterial(ShinyMetal);
       glTranslatef(0.0, 0.0, 1.0);
@@ -1432,6 +1428,15 @@ void drawShieldBase(int set) {
    return;
 }
 
+void drawTurretDLAnimated(int speed) {
+   glPushMatrix();
+      glCallList(vtd_dl::turretDL);
+      
+      glRotatef(speed, 0.0, 1.0, 0.0);
+      glCallList(vtd_dl::turretBaseDL);
+   glPopMatrix();
+}
+
 /* Used by drawMemBase */
 void drawMemStick() {
    glPushMatrix();
@@ -1520,7 +1525,7 @@ void drawTurret() {
       glutSolidCube(1.0);
    glPopMatrix();
    
-   drawMemBase();
+   //drawMemBase();
 }
 
 /* Used by drawTrojan */
@@ -1714,6 +1719,254 @@ void drawTrojan() {
    return;
 }
 
+void drawBearLeftArm() {
+   glPushMatrix();
+      // left arm
+      glTranslatef(-2.5, -3.0, 0.0);
+      glRotatef(-45, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(0.65, 1.8, 0.65);
+         glutSolidSphere(1.0, 10, 10);
+      glPopMatrix();
+
+      glTranslatef(0.5, -1.0, 1.0);
+      glRotatef(-55, 0.0, 1.0, 0.0);
+      glRotatef(-70, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(0.65, 1.5, 0.65);
+         glutSolidSphere(1.0, 10, 10);
+      glPopMatrix();
+   glPopMatrix();
+}
+
+void drawBearRightArm() {
+   glPushMatrix();
+      // right arm
+      glTranslatef(2.5, -3.0, 0.0);
+      glRotatef(45, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(0.65, 1.8, 0.65);
+         glutSolidSphere(1.0, 10, 10);
+      glPopMatrix();
+               
+      glTranslatef(-0.5, -1.0, 1.0);
+      glRotatef(55, 0.0, 1.0, 0.0);
+      glRotatef(70, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(0.65, 1.5, 0.65);
+         glutSolidSphere(1.0, 10, 10);
+      glPopMatrix();
+   glPopMatrix();
+}
+
+void drawBearLeftLeg() {
+   glPushMatrix();
+      // left leg
+      glTranslatef(-0.95, -6.0, 1.0);
+      glRotatef(75, 0.0, 1.0, 0.0);
+      glRotatef(-35, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(1.75, 4.0, 1.75);
+         glutSolidSphere(0.5, 20, 20);
+      glPopMatrix();
+
+      glTranslatef(1.25, -2.00, 0.0);
+      glRotatef(70, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(1.20, 3.0, 1.20);      
+         glutSolidSphere(0.5, 20, 20);
+      glPopMatrix();
+
+      glTranslatef(0.90, -1.70, 0.0);
+      glRotatef(-120, 0.0, 0.0, 1.0);
+      glTranslatef(0.0, -2.5, 0.0);
+      glPushMatrix();
+         glScaled(1.0, 6.5, 2.0);
+         glutSolidCube(0.5);
+      glPopMatrix();
+   glPopMatrix();
+}
+
+void drawBearRightLeg() {
+   glPushMatrix();
+      // right leg
+      glTranslatef(0.95, -6.0, 1.0);
+      glRotatef(105, 0.0, 1.0, 0.0);
+      glRotatef(-35, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(1.75, 4.0, 1.75);
+         glutSolidSphere(0.5, 20, 20);
+      glPopMatrix();
+      
+      glTranslatef(1.25, -2.00, 0.0);
+      glRotatef(70, 0.0, 0.0, 1.0);
+      glPushMatrix();
+         glScaled(1.20, 3.0, 1.20);      
+         glutSolidSphere(0.5, 20, 20);
+      glPopMatrix();
+
+      glTranslatef(0.90, -1.70, 0.0);
+      glRotatef(-120, 0.0, 0.0, 1.0);
+      glTranslatef(0.0, -2.5, 0.0);
+      glPushMatrix();
+         glScaled(1.0, 6.5, 2.0);
+         glutSolidCube(0.5);
+      glPopMatrix();
+   glPopMatrix();
+}
+
+
+void drawEar() {
+	glPushMatrix();
+      setMaterial(Brown);
+      glutSolidTorus(0.45, 2.0, 10, 20);
+      setMaterial(RedFlat);
+      gluDisk(gluNewQuadric(), 0.0, 2.0, 20, 1);
+      glRotatef(180.0, 1.0, 0.0, 0.0);
+      glTranslatef(0.0, 0.0, 0.01);
+      gluDisk(gluNewQuadric(), 0.0, 2.0, 20, 1);
+   glPopMatrix();
+   return;
+}
+
+void drawBearCore() {
+   glPushMatrix();
+      glPushMatrix();
+         // head
+         setMaterial(Brown);
+         glScaled(1.725, 1.45, 1.20);
+         glutSolidSphere(2, 20, 20);
+      glPopMatrix();
+      
+      glPushMatrix();
+         // eyes
+         setMaterial(Black);
+         glTranslatef(1.4, 0.0, 2.25);
+         glutSolidSphere(0.5, 10, 10);
+         glTranslatef(-2.8, 0.0, 0.0);
+         glutSolidSphere(0.5, 10, 10);
+      glPopMatrix();
+      
+      glPushMatrix();
+         // mouth
+         glTranslatef(0.0, -1.0, 2.5);
+         glPushMatrix();
+            glTranslatef(0.0, -0.15, 0.7);
+            glutSolidSphere(0.5, 10, 10);
+         glPopMatrix();
+         
+         glPushMatrix();
+            setMaterial(LightBrown);
+            glTranslatef(0.75, -0.25, 0.0);
+            glutSolidSphere(0.6, 10, 10);
+            glTranslatef(-1.5, 0.0, 0.0);
+            glutSolidSphere(0.6, 10, 10);
+         glPopMatrix();
+         
+         glPushMatrix();
+            glTranslatef(0.0, -1.0, -0.3);
+            glRotatef(-10, 1.0, 0.0, 0.0);
+            glScaled(0.35, 0.425, 0.35);
+            drawEar();
+         glPopMatrix();
+      glPopMatrix();
+      
+      glPushMatrix();
+         // Ears
+         glTranslatef(2.5, 2.0, 0.0);
+         glPushMatrix();
+            glScaled(0.45, 0.45, 0.45);
+            drawEar();
+         glPopMatrix();
+         glTranslatef(-5.0, 0.0, 0.0);
+         glPushMatrix();
+            glScaled(0.45, 0.45, 0.45);
+            drawEar();
+         glPopMatrix();
+      glPopMatrix();
+      
+      glPushMatrix();
+         // head hair
+         setMaterial(Brown);
+         glPushMatrix();
+            // right side
+            glRotatef(40, 0.0, 0.0, 1.0);
+            glRotatef(70, 1.0, 0.0, 0.0);
+            glTranslatef(0.0, 0.0, 2.25);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(10, 1.0, 1.0, 0.0);
+            glTranslatef(0.5, -0.25, 0.5);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(10, 1.0, 1.0, 0.0);
+            glTranslatef(0.5, -0.25, 0.3);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(10, 1.0, 1.0, 0.0);
+            glTranslatef(0.5, -0.25, 0.0);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(10, 1.0, 1.0, 0.0);
+            glTranslatef(0.5, -0.25, 0.0);
+            glutSolidCone(0.45, 1.3, 10, 10);
+         glPopMatrix();
+         
+         glPushMatrix();
+            // left side
+            glRotatef(-40, 0.0, 0.0, 1.0);
+            glRotatef(70, 1.0, 0.0, 0.0);
+            glTranslatef(0.0, 0.0, 2.25);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(-10, 0.0, 1.0, 0.0);
+            glRotatef(10, 1.0, 0.0, 0.0);
+            glTranslatef(-0.5, -0.25, 0.5);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(-10, 0.0, 1.0, 0.0);
+            glRotatef(10, 1.0, 0.0, 0.0);
+            glTranslatef(-0.5, -0.25, 0.5);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(-10, 0.0, 1.0, 0.0);
+            glRotatef(10, 1.0, 0.0, 0.0);
+            glTranslatef(-0.5, -0.25, 0.0);
+            glutSolidCone(0.45, 1.3, 10, 10);
+            glRotatef(-10, 0.0, 1.0, 0.0);
+            glRotatef(10, 1.0, 0.0, 0.0);
+            glTranslatef(-0.5, -0.25, 0.0);
+            glutSolidCone(0.45, 1.3, 10, 10);
+         glPopMatrix();
+      glPopMatrix();
+      
+      glPushMatrix();
+         // body
+         glTranslatef(0.0, -3.6, -0.2);
+         glScaled(0.95, 1.2, 0.95);
+         glutSolidSphere(2.5, 30, 30);
+      glPopMatrix();
+   glPopMatrix();
+}
+
+void drawBearDLAnimated(int rotation) {
+   glCallList(vtd_dl::bearDL);
+
+   // +
+   glPushMatrix();
+      glRotatef(rotation, 1.0, 0.0, 0.0);
+      drawBearLeftArm();
+   glPopMatrix();
+   // - 
+   glPushMatrix(); 
+      glRotatef(-rotation, 1.0, 0.0, 0.0);
+      drawBearRightArm();
+   glPopMatrix();
+   // - 
+   glPushMatrix();
+      glRotatef(-rotation, 1.0, 0.0, 0.0);
+      drawBearLeftLeg();
+   glPopMatrix();
+   // +
+   glPushMatrix();
+      glRotatef(rotation, 1.0, 0.0, 0.0);
+      drawBearRightLeg();
+   glPopMatrix();
+}
+
 using namespace vtd_dl;
 void composeDisplayLists(){
   lockDL = glGenLists(1);
@@ -1726,7 +1979,9 @@ void composeDisplayLists(){
   fanDL = glGenLists(1);
   shieldDL = glGenLists(1);
   turretDL = glGenLists(1);
+  turretBaseDL = glGenLists(1);
   trojanDL  = glGenLists(1);
+  bearDL = glGenLists(1);
 
   glNewList(lockDL, GL_COMPILE);
     drawLock();
@@ -1774,7 +2029,15 @@ void composeDisplayLists(){
     drawTurret();
   glEndList();
   
+  glNewList(turretBaseDL, GL_COMPILE);
+    drawMemBase();
+  glEndList();
+  
   glNewList(trojanDL, GL_COMPILE);
     drawTrojan();
+  glEndList();
+  
+  glNewList(bearDL, GL_COMPILE);
+    drawBearCore();
   glEndList();
 }

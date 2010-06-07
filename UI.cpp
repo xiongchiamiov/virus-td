@@ -444,11 +444,16 @@ void mouseMotion(int x, int y) {
         gluUnProject( x, viewport[1] + viewport[3] - y, 0.95, modelview, projection, viewport, &nearv[0], &nearv[1], &nearv[2]);
         gluUnProject( x, viewport[1] + viewport[3] - y, 0.976, modelview, projection, viewport, &farv[0], &farv[1], &farv[2]);
 
-//        GLfloat xt = (nearv[0] - z) / (nearv[0] - farv[0]);
-  //              yt = (nearv[1] - z) / (nearv[1] - farv[1]);
 
-            //    worldX = nearv[0] + (farv[0] - nearv[0]) * ((float)x / (float)GW),
-            //    worldZ = nearv[1] + (farv[1] - nearv[1]) * ((float)y / (float)GH);
+//cout << "nearv[0]: " << nearv[0] << "  nearv[1]: " << nearv[1] << "  nearv[2]: " << nearv[2] << endl;
+//cout << "farv[0]: " << farv[0] << "  farv[1]: " << farv[1] <<  "  farv[2]: " << farv[2] << endl;
+
+ //       GLfloat xt = (nearv[0] - z) / (nearv[0] - farv[0]);
+ //               yt = (nearv[1] - z) / (nearv[1] - farv[1]);
+
+                worldX = nearv[0] + (farv[0] - nearv[0]) * ((float)x / (float)GW),
+                worldZ = nearv[1] + (farv[1] - nearv[1]) * ((float)y / (float)GH);
+            
          float xTemp, yTemp;
          
          // everythign below reorients the screen so there is -0.5x to 0.5x and -0.5 y to 0.5y
