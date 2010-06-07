@@ -119,18 +119,18 @@ void GameGrid::initialize(bool enemy)
 	}
 	else
 	{
-		textures[0] = LoadTexture("grid_0b.bmp");
-		textures[1] = LoadTexture("grid_1b.bmp");
+		textures[0] = LoadMipMapTexture("grid_0b.bmp");
+		textures[1] = LoadMipMapTexture("grid_1b.bmp");
 		textures[2] = LoadTexture("grid_2b.bmp");
 		textures[3] = LoadTexture("grid_3b.bmp");
 		textures[4] = LoadTexture("grid_4b.bmp");
 		textures[5] = LoadTexture("grid_5b.bmp");
-		textures[6] = LoadTexture("grid_6b.bmp");
-		textures[7] = LoadTexture("grid_7b.bmp");
-		textures[8] = LoadTexture("grid_8b.bmp");
-		textures[9] = LoadTexture("grid_9b.bmp");
-		textures[10] = LoadTexture("grid_10b.bmp");
-		textures[11] = LoadTexture("grid_11b.bmp");
+		textures[6] = LoadMipMapTexture("grid_6b.bmp");
+		textures[7] = LoadMipMapTexture("grid_7b.bmp");
+		textures[8] = LoadMipMapTexture("grid_8b.bmp");
+		textures[9] = LoadMipMapTexture("grid_9b.bmp");
+		textures[10] = LoadMipMapTexture("grid_10b.bmp");
+		textures[11] = LoadMipMapTexture("grid_11b.bmp");
 	}
 	for(int j = 0; j < GRID_HEIGHT; ++j){
 			for(int i = 0; i < GRID_WIDTH; ++i){
