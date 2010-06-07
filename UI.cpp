@@ -22,6 +22,8 @@ int test = 0;
 GLuint panel_tex;
 GLuint button_tex[18];
 GLuint info_tex[10];
+bool towerSelected = false;
+Tower *towerSelect = NULL;
 
 Button::Button(int bNum, GLfloat bColor[3], GameObject * obj) {
 	buttonNumber = bNum;
@@ -95,6 +97,12 @@ void initializeUI()
 	info_tex[7] = LoadTexture("info_right.bmp");
 	info_tex[8] = LoadTexture("info_top.bmp");
 	info_tex[9] = LoadTexture("info_bottom.bmp");
+}
+
+void resetUI(void)
+{
+	towerSelected = false;
+	towerSelect = NULL;
 }
 
 int bin(int num){/* start bin */ 
@@ -471,10 +479,12 @@ void checkTowerClick(int x, int y) {
 	//p1.pGrid.draw(true,GL_SELECT);
 	std::list<Tower*> tList = p1.getTowerList();
 	std::list<Tower*>::iterator i; 
+	int id = 0;
 	for(i = tList.begin(); i != tList.end(); ++i){
 		if(!(*i)->isDead() && !p1.cull(*i)){
-			(*i)->draw(1,GL_SELECT);
+			(*i)->draw(id,GL_SELECT);
 		}
+		id++;
 	}
 	glPopMatrix();
 	int hits = stopPicking();

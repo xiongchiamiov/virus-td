@@ -25,6 +25,7 @@
 
 void initializeUI(void);
 void renderUI(int w, int h, Player* p, Player* opp, float time_left, GLuint mode);
+void resetUI(void);
 void mouseClick(int button, int state, int x, int y);
 void mouseMotion(int x, int y);
 void setOrthographicProjection(int w, int h);

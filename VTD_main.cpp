@@ -431,6 +431,7 @@ void keyboard(unsigned char key, int x, int y){
     case 'k': case 'K':
       p1.reset();
       opponent.reset();
+	  resetUI();
       gameOver = false;
       paused = false;
       break;
