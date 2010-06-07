@@ -49,7 +49,7 @@ void FreezeTower::draw(){
   }
 
   glTranslatef(x, y, z);
-     //glPushMatrix();
+     glPushMatrix();
      //    glPushMatrix();
      //       // Scale and orient animation to fit grid
      //       glTranslatef(0.0, 0.25, 0.0);
