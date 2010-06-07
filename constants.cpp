@@ -56,7 +56,7 @@ namespace unit_description {
    const char* STRONG = "This unit moves very slowly, but has\n a lot of HP. This unit is stronger\n than Torjan Horse.";
    const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP.";
    const char* STRONG3 = "This unit is a stronger, faster worm unit.";
-   const char* BOSS = "This is a boss unit. It is faster than normal units and extremely strong.";
+   const char* BOSS = "This is a boss unit. It is faster than normal\n units and extremely strong.";
 }
 
 namespace tower_cost{
@@ -146,6 +146,9 @@ int getObjectCost(int index) {
       case 3: return unit_cost::STRONG3;
          break;
          
+      case 0: return unit_cost::BOSS;
+         break;
+
 		default: return -1;
 			 break;
 	}
@@ -217,6 +220,9 @@ const char* getObjectName(int index) {
       case 3: return unit_name::STRONG3;
          break;
 
+      case 0: return unit_name::BOSS;
+         break;
+
 		default: return "Unnamed";
 			 break;
 	}
@@ -246,6 +252,9 @@ const char* getObjectDescription(int index) {
       case 4: return unit_description::STRONG2;
          break;
       case 3: return unit_description::STRONG3;
+         break;
+         
+      case 0: return unit_description::BOSS;
          break;
          
 		default: return "N/A";

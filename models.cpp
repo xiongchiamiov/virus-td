@@ -15,6 +15,7 @@ namespace vtd_dl{
   GLuint turretBaseDL;
   GLuint trojanDL;
   GLuint bearDL;
+  GLuint rootDL;
 };
 
 void drawLock()
@@ -1967,6 +1968,39 @@ void drawBearDLAnimated(int rotation) {
    glPopMatrix();
 }
 
+void drawRootDir() {
+   glPushMatrix();
+      glRotatef(-30, 1.0, 0.0, 0.0);
+      setMaterial(Yellow);
+      glPushMatrix();
+         glScaled(1.75, 1.5, 0.10);
+         glutSolidCube(2.0);
+      glPopMatrix();
+      
+      glPushMatrix();
+         glTranslatef(0.0, -0.25, 0.75);
+         glRotatef(30, 1.0, 0.0, 0.0);
+         glPushMatrix();
+            glScaled(1.75, 1.5, 0.10);
+            glutSolidCube(2.0);
+         glPopMatrix();
+
+         setMaterial(DarkGrey);
+         glTranslatef(0.0, 0.0, 0.2);
+         glRotatef(60, 0.0, 0.0, 1.0);
+         glScaled(1.6, 0.20, 0.10);
+         glutSolidCube(1.0);
+      glPopMatrix();
+
+      setMaterial(Yellow);
+      glPushMatrix();
+         glTranslatef(-1.0, 1.65, 0.0);
+         glScaled(1.1, 0.30, 0.10);
+         glutSolidCube(1.0);
+      glPopMatrix();
+   glPopMatrix();
+}
+
 using namespace vtd_dl;
 void composeDisplayLists(){
   lockDL = glGenLists(1);
@@ -1982,6 +2016,7 @@ void composeDisplayLists(){
   turretBaseDL = glGenLists(1);
   trojanDL  = glGenLists(1);
   bearDL = glGenLists(1);
+  rootDL = glGenLists(1);
 
   glNewList(lockDL, GL_COMPILE);
     drawLock();
@@ -2039,5 +2074,9 @@ void composeDisplayLists(){
   
   glNewList(bearDL, GL_COMPILE);
     drawBearCore();
+  glEndList();
+  
+  glNewList(rootDL, GL_COMPILE);
+    drawRootDir();
   glEndList();
 }

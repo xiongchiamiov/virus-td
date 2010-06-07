@@ -120,6 +120,22 @@ void display(){
 	  }
 	  glEnd();
 
+     // draw root directories
+     glPushMatrix();
+        glTranslatef(0.0, 2 * GRID_SIZE, 1.0 * GRID_HEIGHT * GRID_SIZE + (GRID_SIZE * 8));
+     
+        glPushMatrix(); 
+           glScalef(0.25, 0.25, 0.25);
+           glCallList(vtd_dl::rootDL);
+        glPopMatrix();
+     
+        glTranslatef(GRID_WIDTH * GRID_SIZE * 3, 0.0, 0.0);
+     
+        glPushMatrix(); 
+           glScalef(0.25, 0.25, 0.25);
+           glCallList(vtd_dl::rootDL);
+        glPopMatrix();
+     glPopMatrix();
 
 	  glPushMatrix();
 	  scene.draw();

@@ -13,6 +13,7 @@ namespace vtd_dl{
   extern GLuint turretDL;
   extern GLuint trojanDL;
   extern GLuint bearDL;
+  extern GLuint rootDL;
 };
 
 void drawLock();
@@ -48,5 +49,7 @@ void drawBearRightArm();
 void drawBearLeftLeg();
 void drawBearRightLeg();
 void drawBearDLAnimated(int rotation);
+
+void drawRootDir();
 
 void composeDisplayLists();

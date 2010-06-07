@@ -65,7 +65,7 @@ void initializeUI()
 {
 	panel_tex = LoadTexture("GUI.bmp");
    // Unit Icons
-	button_tex[0] = LoadTexture("Button.bmp");
+	button_tex[0] = LoadTexture("BossUnit.bmp");
 	button_tex[1] = LoadTexture("Button.bmp");
 	button_tex[2] = LoadTexture("Button.bmp");
 	button_tex[3] = LoadTexture("StrongUnit3.bmp");
