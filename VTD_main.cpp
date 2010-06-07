@@ -72,6 +72,10 @@ void place_lights()
 }
 
 void display(){
+	if(exitting) {
+		exit(0);
+		return;
+	}
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -456,6 +460,10 @@ void keyboard(unsigned char key, int x, int y){
 }
 
 void keyboardUp(unsigned char key, int x, int y){
+	if(exitting) {
+		exit(0);
+		return;
+	}
   controls::keyMap[key] = false;
 }
 
