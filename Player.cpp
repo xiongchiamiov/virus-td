@@ -2,6 +2,7 @@
 #include "GameSounds.h"
 namespace vtd_player{
   const int START_LIVES = 5;
+  const int START_INCOME = 10;
   const int START_RESOURCES = 15;//00000; /* originally 10, but 100000 for debug */
 }
 const int cleanup_dt = 500;
@@ -9,7 +10,7 @@ int last_cleanup = 0;
 
 using namespace vtd_player;
 Player::Player(void):
-lives(START_LIVES), resources(START_RESOURCES), income(10), uCooldown(0),
+lives(START_LIVES), resources(START_RESOURCES), income(START_INCOME), uCooldown(0),
 pGrid(GameGrid("maingrid.grid")), uai(pGrid, tList), opponent(this)
 {
 }
@@ -287,4 +288,17 @@ void Player::setOpponent(Player* newOpp){
   opponent->uai.setGrid(pGrid);
   this->uai.setTowers(opponent->tList);
   opponent->uai.setTowers(tList);
+}
+
+void Player::reset(){
+  lives = START_LIVES;
+  resources = START_RESOURCES;
+  income = START_INCOME;
+  uCooldown = 0;
+  uai.uList.clear();
+  Tower* tPtr;
+  while(!tList.empty()){
+    tPtr = tList.front();
+    destroyTower(tPtr->getGridX(), tPtr->getGridY());
+  }
 }

@@ -150,7 +150,7 @@ void display(){
   else
   {
 	  if(winner == COMPUTER_WIN)
-		drawBlueScreen();
+		  drawBlueScreen();
 	  else
 	    drawWinScreen();
   }
@@ -403,9 +403,11 @@ void update(int param){
 
 void keyboard(unsigned char key, int x, int y){
 	if(gameOver) {
-		if(key == 32) {
-			exitting = true;
-			exit(0);
+		if(key == 32) {    
+      p1.reset();
+      opponent.reset();
+      gameOver = false;
+      paused = false;
 		}
 	}
 	else
@@ -425,6 +427,12 @@ void keyboard(unsigned char key, int x, int y){
     case 'p': case 'P':
 		if(!gameOver)
 			paused = !paused;
+      break;
+    case 'k': case 'K':
+      p1.reset();
+      opponent.reset();
+      gameOver = false;
+      paused = false;
       break;
 	case 27:
 		exitting = true;

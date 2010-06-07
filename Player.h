@@ -49,10 +49,12 @@ public:
   int getIncome(void);
   int getResources(void);
   int getLives(void);
+  inline int getUnitCooldown(){return uCooldown;}
   MyVector getPosition(void);
   int calcResources();
   void setOpponent(Player* newOpp);
   inline void setPosition(float x, float y, float z){ pos.setPosition(x, y, z);}
   int resources;
   GameGrid pGrid;
+  void reset();
 };

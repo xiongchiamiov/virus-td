@@ -96,3 +96,15 @@ int PlayerAI::queue_more_units() {
 	}
 	return (int)((((((float)unitsToBuild.size()) / unitBunching) * 100) - 100) * -1);
 }
+
+void PlayerAI::reset(){
+  while(!towersToBuild.empty())
+    towersToBuild.pop();
+  towers = 0;
+	units = 0;
+	updates = 0;
+	desiredNumTowers = NULL;
+	unitsToBuildCost = 0;
+  unitBunching = 1;
+  player.reset();
+}
