@@ -104,6 +104,8 @@ void display(){
   place_lights();
   if(!gameOver)
   {
+	  glInitNames();
+
   	  glPushMatrix();
 	  p1.draw(placingTower);
 	  opponent.player.draw(false);

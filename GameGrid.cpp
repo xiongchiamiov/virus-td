@@ -380,6 +380,7 @@ void GameGrid::draw(bool isPlacing){
         //glColor3f(0.3, 0.7, 0.3);
      //   setMaterial(Exp);
         //setMaterial(Grid);
+		glPushName(i + (j*GRID_WIDTH));
 		if(grid[i][j] && !isPlacing) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, grid_texs[i][j]);
@@ -423,6 +424,7 @@ void GameGrid::draw(bool isPlacing){
 			}
 			glEnd();
 		}
+		glPopName();
 		
 		if(grid[i][j] && isPlacing){
         setMaterial(PlayerLine);
