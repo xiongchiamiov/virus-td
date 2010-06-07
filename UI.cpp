@@ -561,8 +561,8 @@ void startPicking(int cursorX, int cursorY, GLuint buffer[], int buffSize) {
 	glPushMatrix();
    	glMatrixMode(GL_PROJECTION);
    	glLoadIdentity();
-
-	   gluPickMatrix((GLdouble)cursorX, (GLdouble)viewport[3]-cursorY, 0.5, 0.5, viewport);
+      // 3 and 4th parameters define the pick ray granularity
+	   gluPickMatrix((GLdouble)cursorX, (GLdouble)viewport[3]-cursorY, 0.01, 0.01, viewport);
       gluPerspective(45.0, 1.0 * viewport[2] / viewport[3], 1.0, 100.0);
          
    	glMatrixMode(GL_MODELVIEW);
