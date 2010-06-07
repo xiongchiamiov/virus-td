@@ -21,7 +21,8 @@
 #include <vector>
 #include "textures.h"
 #include "Player.h"
- 
+#include "constants.h"
+
 void initializeUI(void);
 void renderUI(int w, int h, Player* p, Player* opp, float time_left, GLuint mode);
 void mouseClick(int button, int state, int x, int y);

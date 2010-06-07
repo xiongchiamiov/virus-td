@@ -1,5 +1,5 @@
 #pragma once
-#define VTD_SOUND
+//#define VTD_SOUND
 #ifdef VTD_SOUND
 #include "include/irrKlang.h"
 using namespace irrklang;

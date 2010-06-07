@@ -101,18 +101,16 @@ void display(){
   place_lights();
   if(!gameOver)
   {
-	  glInitNames();
-
   	  glPushMatrix();
-	  p1.draw(placingTower);
-	  opponent.player.draw(false);
+	  p1.draw(placingTower, GL_RENDER); // GL_RENDER for normal, GL_SELECT for picking.
+	  opponent.player.draw(false, GL_RENDER);
     //drawProjectiles();
 	  glPopMatrix();
 
 	  vfc::extractPlanes();
 	  glColor3f(0.8, 0.5, 0.3);
-	  float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE;
-	  float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
+	  float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE + (GRID_SIZE * 2);
+	  float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE + (GRID_SIZE * 2);
 	  setMaterial(Exp2);
 	  glBegin(GL_LINES);{
 		glVertex3f(lx, 0.0, lz);

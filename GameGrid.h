@@ -38,7 +38,7 @@ public:
   GameGrid(void);
   GameGrid(char  *filename);
   ~GameGrid(void);
-  void draw(bool isPlacing);
+  void draw(bool isPlacing, GLenum mode); // mode is used for picking
   void update(int dt);
   bool setTower(int x, int y);
   bool setUnit(int x, int y);

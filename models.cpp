@@ -406,7 +406,7 @@ void drawVirus()
 {
 	glPushMatrix();
 	int list[6] = {60,120,180,240,300,360};
-	float animate_virus = 0.25;
+   float animate_virus = 0.25;
 
 	setMaterial(GreenShiny);
 	glutSolidSphere(1.0, 12, 12);
@@ -455,7 +455,7 @@ void drawVirus()
 	//printf("animate virus = %f \n", animate_virus);
 	if((animate_virus + 0.01)<0.95)
 	{
-		animate_virus = animate_virus + 0.01;
+		animate_virus = animate_virus + 0.05;
 	}
 	else
 	{

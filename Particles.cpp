@@ -24,6 +24,7 @@ Particles::Particles(double partSize) {
    // variables above.
    reset();
 }
+
 Particles::~Particles(){
 }
 
@@ -245,9 +246,9 @@ void Particles::reset() {
       pos[i][1] = rand_non_uniform() * spread;
       pos[i][2] = rand_non_uniform() * spread;
    
-      vel[i][0] = rand_non_uniform() * speed; 
-      vel[i][1] = rand_non_uniform() * speed; 
-      vel[i][2] = rand_non_uniform() * speed; 
+      vel[i][0] = /*rand_non_uniform() * */ speed; 
+      vel[i][1] = /*rand_non_uniform() * */ speed; 
+      vel[i][2] = /*rand_non_uniform() * */ speed; 
       
       acc[i][0] = 0.0;
       acc[i][1] = 0.0;
@@ -292,9 +293,9 @@ void Particles::resetSingleParticle(int index) {
       pos[index][1] = rand_non_uniform() * spread;
       pos[index][2] = rand_non_uniform() * spread;
    
-      vel[index][0] = rand_non_uniform() * speed; 
-      vel[index][1] = rand_non_uniform() * speed; 
-      vel[index][2] = rand_non_uniform() * speed; 
+      vel[index][0] = /*rand_non_uniform() * */ speed; 
+      vel[index][1] = /*rand_non_uniform() * */ speed; 
+      vel[index][2] = /*rand_non_uniform() * */ speed; 
       
       acc[index][0] = 0.0;
       acc[index][1] = 0.0;

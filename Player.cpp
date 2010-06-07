@@ -235,10 +235,10 @@ void Player::destroyTower(int x, int y){
   uai.determineUnitsPaths();
 }
 
-void Player::draw(bool isPlacing){
+void Player::draw(bool isPlacing, GLenum mode){
   glPushMatrix();
   glTranslatef(pos.getX(), pos.getY(), pos.getZ());
-  pGrid.draw(isPlacing);
+  pGrid.draw(isPlacing, mode);
   projectiles.drawProjectiles();
   std::list<Tower*>::iterator i; 
   for(i = tList.begin(); i != tList.end(); ++i){

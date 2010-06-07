@@ -261,11 +261,13 @@ void drawMouseBox(bool click) {
       double xForm, yForm;
       glPushMatrix();
       setMaterial(Teal);
-      xForm = ((int)worldX + cam.getCamX() - newCam.getX());
-      yForm = ((int)worldZ + cam.getCamZ() - newCam.getZ() + 0.5);
+      xForm = (worldX );//+ cam.getCamX() - newCam.getX());
+      yForm = (worldZ );//+ cam.getCamZ() - newCam.getZ() + 0.5);
+
       // tly and tlx increment in 0.5 not 1
-      tlx = xForm * 2 + 7;
-      tly = ((int)worldZ + cam.getCamZ() - newCam.getZ()) * 2 + 16;
+      // tlx and tly are the actual draw line location
+      tlx = xForm * 2 + 7; // weird offset
+      tly = yForm/*((int)worldZ + cam.getCamZ() - newCam.getZ())*/ * 2 + 15;
       ulx = tlx;
       uly = tly;
       glTranslatef(xForm, (int)worldY, yForm);
@@ -388,17 +390,23 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 void mouseClick(int button, int state, int x, int y) {
   int click = determineClickedButton(x, GH - y);
   if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-    //  int BUFSIZE = 512;
-    //   GLuint selectBuf[BUFSIZE];
+  
+  #if 0 // example picking code here
+     int BUFSIZE = 2048;
+     GLuint selectBuf[BUFSIZE];
 
-    /* gl selection code */
-    //   startPicking(x, y, selectBuf, BUFSIZE);
-    //   gluLookAt(camera.getX(), camera.getY(), camera.getZ(), 
-    //         camera.getI(), camera.getJ(), camera.getK(),
-    //          0.0, 1.0, 0.0);
-    //    renderUI(GW, GH, GL_SELECT);
-    //    stopPicking(selectBuf);
+     /* gl selection code */
+     startPicking(x, y, selectBuf, BUFSIZE);
 
+     gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
+      cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
+       0.0, 1.0, 0.0);
+     
+     // FIX: for some reason cant do p1.pGrid.draw(true, GL_SELECT);
+     p1.draw(true, GL_SELECT); // GL_RENDER for normal, GL_SELECT for picking.
+     stopPicking(selectBuf);
+  #endif
+  
     /* !!!!!! remember to invert y with (GH - y) so that it is on the bottom instead of the top */
     fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
 
@@ -442,6 +450,8 @@ void mouseMotion(int x, int y) {
    mx = x;
    my = GH - y;
    if (clicked) {
+#if 0
+   // Mouse clicking using gluUnProject
 	     GLint viewport[4]; //var to hold the viewport info
         GLdouble modelview[16]; //var to hold the modelview info
         GLdouble projection[16]; //var to hold the projection matrix info
@@ -502,6 +512,23 @@ void mouseMotion(int x, int y) {
 
             worldY = 0;
    //    fprintf(stderr, "xTemp: %f yTemp: %f   %.2lf, %.2lf\n", xTemp, yTemp, worldX, worldZ);
+#endif 
+
+      // PICKING 
+     int BUFSIZE = 512;
+     GLuint selectBuf[BUFSIZE];
+
+     /* gl selection code */
+     startPicking(x, y, selectBuf, BUFSIZE);
+
+     gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
+      cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
+       0.0, 1.0, 0.0);
+     
+     // FIX: for some reason cant do p1.pGrid.draw(true, GL_SELECT);
+     p1.draw(true, GL_SELECT); // GL_RENDER for normal, GL_SELECT for picking.
+     stopPicking(selectBuf);
+
    }
 
    int btn = determineClickedButton(x,GH- y);
@@ -532,31 +559,32 @@ void startPicking(int cursorX, int cursorY, GLuint buffer[], int buffSize) {
    glPushName(0);
 
 	glPushMatrix();
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+   	glMatrixMode(GL_PROJECTION);
+   	glLoadIdentity();
 
-	gluPickMatrix((GLdouble)cursorX, (GLdouble)viewport[3]-cursorY, 0.5, 0.5, viewport);
-   gluPerspective(45.0, 1.0 * viewport[2] / viewport[3], 1.0, 100.0);
-
-	glMatrixMode(GL_MODELVIEW);
-   glLoadIdentity();
+	   gluPickMatrix((GLdouble)cursorX, (GLdouble)viewport[3]-cursorY, 0.5, 0.5, viewport);
+      gluPerspective(45.0, 1.0 * viewport[2] / viewport[3], 1.0, 100.0);
+         
+   	glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
 }
 
 void stopPicking(GLuint buffer[]) {
 	int hits;
 	GLint viewport[4];
 
-	glGetIntegerv(GL_VIEWPORT,viewport);
+	   glGetIntegerv(GL_VIEWPORT,viewport);
 	// restoring the original projection matrix
-   glPopMatrix();
-	glFlush();
+      glPopMatrix();
+   glFlush();
 	// returning to normal rendering mode
-	hits = glRenderMode(GL_RENDER);
+   hits = glRenderMode(GL_RENDER);
 	// if there are hits process them
    processHits(hits, buffer);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
    gluPerspective(45.0, 1.0 * viewport[2] / viewport[3], 1.0, 100.0);
+
 }
 
 void processHits(GLint hits, GLuint buffer[])
@@ -569,7 +597,14 @@ void processHits(GLint hits, GLuint buffer[])
    
 
    printf("hits = %d\n", hits);
-   if(hits==0) printf("You have not selected any object.\n");
+   if(hits==0) {
+      printf("You have not selected any object.\n");
+      // if the grid uses -INT_MAX this value must be changed
+      worldX = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
+      worldZ = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
+      worldY = 10; // invalid location draws tower at a location higher than camera limit
+   }
+
    ptr = (GLuint *) buffer;
    for(i=0; i<hits; i++) {
       ptr++;
@@ -585,7 +620,22 @@ void processHits(GLint hits, GLuint buffer[])
       ptr++;
 
       if(ptr) {
-         printf("You have picked the %d.\n", *ptr);
+     //    printf("You have picked the %d.\n", *ptr);
+         cout << "x: " << (*ptr % GRID_WIDTH * GRID_SIZE * 2) << " y: " << (*ptr / GRID_WIDTH * GRID_SIZE * 2) << endl;
+         worldX = ((*ptr % GRID_WIDTH) * (GRID_SIZE * 2) - ((GRID_WIDTH / 2) * (GRID_SIZE * 2)));
+         worldZ = ((*ptr / GRID_WIDTH) * (GRID_SIZE * 2) - ((GRID_HEIGHT / 2) * (GRID_SIZE * 2)));
+         worldY = 0;
+      } else {
+         worldX = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
+         worldZ = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
+         worldY = 10; // invalid location draws tower at a location higher than camera limit
+      }
+       
+      // draw at a set location when tower placing is at an incorrect location
+      if (*ptr >= GRID_HEIGHT * GRID_WIDTH) {
+         worldX = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
+         worldZ = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
+         worldY = 10; // invalid location draws tower at a location higher than camera limit
       }
       
       ptr++;

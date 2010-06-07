@@ -43,7 +43,7 @@ public:
   void changeTowerMode(int x, int y, target_mode mode);
   void destroyTower(int x, int y);
   void moveUnits(float dt);
-  void draw(bool isPlacing);
+  void draw(bool isPlacing, GLenum mode); // mode is used for picking
   bool cull(GameObject* obj);
   void update(int dt);
   int getIncome(void);

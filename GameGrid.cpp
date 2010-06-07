@@ -360,7 +360,8 @@ void FractalSet::draw()
 	glPopMatrix();
 }
 
-void GameGrid::draw(bool isPlacing){
+/* mode is used for picking */
+void GameGrid::draw(bool isPlacing, GLenum mode){
   glPushMatrix();
   glNormal3f(0.0, 1.0, 0.0);
   float posX = 0.0;
@@ -380,7 +381,12 @@ void GameGrid::draw(bool isPlacing){
         //glColor3f(0.3, 0.7, 0.3);
      //   setMaterial(Exp);
         //setMaterial(Grid);
-		glPushName(i + (j*GRID_WIDTH));
+        
+      // picking
+      if (mode == GL_SELECT) {
+         glLoadName(i + (j*GRID_WIDTH));
+      }
+
 		if(grid[i][j] && !isPlacing) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, grid_texs[i][j]);
@@ -424,9 +430,16 @@ void GameGrid::draw(bool isPlacing){
 			}
 			glEnd();
 		}
-		glPopName();
-		
+
 		if(grid[i][j] && isPlacing){
+         // This is used for picking. INT_MAX is just random interger not
+         // returned by the hit buffer (GRID_WIDTH * GRID_HEIGHT)
+         // anything drawn here under GL_SELECT mode gets some bogus
+         // picking ID so it dosen't interfere with legitimate grids.
+         if (mode == GL_SELECT) {
+            glLoadName(INT_MAX); 
+         }
+
         setMaterial(PlayerLine);
         glBegin(GL_LINE_LOOP);{
 			glVertex3f(posX - GRID_SIZE, 0.001, posZ - GRID_SIZE);
