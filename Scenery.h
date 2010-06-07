@@ -19,6 +19,9 @@ extern const float SCENE_UNIT_HEIGHT;
 struct SceneryGrid {
 	GLfloat tl,tr,bl,br;
 	GLfloat norm[3];
+	GLfloat norm2[3];
+	int corner;
+	GLuint texture;
 	bool isGameplayGrid;
 };
 
@@ -27,10 +30,12 @@ public:
 	Scenery(char *filename, Player *plyr);
 	~Scenery(void);
 	void draw(void);
+	void initialize(void);
 private:
 	vector<vector<SceneryGrid> > grids;
 	void normalize(float v[3]);
 	void normCrossProd(float v1[3], float v2[3], float out[3]);
 	int game_grid_index[2];
 	Player *player;
+	GLuint textures[4];
 };

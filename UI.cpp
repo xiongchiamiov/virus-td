@@ -515,7 +515,7 @@ void mouseMotion(int x, int y) {
 #endif 
 
       // PICKING 
-     int BUFSIZE = 512;
+     const int BUFSIZE = 512;
      GLuint selectBuf[BUFSIZE];
 
      /* gl selection code */

@@ -534,6 +534,7 @@ int main(int argc, char** argv){
   winTexture = LoadTexture("Win.bmp");
   p1.pGrid.initialize(false);
   opponent.player.pGrid.initialize(true);
+  scene.initialize();
 
   glutMainLoop();
 }

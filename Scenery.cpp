@@ -81,7 +81,7 @@ player(plyr)
 						//   |
 						//   v
 						v2[0] = 0.0;
-						v2[1] = 0.0;
+						v2[1] = grids[i][j].tl - grids[i][j].bl;
 						v2[2] = -1.0;
 						normCrossProd(v1,v2,n);
 						grids[i][j].norm[0] = n[0];
@@ -114,6 +114,30 @@ player(plyr)
 
 Scenery::~Scenery()
 {
+}
+
+void Scenery::initialize(void)
+{
+	textures[0] = LoadMipMapTexture("scene_grid0.bmp");
+	textures[1] = LoadMipMapTexture("scene_grid1.bmp");
+	GLfloat up[] = {0.0,1.0,0.0};
+	for(int j = 0; j < (int)grids[0].size(); ++j)
+	{
+		for(int i = 0; i < (int)grids.size(); ++i)
+		{
+			GLfloat n[3];
+			n[0] = grids[i][j].norm[0];
+			n[1] = grids[i][j].norm[1];
+			n[2] = grids[i][j].norm[2];
+			float dot = grids[i][j].norm[1];//up[0] * grids[i][j].norm[0] + up[1] * grids[i][j].norm[1] + up[2] * grids[i][j].norm[2];
+			grids[i][j].texture = textures[1];
+			/*if(dot < 0.2 && dot > -0.2) {
+				grids[i][j].texture = textures[1];
+			}
+			else
+				grids[i][j].texture = textures[0];*/
+		}
+	}
 }
 
 void Scenery::normalize(float v[3]) {
@@ -164,27 +188,41 @@ void Scenery::draw()
 		for(int i = 0; i < (int)grids.size(); ++i) {
 			if(!grids[i][j].isGameplayGrid) {
 				world_pos[1] = grids[i][j].bl;
-				if(vfc::viewFrustumCull(vfc::planes,world_pos,2*SCENE_GRID_WIDTH))
+				/*GLfloat n[3];
+				n[0] = grids[i][j].norm[0];
+				n[1] = grids[i][j].norm[1];
+				n[2] = grids[i][j].norm[2];*/
+				if(vfc::viewFrustumCull(vfc::planes,world_pos,3*SCENE_GRID_WIDTH))
 				{
-				glNormal3f(grids[i][j].norm[0], grids[i][j].norm[1], grids[i][j].norm[2]);
-				setMaterial(SceneGrid);
-				glBegin(GL_QUADS);
-				glVertex3f(0.0,grids[i][j].tl,0.0);
-				glVertex3f(0.0,grids[i][j].bl,SCENE_GRID_HEIGHT);
-				glVertex3f(SCENE_GRID_WIDTH,grids[i][j].br,SCENE_GRID_HEIGHT);
-				glVertex3f(SCENE_GRID_WIDTH,grids[i][j].tr, 0.0);
-				glEnd();
+					glEnable(GL_TEXTURE_2D);
+					glBindTexture(GL_TEXTURE_2D, grids[i][j].texture);
+					glNormal3f(grids[i][j].norm[0], grids[i][j].norm[1], grids[i][j].norm[2]);
+					//setMaterial(SceneGrid);
+					setMaterial(TexturedPlayerGrid);
+					glBegin(GL_QUADS);
 
-				setMaterial(SceneLines);
-				glPushMatrix();
-				glTranslatef(0.0,0.01,0.0);
-				glBegin(GL_LINE_LOOP);
+					glTexCoord2f(0.0,0.0);
 					glVertex3f(0.0,grids[i][j].tl,0.0);
+					glTexCoord2f(0.0,1.0);
 					glVertex3f(0.0,grids[i][j].bl,SCENE_GRID_HEIGHT);
+					glTexCoord2f(1.0,1.0);
 					glVertex3f(SCENE_GRID_WIDTH,grids[i][j].br,SCENE_GRID_HEIGHT);
+					glTexCoord2f(1.0,0.0);
 					glVertex3f(SCENE_GRID_WIDTH,grids[i][j].tr, 0.0);
-				glEnd();
-				glPopMatrix();
+
+					glEnd();
+					glDisable(GL_TEXTURE_2D);
+
+					/*setMaterial(SceneLines);
+					glPushMatrix();
+					glTranslatef(0.0,0.01,0.0);
+					glBegin(GL_LINE_LOOP);
+						glVertex3f(0.0,grids[i][j].tl,0.0);
+						glVertex3f(0.0,grids[i][j].bl,SCENE_GRID_HEIGHT);
+						glVertex3f(SCENE_GRID_WIDTH,grids[i][j].br,SCENE_GRID_HEIGHT);
+						glVertex3f(SCENE_GRID_WIDTH,grids[i][j].tr, 0.0);
+					glEnd();
+					glPopMatrix();*/
 				}
 			}
 			glTranslatef(SCENE_GRID_WIDTH,0.0,0.0);
@@ -195,6 +233,9 @@ void Scenery::draw()
 		world_pos[2] += SCENE_GRID_HEIGHT;
 	}
 	glPopMatrix();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 	//Draw the 4 outskirts
 	glTranslatef(0.0,0.0,-GRID_SIZE - game_grid_index[1] * SCENE_GRID_HEIGHT);
 	glTranslatef(-GRID_SIZE - game_grid_index[0] * SCENE_GRID_WIDTH,0.0,0.0);

@@ -183,11 +183,17 @@ materialStruct SceneLines = {
   {120.0}
 };
 
-materialStruct SceneGrid = {
+/*materialStruct SceneGrid = {
   {0.01, 0.01, 0.01, 1.0},
   {0.25, 0.25, 0.25, 1.0},
   {0.6, 0.6, 0.6, 1.0},
   {120.0}
+};*/
+materialStruct SceneGrid = {
+  {0.1, 0.1, 0.1, 1.0}, 
+  {1.0, 1.0, 1.0, 1.0},
+  {1.0, 1.0, 1.0, 1.0},
+  {10.0}
 };
 
 //sets up a specific material
