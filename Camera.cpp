@@ -1,6 +1,6 @@
 #include "Camera.h"
 namespace vtd_cam{
-  const float CAM_SPD = 0.15;
+  const float CAM_SPD = 0.25;
   const float ROT_SPD = 0.15;
   const float ZOOM_SPD = 0.01;
 }
@@ -26,23 +26,23 @@ Camera::~Camera(void)
 }
 
 void Camera::moveForward(){
-  cam.setPosition(cam.getX() + CAM_SPD*w.getI(),
-                  cam.getY() + CAM_SPD*w.getJ(),
-                  cam.getZ() + CAM_SPD*w.getK());
+	  cam.setPosition(cam.getX() + CAM_SPD*w.getI(),
+					  cam.getY() + CAM_SPD*w.getJ(),
+					  cam.getZ() + CAM_SPD*w.getK());
   setListenerPos();
 }
 
 void Camera::moveBackward(){
-  cam.setPosition(cam.getX() - CAM_SPD*w.getI(),
-                  cam.getY() - CAM_SPD*w.getJ(),
-                  cam.getZ() - CAM_SPD*w.getK());
+	  cam.setPosition(cam.getX() - CAM_SPD*w.getI(),
+					  cam.getY() - CAM_SPD*w.getJ(),
+					  cam.getZ() - CAM_SPD*w.getK());
   setListenerPos();
 }
 
 void Camera::moveLeft(){
-  cam.setPosition(cam.getX() + CAM_SPD*u.getI(),
-                  cam.getY() + CAM_SPD*u.getJ(),
-                  cam.getZ() + CAM_SPD*u.getK());
+	  cam.setPosition(cam.getX() + CAM_SPD*u.getI(),
+					  cam.getY() + CAM_SPD*u.getJ(),
+					  cam.getZ() + CAM_SPD*u.getK());
   setListenerPos();
 }
 

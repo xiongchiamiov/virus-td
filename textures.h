@@ -35,3 +35,4 @@ typedef struct RGB {
 int ImageLoad(char *filename, Image *image);
 GLuint LoadTexture(char* image_file);
 GLuint LoadMipMapTexture(char *image_file);
+GLuint LoadRepeatMipMapTexture(char *image_file);
