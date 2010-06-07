@@ -1,7 +1,7 @@
 #pragma once
-//#define VTD_SOUND
+#define VTD_SOUND
 #ifdef VTD_SOUND
-#include "irrKlang.h"
+#include "include/irrKlang.h"
 using namespace irrklang;
 #endif
 #include "MyVector.h"

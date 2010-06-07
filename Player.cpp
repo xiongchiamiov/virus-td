@@ -2,7 +2,7 @@
 #include "GameSounds.h"
 namespace vtd_player{
   const int START_LIVES = 5;
-  const int START_RESOURCES = 1500000;//00000; /* originally 10, but 100000 for debug */
+  const int START_RESOURCES = 15;//00000; /* originally 10, but 100000 for debug */
 }
 const int cleanup_dt = 500;
 int last_cleanup = 0;
@@ -64,6 +64,7 @@ ReturnCode Player::placeTower(int x, int y, int towerID){
                         : SUCCESS;
   if (returnCode == SUCCESS) {
     nTower->setEnemyUnitList(opponent->uai.uList);
+    nTower->setProjectileManager(&projectiles);
     tList.push_back(nTower);
     pGrid.setTowerGrid(x, y, nTower);
     resources -= cost;
@@ -133,6 +134,7 @@ void Player::update(int dt){
     uCooldown -= dt;
   }
   pGrid.update(dt);
+  projectiles.stepProjectiles(dt);
   std::list<Unit*>::iterator i;
   std::list<Tower*>::iterator t;
   for(t = tList.begin(); t != tList.end(); ++t){
@@ -237,6 +239,7 @@ void Player::draw(bool isPlacing){
   glPushMatrix();
   glTranslatef(pos.getX(), pos.getY(), pos.getZ());
   pGrid.draw(isPlacing);
+  projectiles.drawProjectiles();
   std::list<Tower*>::iterator i; 
   for(i = tList.begin(); i != tList.end(); ++i){
     if(!(*i)->isDead() && !cull(*i)){

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameGrid.h"
+#include "Projectile.h"
 #include "Tower.h"
 #include "BasicTower.h"
 #include "FreezeTower.h"
@@ -32,6 +33,7 @@ class Player
   std::stack<GameObject*> delStack;
   Player* opponent;
   MyVector pos;
+  ProjectileManager projectiles;
 public:
   Player(void);
   ~Player(void);

@@ -81,9 +81,6 @@ void display(){
   glLoadIdentity();
 	glClearColor(0.0f,0.0f,0.0f,0.0f);	// Black Background
   glPushMatrix();
-  //gluLookAt(camera.getX(), camera.getY(), camera.getZ(), 
-            //camera.getI(), camera.getJ(), camera.getK(),
-            //0.0, 1.0, 0.0);
   gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
     cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
     0.0, 1.0, 0.0);
@@ -109,7 +106,7 @@ void display(){
   	  glPushMatrix();
 	  p1.draw(placingTower);
 	  opponent.player.draw(false);
-    drawProjectiles();
+    //drawProjectiles();
 	  glPopMatrix();
 
 	  vfc::extractPlanes();
@@ -372,7 +369,7 @@ void update(int param){
     }
     p1.update(dt);
     opponent.update(dt);
-    stepProjectiles(dt);
+    //stepProjectiles(dt);
 
 	if(p1.getLives() <= 0) {
 		paused = true;
@@ -400,52 +397,15 @@ void keyboard(unsigned char key, int x, int y){
 	else
 	{
   switch(key){
-  //  case 'w': case 'W':
-  //    camera.setVector(camera.getI() + GRID_SIZE*2.0*w.getI(),
-  //                     camera.getJ() + GRID_SIZE*2.0*w.getJ(),
-  //                     camera.getK() + GRID_SIZE*2.0*w.getK());
-  //    camera.setPosition(camera.getX() + GRID_SIZE*2.0*w.getI(),
-  //                       camera.getY() + GRID_SIZE*2.0*w.getJ(),
-  //                       camera.getZ() + GRID_SIZE*2.0*w.getK());
-  //    break;
-  //  case 'a': case 'A':
-  //    camera.setVector(camera.getI() + GRID_SIZE*2.0*u.getI(),
-  //                     camera.getJ() + GRID_SIZE*2.0*u.getJ(),
-  //                     camera.getK() + GRID_SIZE*2.0*u.getK());
-  //    camera.setPosition(camera.getX() + GRID_SIZE*2.0*u.getI(),
-  //                       camera.getY() + GRID_SIZE*2.0*u.getJ(),
-  //                       camera.getZ() + GRID_SIZE*2.0*u.getK());
-  //    break;
-  //  case 's': case 'S':
-  //    camera.setVector(camera.getI() - GRID_SIZE*2.0*w.getI(),
-  //                     camera.getJ() - GRID_SIZE*2.0*w.getJ(),
-  //                     camera.getK() - GRID_SIZE*2.0*w.getK());
-  //    camera.setPosition(camera.getX() - GRID_SIZE*2.0*w.getI(),
-  //                       camera.getY() - GRID_SIZE*2.0*w.getJ(),
-  //                       camera.getZ() - GRID_SIZE*2.0*w.getK());
-  //    break;
-  //  case 'd': case 'D':
-  //    camera.setVector(camera.getI() - GRID_SIZE*2.0*u.getI(),
-  //                     camera.getJ() - GRID_SIZE*2.0*u.getJ(),
-  //                     camera.getK() - GRID_SIZE*2.0*u.getK());
-  //    camera.setPosition(camera.getX() - GRID_SIZE*2.0*u.getI(),
-  //                       camera.getY() - GRID_SIZE*2.0*u.getJ(),
-  //                       camera.getZ() - GRID_SIZE*2.0*u.getK());
-  //    break;
     case 'l': case 'L':
       for(int i = 0; i < GRID_WIDTH; i+=2){
         p1.placeTower(i, GRID_HEIGHT/2, 12);
       }
       break;
     case 't': case 'T':
-      /*if(testGrid.setTower(tlx, tly)){
-        towers.push_back(g_elem(tlx, tly));
-      }*/
       p1.placeTower(tlx, tly, 16);
-      //std::cout << towers.size() << std::endl;
       break;
     case 'r': case 'R':
-      //testGrid.removeTower(tlx, tly, towers);
       p1.destroyTower(tlx, tly);
       break;
     case 'p': case 'P':

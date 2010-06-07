@@ -5,6 +5,7 @@
 #include "constants.h"
 #include <list>
 #include "Particles.h"
+#include "Projectile.h"
 
 enum tower_t{
   T_BASIC,
@@ -29,6 +30,7 @@ protected:
   TowerAI ai;    //This tower's AI object
   Particles * weapon;// Particle
   char* sound;
+  ProjectileManager* projectiles;
   int animateSpeed; // animation speed
   //shadow * the_shadow;
 public:
@@ -44,6 +46,7 @@ public:
   bool operator==(const Tower& other);
   bool operator==(const g_elem& other);
   inline void setEnemyUnitList(std::list<Unit*> &enUList){ ai.targetList = &enUList;}
+  inline void setProjectileManager(ProjectileManager* proj){ projectiles = proj;}
   virtual void step(int dt);
   virtual bool upgrade() = 0;
   int getKill();

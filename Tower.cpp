@@ -1,6 +1,6 @@
 #include "Tower.h"
 #include "GameSounds.h"
-#include "Projectile.h"
+
 
 Tower::Tower(float inx, float iny, float inz, int gx, int gy):
 GameObject(inx, iny, inz), grid_x(gx), grid_y(gy), ai(x, y, z)
@@ -31,7 +31,7 @@ void Tower::step(int dt){
   if(ai.atk_dt < ai.last_atk){
     if(shoot()){
       ai.last_atk = 0;
-      //addProjectile(0.3, ai.target, x, y, z);
+      projectiles->addProjectile(weapon, ai.target, x, y, z);
     }
   }
 }
