@@ -26,9 +26,10 @@ void Projectile::draw(){
 }
 
 void Projectile::step(int dt){
-  if(target != NULL && (target->isDead()) || ( (target->getX() >=  pos.getX() - SPD && target->getX() <= pos.getX() + SPD) 
-                                           && (target->getY() >=  pos.getY() - SPD && target->getY() <= pos.getY() + SPD)
-                                           && (target->getZ() >=  pos.getZ() - SPD && target->getZ() <= pos.getZ() + SPD))){
+  if(target != NULL && (target->isDead() || (target->getX() >=  pos.getX() - SPD && target->getX() <= pos.getX() + SPD) 
+                                         && (target->getY() >=  pos.getY() - SPD && target->getY() <= pos.getY() + SPD)
+                                         && (target->getZ() >=  pos.getZ() - SPD && target->getZ() <= pos.getZ() + SPD)
+                                         || target->foundGoal)){
 
     this->done = true;
   } else if(target != NULL){
