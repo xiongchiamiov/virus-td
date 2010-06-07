@@ -6,7 +6,7 @@ class FastTower : public Tower {
    public:
       FastTower(float inx, float iny, float inz, int gx, int gy);
       ~FastTower(void);
-      void draw();
+      void draw(GLuint id, GLenum mode);
       void step(float dt);
      bool upgrade();
 };

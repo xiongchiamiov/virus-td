@@ -7,7 +7,7 @@ class WallTower : public Tower {
    public:
       WallTower(float inx, float iny, float inz, int gx, int gy);
       ~WallTower(void);
-      void draw();
+      void draw(GLuint id, GLenum mode);
       void step(float dt);
       bool upgrade();
 };

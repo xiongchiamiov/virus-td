@@ -102,8 +102,8 @@ void display(){
   if(!gameOver)
   {
   	  glPushMatrix();
-	  p1.draw(placingTower, GL_RENDER); // GL_RENDER for normal, GL_SELECT for picking.
-	  opponent.player.draw(false, GL_RENDER);
+	  p1.draw(placingTower); // GL_RENDER for normal, GL_SELECT for picking.
+	  opponent.player.draw(false);
     //drawProjectiles();
 	  glPopMatrix();
 

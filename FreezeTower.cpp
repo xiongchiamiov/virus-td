@@ -38,7 +38,7 @@ FreezeTower::~FreezeTower(void)
   delete weapon;
 }
 
-void FreezeTower::draw(){
+void FreezeTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
   setMaterial(Yellow);
   if(ai.hasTarget){

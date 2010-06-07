@@ -11,6 +11,12 @@ GameObject(inx, iny, inz), grid_x(gx), grid_y(gy), ai(x, y, z)
 Tower::~Tower(void)
 {
 }
+
+void Tower::draw(void)
+{
+	this->draw(-1,GL_RENDER);
+}
+
 bool Tower::shoot(){
   bool ret = ai.shoot();
   if(ret){

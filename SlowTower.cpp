@@ -37,7 +37,7 @@ SlowTower::~SlowTower(void)
   delete weapon;
 }
 
-void SlowTower::draw(){
+void SlowTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
   setMaterial(Yellow);
   if(ai.hasTarget){

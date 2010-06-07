@@ -43,12 +43,13 @@ public:
   void changeTowerMode(int x, int y, target_mode mode);
   void destroyTower(int x, int y);
   void moveUnits(float dt);
-  void draw(bool isPlacing, GLenum mode); // mode is used for picking
+  void draw(bool isPlacing); // mode is used for picking
   bool cull(GameObject* obj);
   void update(int dt);
   int getIncome(void);
   int getResources(void);
   int getLives(void);
+  std::list<Tower*> getTowerList(void);
   inline int getUnitCooldown(){return uCooldown;}
   MyVector getPosition(void);
   int calcResources();

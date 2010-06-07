@@ -49,6 +49,8 @@ public:
   inline void setProjectileManager(ProjectileManager* proj){ projectiles = proj;}
   virtual void step(int dt);
   virtual bool upgrade() = 0;
+  void draw(void);
+  virtual void draw(GLuint id, GLenum mode) = 0;
   int getKill();
   inline float getRange(){return ai.range;}
   inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}

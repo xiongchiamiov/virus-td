@@ -42,7 +42,7 @@ FastTower::~FastTower(void)
   delete weapon;
 }
 
-void FastTower::draw(){
+void FastTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
   setMaterial(Yellow);
   if(ai.hasTarget){

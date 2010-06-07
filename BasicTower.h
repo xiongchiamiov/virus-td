@@ -8,7 +8,7 @@ class BasicTower :
 public:
   BasicTower(float inx, float iny, float inz, int gx, int gy);
   ~BasicTower(void);
-  void draw();
+  void draw(GLuint id, GLenum mode);
   void step(float dt);
   bool upgrade();
 };

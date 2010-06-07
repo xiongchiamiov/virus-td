@@ -38,7 +38,7 @@ WallTower::~WallTower(void)
 {
 }
 
-void WallTower::draw(){
+void WallTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
   setMaterial(Yellow);
   if(ai.hasTarget){

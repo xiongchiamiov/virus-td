@@ -47,7 +47,7 @@ namespace unit_name {
    const char* STRONG = "Fork Bomb Unit";
    const char* STRONG2 = "Trojan Horse Unit";
    const char* STRONG3 = "Lock Unit";
-   const char* BOSS = "Pedobear Unit";
+   const char* BOSS = "Ultimate Unit";
 }
 
 namespace unit_description {

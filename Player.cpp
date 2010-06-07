@@ -236,10 +236,10 @@ void Player::destroyTower(int x, int y){
   uai.determineUnitsPaths();
 }
 
-void Player::draw(bool isPlacing, GLenum mode){
+void Player::draw(bool isPlacing){
   glPushMatrix();
   glTranslatef(pos.getX(), pos.getY(), pos.getZ());
-  pGrid.draw(isPlacing, mode);
+  pGrid.draw(isPlacing, GL_RENDER);
   projectiles.drawProjectiles();
   std::list<Tower*>::iterator i; 
   for(i = tList.begin(); i != tList.end(); ++i){
@@ -254,6 +254,11 @@ void Player::draw(bool isPlacing, GLenum mode){
     }
   }
   glPopMatrix();
+}
+
+std::list<Tower*> Player::getTowerList()
+{
+	return this->tList;
 }
 
 bool Player::cull(GameObject* obj){
