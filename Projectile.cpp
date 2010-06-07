@@ -2,7 +2,7 @@
 #include "Projectile.h"
 
 namespace projectile{
-  const float SPD = 0.5;
+  const float SPD = 0.25;
 }
 using namespace projectile;
 

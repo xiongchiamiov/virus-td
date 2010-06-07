@@ -31,7 +31,8 @@ void Tower::step(int dt){
   if(ai.atk_dt < ai.last_atk){
     if(shoot()){
       ai.last_atk = 0;
-      projectiles->addProjectile(weapon, ai.target, x, y, z);
+      if(ai.hasTarget)
+        projectiles->addProjectile(weapon, ai.target, x, y, z);
     }
   }
 }

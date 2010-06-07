@@ -8,7 +8,7 @@ namespace tr_tower{
   const int MAX_UPGRADES = 3;
   const int MAX_HP[MAX_UPGRADES] = {12, 16, 18};
   const int ATK[MAX_UPGRADES] = {1, 3, 5};
-  const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
+  const int ATK_DT[MAX_UPGRADES] = {1500, 1500, 1500}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {1.0, 1.0, 1.5};
   const int BUILD_TIME = 3000;
   char* SOUND = "media/sounds/basic_t.mp3";
