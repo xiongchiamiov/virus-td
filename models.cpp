@@ -5,6 +5,7 @@ namespace vtd_dl{
   GLuint lockDL;
   GLuint blkhatDL;
   GLuint forkbDL;
+  GLuint forkbForkDL;
   GLuint virusDL;
   GLuint wormDL;
   GLuint backtrackDL;
@@ -195,9 +196,126 @@ void drawBlackHat()
 	glPopMatrix();
 }
 
+void drawForkBombDLAnimated(double speed) {
+   glPushMatrix();
+      glCallList(vtd_dl::forkbDL);
+      glTranslatef(0,speed,0);
+      glCallList(vtd_dl::forkbForkDL);
+   glPopMatrix();
+}
+void drawForkBombFork() {
+      GLUquadricObj *quadObj = gluNewQuadric();
+		glPushMatrix();
+	//	glTranslatef(0,animate_fork,0);
+		glRotatef(-90,1,0,0);
+		glRotatef(-10,0,1,0);
+		glScalef(.5,.5,.5);
+			glPushMatrix(); /** Entire Fork **/
+				setMaterial(ShinyMetal);
+				quadObj = gluNewQuadric();
+				//gluCylinder(quadObj, base, top, height, slices, stacks);
+				gluCylinder(quadObj,.125,.125,3,10,10);
+			glPopMatrix();
+			glPushMatrix();
+				quadObj = gluNewQuadric();
+				glTranslatef(0,0,2);
+				gluCylinder(quadObj,.125,.07,.5,10,10);
+			glPopMatrix();
+			glPushMatrix();
+				glRotatef(90,1,0,0);
+				glTranslatef(0,3,-.285);
+				glScalef(1,.75,.125);
+				glScalef(.75,.75,.75);
+				//glTranslatef(0,0,2.4);
+				glPushMatrix();
+				quadObj = gluNewQuadric();
+				glTranslatef(0,0,2.4);
+				glBegin(GL_TRIANGLES);
+					glVertex3f(0,-1,0);
+					glVertex3f(1,1,0);
+					glVertex3f(-1,1,0);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,0,3.4);
+				glBegin(GL_TRIANGLES);
+					glVertex3f(0,-1,0);
+					glVertex3f(1,1,0);
+					glVertex3f(-1,1,0);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,0,2.9);
+				glRotatef(90,0,1,0);
+				glBegin(GL_QUADS);
+					glVertex3f(.5,1,1);
+					glVertex3f(.5,-1,0);
+					glVertex3f(-.5,-1,0);
+					glVertex3f(-.5,1,1);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,0,2.9);
+				glRotatef(-90,0,1,0);
+				glBegin(GL_QUADS);
+					glVertex3f(.5,1,1);
+					glVertex3f(.5,-1,0);
+					glVertex3f(-.5,-1,0);
+					glVertex3f(-.5,1,1);
+				glEnd();
+				glPopMatrix();
+				glPushMatrix();
+				glTranslatef(0,1,2.9);
+				glRotatef(-90,1,0,0);
+				glScalef(2,.5,1);
+				glBegin(GL_QUADS);
+					glVertex3f(.5,1,0);
+					glVertex3f(.5,-1,0);
+					glVertex3f(-.5,-1,0);
+					glVertex3f(-.5,1,0);
+				glEnd();
+				glPopMatrix();
+				//glutSolidTetrahedron();
+				//gluCylinder(quadObj,.07,.5,.4,10,1);			
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(-.69,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(-.245,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);	
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(.245,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(.69,0,3.56);
+				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				glPushMatrix();
+					glTranslatef(0,0,1.5);
+					gluCylinder(quadObj,.06,0,.2,10,10);
+				glPopMatrix();
+			glPopMatrix();
+		glPopMatrix();
+}
+
 void drawForkBomb()
 {
-	float animate_fork = 0.25;
+	//float animate_fork = 0.25;
 	glPushMatrix(); /** Entire forkbomb **/
 		//insert entire forkbomb animations
 		glPushMatrix(); /** Entire Bomb **/
@@ -286,6 +404,7 @@ void drawForkBomb()
 			glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
+#if 0
 		glPushMatrix();
 		glTranslatef(0,animate_fork,0);
 		glRotatef(-90,1,0,0);
@@ -392,15 +511,26 @@ void drawForkBomb()
 				glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
+#endif
 	glPopMatrix();
-	if((animate_fork + 0.01)<0.95)
+/*	if((animate_fork + 0.01)<0.95)
 	{
 		animate_fork = animate_fork + 0.01;
 	}
 	else
 	{
 		animate_fork =  0.1;
-	}
+	}*/
+}
+
+void drawVirusDLAnimated(double speed) {
+   glPushMatrix();
+      glCallList(vtd_dl::virusDL);
+
+   	setMaterial(GreenShiny);
+      glScalef(speed, speed, speed);
+   	glutSolidSphere(1.0, 12, 12);
+   glPopMatrix();
 }
 
 void drawVirus()
@@ -409,8 +539,8 @@ void drawVirus()
 	int list[6] = {60,120,180,240,300,360};
    float animate_virus = 0.25;
 
-	setMaterial(GreenShiny);
-	glutSolidSphere(1.0, 12, 12);
+//	setMaterial(GreenShiny);
+//	glutSolidSphere(1.0, 12, 12);
 	glPushMatrix();
 	glTranslatef(0,0,0.75);
 	GLUquadricObj *quadObj = gluNewQuadric();
@@ -464,95 +594,101 @@ void drawVirus()
 	}
 }
 
+void drawWormDLAnimated(double speed) {
+   glPushMatrix();
+      glScaled(speed, speed, speed);
+      glCallList(vtd_dl::wormDL);
+   glPopMatrix();
+}
+
 void drawWorm() {
    int tesallation = 6;
    // save the transformation state
    glPushMatrix();
-
    // set the material
-   GLfloat diffuseColor[] = {1.0, 1.0, 0.0, 1.0};
-   glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseColor);
+   // GLfloat diffuseColor[] = {1.0, 1.0, 0.0, 1.0};
+   // glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseColor);
 
    // locate it in the scene
-   glMatrixMode(GL_MODELVIEW);
+   // glMatrixMode(GL_MODELVIEW);
 
-   // Eyes
-   glPushMatrix();
-   setMaterial(White);
-   glScaled(0.5, 2.0, 0.5);
-   glTranslatef(3.5, 1.4, 2.0);
-   glutSolidSphere(0.45, tesallation, tesallation);
-   glTranslatef(0.0, 0.0, -4.0);
-   glutSolidSphere(0.45, tesallation, tesallation);
-   glPopMatrix();
-   
-   setMaterial(Yellow);
+      // Eyes
+      glPushMatrix();
+         setMaterial(White);
+         glScaled(0.5, 2.0, 0.5);
+         glTranslatef(3.5, 1.4, 2.0);
+         glutSolidSphere(0.45, tesallation, tesallation);
+         glTranslatef(0.0, 0.0, -4.0);
+         glutSolidSphere(0.45, tesallation, tesallation);
+      glPopMatrix();
 
-   // Hierarchical transforms
-   glScaled(2.0, 2.0, 2.0);
-   glTranslatef(0.0, 1.0, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-   
-   // Head
-   for (int i = 0; i < 10; i++) {
-      glScaled(0.95, 0.95, 0.95);
-      glRotatef(15.0, 0.0, 0.0, 1.0);
-      glTranslatef(-0.5, 0.4, 0.0);
+      setMaterial(Yellow);
+
+      // Hierarchical transforms
+      glScaled(2.0, 2.0, 2.0);
+      glTranslatef(0.0, 1.0, 0.0);
       glutSolidSphere(1.0, tesallation, tesallation);
-   }
+      
+      // Head
+      for (int i = 0; i < 10; i++) {
+         glScaled(0.95, 0.95, 0.95);
+         glRotatef(15.0, 0.0, 0.0, 1.0);
+         glTranslatef(-0.5, 0.4, 0.0);
+         glutSolidSphere(1.0, tesallation, tesallation);
+      }
 
-   // Mid Section
-   glTranslatef(-0.6, 0.2, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-
-   glTranslatef(-0.6, 0.12, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-
-   glTranslatef(-0.6, 0.17, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-
-   glTranslatef(-0.6, 0.2, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-
-   glTranslatef(-0.6, 0.22, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-   
-   glTranslatef(-0.7, 0.27, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-   
-   glTranslatef(-0.7, 0.3, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-   
-   glTranslatef(-0.9, 0.42, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-   
-   glTranslatef(-0.9, 0.62, 0.0);
-   glutSolidSphere(1.0, tesallation, tesallation);
-   
-   glRotatef(180, 0.0, 1.0, 0.0);
-   glRotatef(-180, 0.0, 0.0, 1.0);
-   
-   // Lower Front Body   
-   for (int i = 0; i < 6; i++) {
-      glScaled(0.95, 0.95, 0.95);
-      glRotatef(15.0, 0.0, 0.0, 1.0);
-      glTranslatef(-0.6, -0.4, 0.0);
+      // Mid Section
+      glTranslatef(-0.6, 0.2, 0.0);
       glutSolidSphere(1.0, tesallation, tesallation);
-   }
-   
-   // Lower Mid Body
-   for (int i = 0; i < 2; i++) {
-      glTranslatef(-0.5, -0.6, 0.0);
-      glutSolidSphere(1.0, tesallation, tesallation);
-   }
 
-   // Tail
-   for (int i = 0; i < 10; i++) {
-      glScaled(0.95, 0.95, 0.95);
-      glRotatef(15.0, 0.0, 0.0, 1.0);
-      glTranslatef(-0.6, -0.4, 0.0);
+      glTranslatef(-0.6, 0.12, 0.0);
       glutSolidSphere(1.0, tesallation, tesallation);
-   }
+
+      glTranslatef(-0.6, 0.17, 0.0);
+      glutSolidSphere(1.0, tesallation, tesallation);
+
+      glTranslatef(-0.6, 0.2, 0.0);
+      glutSolidSphere(1.0, tesallation, tesallation);
+
+      glTranslatef(-0.6, 0.22, 0.0);
+      glutSolidSphere(1.0, tesallation, tesallation);
+      
+      glTranslatef(-0.7, 0.27, 0.0);
+      glutSolidSphere(1.0, tesallation, tesallation);
+      
+      glTranslatef(-0.7, 0.3, 0.0);
+      glutSolidSphere(1.0, tesallation, tesallation);
+      
+      glTranslatef(-0.9, 0.42, 0.0);
+      glutSolidSphere(1.0, tesallation, tesallation);
+      
+      glTranslatef(-0.9, 0.62, 0.0);
+      glutSolidSphere(1.0, tesallation, tesallation);
+      
+      glRotatef(180, 0.0, 1.0, 0.0);
+      glRotatef(-180, 0.0, 0.0, 1.0);
+      
+      // Lower Front Body   
+      for (int i = 0; i < 6; i++) {
+         glScaled(0.95, 0.95, 0.95);
+         glRotatef(15.0, 0.0, 0.0, 1.0);
+         glTranslatef(-0.6, -0.4, 0.0);
+         glutSolidSphere(1.0, tesallation, tesallation);
+      }
+      
+      // Lower Mid Body
+      for (int i = 0; i < 2; i++) {
+         glTranslatef(-0.5, -0.6, 0.0);
+         glutSolidSphere(1.0, tesallation, tesallation);
+      }
+
+      // Tail
+      for (int i = 0; i < 10; i++) {
+         glScaled(0.95, 0.95, 0.95);
+         glRotatef(15.0, 0.0, 0.0, 1.0);
+         glTranslatef(-0.6, -0.4, 0.0);
+         glutSolidSphere(1.0, tesallation, tesallation);
+      }
 
    glPopMatrix();
 
@@ -1205,7 +1341,7 @@ void drawTeslaCoil() {
    return;
 }
 
-void drawFanDLAnimated(int speed) {
+void drawFanDLAnimated(double speed) {
    glPushMatrix();
    glCallList(vtd_dl::fanDL);
    glTranslatef(0.0, 0.0, -7.0);
@@ -1429,7 +1565,7 @@ void drawShieldBase(int set) {
    return;
 }
 
-void drawTurretDLAnimated(int speed) {
+void drawTurretDLAnimated(double speed) {
    glPushMatrix();
       glCallList(vtd_dl::turretDL);
       
@@ -1943,7 +2079,7 @@ void drawBearCore() {
    glPopMatrix();
 }
 
-void drawBearDLAnimated(int rotation) {
+void drawBearDLAnimated(double rotation) {
    glCallList(vtd_dl::bearDL);
 
    // +
@@ -2006,6 +2142,7 @@ void composeDisplayLists(){
   lockDL = glGenLists(1);
   blkhatDL = glGenLists(1);
   forkbDL = glGenLists(1);
+  forkbForkDL = glGenLists(1);
   virusDL = glGenLists(1);
   wormDL = glGenLists(1);
   backtrackDL = glGenLists(1);
@@ -2030,6 +2167,10 @@ void composeDisplayLists(){
     drawForkBomb();
   glEndList();
 
+  glNewList(forkbForkDL, GL_COMPILE);
+    drawForkBombFork();
+  glEndList();
+
   glNewList(virusDL, GL_COMPILE);
     drawVirus();
   glEndList();
@@ -2037,7 +2178,7 @@ void composeDisplayLists(){
   glNewList(wormDL, GL_COMPILE);
     drawWorm();
   glEndList();
-
+  
   glNewList(backtrackDL, GL_COMPILE);
     drawBackTrack();
   glEndList();

@@ -22,6 +22,7 @@ Unit(inx, iny, inz)
   max_speed = SPD;
   type = U_FAST;
   value = unit_bonus::FAST;
+  animateSpeed = 1.0;
 }
 
 FastUnit::~FastUnit(void) {
@@ -33,6 +34,8 @@ unit_dir FastUnit::move(unit_dir direction) {
 }
 
 void FastUnit::draw() {
+  static float incr = 0.01;
+
   glPushMatrix();
   glTranslatef(x, y, z);
 
@@ -48,7 +51,16 @@ void FastUnit::draw() {
   glTranslatef(0, 1, 0);
 
   //glRotatef(-90, 0.0, 1.0, 0.0);
-  glCallList(vtd_dl::virusDL);
+  if (animateSpeed >= 1.1) {
+     incr = -0.03;
+  }
+  
+  if (animateSpeed <= 0.7) {
+     incr = 0.03;
+  }
+
+  drawVirusDLAnimated(animateSpeed+=incr);
+ // glCallList(vtd_dl::virusDL);
   //glCallList(vtd_dl::forkbDL);
   glPopMatrix();
 	 glPushMatrix();

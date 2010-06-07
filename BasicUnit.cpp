@@ -25,6 +25,8 @@ Unit(inx, iny, inz)
   max_speed = SPD;
   type = U_BASIC;
   value = unit_bonus::BASIC;
+  animateSpeed = 1.0;
+  increment = 0.01;
 }
 
 BasicUnit::~BasicUnit(void)
@@ -49,7 +51,21 @@ void BasicUnit::draw()
   glTranslatef(0.0, 15.0, 5.0);
 
   glRotatef(-90, 0.0, 1.0, 0.0);
-  glCallList(vtd_dl::wormDL);
+  
+  if (animateSpeed <= 0.85) {
+     increment = 0.01;
+  }
+  
+  if (animateSpeed >= 1.15) {
+     increment = -0.01;
+  } 
+  
+ // if (animateSpeed <= 0.9) {
+ //    incr = 0.01;
+ // }
+  
+  drawWormDLAnimated(animateSpeed+=increment);
+//  glCallList(vtd_dl::wormDL);
   glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(7);

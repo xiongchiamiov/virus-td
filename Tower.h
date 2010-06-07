@@ -31,7 +31,7 @@ protected:
   Particles * weapon;// Particle
   char* sound;
   ProjectileManager* projectiles;
-  int animateSpeed; // animation speed
+  double animateSpeed; // animation speed
   //shadow * the_shadow;
 public:
   Tower(float inx, float iny, float inz, int gx, int gy);

@@ -22,6 +22,7 @@ Unit(inx, iny, inz)
   max_speed = SPD;
   type = U_STRONG;
   value = unit_bonus::STRONG;
+  animateSpeed = 0.25;
 }
 
 StrongUnit::~StrongUnit(void) {
@@ -41,9 +42,13 @@ void StrongUnit::draw() {
 		this->drawHealthBar();
 		glPopMatrix();
 
+      if (animateSpeed >= 1) {
+         animateSpeed = 0.25;
+      }
         glScaled(0.25, 0.25, 0.25);
         glTranslatef(0, 1, 0);
-        glCallList(vtd_dl::forkbDL);
+       drawForkBombDLAnimated(animateSpeed+=0.01);
+     //   glCallList(vtd_dl::forkbDL);
         //glCallList(vtd_dl::virusDL);
      glPopMatrix();
 	 glPushMatrix();

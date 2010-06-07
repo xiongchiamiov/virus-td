@@ -40,7 +40,7 @@ protected:
   int stage;     //Upgrade stage
   int last_atk; //Time since last attack
   int atk_dt; //Attack speed (number of milliseconds between attacks)
-  int animateSpeed; // animation speed
+  double animateSpeed; // animation speed
   void drawHealthBar(void);
 public:
   Unit(float inx, float iny, float inz);
