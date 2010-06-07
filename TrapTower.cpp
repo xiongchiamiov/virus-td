@@ -8,7 +8,7 @@ namespace tr_tower{
   const int MAX_UPGRADES = 3;
   const int MAX_HP[MAX_UPGRADES] = {12, 16, 18};
   const int ATK[MAX_UPGRADES] = {1, 3, 5};
-  const int ATK_DT[MAX_UPGRADES] = {1500, 1500, 1500}; //Milleseconds between attacks
+  const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {1.0, 1.0, 1.5};
   const int BUILD_TIME = 3000;
   char* SOUND = "media/sounds/basic_t.mp3";
@@ -44,10 +44,10 @@ TrapTower::~TrapTower(void)
 {
 }
 
-void TrapTower::draw(){
+void TrapTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
   setMaterial(Yellow);
-  if(ai.hasTarget){
+  if(ai.hasTarget && mode == GL_RENDER){
     glBegin(GL_LINES);
       glVertex3f(x, GRID_SIZE*2.0, z);
       glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
@@ -59,15 +59,19 @@ void TrapTower::draw(){
      glPushMatrix();
         glTranslatef(-0.2, 0.25, 0.0);
         glScaled(0.15, 0.15, 0.15);
-        weapon->drawParticles();
+		if(mode == GL_RENDER)
+			weapon->drawParticles();
      glPopMatrix();
    setMaterial(Black);
    glScalef(.5,.5,.5);
+   if(mode == GL_SELECT)
+	   glLoadName(id);
    glCallList(vtd_dl::blkhatDL);
    //glutSolidTorus(0.2, 0.25, 10, 10);
   glPopMatrix();
 	 glPushMatrix();
-		draw_shadow(6);
+		if(mode == GL_RENDER)
+			draw_shadow(6);
 	 glPopMatrix();
   glPopMatrix();
 }
