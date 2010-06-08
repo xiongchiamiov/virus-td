@@ -1,6 +1,6 @@
 #include "Particles.h"
 
-GLuint particle_texture[4];
+GLuint particle_texture[5];
 
 Particles::Particles(double partSize) {
    particle_size = partSize;
@@ -422,6 +422,7 @@ void initializeParticleTextures() {
    particle_texture[1] = LoadTexture("green_fire.bmp");
    particle_texture[2] = LoadTexture("blue_fire.bmp");
    particle_texture[3] = LoadTexture("arcane.bmp");
+   particle_texture[4] = LoadTexture("blue_light.bmp");
 }
 
 /* Stupid function that randomizes 1 or -1 */

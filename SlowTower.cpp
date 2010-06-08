@@ -31,7 +31,7 @@ SlowTower::SlowTower(float inx, float iny, float inz, int gx, int gy):
   weapon = new Particles(0.3);
 	weapon->setSpeed(1.75);
 	weapon->setSpread(2.0);
-  weapon->setWeaponType(particle_texture[3]);
+  weapon->setWeaponType(particle_texture[4]);
 }
 
 SlowTower::~SlowTower(void)

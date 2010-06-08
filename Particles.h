@@ -23,7 +23,7 @@ const float TIMESTEP = 0.1;
 const float PULLSTR = 10;
 const float WINDFORCE = 10;
 
-extern GLuint particle_texture[4];
+extern GLuint particle_texture[5];
 
 class Particles {
    public:
