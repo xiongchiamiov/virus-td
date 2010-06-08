@@ -70,7 +70,7 @@ void SlowTower::draw(GLuint id, GLenum mode){
         glScaled(0.06, 0.08, 0.06);
         glRotated(83, 0.0, 1.0, 0.0);
 
-        glCallList(vtd_dl::teslaDL);
+        glCallList(vtd_dl::teslaL3DL);
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(1);

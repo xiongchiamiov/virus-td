@@ -36,7 +36,7 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   weapon->setCutOffs(250, 7, 250);
   weapon->setWeaponType(particle_texture[1]);
   animateSpeed = 0.0;
-  increment = 0.01;
+  increment = 0.025;
 }
 
 FastTower::~FastTower(void)
@@ -77,14 +77,14 @@ void FastTower::draw(GLuint id, GLenum mode){
        glRotated(90, 0.0, 1.0, 0.0);
 
        if (animateSpeed >= 1.0) {
-          increment = -0.01;
+          increment = -0.025;
        }
        
        if (animateSpeed <= 0.0) {
-          increment = 0.01;
+          increment = 0.025;
        }
 
-      drawBackTrackDLAnimated(animateSpeed+=increment);
+      drawBackTrackDLAnimated(animateSpeed+=increment, 1);
   //     glCallList(vtd_dl::backtrackDL);
     glPopMatrix();
 	 glPushMatrix();

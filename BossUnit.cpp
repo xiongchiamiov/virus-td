@@ -61,7 +61,7 @@ void BossUnit::draw()
    
 //  glRotatef(90, 0.0, 1.0, 0.0);
 //  glCallList(vtd_dl::wormDL);
-   drawBearDLAnimated(animateSpeed+=incr);
+   drawBearDLAnimated(animateSpeed+=incr, 3);
   glPopMatrix();
 	 glPushMatrix();
 //		draw_shadow(7);

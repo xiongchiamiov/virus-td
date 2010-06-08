@@ -52,7 +52,7 @@ void FastUnit2::draw() {
 
   //glRotatef(-90, 0.0, 1.0, 0.0);
 
- drawPhish();
+ drawPhish(10); // literal tesallation values 4, 6, 10 ir higher
   glPopMatrix();
 	 glPushMatrix();
 //		draw_shadow(8);

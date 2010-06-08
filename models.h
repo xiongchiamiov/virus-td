@@ -25,16 +25,37 @@ namespace vtd_dl{
   extern GLuint wormL2DL;
   extern GLuint wormL3DL;
   
-  extern GLuint backtrackLWDL;
-  extern GLuint backtrackRWDL;
-  extern GLuint backtrackDL;
+  extern GLuint backtrackL1LWDL;
+  extern GLuint backtrackL2LWDL;
+  extern GLuint backtrackL3LWDL;
+  extern GLuint backtrackL1RWDL;
+  extern GLuint backtrackL2RWDL;
+  extern GLuint backtrackL3RWDL;
+  extern GLuint backtrackL1DL;
+  extern GLuint backtrackL2DL;
+  extern GLuint backtrackL3DL;
   
-  extern GLuint teslaDL;
-  extern GLuint fanDL;
+  extern GLuint teslaL1DL;
+  extern GLuint teslaL2DL;
+  extern GLuint teslaL3DL;
+  
+  extern GLuint fanL1DL;
+  extern GLuint fanL2DL;
+  extern GLuint fanL3DL;
+  
   extern GLuint shieldDL;
+
   extern GLuint turretDL;
-  extern GLuint trojanDL;
-  extern GLuint bearDL;
+  extern GLuint turretBaseDL;
+
+  extern GLuint trojanL1DL;
+  extern GLuint trojanL2DL;
+  extern GLuint trojanL3DL;
+  
+  extern GLuint bearL1DL;
+  extern GLuint bearL2DL;
+  extern GLuint bearL3DL;
+  
   extern GLuint rootDL;
 };
 
@@ -52,17 +73,17 @@ void drawVirus(int tesallation);
 void drawWormDLAnimated(double speed, int LoD);
 void drawWorm(int tesallation);
 
-void drawBackTrackDLAnimated(double speed);
-void drawBackTrack();
-void drawBackTrackLeftWing();
-void drawBackTrackRightWing();
+void drawBackTrackDLAnimated(double speed, int LoD);
+void drawBackTrack(int tesallation);
+void drawBackTrackLeftWing(int tesallation);
+void drawBackTrackRightWing(int tesallation);
 
-void drawTeslaCoil();
+void drawTeslaCoil(int tesallation);
 
 /* All functions needed for CPU Fan model*/
 /* Places parts of the fan model in a display list and animates the rest outside. */
-void drawFanDLAnimated(double speed); /* Use this to draw Fan. The three below are support functions */
-void drawCPUFan();
+void drawFanDLAnimated(double speed, int LoD); /* Use this to draw Fan. The three below are support functions */
+void drawCPUFan(int tesallation);
 void animateCPUFan(int tesallation, int speed);
 void drawCPUFanBase();
 
@@ -74,20 +95,20 @@ void drawTurret();
 void drawMemBase();
 void drawMemStick();
 
-void drawLeg(int tes);
-void drawWheelBase(int tes);
+void drawLeg(int tesallation);
+void drawWheelBase(int tesallation);
 void drawTrojan();
 
 
-void drawBearLeftArm();
-void drawBearRightArm();
-void drawBearLeftLeg();
-void drawBearRightLeg();
-void drawEar();
-void drawBearCore();
-void drawBearDLAnimated(double rotation);
+void drawBearLeftArm(int tesallation);
+void drawBearRightArm(int tesallation);
+void drawBearLeftLeg(int tesallation);
+void drawBearRightLeg(int tesallation);
+void drawEar(int tesallation);
+void drawBearCore(int tesallation);
+void drawBearDLAnimated(double rotation, int LoD);
 
 void drawRootDir();
 
-void drawPhish();
+void drawPhish(int tesallation);
 void composeDisplayLists();

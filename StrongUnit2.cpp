@@ -44,7 +44,7 @@ void StrongUnit2::draw() {
 
         glScaled(0.15, 0.15, 0.15);
         glTranslatef(0, 10, 0);
-        glCallList(vtd_dl::trojanDL);
+        glCallList(vtd_dl::trojanL1DL);
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(10);

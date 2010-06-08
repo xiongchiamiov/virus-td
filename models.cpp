@@ -25,17 +25,38 @@ namespace vtd_dl{
   GLuint wormL2DL;
   GLuint wormL3DL;
   
-  GLuint backtrackLWDL;
-  GLuint backtrackRWDL;
-  GLuint backtrackDL;
-  GLuint teslaDL;
-  GLuint fanDL;
-  GLuint shieldDL;
-  GLuint turretDL;
+  GLuint backtrackL1LWDL;
+  GLuint backtrackL2LWDL;
+  GLuint backtrackL3LWDL;
+  GLuint backtrackL1RWDL;
+  GLuint backtrackL2RWDL;
+  GLuint backtrackL3RWDL;
+  GLuint backtrackL1DL;
+  GLuint backtrackL2DL;
+  GLuint backtrackL3DL;
+
+  GLuint teslaL1DL;
+  GLuint teslaL2DL;
+  GLuint teslaL3DL;
+  
+  GLuint fanL1DL;
+  GLuint fanL2DL;
+  GLuint fanL3DL;
+
+  GLuint shieldDL; // skipped
+
+  GLuint turretDL; // has no LoDs
   GLuint turretBaseDL;
-  GLuint trojanDL;
-  GLuint bearDL;
-  GLuint rootDL;
+
+  GLuint trojanL1DL;
+  GLuint trojanL2DL;
+  GLuint trojanL3DL;
+  
+  GLuint bearL1DL;
+  GLuint bearL2DL;
+  GLuint bearL3DL;
+  
+  GLuint rootDL; // has no LoDs
 };
 
 void drawLock(int tesallation) {
@@ -737,7 +758,7 @@ void drawWorm(int tesallation) {
    return;
 }
 
-void drawBackTrackDLAnimated(double speed) {
+void drawBackTrackDLAnimated(double speed, int LoD) {
    double rot = 0 + speed * (0 - 20);
 
    // save the transformation state
@@ -756,7 +777,13 @@ void drawBackTrackDLAnimated(double speed) {
          glPushMatrix();
             glRotatef(rot, 1.0, 0.0, 0.0);
             glRotatef(-rot, 0.0, 1.0, 0.0);
-            glCallList(vtd_dl::backtrackRWDL);
+            if (LoD == 3) {
+               glCallList(vtd_dl::backtrackL3RWDL);
+            } else if (LoD == 2) {
+               glCallList(vtd_dl::backtrackL2RWDL);
+            } else {
+               glCallList(vtd_dl::backtrackL1RWDL);
+            }
          glPopMatrix();
          glTranslatef(0.0, 0.0, -6);
          
@@ -765,21 +792,31 @@ void drawBackTrackDLAnimated(double speed) {
          glPushMatrix();
             glRotatef(-rot, 1.0, 0.0, 0.0);
             glRotatef(rot, 0.0, 1.0, 0.0);
-            glCallList(vtd_dl::backtrackLWDL);
+            if (LoD == 3) {
+               glCallList(vtd_dl::backtrackL3LWDL);
+            } else if (LoD == 2) {
+               glCallList(vtd_dl::backtrackL2LWDL);
+            } else {
+               glCallList(vtd_dl::backtrackL1LWDL);
+            }
          glPopMatrix();
       glPopMatrix();
 
       // Transform back to Middle
       glTranslatef(23.0, -7.0, -6.0);
 
-      // Head
-      glCallList(vtd_dl::backtrackDL);
+      // body
+      if (LoD == 3) {
+         glCallList(vtd_dl::backtrackL3DL);
+      } else if (LoD == 2) {
+         glCallList(vtd_dl::backtrackL2DL);
+      } else {
+         glCallList(vtd_dl::backtrackL1DL);
+      }
+
    glPopMatrix();
 }
-
-void drawBackTrack() {
-   int tesallation = 3;
-
+void drawBackTrack(int tesallation) {
    // save the transformation state
    glPushMatrix();
       setMaterial(Grey);
@@ -1128,8 +1165,7 @@ void drawBackTrack() {
 
    return;
 }
-void drawBackTrackLeftWing() {
-   int tesallation = 3;
+void drawBackTrackLeftWing(int tesallation) {
          /* ===========  Left Wing  =========== */
               /* Left Wing Top Branch */
          glPushMatrix();
@@ -1201,8 +1237,7 @@ void drawBackTrackLeftWing() {
             glPopMatrix();
          glPopMatrix();
 }
-void drawBackTrackRightWing() {
-   int tesallation = 3;
+void drawBackTrackRightWing(int tesallation) {
          /* =========  Right Wing  ========= */
              /* Right Wing Top Branch */
          glPushMatrix();
@@ -1275,10 +1310,7 @@ void drawBackTrackRightWing() {
          glPopMatrix();
 }
 
-
-void drawTeslaCoil() {
-   int tesallation = 8;
-
+void drawTeslaCoil(int tesallation) {
    // save the transformation state
    glPushMatrix();
 
@@ -1571,18 +1603,30 @@ void drawTeslaCoil() {
    return;
 }
 
-void drawFanDLAnimated(double speed) {
+void drawFanDLAnimated(double speed, int LoD) {
    glPushMatrix();
-   glCallList(vtd_dl::fanDL);
-   glTranslatef(0.0, 0.0, -7.0);
-   animateCPUFan(4, speed);
-   glTranslatef(0.0, 0.0, 12.0);
-   animateCPUFan(4, speed);
+      if (LoD == 3) {
+         glCallList(vtd_dl::fanL3DL);
+         glTranslatef(0.0, 0.0, -7.0);
+         animateCPUFan(20, speed);
+         glTranslatef(0.0, 0.0, 12.0);
+         animateCPUFan(20, speed);
+      } else if (LoD == 2) {
+         glCallList(vtd_dl::fanL2DL);
+         glTranslatef(0.0, 0.0, -7.0);
+         animateCPUFan(12, speed);
+         glTranslatef(0.0, 0.0, 12.0);
+         animateCPUFan(12, speed);
+      } else {
+         glCallList(vtd_dl::fanL1DL);
+         glTranslatef(0.0, 0.0, -7.0);
+         animateCPUFan(5, speed);
+         glTranslatef(0.0, 0.0, 12.0);
+         animateCPUFan(5, speed);
+      }
    glPopMatrix();
 }
-void drawCPUFan() {
-   int tesallation = 6;
-
+void drawCPUFan(int tesallation) {
    glPushMatrix();
       glTranslatef(0.0, 0.0, -6.0);
       // Fan 1
@@ -1890,9 +1934,7 @@ void drawTurret() {
 }
 
 /* Used by drawTrojan */
-void drawLeg(int tes) {
-   int tesallation = tes;
-
+void drawLeg(int tesallation) {
    glPushMatrix();
       glTranslatef(0.0, -4.0, 0.0);
       glPushMatrix();
@@ -1924,9 +1966,7 @@ void drawLeg(int tes) {
    return;
 }
 /* Used by drawTrojan */
-void drawWheelBase(int tes ) {
-   int tesallation = tes;
-
+void drawWheelBase(int tesallation) {
    glPushMatrix();
       glPushMatrix();
          glScaled(2.25, 0.55, 3.75);
@@ -1960,9 +2000,7 @@ void drawWheelBase(int tes ) {
 /* This model has a dynamic tail. Tesallations at or below
    4 will render a different tail vs tesallations greater
    than 4 */
-void drawTrojan() {
-   int tesallation = 8;
-   
+void drawTrojan(int tesallation) {   
    glPushMatrix();
       // Body
       glPushMatrix();
@@ -2078,9 +2116,7 @@ void drawTrojan() {
    return;
 }
 
-void drawBearLeftArm() {
-   int tesallation = 10;
-
+void drawBearLeftArm(int tesallation) {
    glPushMatrix();
       // left arm
       glTranslatef(-2.5, -3.0, 0.0);
@@ -2099,9 +2135,7 @@ void drawBearLeftArm() {
       glPopMatrix();
    glPopMatrix();
 }
-void drawBearRightArm() {
-   int tesallation = 10;
-
+void drawBearRightArm(int tesallation) {
    glPushMatrix();
       // right arm
       glTranslatef(2.5, -3.0, 0.0);
@@ -2120,9 +2154,7 @@ void drawBearRightArm() {
       glPopMatrix();
    glPopMatrix();
 }
-void drawBearLeftLeg() {
-   int tesallation = 20;
-
+void drawBearLeftLeg(int tesallation) {
    glPushMatrix();
       // left leg
       glTranslatef(-0.95, -6.0, 1.0);
@@ -2149,9 +2181,7 @@ void drawBearLeftLeg() {
       glPopMatrix();
    glPopMatrix();
 }
-void drawBearRightLeg() {
-   int tesallation = 20;
-
+void drawBearRightLeg(int tesallation) {
    glPushMatrix();
       // right leg
       glTranslatef(0.95, -6.0, 1.0);
@@ -2178,9 +2208,7 @@ void drawBearRightLeg() {
       glPopMatrix();
    glPopMatrix();
 }
-void drawEar() {
-   int tesallation = 10;
-
+void drawEar(int tesallation) {
 	glPushMatrix();
       setMaterial(Brown);
       glutSolidTorus(0.45, 2.0, tesallation, tesallation * 2);
@@ -2192,9 +2220,7 @@ void drawEar() {
    glPopMatrix();
    return;
 }
-void drawBearCore() {
-   int tesallation = 10;
-
+void drawBearCore(int tesallation) {
    glPushMatrix();
       glPushMatrix();
          // head
@@ -2232,7 +2258,7 @@ void drawBearCore() {
             glTranslatef(0.0, -1.0, -0.3);
             glRotatef(-10, 1.0, 0.0, 0.0);
             glScaled(0.35, 0.425, 0.35);
-            drawEar();
+            drawEar(tesallation);
          glPopMatrix();
       glPopMatrix();
       
@@ -2241,12 +2267,12 @@ void drawBearCore() {
          glTranslatef(2.5, 2.0, 0.0);
          glPushMatrix();
             glScaled(0.45, 0.45, 0.45);
-            drawEar();
+            drawEar(tesallation);
          glPopMatrix();
          glTranslatef(-5.0, 0.0, 0.0);
          glPushMatrix();
             glScaled(0.45, 0.45, 0.45);
-            drawEar();
+            drawEar(tesallation);
          glPopMatrix();
       glPopMatrix();
       
@@ -2306,28 +2332,75 @@ void drawBearCore() {
       glPopMatrix();
    glPopMatrix();
 }
-void drawBearDLAnimated(double rotation) {
-   glCallList(vtd_dl::bearDL);
-
-   // +
+void drawBearDLAnimated(double rotation, int LoD) {
    glPushMatrix();
-      glRotatef(rotation, 1.0, 0.0, 0.0);
-      drawBearLeftArm();
-   glPopMatrix();
-   // - 
-   glPushMatrix(); 
-      glRotatef(-rotation, 1.0, 0.0, 0.0);
-      drawBearRightArm();
-   glPopMatrix();
-   // - 
-   glPushMatrix();
-      glRotatef(-rotation, 1.0, 0.0, 0.0);
-      drawBearLeftLeg();
-   glPopMatrix();
-   // +
-   glPushMatrix();
-      glRotatef(rotation, 1.0, 0.0, 0.0);
-      drawBearRightLeg();
+   if (LoD == 3) {
+      glCallList(vtd_dl::bearL3DL);
+      // +
+      glPushMatrix();
+         glRotatef(rotation, 1.0, 0.0, 0.0);
+         drawBearLeftArm(10);
+      glPopMatrix();
+      // - 
+      glPushMatrix(); 
+         glRotatef(-rotation, 1.0, 0.0, 0.0);
+         drawBearRightArm(10);
+      glPopMatrix();
+      // - 
+      glPushMatrix();
+         glRotatef(-rotation, 1.0, 0.0, 0.0);
+         drawBearLeftLeg(10);
+     glPopMatrix();
+      // +
+      glPushMatrix();
+         glRotatef(rotation, 1.0, 0.0, 0.0);
+         drawBearRightLeg(10);
+      glPopMatrix();
+   } else if (LoD == 2) {
+      glCallList(vtd_dl::bearL2DL);
+      // +
+      glPushMatrix();
+         glRotatef(rotation, 1.0, 0.0, 0.0);
+         drawBearLeftArm(7);
+      glPopMatrix();
+      // - 
+      glPushMatrix(); 
+         glRotatef(-rotation, 1.0, 0.0, 0.0);
+         drawBearRightArm(7);
+      glPopMatrix();
+      // - 
+      glPushMatrix();
+         glRotatef(-rotation, 1.0, 0.0, 0.0);
+         drawBearLeftLeg(7);
+     glPopMatrix();
+      // +
+      glPushMatrix();
+         glRotatef(rotation, 1.0, 0.0, 0.0);
+         drawBearRightLeg(7);
+      glPopMatrix();
+   } else {
+      glCallList(vtd_dl::bearL1DL);
+      // +
+      glPushMatrix();
+         glRotatef(rotation, 1.0, 0.0, 0.0);
+         drawBearLeftArm(4);
+      glPopMatrix();
+      // - 
+      glPushMatrix(); 
+         glRotatef(-rotation, 1.0, 0.0, 0.0);
+         drawBearRightArm(4);
+      glPopMatrix();
+      // - 
+      glPushMatrix();
+         glRotatef(-rotation, 1.0, 0.0, 0.0);
+         drawBearLeftLeg(4);
+     glPopMatrix();
+      // +
+      glPushMatrix();
+         glRotatef(rotation, 1.0, 0.0, 0.0);
+         drawBearRightLeg(4);
+      glPopMatrix();
+   }
    glPopMatrix();
 }
 
@@ -2364,8 +2437,7 @@ void drawRootDir() {
    glPopMatrix();
 }
 
-void drawPhish() {
-   int tesallation = 6;
+void drawPhish(int tesallation) {
    static float t = 0.00, t2 = 0.00;
    static float inc = 0.02, inc2 = 0.05;
    int rot = 30 + t * (-30 - 30);
@@ -2534,22 +2606,36 @@ void composeDisplayLists(){
   wormL2DL = glGenLists(1);
   wormL3DL = glGenLists(1);
 
-  backtrackLWDL = glGenLists(1);
-  backtrackRWDL = glGenLists(1);
-  backtrackDL = glGenLists(1);
-
-  teslaDL = glGenLists(1);
+  backtrackL1LWDL = glGenLists(1);
+  backtrackL2LWDL = glGenLists(1);
+  backtrackL3LWDL = glGenLists(1);
+  backtrackL1RWDL = glGenLists(1);
+  backtrackL2RWDL = glGenLists(1);
+  backtrackL3RWDL = glGenLists(1);
+  backtrackL1DL = glGenLists(1);
+  backtrackL2DL = glGenLists(1);
+  backtrackL3DL = glGenLists(1);
   
-  fanDL = glGenLists(1);
+  teslaL1DL = glGenLists(1);
+  teslaL2DL = glGenLists(1);
+  teslaL3DL = glGenLists(1);
+  
+  fanL1DL = glGenLists(1);
+  fanL2DL = glGenLists(1);
+  fanL3DL = glGenLists(1);
   
   shieldDL = glGenLists(1);
   
   turretDL = glGenLists(1);
   turretBaseDL = glGenLists(1);
   
-  trojanDL  = glGenLists(1);
+  trojanL1DL  = glGenLists(1);
+  trojanL2DL  = glGenLists(1);
+  trojanL3DL  = glGenLists(1);
   
-  bearDL = glGenLists(1);
+  bearL1DL = glGenLists(1);
+  bearL2DL = glGenLists(1);
+  bearL3DL = glGenLists(1);
   
   rootDL = glGenLists(1);
 
@@ -2617,25 +2703,67 @@ void composeDisplayLists(){
     drawWorm(11);
   glEndList();
   
-  glNewList(backtrackLWDL, GL_COMPILE);
-    drawBackTrackLeftWing();
+  glNewList(backtrackL1LWDL, GL_COMPILE);
+    drawBackTrackLeftWing(2);
   glEndList();
-  glNewList(backtrackRWDL, GL_COMPILE);
-    drawBackTrackRightWing();
+  glNewList(backtrackL2LWDL, GL_COMPILE);
+    drawBackTrackLeftWing(4);
   glEndList();
-  glNewList(backtrackDL, GL_COMPILE);
-    drawBackTrack();
+  glNewList(backtrackL3LWDL, GL_COMPILE);
+    drawBackTrackLeftWing(7);
+  glEndList();
+  glNewList(backtrackL1RWDL, GL_COMPILE);
+    drawBackTrackRightWing(2);
+  glEndList();
+  glNewList(backtrackL2RWDL, GL_COMPILE);
+    drawBackTrackRightWing(4);
+  glEndList();
+  glNewList(backtrackL3RWDL, GL_COMPILE);
+    drawBackTrackRightWing(7);
+  glEndList();
+  glNewList(backtrackL1DL, GL_COMPILE);
+    drawBackTrack(2);
+  glEndList();
+  glNewList(backtrackL2DL, GL_COMPILE);
+    drawBackTrack(4);
+  glEndList();
+  glNewList(backtrackL3DL, GL_COMPILE);
+    drawBackTrack(7);
   glEndList();
 
-  glNewList(teslaDL, GL_COMPILE);
-    drawTeslaCoil();
+  glNewList(teslaL1DL, GL_COMPILE);
+    drawTeslaCoil(5);
+  glEndList();
+  glNewList(teslaL2DL, GL_COMPILE);
+    drawTeslaCoil(9);
+  glEndList();
+  glNewList(teslaL3DL, GL_COMPILE);
+    drawTeslaCoil(15);
   glEndList();
 
-  glNewList(fanDL, GL_COMPILE);
+  glNewList(fanL1DL, GL_COMPILE);
     glPushMatrix();
-       drawCPUFan();
+       drawCPUFan(5);
        glTranslatef(0.0, 0.0, 12.0);
-       drawCPUFan();
+       drawCPUFan(5);
+       glTranslatef(0.0, 0.0, -7.0);
+       drawCPUFanBase();
+    glPopMatrix();
+  glEndList();
+  glNewList(fanL2DL, GL_COMPILE);
+    glPushMatrix();
+       drawCPUFan(12);
+       glTranslatef(0.0, 0.0, 12.0);
+       drawCPUFan(12);
+       glTranslatef(0.0, 0.0, -7.0);
+       drawCPUFanBase();
+    glPopMatrix();
+  glEndList();
+  glNewList(fanL3DL, GL_COMPILE);
+    glPushMatrix();
+       drawCPUFan(20);
+       glTranslatef(0.0, 0.0, 12.0);
+       drawCPUFan(20);
        glTranslatef(0.0, 0.0, -7.0);
        drawCPUFanBase();
     glPopMatrix();
@@ -2648,17 +2776,28 @@ void composeDisplayLists(){
   glNewList(turretDL, GL_COMPILE);
     drawTurret();
   glEndList();
-  
   glNewList(turretBaseDL, GL_COMPILE);
     drawMemBase();
   glEndList();
   
-  glNewList(trojanDL, GL_COMPILE);
-    drawTrojan();
+  glNewList(trojanL1DL, GL_COMPILE);
+    drawTrojan(4);
+  glEndList();
+  glNewList(trojanL2DL, GL_COMPILE);
+    drawTrojan(8);
+  glEndList();
+  glNewList(trojanL3DL, GL_COMPILE);
+    drawTrojan(15);
   glEndList();
   
-  glNewList(bearDL, GL_COMPILE);
-    drawBearCore();
+  glNewList(bearL1DL, GL_COMPILE);
+    drawBearCore(4);
+  glEndList();
+  glNewList(bearL2DL, GL_COMPILE);
+    drawBearCore(7);
+  glEndList();
+  glNewList(bearL3DL, GL_COMPILE);
+    drawBearCore(10);
   glEndList();
   
   glNewList(rootDL, GL_COMPILE);

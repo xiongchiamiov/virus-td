@@ -106,7 +106,7 @@ static void redraw(int object)
 			//glRotated(83, 0.0, 1.0, 0.0);
 			glTranslatef(-6,12,-6);
 			//glRotatef(180,0,0,1);
-		    glCallList(vtd_dl::teslaDL);
+		    glCallList(vtd_dl::teslaL1DL);
 		}
 		else if(object == 2)
 		{
@@ -119,13 +119,13 @@ static void redraw(int object)
 			 glScaled(0.03, 0.03, 0.03);
 			 glRotated(90, 0.0, 1.0, 0.0);
 			 glTranslatef(-6,12,-6);
-			 glCallList(vtd_dl::backtrackDL);
+			 glCallList(vtd_dl::backtrackL1DL);
 		}
 		else if(object == 4)
 		{
 			glScaled(0.035, 0.035, 0.035);
 			glTranslatef(-5,10,-5);
-			glCallList(vtd_dl::fanDL);
+			glCallList(vtd_dl::fanL1DL);
 		}
 		else if(object == 5)
 		{
@@ -163,7 +163,7 @@ static void redraw(int object)
 		{
 			glScaled(0.10, 0.10, 0.10);
 			glTranslatef(-3,6,-3);
-			glCallList(vtd_dl::trojanDL);
+			glCallList(vtd_dl::trojanL1DL);
 		}
       glPopMatrix();
 

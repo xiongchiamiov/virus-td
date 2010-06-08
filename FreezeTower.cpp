@@ -75,7 +75,7 @@ void FreezeTower::draw(GLuint id, GLenum mode){
           animateSpeed = 0;
        }
 
-       drawFanDLAnimated(animateSpeed+=5);
+       drawFanDLAnimated(animateSpeed+=5, 1);
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(4);
