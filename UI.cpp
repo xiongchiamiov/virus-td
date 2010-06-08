@@ -435,24 +435,11 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 
 void mouseClick(int button, int state, int x, int y) {
 	int click = determineClickedButton(x, GH - y);
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-
-#if 0 // example picking code here
-		int BUFSIZE = 2048;
-		GLuint selectBuf[BUFSIZE];
-
-		/* gl selection code */
-		startPicking(x, y, selectBuf, BUFSIZE);
-
-		gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
-			cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
-			0.0, 1.0, 0.0);
-
-		// FIX: for some reason cant do p1.pGrid.draw(true, GL_SELECT);
-		p1.draw(true, GL_SELECT); // GL_RENDER for normal, GL_SELECT for picking.
-		stopPicking(selectBuf);
-#endif
-
+	if (button == GLUT_RIGHT_BUTTON && clicked && test >= 9 && test <= 17) {
+		clicked = false;
+		placingTower = false;
+	}
+	else if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		/* !!!!!! remember to invert y with (GH - y) so that it is on the bottom instead of the top */
 		fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
 
