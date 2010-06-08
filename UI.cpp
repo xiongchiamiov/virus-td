@@ -23,6 +23,7 @@ bool mouse_down = false;
 int test = 0;
 GLuint panel_tex;
 GLuint panel_tex2;
+GLuint panel_tex3;
 GLuint button_tex[18];
 GLuint info_tex[10];
 GLuint tower_gui_tex;
@@ -82,6 +83,7 @@ void initializeUI()
 {
 	panel_tex = LoadTexture("GUI.bmp");
 	panel_tex2 = LoadTexture("GUI2.bmp");
+	panel_tex3 = LoadTexture("GUI3.bmp");
 	tower_gui_tex = LoadTexture("tower_gui.bmp");
 	tower_gui_btn[0] = LoadHQTexture("tower_gui_btn_sell.bmp");
 	tower_gui_btn[1] = LoadHQTexture("tower_gui_btn_upgrade.bmp");
@@ -436,27 +438,37 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	glPushMatrix();
 	glLoadIdentity();
 
+	glPushMatrix();
+	glTranslatef(200.0,0.0,0.0);
+	glColor3f(1.0,1.0,1.0);
+	drawPanel(400, 128, panel_tex3);
+	glPopMatrix();
+
 	if(towerSelected) {
 		drawTowerSelect(mx,my);
 	}
 
 	glDisable(GL_LIGHTING);
 	//Shared by text and tower select GUI
-	glColor3f(1.0,1.0,1.0);
 	char str[200];
+	const int yp = 92;
+	const int xp = 212;
+	glColor3f(0.0,1.0,1.0);
 	sprintf( str, "Lives: %d", p->getLives() );
-	renderBitmapString(8, GH - 24, GLUT_BITMAP_HELVETICA_18 , str);
+	renderBitmapString(xp, yp, GLUT_BITMAP_9_BY_15 , str);
+	glColor3f(1.0,1.0,0.0);
 	sprintf( str, "Income: %d", p->getIncome() );
-	renderBitmapString(8, GH - 24 - 22.0, GLUT_BITMAP_HELVETICA_18 , str);
+	renderBitmapString(xp, yp - 22.0, GLUT_BITMAP_9_BY_15 , str);
 	sprintf( str, "Bytes: %d", p->getResources() );
-	renderBitmapString(8, GH - 24 - 2*22.0, GLUT_BITMAP_HELVETICA_18 , str);
+	renderBitmapString(xp, yp - 2*22.0, GLUT_BITMAP_9_BY_15 , str);
 	//sprintf( str, "Next Byte Deposit In: %2.0f", ceil(time_left) );
+	glColor3f(0.0,1.0,0.0);
 	sprintf( str, "Next Byte Deposit In: %04d", bin(ceil(time_left)));
-	renderBitmapString(8, GH - 24 - 3*22, GLUT_BITMAP_HELVETICA_18 , str);
+	renderBitmapString(xp, yp - 3*22, GLUT_BITMAP_9_BY_15 , str);
 
-	//glColor3f(1.0,1.0,0.);
+	glColor3f(1.0,0.0,0.0);
 	sprintf( str, "Enemy Lives: %d", opp->getLives() );
-	renderBitmapString(GW-156, GH - 24, GLUT_BITMAP_HELVETICA_18 , str);
+	renderBitmapString(250 + xp, yp, GLUT_BITMAP_9_BY_15 , str);
 	//renderBitmapString(1.0 * GW / 4.0, H - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
 
 	//renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
