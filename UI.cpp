@@ -182,6 +182,135 @@ void handleTowerSelectClick(int mx, int my)
 	}
 }
 
+void drawTowerSelectInfo(int mx, int my, int btnNumb)
+{
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0,1.0,1.0);
+	const int sep = 12;
+	char title[100];
+	char title2[100];
+	char info[400];
+	if(btnNumb == 0) {
+		int t = (int)towerSelect->getTargetMode();
+		char *mode = (t == 0 ? "Lowest Health" : (t == 1 ? "Highest Health" : (t == 2 ? "Fastest" : (t == 3 ? "Slowest" : "Closest"))));
+		char *curMode = t == 0 ? "Closest" : t == 1 ? "Lowest Health" : t == 2 ? "Highest Health" : t == 3 ? "Fastest" : "Slowest";
+		sprintf(title2,"Switch To: %s",mode); 
+		sprintf(title,"Current Mode: %s",curMode);
+		if(t == 0)
+			sprintf(info,"In Closest Mode, your tower will attack\nthe closest enemy to itself");
+		else if (t == 1)
+			sprintf(info,"In Lowest Health Mode, your tower will attack\nthe enemywith the lowest amount of health");
+		else if (t == 2)
+			sprintf(info,"In Highest Health Mode, your tower will attack\nthe enemy with the highest amount of health");
+		else if (t == 3)
+			sprintf(info,"In Fastest Mode, your tower will prefer to attack\nfaster units");
+		else if (t == 4)
+			sprintf(info,"In Slowest Mode, your tower will prefer to attack\nslower units");
+	}
+	else if(btnNumb == 1) {
+		int sellValue(0);
+		switch(towerSelect->getType()){
+		  case T_BASIC:
+			sellValue = tower_cost::BASIC;
+			break;
+		  case T_FREEZE:
+			sellValue = tower_cost::FREEZE;
+			break;
+		  case T_FAST:
+			sellValue = tower_cost::FAST;
+			break;
+		  case T_SLOW:
+			sellValue = tower_cost::SLOW;
+			break;
+		  case T_TRAP:
+			sellValue = tower_cost::TRAP;
+			break;
+		  case T_WALL:
+			sellValue = tower_cost::WALL;
+			break;
+		}
+		sellValue = (sellValue * (towerSelect->getStage()+1))/2;
+		sprintf(title,"Sell Tower"); 
+		sprintf(title2,"Refund Value: %d bytes",sellValue);
+		sprintf(info,"Sell your tower back to clear up the grid or\nmake a quick profit");
+	}
+	else {
+		int buyValue(0);
+		switch(towerSelect->getType()){
+		  case T_BASIC:
+			buyValue = tower_cost::BASIC;
+			break;
+		  case T_FREEZE:
+			buyValue = tower_cost::FREEZE;
+			break;
+		  case T_FAST:
+			buyValue = tower_cost::FAST;
+			break;
+		  case T_SLOW:
+			buyValue = tower_cost::SLOW;
+			break;
+		  case T_TRAP:
+			buyValue = tower_cost::TRAP;
+			break;
+		  case T_WALL:
+			buyValue = tower_cost::WALL;
+			break;
+		}
+		sprintf(title,"Upgrade Tower"); 
+		sprintf(title2,"Upgrade Cost: %d bytes",buyValue);
+		sprintf(info,"Upgrade your tower to make it even more powerful\nagainst your enemies");
+	}
+	int len = 1;
+	for(char* c = &info[0]; *c != '\0'; c++) {
+		if (*c == '\n')
+			len++;
+	}
+
+	float w = (float)max((double)getBitmapStringWidth(info_font,info),80.0);
+	float h = 2*sep + 4 + len*info_font_height;
+	int yp = my + h + (btnNumb*64.0);
+
+	float xp = mx - w/2;
+	if(xp + w + 16 > GW)
+		xp = GW - w - 16;
+	else if (xp < 16)
+		xp = 16;
+
+	glColor3f(1.0,1.0,1.0);
+	renderBitmapString(xp, yp, info_font_bold, title);
+	yp -= (sep+2);
+	renderBitmapString(xp, yp, info_font_bold, title2);
+	yp -= (sep + 4);
+	renderBitmapString(xp, yp, info_font, info);
+
+	yp = my + h + (btnNumb*64.0);
+
+	glPushMatrix();
+	glTranslatef(0,0,0.1);
+	//Draw Corners
+	//TL
+	drawRectangle(xp - 8,yp + 2,16,16,info_tex[3]);
+	//TR
+	drawRectangle(xp + w - 8,yp + 2,16,16,info_tex[2]);
+	//BR
+	drawRectangle(xp + w - 8,yp + 2 - h,16,16,info_tex[1]);
+	//BL
+	drawRectangle(xp - 8,yp + 2 - h,16,16,info_tex[0]);
+
+	//Top
+	drawRectangle(xp - 8 + 16,yp + 2,w - 16,16,info_tex[9]);
+	//Bottom
+	drawRectangle(xp - 8 + 16,yp + 2 - h,w - 16,16,info_tex[8]);
+	//Left
+	drawRectangle(xp - 8,yp + 2 + 16 - h,16,h - 16,info_tex[6]);
+	//Right
+	drawRectangle(xp + w - 8,yp + 2 + 16 - h,16,h - 16,info_tex[7]);
+	//Middle
+	drawRectangle(xp - 8 + 16,yp + 2 + 16 - h,w - 16,h - 16,info_tex[5]);
+	glPopMatrix();
+	glEnable(GL_LIGHTING);
+}
+
 void drawTowerSelect(int mx, int my)
 {
 	if(!towerSelected)
@@ -194,17 +323,43 @@ void drawTowerSelect(int mx, int my)
 	glPopMatrix();
 	glPushMatrix();
 
-	GLfloat cVal = towerSelectOverButton(mx,my,0) ? (mouse_down ? 0.3 : 1.0) : 0.6;
+	GLfloat cVal = 0.6;
+	if(towerSelectOverButton(mx,my,0)) {
+		if(mouse_down)
+			cVal = 0.3;
+		else {
+			drawTowerSelectInfo(mx,my,0);
+			cVal = 1.0;
+		}
+	}
 	glColor3f(cVal,cVal,cVal);
 	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[2 + (int)towerSelect->getTargetMode()]);
 	glTranslatef(0.0,-tower_select.btn_hei-8.0,0.0);
 
-	cVal = towerSelectOverButton(mx,my,1) ? (mouse_down ? 0.3 : 1.0) : 0.6;
+	if(towerSelectOverButton(mx,my,1)) {
+		if(mouse_down)
+			cVal = 0.3;
+		else {
+			drawTowerSelectInfo(mx,my,1);
+			cVal = 1.0;
+		}
+	}
+	else
+		cVal = 0.6;
 	glColor3f(cVal,cVal,cVal);
 	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[0]);
 	glTranslatef(0.0,-tower_select.btn_hei-8.0,0.0);
 
-	cVal = towerSelectOverButton(mx,my,2) ? (mouse_down ? 0.3 : 1.0) : 0.6;
+	if(towerSelectOverButton(mx,my,2)) {
+		if(mouse_down)
+			cVal = 0.3;
+		else {
+			drawTowerSelectInfo(mx,my,2);
+			cVal = 1.0;
+		}
+	}
+	else
+		cVal = 0.6;
 	glColor3f(cVal,cVal,cVal);
 	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[1]);
 	glPopMatrix();
@@ -419,8 +574,7 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 	3 4 5         14 13 12
 	0 1 2         11 10 9
 	*/
-	if(buttonNumber < 0 || buttonNumber > 17) {
-		printf("Invalid button number in drawInfoPanel\n");
+	if(buttonNumber < 0 || buttonNumber > 17 || buttonNumber == 2 || buttonNumber == 1 || buttonNumber == 11 || buttonNumber == 10 || buttonNumber == 9) {
 		return;
 	}
 	if(buttonNumber >= 0 && buttonNumber <= 17) {
