@@ -1,4 +1,5 @@
 #include "GameGrid.h"
+#include "limits.h"
 
 const int FRACTAL_DEPTH = 2;
 const float FRACTAL_VAR = 0.75;
