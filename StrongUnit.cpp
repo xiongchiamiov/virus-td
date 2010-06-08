@@ -47,7 +47,7 @@ void StrongUnit::draw() {
       }
         glScaled(0.25, 0.25, 0.25);
         glTranslatef(0, 1, 0);
-       drawForkBombDLAnimated(animateSpeed+=0.01);
+       drawForkBombDLAnimated(animateSpeed+=0.01, 2);
      //   glCallList(vtd_dl::forkbDL);
         //glCallList(vtd_dl::virusDL);
      glPopMatrix();

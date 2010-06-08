@@ -1,13 +1,32 @@
 #include "models.h"
 
-
 namespace vtd_dl{
-  GLuint lockDL;
-  GLuint blkhatDL;
-  GLuint forkbDL;
-  GLuint forkbForkDL;
-  GLuint virusDL;
-  GLuint wormDL;
+  GLuint lockL1DL;
+  GLuint lockL2DL;
+  GLuint lockL3DL;
+  
+  GLuint blkhatL1DL;
+  GLuint blkhatL2DL;
+  GLuint blkhatL3DL;
+  
+  GLuint forkbL1DL;
+  GLuint forkbL2DL;
+  GLuint forkbL3DL;
+  
+  GLuint forkbForkL1DL;
+  GLuint forkbForkL2DL;
+  GLuint forkbForkL3DL;
+
+  GLuint virusL1DL;
+  GLuint virusL2DL;
+  GLuint virusL3DL;
+  
+  GLuint wormL1DL;
+  GLuint wormL2DL;
+  GLuint wormL3DL;
+  
+  GLuint backtrackLWDL;
+  GLuint backtrackRWDL;
   GLuint backtrackDL;
   GLuint teslaDL;
   GLuint fanDL;
@@ -19,42 +38,41 @@ namespace vtd_dl{
   GLuint rootDL;
 };
 
-void drawLock()
-{
+void drawLock(int tesallation) {
 	GLUquadricObj *quadObj = gluNewQuadric();
 	glPushMatrix();
 		
 		glTranslatef(0,.2,0);
 		glPushMatrix();
 			setMaterial(ShinyMetal);
-			gluCylinder(quadObj, .5, .5, .5, 10, 10);
+			gluCylinder(quadObj, .5, .5, .5, tesallation, tesallation);
 		glPopMatrix();
 		glPushMatrix();
 			setMaterial(ShinyMetal);
 			quadObj = gluNewQuadric();
-			gluDisk(quadObj,0,.5,10,1);
+			gluDisk(quadObj,0,.5,tesallation,1);
 		glPopMatrix();
 		glPushMatrix();
 			setMaterial(BlueFlat);
 			glTranslatef(0,0,.5);
 			quadObj = gluNewQuadric();
-			gluDisk(quadObj,0,.5,10,1);
+			gluDisk(quadObj,0,.5,tesallation,1);
 		glPopMatrix();
 		glPushMatrix();
 			setMaterial(ShinyMetal);
 			glTranslatef(0,.425,.25);
-			glutSolidTorus(.080,.4,10,50);
+			glutSolidTorus(.080,.4,tesallation,tesallation * 2);
 		glPopMatrix();
 		glPushMatrix();
 			setMaterial(ShinyMetal);
 			glTranslatef(0,0,0.50);
-			gluCylinder(quadObj, .25, .25, .25, 20, 20);
+			gluCylinder(quadObj, .25, .25, .25, tesallation * 2, tesallation * 2);
 		glPopMatrix();
 		glPushMatrix();
 			setMaterial(ShinyMetal);
 			glTranslatef(0,0,.75);
 			quadObj = gluNewQuadric();
-			gluDisk(quadObj,0,.25,20,1);			
+			gluDisk(quadObj,0,.25,tesallation * 2,1);			
 		glPopMatrix();
 		glPushMatrix();
 			setMaterial(Black);
@@ -170,40 +188,53 @@ void drawLock()
 	glPopMatrix();
 }
 
-void drawBlackHat()
-{
+void drawBlackHat(int tesallation) {
 	glPushMatrix();
    setMaterial(Black);
 	glTranslatef(0,.2,0);
 	glRotatef(-90,1,0,0);
 	glPushMatrix();
 	GLUquadricObj *quadObj = gluNewQuadric();
-   gluCylinder(gluNewQuadric(), 1.0, 1.0, 0.1, 20, 1);
+   gluCylinder(gluNewQuadric(), 1.0, 1.0, 0.1, tesallation, 1);
    glTranslatef(0.0, 0.0, 0.1);
-	gluDisk(quadObj,0,1,20,1);
+	gluDisk(quadObj,0,1,tesallation * 2,1);
 
 	glPopMatrix();
 	   glPushMatrix();
-         gluCylinder(gluNewQuadric(), 0.5, 0.5, 2, 20, 1);
+         gluCylinder(gluNewQuadric(), 0.5, 0.5, 2, tesallation, 1);
          glTranslatef(0.0, 0.0, 0.35);
          setMaterial(RedFlat);
-	      glutSolidTorus(.1,0.5,10,20);
+	      glutSolidTorus(.1,0.5,tesallation,tesallation);
          glTranslatef(0.0, 0.0, 1.65);
          setMaterial(Black);
-         gluDisk(gluNewQuadric(), 0.0, 0.5, 20, 1);
+         gluDisk(gluNewQuadric(), 0.0, 0.5, tesallation, 1);
 	   glPopMatrix();
 
 	glPopMatrix();
 }
 
-void drawForkBombDLAnimated(double speed) {
-   glPushMatrix();
-      glCallList(vtd_dl::forkbDL);
-      glTranslatef(0,speed,0);
-      glCallList(vtd_dl::forkbForkDL);
-   glPopMatrix();
+void drawForkBombDLAnimated(double speed, int LoD) {
+   if (LoD == 3) {
+      glPushMatrix();
+         glCallList(vtd_dl::forkbL3DL);
+         glTranslatef(0,speed,0);
+         glCallList(vtd_dl::forkbForkL3DL);
+      glPopMatrix();
+   } else if (LoD == 2) {
+      glPushMatrix();
+         glCallList(vtd_dl::forkbL2DL);
+         glTranslatef(0,speed,0);
+         glCallList(vtd_dl::forkbForkL2DL);
+      glPopMatrix();
+   } else {
+      glPushMatrix();
+         glCallList(vtd_dl::forkbL1DL);
+         glTranslatef(0,speed,0);
+         glCallList(vtd_dl::forkbForkL1DL);
+      glPopMatrix();
+   }
 }
-void drawForkBombFork() {
+void drawForkBombFork(int tesallation) {
       GLUquadricObj *quadObj = gluNewQuadric();
 		glPushMatrix();
 	//	glTranslatef(0,animate_fork,0);
@@ -214,12 +245,12 @@ void drawForkBombFork() {
 				setMaterial(ShinyMetal);
 				quadObj = gluNewQuadric();
 				//gluCylinder(quadObj, base, top, height, slices, stacks);
-				gluCylinder(quadObj,.125,.125,3,10,10);
+				gluCylinder(quadObj,.125,.125,3,tesallation,tesallation);
 			glPopMatrix();
 			glPushMatrix();
 				quadObj = gluNewQuadric();
 				glTranslatef(0,0,2);
-				gluCylinder(quadObj,.125,.07,.5,10,10);
+				gluCylinder(quadObj,.125,.07,.5,tesallation,tesallation);
 			glPopMatrix();
 			glPushMatrix();
 				glRotatef(90,1,0,0);
@@ -280,41 +311,39 @@ void drawForkBombFork() {
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(-.69,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(-.245,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);	
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);	
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(.245,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(.69,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
 }
-
-void drawForkBomb()
-{
+void drawForkBomb(int tesallation) {
 	//float animate_fork = 0.25;
 	glPushMatrix(); /** Entire forkbomb **/
 		//insert entire forkbomb animations
@@ -324,7 +353,7 @@ void drawForkBomb()
 		    glRotatef(-90,1,0,0);
 			glRotatef(22,0,1,0);
 			glPushMatrix(); /** Circular Element in Bomb **/
-				glutSolidSphere(1.0, 12, 12);
+				glutSolidSphere(1.0, tesallation, tesallation);
 			glPopMatrix();
 			glPushMatrix(); /** Wick to bomb transition **/
 				setMaterial(DarkGrey);
@@ -332,75 +361,75 @@ void drawForkBomb()
 				//glRotatef(22,0,1,0);
 				glTranslatef(0,0,.95);
 				GLUquadricObj *quadObj = gluNewQuadric();
-				gluCylinder(quadObj, .15, .15, .25, 6, 6);				
+				gluCylinder(quadObj, .15, .15, .25, tesallation, tesallation);				
 			glPopMatrix();
 			glPushMatrix();
 			setMaterial(Metal);
 			glPushMatrix(); /** Wick **/
 				glTranslatef(0,0,1.2);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glTranslatef(0,0,1.3);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2,tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glTranslatef(0,0,1.4);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2,tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glTranslatef(0,0,1.5);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(.1,1,0,0);
 				glTranslatef(0,0,1.55);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(.2,1,0,0);
 				glTranslatef(0,0,1.6);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(.4,1,0,0);
 				glTranslatef(0,0,1.65);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(.5,1,0,0);
 				glTranslatef(0,0,1.7);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(.7,1,0,0);
 				glTranslatef(0,0,1.75);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(.8,1,0,0);
 				glTranslatef(0,0,1.8);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(1.0,1,0,0);
 				glTranslatef(0,0,1.85);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(1.1,1,0,0);
 				glTranslatef(0,0,1.9);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(1.3,1,0,0);
 				glTranslatef(0,0,1.95);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPushMatrix(); /** Wick **/
 				glRotatef(1.4,1,0,0);
 				glTranslatef(0,0,2.0);
-				glutSolidSphere(0.1, 3, 3);
+				glutSolidSphere(0.1, tesallation / 2, tesallation / 2);
 			glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
@@ -414,12 +443,12 @@ void drawForkBomb()
 				setMaterial(ShinyMetal);
 				quadObj = gluNewQuadric();
 				//gluCylinder(quadObj, base, top, height, slices, stacks);
-				gluCylinder(quadObj,.125,.125,3,10,10);
+				gluCylinder(quadObj,.125,.125,3,tesallation,tesallation);
 			glPopMatrix();
 			glPushMatrix();
 				quadObj = gluNewQuadric();
 				glTranslatef(0,0,2);
-				gluCylinder(quadObj,.125,.07,.5,10,10);
+				gluCylinder(quadObj,.125,.07,.5,tesallation,tesallation);
 			glPopMatrix();
 			glPushMatrix();
 				glRotatef(90,1,0,0);
@@ -480,34 +509,34 @@ void drawForkBomb()
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(-.69,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(-.245,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);	
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);	
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(.245,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(.69,0,3.56);
-				gluCylinder(quadObj,.06,.06,1.5,10,10);
+				gluCylinder(quadObj,.06,.06,1.5,tesallation,tesallation);
 				glPushMatrix();
 					glTranslatef(0,0,1.5);
-					gluCylinder(quadObj,.06,0,.2,10,10);
+					gluCylinder(quadObj,.06,0,.2,tesallation,tesallation);
 				glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
@@ -523,18 +552,27 @@ void drawForkBomb()
 	}*/
 }
 
-void drawVirusDLAnimated(double speed) {
+void drawVirusDLAnimated(double speed, int LoD) {
    glPushMatrix();
-      glCallList(vtd_dl::virusDL);
-
-   	setMaterial(GreenShiny);
-      glScalef(speed, speed, speed);
-   	glutSolidSphere(1.0, 12, 12);
+      if (LoD == 3) {
+         glCallList(vtd_dl::virusL3DL);
+   	   setMaterial(GreenShiny);
+         glScalef(speed, speed, speed);
+   	   glutSolidSphere(1.0, 12, 12);
+      } else if (LoD == 2) {
+         glCallList(vtd_dl::virusL2DL);
+      	setMaterial(GreenShiny);
+         glScalef(speed, speed, speed);
+   	   glutSolidSphere(1.0, 8, 8);
+      } else {
+         glCallList(vtd_dl::virusL1DL);
+   	   setMaterial(GreenShiny);
+        glScalef(speed, speed, speed);
+   	   glutSolidSphere(1.0, 5, 5);
+      }
    glPopMatrix();
 }
-
-void drawVirus()
-{
+void drawVirus(int tesallation) {
 	glPushMatrix();
 	int list[6] = {60,120,180,240,300,360};
    float animate_virus = 0.25;
@@ -557,7 +595,7 @@ void drawVirus()
 		glTranslatef(0,0,animate_virus);
 		quadObj = gluNewQuadric();
 		//gluCylinder(quadObj, base, top, height, slices, stacks);
-		gluCylinder(quadObj, 0.2, 0, 1.1, 12, 12);
+		gluCylinder(quadObj, 0.2, 0, 1.1, tesallation, tesallation);
 		glPopMatrix();
 	}
 	for(i = 0; i < 6; i++)
@@ -568,7 +606,7 @@ void drawVirus()
 		glTranslatef(0,0,animate_virus);
 		quadObj = gluNewQuadric();
 		//gluCylinder(quadObj, base, top, height, slices, stacks);
-		gluCylinder(quadObj, 0.2, 0, 1.1, 12, 12);
+		gluCylinder(quadObj, 0.2, 0, 1.1, tesallation, tesallation);
 		glPopMatrix();
 	}
 	for(i = 0; i < 6; i++)
@@ -579,7 +617,7 @@ void drawVirus()
 		glTranslatef(0,0,animate_virus);
 		quadObj = gluNewQuadric();
 		//gluCylinder(quadObj, base, top, height, slices, stacks);
-		gluCylinder(quadObj, 0.2, 0, 1.1, 12, 12);
+		gluCylinder(quadObj, 0.2, 0, 1.1, tesallation, tesallation);
 		glPopMatrix();
 	}
 	glPopMatrix();
@@ -594,15 +632,19 @@ void drawVirus()
 	}
 }
 
-void drawWormDLAnimated(double speed) {
+void drawWormDLAnimated(double speed, int LoD) {
    glPushMatrix();
       glScaled(speed, speed, speed);
-      glCallList(vtd_dl::wormDL);
+      if (LoD == 3) {
+         glCallList(vtd_dl::wormL3DL);
+      } else if (LoD == 2) {
+         glCallList(vtd_dl::wormL2DL);
+      } else {
+         glCallList(vtd_dl::wormL1DL);
+      }
    glPopMatrix();
 }
-
-void drawWorm() {
-   int tesallation = 6;
+void drawWorm(int tesallation) {
    // save the transformation state
    glPushMatrix();
    // set the material
@@ -695,12 +737,53 @@ void drawWorm() {
    return;
 }
 
-void drawBackTrack() {
-   int tesallation = 3;
+void drawBackTrackDLAnimated(double speed) {
+   double rot = 0 + speed * (0 - 20);
+
    // save the transformation state
    glPushMatrix();
       setMaterial(Grey);
 
+      // locate it in the scene
+    //  glMatrixMode(GL_MODELVIEW);
+      
+      // Wings
+      glPushMatrix();
+         glRotatef(rot, 0.0, 0.0, 1.0);
+         glScaled(2.0, 2.0, 2.0);
+         /* =========  Right Wing  ========= */
+             /* Right Wing Top Branch */
+         glPushMatrix();
+            glRotatef(rot, 1.0, 0.0, 0.0);
+            glRotatef(-rot, 0.0, 1.0, 0.0);
+            glCallList(vtd_dl::backtrackRWDL);
+         glPopMatrix();
+         glTranslatef(0.0, 0.0, -6);
+         
+         /* ===========  Left Wing  =========== */
+              /* Left Wing Top Branch */
+         glPushMatrix();
+            glRotatef(-rot, 1.0, 0.0, 0.0);
+            glRotatef(rot, 0.0, 1.0, 0.0);
+            glCallList(vtd_dl::backtrackLWDL);
+         glPopMatrix();
+      glPopMatrix();
+
+      // Transform back to Middle
+      glTranslatef(23.0, -7.0, -6.0);
+
+      // Head
+      glCallList(vtd_dl::backtrackDL);
+   glPopMatrix();
+}
+
+void drawBackTrack() {
+   int tesallation = 3;
+
+   // save the transformation state
+   glPushMatrix();
+      setMaterial(Grey);
+#if 0
       // locate it in the scene
       glMatrixMode(GL_MODELVIEW);
       
@@ -854,7 +937,7 @@ void drawBackTrack() {
 
       // Transform back to Middle
       glTranslatef(23.0, -7.0, -6.0);
-      
+#endif
       // Head
       glPushMatrix();
          glTranslatef(-0.75, 0.1, 0.0);
@@ -1041,14 +1124,161 @@ void drawBackTrack() {
             }
          glPopMatrix();
       glPopMatrix();
-      
    glPopMatrix();
 
    return;
 }
+void drawBackTrackLeftWing() {
+   int tesallation = 3;
+         /* ===========  Left Wing  =========== */
+              /* Left Wing Top Branch */
+         glPushMatrix();
+            glRotatef(-10, 0.0, 1.0, 0.0);
+            glPushMatrix();
+               // Wing joint rotation about Z axis
+               glRotatef(-15, 0.0, 0.0, 1.0);
+               // Wing joint rotation about Y axis
+               glRotatef(-15, 0.0, 1.0, 0.0);
+               for (int i = 0; i < 25; i++) {
+                  glRotatef(2, 0.0, 0.0, 1.0);
+                  glTranslatef(-1.0, 0.0, 0.0);
+                  glScaled(1.0, 0.93, 0.93);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+                 /* Left Wing Mid Branch */
+            glPushMatrix();
+               glTranslatef(0.0, -1.0, 0.0);
+               // Wing joint rotation about Z axis
+               glRotatef(-1, 0.0, 0.0, 1.0);
+               // Wing joint rotation about Y axis
+               glRotatef(-5.0, 0.0, 1.0, 0.0);
+               for (int i = 0; i < 29; i++) {
+                  glRotatef(1.7, 0.0, 0.0, 1.0);
+                  glTranslatef(-1.0, 0.0, 0.0);
+                  glScaled(1.0, 0.93, 0.93);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+                 /* Left Wing Bottom Branch */
+            glPushMatrix();
+               glTranslatef(0.5, -2.0, 0.0);
+               // Wing joint rotation about Z axis
+               glRotatef(14, 0.0, 0.0, 1.0);
+               // Wing joint rotation about Y axis
+               glRotatef(10, 0.0, 1.0, 0.0);
+               for (int i = 0; i < 23; i++) {
+                  glRotatef(1.7, 0.0, 0.0, 1.0);
+                  glTranslatef(-1.0, 0.0, 0.0);
+                  glScaled(1.0, 0.93, 0.93);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+
+            glPushMatrix();
+               glPushMatrix();
+                  // Wing Arm
+                  glScaled(0.50, 1.0, 0.50);
+                  glRotatef(-90, 1.0, 0.0, 0.0);
+                  glutSolidCone(1.0, 1.5, tesallation, tesallation);
+               glPopMatrix();
+
+               for (int i = 0; i < 8; i++) {
+                  glRotatef(5.0, 0.0, 0.0, 1.0); // rotate forward
+                  glRotatef(-5.0, 1.0, 0.0, 0.0); // rotate inward
+                  glTranslatef(0.0, -0.5, 0.0); // shift
+                  glScaled(0.9, 1.01, 0.9);
+                  glutSolidCube(1.0);
+               }
+               
+               for (int i = 0; i < 5; i++) {
+                  glRotatef(6.0, 0.0, 0.0, 1.0); // rotate forward
+                  glRotatef(-2.0, 1.0, 0.0, 0.0); // rotate inward
+                  glTranslatef(0.0, -0.5, 0.0); // shift
+                  glScaled(1.15, 0.95, 1.15);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+         glPopMatrix();
+}
+void drawBackTrackRightWing() {
+   int tesallation = 3;
+         /* =========  Right Wing  ========= */
+             /* Right Wing Top Branch */
+         glPushMatrix();
+            glRotatef(10, 0.0, 1.0, 0.0);
+            glPushMatrix();
+               // Wing joint rotation about Z axis
+               glRotatef(-15, 0.0, 0.0, 1.0);
+               // Wing joint rotation about Y axis
+               glRotatef(15, 0.0, 1.0, 0.0);
+               for (int i = 0; i < 25; i++) {
+                  glRotatef(2, 0.0, 0.0, 1.0);
+                  glTranslatef(-1.0, 0.0, 0.0);
+                  glScaled(1.0, 0.93, 0.93);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+                 /* Right Wing Mid Branch */
+            glPushMatrix();
+               glTranslatef(0.0, -1.0, 0.0);
+               // Wing joint rotation about Z axis
+               glRotatef(-1, 0.0, 0.0, 1.0);
+               // Wing joint rotation about Y axis
+               glRotatef(5.0, 0.0, 1.0, 0.0);
+               for (int i = 0; i < 29; i++) {
+                  glRotatef(1.7, 0.0, 0.0, 1.0);
+                  glTranslatef(-1.0, 0.0, 0.0);
+                  glScaled(1.0, 0.93, 0.93);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+                 /* Right Wing Botton Branch */
+            glPushMatrix();
+               glTranslatef(0.5, -2.0, 0.0);
+               // Wing joint rotation about Z axis
+               glRotatef(14, 0.0, 0.0, 1.0);
+               // Wing joint rotation about Y axis
+               glRotatef(-10, 0.0, 1.0, 0.0);
+               for (int i = 0; i < 23; i++) {
+                  glRotatef(1.7, 0.0, 0.0, 1.0);
+                  glTranslatef(-1.0, 0.0, 0.0);
+                  glScaled(1.0, 0.93, 0.93);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+            
+            glPushMatrix();
+               glPushMatrix();
+                  // Right Wing Arm
+                  glScaled(0.50, 1.0, 0.50);
+                  glRotatef(-90, 1.0, 0.0, 0.0);
+                  glutSolidCone(1.0, 1.5, tesallation, tesallation);
+               glPopMatrix();
+
+               for (int i = 0; i < 8; i++) {
+                  glRotatef(5.0, 0.0, 0.0, 1.0); // rotate forward
+                  glRotatef(5.0, 1.0, 0.0, 0.0); // rotate inward
+                  glTranslatef(0.0, -0.5, 0.0); // shift
+                  glScaled(0.9, 1.01, 0.9);
+                  glutSolidCube(1.0);
+               }
+               
+               for (int i = 0; i < 5; i++) {
+                  glRotatef(6.0, 0.0, 0.0, 1.0); // rotate forward
+                  glRotatef(2.0, 1.0, 0.0, 0.0); // rotate inward
+                  glTranslatef(0.0, -0.5, 0.0); // shift
+                  glScaled(1.15, 0.95, 1.15);
+                  glutSolidCube(1.0);
+               }
+            glPopMatrix();
+         glPopMatrix();
+}
+
 
 void drawTeslaCoil() {
    int tesallation = 8;
+
    // save the transformation state
    glPushMatrix();
 
@@ -1350,7 +1580,6 @@ void drawFanDLAnimated(double speed) {
    animateCPUFan(4, speed);
    glPopMatrix();
 }
-
 void drawCPUFan() {
    int tesallation = 6;
 
@@ -1423,7 +1652,6 @@ void drawCPUFan() {
 
    return;
 }
-
 void drawCPUFanBase() {
    // Circuit
    glPushMatrix();
@@ -1433,7 +1661,6 @@ void drawCPUFanBase() {
       glutSolidCube(1.0);
    glPopMatrix();
 }
-
 void animateCPUFan(int tesallation, int speed) {
    // Fan Blades
    glPushMatrix();
@@ -1480,10 +1707,10 @@ void drawShield() {
    glutSolidDodecahedron();
    glPopMatrix();
 }
-
 /* Used by drawShield */
 void drawShieldBase(int set) {
    int tesallation = 3;
+
    glPushMatrix();
       setMaterial(Grey);
       
@@ -1573,7 +1800,6 @@ void drawTurretDLAnimated(double speed) {
       glCallList(vtd_dl::turretBaseDL);
    glPopMatrix();
 }
-
 /* Used by drawMemBase */
 void drawMemStick() {
    glPushMatrix();
@@ -1612,7 +1838,6 @@ void drawMemStick() {
    glPopMatrix();
    return;
 }
-
 /* Used by drawTurret */
 void drawMemBase() {
    glPushMatrix();
@@ -1649,7 +1874,6 @@ void drawMemBase() {
       glPopMatrix();
    glPopMatrix();
 }
-
 void drawTurret() {
    glPushMatrix();
       setMaterial(Black);
@@ -1699,7 +1923,6 @@ void drawLeg(int tes) {
    glPopMatrix();
    return;
 }
-
 /* Used by drawTrojan */
 void drawWheelBase(int tes ) {
    int tesallation = tes;
@@ -1734,7 +1957,6 @@ void drawWheelBase(int tes ) {
       glPopMatrix();
    glPopMatrix();
 }
-
 /* This model has a dynamic tail. Tesallations at or below
    4 will render a different tail vs tesallations greater
    than 4 */
@@ -1857,13 +2079,15 @@ void drawTrojan() {
 }
 
 void drawBearLeftArm() {
+   int tesallation = 10;
+
    glPushMatrix();
       // left arm
       glTranslatef(-2.5, -3.0, 0.0);
       glRotatef(-45, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(0.65, 1.8, 0.65);
-         glutSolidSphere(1.0, 10, 10);
+         glutSolidSphere(1.0, tesallation, tesallation);
       glPopMatrix();
 
       glTranslatef(0.5, -1.0, 1.0);
@@ -1871,19 +2095,20 @@ void drawBearLeftArm() {
       glRotatef(-70, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(0.65, 1.5, 0.65);
-         glutSolidSphere(1.0, 10, 10);
+         glutSolidSphere(1.0, tesallation, tesallation);
       glPopMatrix();
    glPopMatrix();
 }
-
 void drawBearRightArm() {
+   int tesallation = 10;
+
    glPushMatrix();
       // right arm
       glTranslatef(2.5, -3.0, 0.0);
       glRotatef(45, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(0.65, 1.8, 0.65);
-         glutSolidSphere(1.0, 10, 10);
+         glutSolidSphere(1.0, tesallation, tesallation);
       glPopMatrix();
                
       glTranslatef(-0.5, -1.0, 1.0);
@@ -1891,12 +2116,13 @@ void drawBearRightArm() {
       glRotatef(70, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(0.65, 1.5, 0.65);
-         glutSolidSphere(1.0, 10, 10);
+         glutSolidSphere(1.0, tesallation, tesallation);
       glPopMatrix();
    glPopMatrix();
 }
-
 void drawBearLeftLeg() {
+   int tesallation = 20;
+
    glPushMatrix();
       // left leg
       glTranslatef(-0.95, -6.0, 1.0);
@@ -1904,14 +2130,14 @@ void drawBearLeftLeg() {
       glRotatef(-35, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(1.75, 4.0, 1.75);
-         glutSolidSphere(0.5, 20, 20);
+         glutSolidSphere(0.5, tesallation, tesallation);
       glPopMatrix();
 
       glTranslatef(1.25, -2.00, 0.0);
       glRotatef(70, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(1.20, 3.0, 1.20);      
-         glutSolidSphere(0.5, 20, 20);
+         glutSolidSphere(0.5, tesallation, tesallation);
       glPopMatrix();
 
       glTranslatef(0.90, -1.70, 0.0);
@@ -1923,8 +2149,9 @@ void drawBearLeftLeg() {
       glPopMatrix();
    glPopMatrix();
 }
-
 void drawBearRightLeg() {
+   int tesallation = 20;
+
    glPushMatrix();
       // right leg
       glTranslatef(0.95, -6.0, 1.0);
@@ -1932,14 +2159,14 @@ void drawBearRightLeg() {
       glRotatef(-35, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(1.75, 4.0, 1.75);
-         glutSolidSphere(0.5, 20, 20);
+         glutSolidSphere(0.5, tesallation, tesallation);
       glPopMatrix();
       
       glTranslatef(1.25, -2.00, 0.0);
       glRotatef(70, 0.0, 0.0, 1.0);
       glPushMatrix();
          glScaled(1.20, 3.0, 1.20);      
-         glutSolidSphere(0.5, 20, 20);
+         glutSolidSphere(0.5, tesallation, tesallation);
       glPopMatrix();
 
       glTranslatef(0.90, -1.70, 0.0);
@@ -1951,37 +2178,38 @@ void drawBearRightLeg() {
       glPopMatrix();
    glPopMatrix();
 }
-
-
 void drawEar() {
+   int tesallation = 10;
+
 	glPushMatrix();
       setMaterial(Brown);
-      glutSolidTorus(0.45, 2.0, 10, 20);
+      glutSolidTorus(0.45, 2.0, tesallation, tesallation * 2);
       setMaterial(RedFlat);
-      gluDisk(gluNewQuadric(), 0.0, 2.0, 20, 1);
+      gluDisk(gluNewQuadric(), 0.0, 2.0, tesallation, 1);
       glRotatef(180.0, 1.0, 0.0, 0.0);
       glTranslatef(0.0, 0.0, 0.01);
-      gluDisk(gluNewQuadric(), 0.0, 2.0, 20, 1);
+      gluDisk(gluNewQuadric(), 0.0, 2.0, tesallation, 1);
    glPopMatrix();
    return;
 }
-
 void drawBearCore() {
+   int tesallation = 10;
+
    glPushMatrix();
       glPushMatrix();
          // head
          setMaterial(Brown);
          glScaled(1.725, 1.45, 1.20);
-         glutSolidSphere(2, 20, 20);
+         glutSolidSphere(2, tesallation * 2, tesallation * 2);
       glPopMatrix();
       
       glPushMatrix();
          // eyes
          setMaterial(Black);
          glTranslatef(1.4, 0.0, 2.25);
-         glutSolidSphere(0.5, 10, 10);
+         glutSolidSphere(0.5, tesallation, tesallation);
          glTranslatef(-2.8, 0.0, 0.0);
-         glutSolidSphere(0.5, 10, 10);
+         glutSolidSphere(0.5, tesallation, tesallation);
       glPopMatrix();
       
       glPushMatrix();
@@ -1989,15 +2217,15 @@ void drawBearCore() {
          glTranslatef(0.0, -1.0, 2.5);
          glPushMatrix();
             glTranslatef(0.0, -0.15, 0.7);
-            glutSolidSphere(0.5, 10, 10);
+            glutSolidSphere(0.5, tesallation, tesallation);
          glPopMatrix();
          
          glPushMatrix();
             setMaterial(LightBrown);
             glTranslatef(0.75, -0.25, 0.0);
-            glutSolidSphere(0.6, 10, 10);
+            glutSolidSphere(0.6, tesallation, tesallation);
             glTranslatef(-1.5, 0.0, 0.0);
-            glutSolidSphere(0.6, 10, 10);
+            glutSolidSphere(0.6, tesallation, tesallation);
          glPopMatrix();
          
          glPushMatrix();
@@ -2030,19 +2258,19 @@ void drawBearCore() {
             glRotatef(40, 0.0, 0.0, 1.0);
             glRotatef(70, 1.0, 0.0, 0.0);
             glTranslatef(0.0, 0.0, 2.25);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(10, 1.0, 1.0, 0.0);
             glTranslatef(0.5, -0.25, 0.5);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(10, 1.0, 1.0, 0.0);
             glTranslatef(0.5, -0.25, 0.3);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(10, 1.0, 1.0, 0.0);
             glTranslatef(0.5, -0.25, 0.0);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(10, 1.0, 1.0, 0.0);
             glTranslatef(0.5, -0.25, 0.0);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
          glPopMatrix();
          
          glPushMatrix();
@@ -2050,23 +2278,23 @@ void drawBearCore() {
             glRotatef(-40, 0.0, 0.0, 1.0);
             glRotatef(70, 1.0, 0.0, 0.0);
             glTranslatef(0.0, 0.0, 2.25);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(-10, 0.0, 1.0, 0.0);
             glRotatef(10, 1.0, 0.0, 0.0);
             glTranslatef(-0.5, -0.25, 0.5);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(-10, 0.0, 1.0, 0.0);
             glRotatef(10, 1.0, 0.0, 0.0);
             glTranslatef(-0.5, -0.25, 0.5);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(-10, 0.0, 1.0, 0.0);
             glRotatef(10, 1.0, 0.0, 0.0);
             glTranslatef(-0.5, -0.25, 0.0);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
             glRotatef(-10, 0.0, 1.0, 0.0);
             glRotatef(10, 1.0, 0.0, 0.0);
             glTranslatef(-0.5, -0.25, 0.0);
-            glutSolidCone(0.45, 1.3, 10, 10);
+            glutSolidCone(0.45, 1.3, tesallation, tesallation);
          glPopMatrix();
       glPopMatrix();
       
@@ -2074,11 +2302,10 @@ void drawBearCore() {
          // body
          glTranslatef(0.0, -3.6, -0.2);
          glScaled(0.95, 1.2, 0.95);
-         glutSolidSphere(2.5, 30, 30);
+         glutSolidSphere(2.5, tesallation * 2, tesallation * 2);
       glPopMatrix();
    glPopMatrix();
 }
-
 void drawBearDLAnimated(double rotation) {
    glCallList(vtd_dl::bearDL);
 
@@ -2136,7 +2363,6 @@ void drawRootDir() {
       glPopMatrix();
    glPopMatrix();
 }
-
 
 void drawPhish() {
    int tesallation = 6;
@@ -2285,46 +2511,118 @@ void drawPhish() {
 
 using namespace vtd_dl;
 void composeDisplayLists(){
-  lockDL = glGenLists(1);
-  blkhatDL = glGenLists(1);
-  forkbDL = glGenLists(1);
-  forkbForkDL = glGenLists(1);
-  virusDL = glGenLists(1);
-  wormDL = glGenLists(1);
+  lockL1DL = glGenLists(1);
+  lockL2DL = glGenLists(1);
+  lockL3DL = glGenLists(1);
+  
+  blkhatL1DL = glGenLists(1);
+  blkhatL2DL = glGenLists(1);
+  blkhatL3DL = glGenLists(1);
+  
+  forkbL1DL = glGenLists(1);
+  forkbL2DL = glGenLists(1);
+  forkbL3DL = glGenLists(1);
+  forkbForkL1DL = glGenLists(1);
+  forkbForkL2DL = glGenLists(1);
+  forkbForkL3DL = glGenLists(1);
+  
+  virusL1DL = glGenLists(1);
+  virusL2DL = glGenLists(1);
+  virusL3DL = glGenLists(1);
+  
+  wormL1DL = glGenLists(1);
+  wormL2DL = glGenLists(1);
+  wormL3DL = glGenLists(1);
+
+  backtrackLWDL = glGenLists(1);
+  backtrackRWDL = glGenLists(1);
   backtrackDL = glGenLists(1);
+
   teslaDL = glGenLists(1);
+  
   fanDL = glGenLists(1);
+  
   shieldDL = glGenLists(1);
+  
   turretDL = glGenLists(1);
   turretBaseDL = glGenLists(1);
+  
   trojanDL  = glGenLists(1);
+  
   bearDL = glGenLists(1);
+  
   rootDL = glGenLists(1);
 
-  glNewList(lockDL, GL_COMPILE);
-    drawLock();
-  glEndList();
 
-  glNewList(blkhatDL, GL_COMPILE);
-    drawBlackHat();
+  glNewList(lockL1DL, GL_COMPILE);
+    drawLock(5);
   glEndList();
-
-  glNewList(forkbDL, GL_COMPILE);
-    drawForkBomb();
+  glNewList(lockL2DL, GL_COMPILE);
+    drawLock(8);
   glEndList();
-
-  glNewList(forkbForkDL, GL_COMPILE);
-    drawForkBombFork();
-  glEndList();
-
-  glNewList(virusDL, GL_COMPILE);
-    drawVirus();
-  glEndList();
-
-  glNewList(wormDL, GL_COMPILE);
-    drawWorm();
+  glNewList(lockL3DL, GL_COMPILE);
+    drawLock(10);
   glEndList();
   
+  
+  glNewList(blkhatL1DL, GL_COMPILE);
+    drawBlackHat(5);
+  glEndList();
+  glNewList(blkhatL2DL, GL_COMPILE);
+    drawBlackHat(10);
+  glEndList();
+  glNewList(blkhatL3DL, GL_COMPILE);
+    drawBlackHat(15);
+  glEndList();
+
+
+  glNewList(forkbL1DL, GL_COMPILE);
+    drawForkBomb(4);
+  glEndList();
+  glNewList(forkbL2DL, GL_COMPILE);
+    drawForkBomb(8);
+  glEndList();
+  glNewList(forkbL3DL, GL_COMPILE);
+    drawForkBomb(12);
+  glEndList();
+  
+  glNewList(forkbForkL1DL, GL_COMPILE);
+    drawForkBombFork(4);
+  glEndList();
+  glNewList(forkbForkL2DL, GL_COMPILE);
+    drawForkBombFork(8);
+  glEndList();
+  glNewList(forkbForkL3DL, GL_COMPILE);
+    drawForkBombFork(12);
+  glEndList();
+  
+  
+  glNewList(virusL1DL, GL_COMPILE);
+    drawVirus(5);
+  glEndList();
+  glNewList(virusL2DL, GL_COMPILE);
+    drawVirus(8);
+  glEndList();
+  glNewList(virusL3DL, GL_COMPILE);
+    drawVirus(12);
+  glEndList();
+
+  glNewList(wormL1DL, GL_COMPILE);
+    drawWorm(5);
+  glEndList();
+  glNewList(wormL2DL, GL_COMPILE);
+    drawWorm(8);
+  glEndList();
+  glNewList(wormL3DL, GL_COMPILE);
+    drawWorm(11);
+  glEndList();
+  
+  glNewList(backtrackLWDL, GL_COMPILE);
+    drawBackTrackLeftWing();
+  glEndList();
+  glNewList(backtrackRWDL, GL_COMPILE);
+    drawBackTrackRightWing();
+  glEndList();
   glNewList(backtrackDL, GL_COMPILE);
     drawBackTrack();
   glEndList();

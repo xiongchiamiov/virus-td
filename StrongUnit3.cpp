@@ -43,7 +43,7 @@ void StrongUnit3::draw() {
         
         glScaled(0.4, 0.4, 0.4);
         glTranslatef(0, 1, 0);
-        glCallList(vtd_dl::lockDL);
+        glCallList(vtd_dl::lockL1DL);
 
      glPopMatrix();
      

@@ -66,7 +66,7 @@ void TrapTower::draw(GLuint id, GLenum mode){
    glScalef(.5,.5,.5);
    if(mode == GL_SELECT)
 	   glLoadName(id);
-   glCallList(vtd_dl::blkhatDL);
+   glCallList(vtd_dl::blkhatL3DL);
    //glutSolidTorus(0.2, 0.25, 10, 10);
   glPopMatrix();
 	 glPushMatrix();

@@ -131,20 +131,20 @@ static void redraw(int object)
 		{
 			glScalef(0.4, 0.4, 0.4);
 			glTranslatef(-.4,0,-.5);
-			glCallList(vtd_dl::lockDL);
+			glCallList(vtd_dl::lockL1DL);
 		}
 		else if(object == 6)
 		{
 			glScaled(.3,.2,.3);
 			glTranslatef(-.5,1,-.5);
-			glCallList(vtd_dl::blkhatDL);			
+			glCallList(vtd_dl::blkhatL1DL);			
 		}
 		else if(object == 7)
 		{
 		    glScaled(0.1, 0.1, 0.1);
 			glRotatef(90, 1.0, 1.0, 0.0);
 			glTranslatef(0,0,-3);
-		    glCallList(vtd_dl::wormDL);
+		    glCallList(vtd_dl::wormL1DL);
 		}
 		else if(object == 8)
 		{
@@ -157,7 +157,7 @@ static void redraw(int object)
 		{
 			glScaled(0.20, 0.20, 0.20);
 			glTranslatef(-0.5,1,-0.5);
-			glCallList(vtd_dl::forkbDL);
+			glCallList(vtd_dl::forkbL1DL);
 		}
 		else if(object == 10)
 		{

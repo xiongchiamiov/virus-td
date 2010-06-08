@@ -64,7 +64,7 @@ void BasicUnit::draw()
  //    incr = 0.01;
  // }
   
-  drawWormDLAnimated(animateSpeed+=increment);
+  drawWormDLAnimated(animateSpeed+=increment, 3);
 //  glCallList(vtd_dl::wormDL);
   glPopMatrix();
 	 glPushMatrix();

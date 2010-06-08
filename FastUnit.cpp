@@ -59,7 +59,7 @@ void FastUnit::draw() {
      incr = 0.03;
   }
 
-  drawVirusDLAnimated(animateSpeed+=incr);
+  drawVirusDLAnimated(animateSpeed+=incr, 3);
  // glCallList(vtd_dl::virusDL);
   //glCallList(vtd_dl::forkbDL);
   glPopMatrix();
