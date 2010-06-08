@@ -7,7 +7,7 @@ namespace projectile{
 using namespace projectile;
 
 Projectile::Projectile(Particles* p, Unit* targ, float x, float y, float z):
-effect(p), target(targ), done(false), pos(0.0, 0.0, 0.0, x, y, z)
+effect(*p), target(targ), done(false), pos(0.0, 0.0, 0.0, x, y, z)
 {
 }
 
@@ -20,7 +20,7 @@ void Projectile::draw(){
   glPushMatrix();
   glTranslatef(pos.getX(), pos.getY(), pos.getZ());
   glScaled(0.15, 0.15, 0.15);
-  effect->drawParticles();
+  effect.drawParticles();
   //glutSolidSphere(0.3, 4, 4);
   glPopMatrix();
 }

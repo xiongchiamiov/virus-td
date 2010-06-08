@@ -8,7 +8,7 @@
 class Projectile
 {
 private:
-  Particles* effect;
+  Particles effect;
   MyVector pos;
   float speed;
   Unit* target;
