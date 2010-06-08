@@ -26,6 +26,7 @@ const float OPP_POSZ2 = -GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE;
 namespace unit_cost {
   const int BASIC = 5;
   const int FAST = 10;
+  const int FAST2 = 20;
   const int STRONG = 20;
   const int STRONG2 = 50;
   const int STRONG3 = 30;
@@ -35,6 +36,7 @@ namespace unit_cost {
 namespace unit_bonus {
   const int BASIC = 1;
   const int FAST = 2;
+  const int FAST2 = 3;
   const int STRONG = 5;
   const int STRONG2 = 12;
   const int STRONG3 = 7;
@@ -44,6 +46,7 @@ namespace unit_bonus {
 namespace unit_name {
    const char* BASIC = "Worm Unit";
    const char* FAST = "Virus Unit";
+   const char* FAST2 = "Phishing Unit";
    const char* STRONG = "Fork Bomb Unit";
    const char* STRONG2 = "Trojan Horse Unit";
    const char* STRONG3 = "Lock Unit";
@@ -53,8 +56,9 @@ namespace unit_name {
 namespace unit_description {
    const char* BASIC = "This is a basic unit.";
    const char* FAST = "This unit is very fast, but dosen't\n have a lot of HP.";
-   const char* STRONG = "This unit moves very slowly, but has\n a lot of HP. This unit is stronger\n than Torjan Horse.";
-   const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP.";
+   const char* FAST2 = "This unit is similar to the virus\n but it is stronger.";
+   const char* STRONG = "This unit moves very slowly, but has\n a lot of HP.";
+   const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP. This unit is stronger than a fork bomb.";
    const char* STRONG3 = "This unit is a stronger, faster worm unit.";
    const char* BOSS = "This is a boss unit. It is faster than normal\n units and extremely strong.";
 }
@@ -135,6 +139,8 @@ int getObjectCost(int index) {
 		case 12: return tower_cost::WALL;
 			break;
 
+      case 8: return unit_cost::FAST2;
+         break;
       case 7: return unit_cost::BASIC;
          break;
       case 6: return unit_cost::FAST;
@@ -209,6 +215,8 @@ const char* getObjectName(int index) {
 		case 12: return tower_name::WALL;
 			break;
          
+      case 8: return unit_name::FAST2;
+         break;
       case 7: return unit_name::BASIC;
          break;
       case 6: return unit_name::FAST;
@@ -243,6 +251,8 @@ const char* getObjectDescription(int index) {
 		case 12: return tower_description::WALL;
 			break;
          
+      case 8: return unit_description::FAST2;
+         break;
       case 7: return unit_description::BASIC;
          break;
       case 6: return unit_description::FAST;

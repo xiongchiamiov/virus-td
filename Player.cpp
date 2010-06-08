@@ -55,8 +55,6 @@ ReturnCode Player::placeTower(int x, int y, int towerID){
       break;
     case 9:
       break;
-    case 8:
-      break;
   }
   
   ReturnCode returnCode = (nTower == NULL) ? INVALID_TOWER
@@ -84,6 +82,11 @@ void Player::spawnUnit(int unitID){
   int cost, bonus;
 
   switch(unitID){
+    case 8:
+      nUnit = new FastUnit2(START_X, 0.0, START_Z);
+      cost = unit_cost::FAST2;
+      bonus = unit_bonus::FAST2;
+      break;
     case 7:
       nUnit = new BasicUnit(START_X, 0.0, START_Z);
       cost = unit_cost::BASIC;

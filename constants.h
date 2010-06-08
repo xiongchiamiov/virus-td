@@ -26,6 +26,7 @@ extern const float OPP_POSZ2;
 namespace unit_cost{
   extern const int BASIC;
   extern const int FAST;
+  extern const int FAST2;
   extern const int STRONG;
   extern const int STRONG2;
   extern const int STRONG3;
@@ -34,6 +35,7 @@ namespace unit_cost{
 namespace unit_bonus{
   extern const int BASIC;
   extern const int FAST;
+  extern const int FAST2;
   extern const int STRONG;
   extern const int STRONG2;
   extern const int STRONG3;
@@ -43,6 +45,7 @@ namespace unit_bonus{
 namespace unit_name {
    extern const char* BASIC;
    extern const char* FAST;
+   extern const char* FAST2;
    extern const char* STRONG;
    extern const char* STRONG2;
    extern const char* STRONG3;
@@ -52,6 +55,7 @@ namespace unit_name {
 namespace unit_description {
    extern const char* BASIC;
    extern const char* FAST;
+   extern const char* FAST2;
    extern const char* STRONG;
    extern const char* STRONG2;
    extern const char* STRONG3;

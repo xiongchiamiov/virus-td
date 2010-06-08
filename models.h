@@ -65,4 +65,5 @@ void drawBearDLAnimated(double rotation);
 
 void drawRootDir();
 
+void drawPhish();
 void composeDisplayLists();

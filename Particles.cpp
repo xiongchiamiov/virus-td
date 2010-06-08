@@ -46,7 +46,7 @@ void Particles::drawParticles() {
       // this translation will be used to animate the particle
       glTranslatef(pos[i][0], pos[i][1], pos[i][2]);	 
 	glShadeModel(GL_SMOOTH);						           // Enables Smooth Shading
-//	glClearColor(0.0f,0.0f,0.0f,0.0f);					     // Black Background
+	glClearColor(0.0f,0.0f,0.0f,0.0f);					     // Black Background
 	glClearDepth(1.0f);							              // Depth Buffer Setup
    glDisable(GL_DEPTH_TEST);						           // Disables Depth Testing
 	glEnable(GL_BLEND);							              // Enable Blending
@@ -103,7 +103,7 @@ glEnable(GL_LIGHTING);
    billboardSphericalEnd();
    
 
-	//glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
    glDisable(GL_BLEND);
    glEnable(GL_DEPTH_TEST);

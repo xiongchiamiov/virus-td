@@ -2137,6 +2137,152 @@ void drawRootDir() {
    glPopMatrix();
 }
 
+
+void drawPhish() {
+   int tesallation = 6;
+   static float t = 0.00, t2 = 0.00;
+   static float inc = 0.02, inc2 = 0.05;
+   int rot = 30 + t * (-30 - 30);
+   int rot2 = 20 + t * (-20 - 20);
+   int rot3 = 10 + t * (-10 - 10);
+   int rotfin = -10 + t2 * (35 - -10);
+   
+   glPushMatrix();
+      glRotatef(180, 0.0, 1.0, 0.0); // orients to face viewer (+Z axis)
+      glScaled(1.0, 0.75, 1.0);
+      setMaterial(BlueFlat);
+      glRotatef(-rot, 0.0, 1.0, 0.0); // animation
+
+/////////////
+      glPushMatrix();
+         glScaled(0.5, 1.25, 1.0);
+         gluCylinder(gluNewQuadric(), 0.3, 1.0, 1.0, tesallation, tesallation);
+      glPopMatrix();
+/////////////
+
+      glRotatef(-rot2, 0.0, 1.0, 0.0);
+      glTranslatef(0.0, 0.0, 1.0);
+
+////////////
+      setMaterial(BlueFlat);
+      glPushMatrix();
+         glScaled(0.5, 1.25, 1.0);
+         gluCylinder(gluNewQuadric(), 1.0, 1.25, 1.0, tesallation, tesallation);
+
+         setMaterial(Yellow);
+         glTranslatef(0.0, 0.8, 0.0);
+         glRotatef(-90, 1.0, 0.0, 0.0);
+         glRotatef(5, 1.0, 0.0, 0.0);
+         glutSolidCone(0.25, 1.0, tesallation, tesallation);
+      glPopMatrix();
+////////////
+
+      glRotatef(rot3, 0.0, 1.0, 0.0);  // animation
+      glTranslatef(0.0, 0.0, 1.0);
+
+////////////
+      setMaterial(BlueFlat);
+      glPushMatrix();
+         glScaled(0.5, 1.25, 1.0);
+         gluCylinder(gluNewQuadric(), 1.25, 1.25, 1.0, tesallation, tesallation);
+
+         setMaterial(Yellow);
+         glTranslatef(0.0, 0.65, 0.0);
+         glRotatef(-90, 1.0, 0.0, 0.0);
+         glRotatef(10, 1.0, 0.0, 0.0);
+         glutSolidCone(0.25, 1.0, tesallation, tesallation);
+         
+         // fins
+         glPushMatrix();
+           // left
+            glPushMatrix();
+               glTranslatef(2.0, 0.0, -1.5);
+               glRotatef(125, 0.0, 1.0, 0.0);
+               
+               glRotatef(-rotfin, 0.0, 1.0, 0.0);  // animation transform before the scale
+                              
+               glScaled(0.25, 2.0, 2.25);
+               glRotatef(180, 0.0, 1.0, 0.0);
+               glRotatef(-40, 1.0, 0.0, 0.0);
+               glRotatef(45, 0.0, 1.0, 0.0); // woah cool effect
+               glutSolidCone(0.5, 0.5, tesallation, tesallation);
+            glPopMatrix();
+
+            // right
+            glPushMatrix();
+               glTranslatef(-2.0, 0.0, -1.5);
+               glRotatef(-125, 0.0, 1.0, 0.0);
+               
+               glRotatef(rotfin, 0.0, 1.0, 0.0); // animation transform before the scale
+               
+               glScaled(0.25, 2.0, 2.25);
+               glRotatef(180, 0.0, 1.0, 0.0);
+               glRotatef(-40, 1.0, 0.0, 0.0);
+               glRotatef(-45, 0.0, 1.0, 0.0);// woah cool effect
+               glutSolidCone(0.5, 0.5, tesallation, tesallation);
+            glPopMatrix();
+         glPopMatrix();
+      glPopMatrix();
+//////////
+       
+      glRotatef(rot2, 0.0, 1.0, 0.0);     // animation
+      glTranslatef(0.0, 0.0, 1.0);
+
+/////////
+      setMaterial(BlueFlat);
+      glPushMatrix();
+         glScaled(0.5, 1.25, 1.0);
+         gluCylinder(gluNewQuadric(), 1.25, 1.0, 1.0, tesallation, tesallation);
+
+         setMaterial(Yellow);
+         glTranslatef(0.0, 0.55, 0.0);
+         glRotatef(-90, 1.0, 0.0, 0.0);
+         glRotatef(10, 1.0, 0.0, 0.0);
+         glutSolidCone(0.25, 1.0, tesallation, tesallation);
+      glPopMatrix();
+//////////
+
+      glRotatef(rot, 0.0, 1.0, 0.0);       // animation
+      glTranslatef(0.0, 0.0, 1.0);
+            
+////////////////////
+      setMaterial(BlueFlat);
+      glPushMatrix();
+         glScaled(0.5, 1.25, 1.0);
+         gluCylinder(gluNewQuadric(), 1.0, 0.3, 1.0, tesallation, tesallation);
+
+         setMaterial(Yellow);
+         glTranslatef(0.0, 0.3, 0.0);
+         glRotatef(-90, 1.0, 0.0, 0.0);
+         glRotatef(20, 1.0, 0.0, 0.0);
+         glutSolidCone(0.25, 1.0, tesallation, tesallation);
+         
+         glTranslatef(0.0, -2.0, 0.5);
+         glRotatef(-115, 1.0, 0.0, 0.0);
+         glScaled(1.0, 3.0, 1.5);
+         glutSolidCone(0.25, 1.0, tesallation, tesallation);
+      glPopMatrix();
+////////////////
+      
+      if (t >= 1.0) {
+         inc = -0.02;
+      }
+      if (t <= 0.0) {
+         inc = 0.02;
+      }
+
+      if (t2 >= 1.0) {
+         inc2 = -0.05;
+      }
+      if (t2 <= 0.0) {
+         inc2 = 0.05;
+      }
+      
+      t+=inc;
+      t2+=inc2;
+   glPopMatrix();
+}
+
 using namespace vtd_dl;
 void composeDisplayLists(){
   lockDL = glGenLists(1);

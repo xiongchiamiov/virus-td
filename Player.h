@@ -16,6 +16,7 @@
 #include "StrongUnit3.h"
 #include "UnitsAI.h"
 #include "BossUnit.h"
+#include "FastUnit2.h"
 #include "vfc.h"
 #include <list>
 #include <stack>
