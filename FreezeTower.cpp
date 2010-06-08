@@ -30,6 +30,8 @@ FreezeTower::FreezeTower(float inx, float iny, float inz, int gx, int gy):
   sound = SOUND;
   weapon = new Particles(0.3);
   weapon->setWeaponType(particle_texture[2]);
+  weapon->setSpeed(1.75);
+  weapon->setSpread(2.0);
   animateSpeed = 5;
 }
 

@@ -70,8 +70,6 @@ void TrapTower::draw(GLuint id, GLenum mode){
   double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
      + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
      + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
-   
-   std::cout << "dist: " << dist << std::endl;
 
   if (dist <= 8) {
      glCallList(vtd_dl::blkhatL3DL);

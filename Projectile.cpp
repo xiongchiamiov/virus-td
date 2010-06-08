@@ -3,7 +3,7 @@
 
 namespace projectile{
   const float SPD = 0.25;
-  const int DEATH_TIME = 1000;
+  const int DEATH_TIME = 500;
 }
 using namespace projectile;
 
@@ -11,6 +11,12 @@ using namespace projectile;
 Projectile::Projectile(Particles* p, Unit* targ, float x, float y, float z):
 effect(*p), target(targ), done(false), pos(0.0, 0.0, 0.0, x, y, z), timeLeft(DEATH_TIME)
 {
+  effect.setSpread(5.0);
+  effect.setDirection(1.0, 1.0, 1.0, false);
+  effect.setAoE(true, true);
+  effect.setSpeed(40.0);
+  effect.setCutOffs(20, 20, 20);
+  effect.reset();
 }
 
 Projectile::~Projectile(void)

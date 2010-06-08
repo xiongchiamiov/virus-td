@@ -30,11 +30,11 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   stage = 0;
   sound = SOUND;
   weapon = new Particles(0.3);
-  weapon->setSpeed(2.5);
+  weapon->setWeaponType(particle_texture[1]);
+  weapon->setSpeed(1.75);
   weapon->setSpread(2.0);
   // remember that cutoffs are scaled down by however much the towers are scaled down
-  weapon->setCutOffs(250, 7, 250);
-  weapon->setWeaponType(particle_texture[1]);
+ // weapon->setCutOffs(250, 7, 250);
   animateSpeed = 0.0;
   increment = 0.025;
 }
