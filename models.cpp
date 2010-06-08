@@ -9,6 +9,8 @@ namespace vtd_dl{
   GLuint virusDL;
   GLuint wormDL;
   GLuint backtrackDL;
+  GLuint backtrackLeftDL;
+  GLuint backtrackRightDL;
   GLuint teslaDL;
   GLuint fanDL;
   GLuint shieldDL;
@@ -695,12 +697,198 @@ void drawWorm() {
    return;
 }
 
+void drawBackTrackRightWing() {
+   int tesallation = 3;
+   /* =========  Right Wing  ========= */
+       /* Right Wing Top Branch */
+   glPushMatrix();
+      glRotatef(10, 0.0, 1.0, 0.0);
+      glPushMatrix();
+         // Wing joint rotation about Z axis
+         glRotatef(-15, 0.0, 0.0, 1.0);
+         // Wing joint rotation about Y axis
+         glRotatef(15, 0.0, 1.0, 0.0);
+         for (int i = 0; i < 25; i++) {
+            glRotatef(2, 0.0, 0.0, 1.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            glScaled(1.0, 0.93, 0.93);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+           /* Right Wing Mid Branch */
+      glPushMatrix();
+         glTranslatef(0.0, -1.0, 0.0);
+         // Wing joint rotation about Z axis
+         glRotatef(-1, 0.0, 0.0, 1.0);
+         // Wing joint rotation about Y axis
+         glRotatef(5.0, 0.0, 1.0, 0.0);
+         for (int i = 0; i < 29; i++) {
+            glRotatef(1.7, 0.0, 0.0, 1.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            glScaled(1.0, 0.93, 0.93);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+           /* Right Wing Botton Branch */
+      glPushMatrix();
+         glTranslatef(0.5, -2.0, 0.0);
+         // Wing joint rotation about Z axis
+         glRotatef(14, 0.0, 0.0, 1.0);
+         // Wing joint rotation about Y axis
+         glRotatef(-10, 0.0, 1.0, 0.0);
+         for (int i = 0; i < 23; i++) {
+            glRotatef(1.7, 0.0, 0.0, 1.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            glScaled(1.0, 0.93, 0.93);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+      
+      glPushMatrix();
+         glPushMatrix();
+            // Right Wing Arm
+            glScaled(0.50, 1.0, 0.50);
+            glRotatef(-90, 1.0, 0.0, 0.0);
+            glutSolidCone(1.0, 1.5, tesallation, tesallation);
+         glPopMatrix();
+
+         for (int i = 0; i < 8; i++) {
+            glRotatef(5.0, 0.0, 0.0, 1.0); // rotate forward
+            glRotatef(5.0, 1.0, 0.0, 0.0); // rotate inward
+            glTranslatef(0.0, -0.5, 0.0); // shift
+            glScaled(0.9, 1.01, 0.9);
+            glutSolidCube(1.0);
+         }
+         
+         for (int i = 0; i < 5; i++) {
+            glRotatef(6.0, 0.0, 0.0, 1.0); // rotate forward
+            glRotatef(2.0, 1.0, 0.0, 0.0); // rotate inward
+            glTranslatef(0.0, -0.5, 0.0); // shift
+            glScaled(1.15, 0.95, 1.15);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+   glPopMatrix();
+}
+
+void drawBackTrackLeftWing() {
+   int tesallation = 3;
+   /* ===========  Left Wing  =========== */
+        /* Left Wing Top Branch */
+   glPushMatrix();
+      glRotatef(-10, 0.0, 1.0, 0.0);
+      glPushMatrix();
+         // Wing joint rotation about Z axis
+         glRotatef(-15, 0.0, 0.0, 1.0);
+         // Wing joint rotation about Y axis
+         glRotatef(-15, 0.0, 1.0, 0.0);
+         for (int i = 0; i < 25; i++) {
+            glRotatef(2, 0.0, 0.0, 1.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            glScaled(1.0, 0.93, 0.93);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+           /* Left Wing Mid Branch */
+      glPushMatrix();
+         glTranslatef(0.0, -1.0, 0.0);
+         // Wing joint rotation about Z axis
+         glRotatef(-1, 0.0, 0.0, 1.0);
+         // Wing joint rotation about Y axis
+         glRotatef(-5.0, 0.0, 1.0, 0.0);
+         for (int i = 0; i < 29; i++) {
+            glRotatef(1.7, 0.0, 0.0, 1.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            glScaled(1.0, 0.93, 0.93);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+           /* Left Wing Bottom Branch */
+      glPushMatrix();
+         glTranslatef(0.5, -2.0, 0.0);
+         // Wing joint rotation about Z axis
+         glRotatef(14, 0.0, 0.0, 1.0);
+         // Wing joint rotation about Y axis
+         glRotatef(10, 0.0, 1.0, 0.0);
+         for (int i = 0; i < 23; i++) {
+            glRotatef(1.7, 0.0, 0.0, 1.0);
+            glTranslatef(-1.0, 0.0, 0.0);
+            glScaled(1.0, 0.93, 0.93);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+
+      glPushMatrix();
+         glPushMatrix();
+            // Wing Arm
+            glScaled(0.50, 1.0, 0.50);
+            glRotatef(-90, 1.0, 0.0, 0.0);
+            glutSolidCone(1.0, 1.5, tesallation, tesallation);
+         glPopMatrix();
+
+         for (int i = 0; i < 8; i++) {
+            glRotatef(5.0, 0.0, 0.0, 1.0); // rotate forward
+            glRotatef(-5.0, 1.0, 0.0, 0.0); // rotate inward
+            glTranslatef(0.0, -0.5, 0.0); // shift
+            glScaled(0.9, 1.01, 0.9);
+            glutSolidCube(1.0);
+         }
+         
+         for (int i = 0; i < 5; i++) {
+            glRotatef(6.0, 0.0, 0.0, 1.0); // rotate forward
+            glRotatef(-2.0, 1.0, 0.0, 0.0); // rotate inward
+            glTranslatef(0.0, -0.5, 0.0); // shift
+            glScaled(1.15, 0.95, 1.15);
+            glutSolidCube(1.0);
+         }
+      glPopMatrix();
+   glPopMatrix();
+}
+
+void drawBackTrackDLAnimated(double speed) {
+   int spd = 0 + speed * (0 - 17);
+   
+   glPushMatrix();
+      setMaterial(Grey);
+      
+      // Wings
+      glPushMatrix();
+         glScaled(2.0, 2.0, 2.0);
+               glRotatef(spd, 0.0, 0.0, 1.0);
+         /* =========  Right Wing  ========= */
+             /* Right Wing Top Branch */
+         glPushMatrix();
+            glRotatef(spd, 1.0, 0.0, 0.0);
+            glRotatef(-spd, 0.0, 1.0, 0.0);
+            glCallList(vtd_dl::backtrackRightDL);
+         glPopMatrix();
+
+         glTranslatef(0.0, 0.0, -6);
+         
+         /* ===========  Left Wing  =========== */
+              /* Left Wing Top Branch */
+         glPushMatrix();
+            glRotatef(-spd, 1.0, 0.0, 0.0);
+            glRotatef(spd, 0.0, 1.0, 0.0);
+            glCallList(vtd_dl::backtrackLeftDL);
+         glPopMatrix();
+      glPopMatrix();
+
+      // Transform back to Middle
+      glTranslatef(23.0, -7.0, -6.0);
+
+      // Body
+      glCallList(vtd_dl::backtrackDL);
+   glPopMatrix();
+}
+
 void drawBackTrack() {
    int tesallation = 3;
    // save the transformation state
    glPushMatrix();
-      setMaterial(Grey);
 
+      setMaterial(Grey);
+#if 0
       // locate it in the scene
       glMatrixMode(GL_MODELVIEW);
       
@@ -854,7 +1042,8 @@ void drawBackTrack() {
 
       // Transform back to Middle
       glTranslatef(23.0, -7.0, -6.0);
-      
+#endif
+
       // Head
       glPushMatrix();
          glTranslatef(-0.75, 0.1, 0.0);
@@ -1041,7 +1230,6 @@ void drawBackTrack() {
             }
          glPopMatrix();
       glPopMatrix();
-      
    glPopMatrix();
 
    return;
@@ -2292,6 +2480,8 @@ void composeDisplayLists(){
   virusDL = glGenLists(1);
   wormDL = glGenLists(1);
   backtrackDL = glGenLists(1);
+  backtrackLeftDL = glGenLists(1);
+  backtrackRightDL = glGenLists(1);
   teslaDL = glGenLists(1);
   fanDL = glGenLists(1);
   shieldDL = glGenLists(1);
@@ -2327,6 +2517,14 @@ void composeDisplayLists(){
   
   glNewList(backtrackDL, GL_COMPILE);
     drawBackTrack();
+  glEndList();
+
+  glNewList(backtrackLeftDL, GL_COMPILE);
+    drawBackTrackLeftWing();
+  glEndList();
+  
+  glNewList(backtrackRightDL, GL_COMPILE);
+    drawBackTrackRightWing();
   glEndList();
 
   glNewList(teslaDL, GL_COMPILE);
