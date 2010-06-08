@@ -147,7 +147,11 @@ void Player::update(int dt){
     if(k){
       resources += k;
       Particles part(0.7);
-      projectiles.addProjectile(&part, NULL, (*t)->getX() + pos.getX(), (*t)->getY() + pos.getY(), (*t)->getZ() + pos.getZ());
+      part.setAoE(true, true);
+      part.setWeaponType((*t)->getWeaponType());
+      Unit* dTarget = (*t)->getTarget();
+      
+      projectiles.addProjectile(&part, NULL, dTarget->getX(), dTarget->getY(), dTarget->getZ());
     }
   }
   for(t = tList.begin(); t != tList.end(); ++t){

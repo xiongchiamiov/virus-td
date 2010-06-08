@@ -41,6 +41,7 @@ class Particles {
       void setAoE(bool yes, bool uniform);
       void setSpeed(double spd);
       void setCutOffs(int xCut, int yCut, int zCut);
+      inline GLuint getWeaponType(){ return weapon_type;}
    private:
       float mass[NUM_PARTICLES];
       float pos[NUM_PARTICLES][3];
