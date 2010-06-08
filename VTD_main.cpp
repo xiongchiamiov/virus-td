@@ -57,11 +57,13 @@ bool exitting = false;
 bool starting = true;
 int winner = 0;
 GLuint winTexture;
+GLuint startTexture;
 Scenery scene("scenery.grid", &p1);
 GameSounds sound; 
 
 void drawBlueScreen(void);
 void drawWinScreen(void);
+void drawIntroScreen(void);
 
 void place_lights()
 {
@@ -89,6 +91,13 @@ void display(){
   place_lights();
   if(!gameOver)
   {
+    if(starting)
+	{
+		glPushMatrix();
+			//glTranslatef(.5,.5,.5);
+			drawIntroScreen();
+		glPopMatrix();
+	}
 	glPushMatrix();
     scene.draw();
     glPopMatrix();
@@ -241,6 +250,8 @@ void drawBitmapString(float x, float y, void *font,char *string) {
   glPopMatrix();
 }
 
+
+
 void drawBlueScreen()
 {
 	//Switch to Ortho
@@ -304,6 +315,48 @@ void drawBlueScreen()
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 }
+
+
+void drawIntroScreen()
+{
+	//Switch to Ortho
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, GW*2, 0, GH*2, -5, 5);
+	glScalef(1, -1, 1);
+	glTranslatef(GW/2, -GH*2, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
+	glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, startTexture);
+
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0f,1.0f,1.0f);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0,1.0);
+    glVertex2f(0,0);
+	glTexCoord2f(0.0,0.0);
+    glVertex2f(0,GH);
+	glTexCoord2f(1.0,0.0);
+    glVertex2f(GW,GH);
+	glTexCoord2f(1.0,1.0);
+    glVertex2f(GW,0);
+    glEnd();
+
+	glEnable(GL_LIGHTING);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+
+	//Switch back to perspective
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+}
+
 
 void drawWinScreen()
 {
@@ -558,6 +611,8 @@ int main(int argc, char** argv){
 
   initializeUI();
   winTexture = LoadTexture("Win.bmp");
+  startTexture = LoadTexture("title.bmp");
+
   p1.pGrid.initialize(false);
   opponent.player.pGrid.initialize(true);
   scene.initialize();
