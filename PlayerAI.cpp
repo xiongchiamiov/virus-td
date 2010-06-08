@@ -121,13 +121,15 @@ int PlayerAI::queue_more_units() {
 }
 
 void PlayerAI::reset(){
-  while(!towersToBuild.empty())
-    towersToBuild.pop();
-  towers = 0;
+	while (!towersToBuild.empty()) {
+		towersToBuild.pop();
+	}
+	towers = 0;
 	units = 0;
 	updates = 0;
 	desiredNumTowers = NULL;
 	unitsToBuildCost = 0;
-  unitBunching = 1;
-  player.reset();
+	unitBunching = 1;
+	sendingUnitBunch = false;
+	player.reset();
 }
