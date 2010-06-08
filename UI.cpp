@@ -28,6 +28,16 @@ GLuint tower_gui_btn[3];
 bool towerSelected = false;
 Tower *towerSelect = NULL;
 
+struct
+{
+	GLfloat width;
+	GLfloat height;
+	GLfloat pos[2];
+	GLfloat btn_pos[2];
+	GLfloat btn_wid;
+	GLfloat btn_hei;
+} tower_select;
+
 Button::Button(int bNum, GLfloat bColor[3], GameObject * obj) {
 	buttonNumber = bNum;
 	color[0] = bColor[0];
@@ -105,6 +115,12 @@ void initializeUI()
 	info_tex[7] = LoadTexture("info_right.bmp");
 	info_tex[8] = LoadTexture("info_top.bmp");
 	info_tex[9] = LoadTexture("info_bottom.bmp");
+
+	tower_select.width = 64;
+	tower_select.height = 256;
+	tower_select.pos[0] = GW - 63; tower_select.pos[1] = tower_select.height - 134;
+	tower_select.btn_wid = 48; tower_select.btn_hei = 48;
+	tower_select.btn_pos[0] = 8; tower_select.btn_pos[1] = tower_select.height - tower_select.btn_hei - 8;
 }
 
 void resetUI(void)
@@ -127,6 +143,62 @@ int bin(int num){/* start bin */
 	} 
 	return binary;
 }
+
+bool towerSelectOverButton(int mx, int my, int i)
+{
+	if(mx < tower_select.pos[0] + tower_select.btn_pos[0] || mx > tower_select.pos[0] + tower_select.btn_pos[0] + tower_select.btn_wid)
+		return false;
+	if(my < tower_select.pos[1] + tower_select.btn_pos[1] - (i * (tower_select.btn_hei + 8)) || my > tower_select.pos[1] + tower_select.btn_pos[1] + tower_select.btn_hei  - (i * (tower_select.btn_hei + 8)))
+		return false;
+	return true;
+}
+
+void drawTowerSelect(int mx, int my)
+{
+	if(clicked)
+	{
+		printf("YAY");
+	}
+	glColor3f(1.0,1.0,1.0);
+	glPushMatrix();
+	glTranslatef(0.0,0.0,-0.01);
+	drawRectangle(tower_select.pos[0],tower_select.pos[1],64,256,tower_gui_tex);
+	glPopMatrix();
+	glPushMatrix();
+	if(towerSelectOverButton(mx,my,0))
+		glColor3f(1.0,1.0,1.0);
+	else
+		glColor3f(0.6,0.6,0.6);
+	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[2]);
+	glTranslatef(0.0,-tower_select.btn_hei-8.0,0.0);
+	if(towerSelectOverButton(mx,my,1))
+		glColor3f(1.0,1.0,1.0);
+	else
+		glColor3f(0.6,0.6,0.6);
+	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[0]);
+	glTranslatef(0.0,-tower_select.btn_hei-8.0,0.0);
+	if(towerSelectOverButton(mx,my,2))
+		glColor3f(1.0,1.0,1.0);
+	else
+		glColor3f(0.6,0.6,0.6);
+	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[1]);
+	glPopMatrix();
+}
+
+/*bool towerSelectMouseOver(int mx, int my)
+{
+	int btn = -1;
+	if(mx > tower_select.pos[0] + tower_select.btn_pos[0] && mx < tower_select.pos[0] + tower_select.btn_pos[0] + tower_select.btn_wid)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(my > tower_select.pos[1] + tower_select.btn_pos[1] + (i * (tower_select.btn_hei + 8)) && tower_select.pos[1] + tower_select.btn_pos[1] + tower_select.btn_hei  + (i * (tower_select.btn_hei + 8))) {
+				vtn = i;
+				break;
+			}
+		}
+	}
+}*/
 
 void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 {
@@ -200,18 +272,7 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	glLoadIdentity();
 
 	if(towerSelected) {
-		glColor3f(1.0,1.0,1.0);
-		glPushMatrix();
-		glTranslatef(0.0,0.0,-0.01);
-		drawRectangle(GW-62,112,64,256,tower_gui_tex);
-		glPopMatrix();
-		glPushMatrix();
-		drawRectangle(GW-62+8,256+56,48,48,tower_gui_btn[2]);
-		glTranslatef(0.0,-52.0,0.0);
-		drawRectangle(GW-62+8,256+56,48,48,tower_gui_btn[0]);
-		glTranslatef(0.0,-52.0,0.0);
-		drawRectangle(GW-62+8,256+56,48,48,tower_gui_btn[1]);
-		glPopMatrix();
+		drawTowerSelect(mx,my);
 	}
 
 	glDisable(GL_LIGHTING);

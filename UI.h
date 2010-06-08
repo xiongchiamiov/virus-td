@@ -46,6 +46,8 @@ float p2w_y(int y);
 float p2w_x(int x);
 extern bool placingTower;
 extern GLdouble worldX, worldY, worldZ; //variables to hold world x,y,z coordinates
+extern bool towerSelected;
+extern Tower *towerSelect;
 //void readPNG(file)
 
 class Button {
