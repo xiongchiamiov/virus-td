@@ -20,7 +20,7 @@ void Unit::attack(GameObject* other){
   }
   Tower *target = (Tower*)other;
   if(last_atk >= atk_dt){
-    std::cout << target->takeDamage(atk_dmg) << std::endl;
+    //std::cout << target->takeDamage(atk_dmg) << std::endl;
   }
 }
 int Unit::takeDamage(int damage)

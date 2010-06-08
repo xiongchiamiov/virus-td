@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <iostream>
+//#include <iostream>
 #include <vector>
 #include <map> 
 #include <time.h>
@@ -173,7 +173,6 @@ void display(){
 void reshape(int w, int h){
   GW = w;
   GH = h;
-  resetUIPosition();
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(45.0, 1.0 * w / h, 1.0, 100.0);

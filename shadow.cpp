@@ -223,8 +223,8 @@ void draw_shadow(int shad)
 #endif
     {
       polygonOffsetVersion = MISSING;
-      printf("\nMissing polygon offset.\n");
-      printf("Expect shadow depth aliasing artifacts.\n\n");
+      //printf("\nMissing polygon offset.\n");
+      //printf("Expect shadow depth aliasing artifacts.\n\n");
     }
   }
 	findPlane(floorPlane, floorVertices[1], floorVertices[2], floorVertices[3]);

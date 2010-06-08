@@ -133,6 +133,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="irrKlang.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -171,10 +172,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath=".\BossUnit.cpp"
-				>
-			</File>
 			<File
 				RelativePath=".\GameObject.cpp"
 				>
@@ -247,7 +244,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\BossUnit.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\FastUnit.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\FastUnit2.cpp"
 					>
 				</File>
 				<File
@@ -334,10 +339,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\BossUnit.h"
-				>
-			</File>
-			<File
 				RelativePath=".\GameObject.h"
 				>
 			</File>
@@ -357,7 +358,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\BossUnit.h"
+					>
+				</File>
+				<File
 					RelativePath=".\FastUnit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FastUnit2.h"
 					>
 				</File>
 				<File

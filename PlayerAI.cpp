@@ -23,11 +23,11 @@ void PlayerAI::update(int dt) {
 			desiredNumTowers = towersToBuild.size();
 		}
 		
-		cout << "Opponent's bytes: " << player.resources << endl;
+		/*cout << "Opponent's bytes: " << player.resources << endl;
 		cout << "unitsToBuildCost: " << unitsToBuildCost << endl;
 		cout << "Percentage of queue filled: " << unitsToBuild.size() << " / " << unitBunching << endl;
 		cout << "need_more_towers(): " << need_more_towers() << endl;
-		cout << "queue_more_units(): " << queue_more_units() << endl;
+		cout << "queue_more_units(): " << queue_more_units() << endl;*/
 		
 		if (need_more_towers() >= queue_more_units() && need_more_towers() > 0) {
 			int towerCost = towersToBuild.top().first.second;
@@ -57,14 +57,14 @@ void PlayerAI::update(int dt) {
 				unitsToBuild.push(make_pair(8, unit_cost::FAST2));
 				unitsToBuildCost += unit_cost::FAST2;
 			}
-			cout << "Queued up another unit" << endl;
+			//cout << "Queued up another unit" << endl;
 		}
 		
 		if (unitsToBuild.size() >= unitBunching && player.resources >= unitsToBuildCost) {
 			sendingUnitBunch = true;
 		}
 		if (sendingUnitBunch) {
-			cout << "Attempting to send a unit out...";
+			//cout << "Attempting to send a unit out...";
 			if (player.spawnUnit(unitsToBuild.front().first) == SUCCESS) {
 				unitsToBuildCost -= unitsToBuild.front().second;
 				unitsToBuild.pop();
@@ -75,7 +75,7 @@ void PlayerAI::update(int dt) {
 				}
 			}
 		}
-		cout << endl;
+		//cout << endl;
 	}
 	
 	player.update(dt);

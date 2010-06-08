@@ -21,7 +21,7 @@ bool TowerAI::shoot(){
     if( target->isDead()){
       hasTarget = false;
       hasKill = true;
-      cout << "Has a kill! Value: " << target->getValue() << endl;
+      //cout << "Has a kill! Value: " << target->getValue() << endl;
     }
     retVal = true;
   } else {

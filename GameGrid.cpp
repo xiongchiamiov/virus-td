@@ -85,11 +85,11 @@ x(0.0), y(0.0), boundry_cntdown(BOUNDRY_SPAWN_RATE)
 		}
 		file.close();
 		createFractals();
-		printf("Loaded grid file\n");
+		//printf("Loaded grid file\n");
 	}
 	else
 	{
-		printf("Error loading grid file: %s\n", filename);
+		//printf("Error loading grid file: %s\n", filename);
 		//grid = new bool[16][32];
 		for(int i = 0; i < GRID_WIDTH; ++i){
 			for(int j = 0; j < GRID_HEIGHT; ++j){
@@ -254,7 +254,7 @@ void normalize(float v[3]) {
    // from OpenGL Programming Guide, p. 58
    GLfloat d = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
    if (d == 0.0) {
-      printf("zero length vector");
+      //printf("zero length vector");
       return;
    }
    v[0] = v[0]/d; v[1] = v[1]/d; v[2] = v[2]/d;
@@ -538,12 +538,12 @@ bool GameGrid::setTower(int x, int y){
 }
 
 void GameGrid::setTowerGrid(int x, int y, Tower* tPtr){
-  std::cout << "Tower set at " << x << " " << y << std::endl;
-  if(tPtr != NULL){
-    std::cout << "Tower not null" << std::endl;
-  } else {
-    std::cout << "Tower null" << std::endl;
-  }
+  ////std::cout << "Tower set at " << x << " " << y << std::endl;
+  //if(tPtr != NULL){
+  //  std::cout << "Tower not null" << std::endl;
+  //} else {
+  //  std::cout << "Tower null" << std::endl;
+  //}
   if(x < GRID_WIDTH - 1  && x >= 0 &&
     y < GRID_HEIGHT - 1 && y >= 0){
       tGrid[x][y] = tPtr;
@@ -555,7 +555,7 @@ void GameGrid::setTowerGrid(int x, int y, Tower* tPtr){
       tGrid[x + 1][y] != tPtr ||
       tGrid[x + 1][y + 1] != tPtr ||
       tGrid[x][y + 1] != tPtr){
-        std::cout << "Something's wrong" << std::endl;
+        //std::cout << "Something's wrong" << std::endl;
   }
 }
 
