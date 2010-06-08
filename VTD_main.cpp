@@ -89,6 +89,10 @@ void display(){
   place_lights();
   if(!gameOver)
   {
+	glPushMatrix();
+    scene.draw();
+    glPopMatrix();
+
     glPushMatrix();
     p1.draw(placingTower); // GL_RENDER for normal, GL_SELECT for picking.
     opponent.player.draw(false);
@@ -138,9 +142,6 @@ void display(){
     glPopMatrix();
     glPopMatrix();
 
-    glPushMatrix();
-    scene.draw();
-    glPopMatrix();
     if(!starting){
       glPushMatrix();
       renderUI(GW, GH,&p1,&opponent.player,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
@@ -397,6 +398,11 @@ void update(int param){
       gameOver = true;
       winner = PLAYER_WIN;
     }
+  }
+  else if (!paused) {
+	  p1.pGrid.update(dt);
+	  opponent.player.pGrid.update(dt);
+
   }
   glutPostRedisplay();
   glutTimerFunc(10, update, 0);
