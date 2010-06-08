@@ -73,14 +73,14 @@ void place_lights()
 }
 
 void display(){
-	if(exitting) {
-		exit(0);
-		return;
-	}
+  if(exitting) {
+    exit(0);
+    return;
+  }
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-	glClearColor(0.0f,0.0f,0.0f,0.0f);	// Black Background
+  glClearColor(0.0f,0.0f,0.0f,0.0f);	// Black Background
   glPushMatrix();
   gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
     cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
@@ -89,16 +89,16 @@ void display(){
   place_lights();
   if(!gameOver)
   {
-  	  glPushMatrix();
-	  p1.draw(placingTower); // GL_RENDER for normal, GL_SELECT for picking.
-	  opponent.player.draw(false);
+    glPushMatrix();
+    p1.draw(placingTower); // GL_RENDER for normal, GL_SELECT for picking.
+    opponent.player.draw(false);
     //drawProjectiles();
-	  glPopMatrix();
+    glPopMatrix();
 
-	  vfc::extractPlanes();
-	  glColor3f(0.8, 0.5, 0.3);
-	  float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE + (GRID_SIZE * 2);
-	  float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE + (GRID_SIZE * 2);
+    vfc::extractPlanes();
+    glColor3f(0.8, 0.5, 0.3);
+    float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE + (GRID_SIZE * 2);
+    float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE + (GRID_SIZE * 2);
     if(placingTower){
       setMaterial(Exp);
       glNormal3f(0.0, 1.0, 0.0);
@@ -119,41 +119,42 @@ void display(){
         glVertex3f(towerSelect->getX() + GRID_SIZE*2.0 + P1_POSX, 0.001, towerSelect->getZ() - GRID_SIZE*2.0 + P1_POSZ);
       }glEnd();
     }
-	  
 
-     // draw root directories
-     glPushMatrix();
-        glTranslatef(0.0, 2 * GRID_SIZE, 1.0 * GRID_HEIGHT * GRID_SIZE + (GRID_SIZE * 8));
-     
-        glPushMatrix(); 
-           glScalef(0.25, 0.25, 0.25);
-           glCallList(vtd_dl::rootDL);
-        glPopMatrix();
-     
-        glTranslatef(GRID_WIDTH * GRID_SIZE * 3, 0.0, 0.0);
-     
-        glPushMatrix(); 
-           glScalef(0.25, 0.25, 0.25);
-           glCallList(vtd_dl::rootDL);
-        glPopMatrix();
-     glPopMatrix();
 
-	  glPushMatrix();
-	  scene.draw();
-	  glPopMatrix();
+    // draw root directories
+    glPushMatrix();
+    glTranslatef(0.0, 2 * GRID_SIZE, 1.0 * GRID_HEIGHT * GRID_SIZE + (GRID_SIZE * 8));
 
-	  glPushMatrix();
-	  renderUI(GW, GH,&p1,&opponent.player,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
-	  glPopMatrix();
-	  
-	  drawMouseBox(clicked);
+    glPushMatrix(); 
+    glScalef(0.25, 0.25, 0.25);
+    glCallList(vtd_dl::rootDL);
+    glPopMatrix();
+
+    glTranslatef(GRID_WIDTH * GRID_SIZE * 3, 0.0, 0.0);
+
+    glPushMatrix(); 
+    glScalef(0.25, 0.25, 0.25);
+    glCallList(vtd_dl::rootDL);
+    glPopMatrix();
+    glPopMatrix();
+
+    glPushMatrix();
+    scene.draw();
+    glPopMatrix();
+    if(!starting){
+      glPushMatrix();
+      renderUI(GW, GH,&p1,&opponent.player,((CYCLE_TIME-last_cycle)/1000.0), GL_RENDER);
+      glPopMatrix();
+    }
+
+    drawMouseBox(clicked);
   }
   else
   {
-	  if(winner == COMPUTER_WIN)
-		  drawBlueScreen();
-	  else
-	    drawWinScreen();
+    if(winner == COMPUTER_WIN)
+      drawBlueScreen();
+    else
+      drawWinScreen();
   }
 
   glPopMatrix();
@@ -407,8 +408,10 @@ void keyboard(unsigned char key, int x, int y){
 		if(key == 32) {    
       p1.reset();
       opponent.reset();
+      resetUI();
       gameOver = false;
       paused = false;
+      starting = true;
 		}
 	}
 	else
@@ -432,9 +435,10 @@ void keyboard(unsigned char key, int x, int y){
     case 'k': case 'K':
       p1.reset();
       opponent.reset();
-	  resetUI();
+	    resetUI();
       gameOver = false;
       paused = false;
+      starting = true;
       break;
     case 'm': case 'M':
       sound.toggleMusic();
@@ -443,6 +447,9 @@ void keyboard(unsigned char key, int x, int y){
 		exitting = true;
 		exit(0);
 		break;
+  case 32:
+    starting = false;
+    break;
   }
   controls::keyMap[key] = true;
 	}
