@@ -10,7 +10,7 @@
 extern MyVector camera, newCam;
 extern Camera cam;
 extern int GH, GW;
-extern Player pl;
+extern Player p1;
 extern std::vector<Button *> buttons;
 extern bool clicked;
 bool placingTower;
@@ -176,7 +176,9 @@ void handleTowerSelectClick(int mx, int my)
 	if(towerSelectOverButton(mx,my,0)) {
 		towerSelect->setTargetMode((target_mode)((towerSelect->getTargetMode() + 1) % 5));
 	} else if(towerSelectOverButton(mx,my,1)) {
+		p1.sellTower(towerSelect->getGridX(),towerSelect->getGridY());
 	} else if(towerSelectOverButton(mx,my,2)) {
+		p1.upgradeTower(towerSelect->getGridX(),towerSelect->getGridY());
 	}
 }
 
