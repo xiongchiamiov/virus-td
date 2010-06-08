@@ -94,15 +94,6 @@ void display(){
     glPopMatrix();
 
     glPushMatrix();
-    p1.draw(placingTower); // GL_RENDER for normal, GL_SELECT for picking.
-    opponent.player.draw(false);
-    //drawProjectiles();
-    glPopMatrix();
-
-    vfc::extractPlanes();
-    glColor3f(0.8, 0.5, 0.3);
-    float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE + (GRID_SIZE * 2);
-    float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE + (GRID_SIZE * 2);
     if(placingTower){
       setMaterial(Exp);
       glNormal3f(0.0, 1.0, 0.0);
@@ -123,7 +114,15 @@ void display(){
         glVertex3f(towerSelect->getX() + GRID_SIZE*2.0 + P1_POSX, 0.001, towerSelect->getZ() - GRID_SIZE*2.0 + P1_POSZ);
       }glEnd();
     }
+    p1.draw(placingTower); // GL_RENDER for normal, GL_SELECT for picking.
+    opponent.player.draw(false);
+    //drawProjectiles();
+    glPopMatrix();
 
+    vfc::extractPlanes();
+    glColor3f(0.8, 0.5, 0.3);
+    float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE + (GRID_SIZE * 2);
+    float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE + (GRID_SIZE * 2);
 
     // draw root directories
     glPushMatrix();
@@ -381,7 +380,7 @@ void update(int param){
     if(CYCLE_TIME < last_cycle){
       p1.calcResources();
       opponent.player.calcResources();
-      std::cout << "INCOME! " << p1.getIncome() << std::endl;
+      //std::cout << "INCOME! " << p1.getIncome() << std::endl;
       last_cycle -= CYCLE_TIME;
     }
     p1.update(dt);
