@@ -422,6 +422,9 @@ void keyboard(unsigned char key, int x, int y){
       gameOver = false;
       paused = false;
       break;
+    case 'm': case 'M':
+      sound.toggleMusic();
+      break;
 	case 27:
 		exitting = true;
 		exit(0);

@@ -7,11 +7,11 @@
 namespace f_tower{
   const int MAX_UPGRADES = 3;
   const int MAX_HP[MAX_UPGRADES] = {8, 12, 16};
-  const int ATK[MAX_UPGRADES] = {2, 4, 6};
+  const int ATK[MAX_UPGRADES] = {4, 8, 16};
   const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {2.5, 2.5, 3.0};
   const int BUILD_TIME = 3000;
-  char* SOUND = "media/sounds/woosh.wav";
+  char* SOUND = "media/sounds/whoosh.wav";
 }
 
 using namespace f_tower;
