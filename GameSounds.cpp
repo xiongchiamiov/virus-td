@@ -56,7 +56,6 @@ GameSounds::~GameSounds(void)
 {
 #ifdef VTD_SOUND
   if(sound_count == 1){
-    music->drop();
     eng->drop();
   } 
   --sound_count;
