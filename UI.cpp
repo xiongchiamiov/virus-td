@@ -20,6 +20,7 @@ int curBtn = -1;
 GLfloat mx,my;
 int test = 0;
 GLuint panel_tex;
+GLuint panel_tex2;
 GLuint button_tex[18];
 GLuint info_tex[10];
 bool towerSelected = false;
@@ -66,6 +67,7 @@ void Button::setObject(GameObject * gObj){
 void initializeUI()
 {
 	panel_tex = LoadTexture("GUI.bmp");
+	panel_tex2 = LoadTexture("GUI2.bmp");
 	// Unit Icons
 	button_tex[0] = LoadTexture("BossUnit.bmp");
 	button_tex[1] = LoadTexture("Button.bmp");
@@ -133,7 +135,7 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	// Draws left Panel + 9 Buttons
 	glPushMatrix();
 	glColor4f( 1.0, 1.0, 1.0, 1.0 );
-	drawPanel(200, 200);
+	drawPanel(200, 200, panel_tex);
 
 	for (int i = 0; i < 3; i++) {
 		if (i == 0) {
@@ -144,13 +146,13 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 
 		glPushMatrix();
 		glTranslatef(5, 0, 0);
-		buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+		buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
 		bNumber++;
 		glTranslatef(65, 0, 0);
-		buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+		buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
 		bNumber++;
 		glTranslatef(65, 0, 0);
-		buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+		buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
 		bNumber++;
 		glPopMatrix();
 	}
@@ -161,7 +163,7 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	//setMaterial(Black);
 	glTranslatef(w - 200, 0, 0);
 	glColor4f( 1.0, 1.0, 1.0, 1.0 );
-	drawPanel(200, 200);
+	drawPanel(200, 200, panel_tex2);
 	glTranslatef(140, 0, 0);
 	//setMaterial(Teal);
 	if(!towerSelected)
@@ -174,14 +176,14 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 			}
 
 			glPushMatrix();
-			glTranslatef(-5, 0, 0);
-			buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+			glTranslatef(5, 0, 0);
+			buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
 			bNumber++;
 			glTranslatef(-65, 0, 0);
-			buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+			buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
 			bNumber++;
 			glTranslatef(-65, 0, 0);
-			buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+			buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
 			bNumber++;
 			glPopMatrix();
 		}
@@ -206,14 +208,13 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	//glColor3f(1.0,1.0,0.);
 	sprintf( str, "Enemy Lives: %d", opp->getLives() );
 	renderBitmapString(GW-156, GH - 24, GLUT_BITMAP_HELVETICA_18 , str);
-	glEnable(GL_LIGHTING);
 	//renderBitmapString(1.0 * GW / 4.0, H - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
 
 	//renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
-	setMaterial(Black);
 	if(curBtn != -1)
 		drawInfoPanel(mx,my,GW,GH,curBtn);
 
+	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
 	glPopMatrix();
@@ -298,8 +299,8 @@ void drawMouseBox(bool click) {
 	}
 }
 
-void drawPanel(int w, int h) {
-	drawRectangle(0, 0, w, h, panel_tex);
+void drawPanel(int w, int h, GLuint texture) {
+	drawRectangle(0, 0, w, h, texture);
 }
 
 /*
@@ -316,6 +317,7 @@ info_tex[9] = LoadTexture("info_bottom.bmp");
 */
 void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumber)
 {
+	glColor3f(1.0,1.0,1.0);
 	char name[80];
 	const int sep = 12;
 	/* Button number layout
@@ -340,9 +342,9 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		//	strcat(name," Tower");
 
 		char desc[400];
-		char cost[30] = "Cost: ";
-		char damage[30] = "Damage: ";
-		char speed[30] = "Speed : ";
+		char cost[30];
+		char damageheatlh[30];
+		char speed[30];
 		strcpy(desc,getObjectDescription(buttonNumber));
 		int len = 1;
 		for(char* c = &desc[0]; *c != '\0'; c++) {
@@ -350,26 +352,31 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 				len++;
 		}
 		sprintf( cost, "Cost: %d", getObjectCost(buttonNumber) );
-		sprintf( damage, "Damage: %d", getObjectDamage(buttonNumber) );
+		if(buttonNumber <= 8) {
+			sprintf( damageheatlh, "Damage: %d", getObjectDamage(buttonNumber) );
+		}
+		else {
+			sprintf( damageheatlh, "Health: %d", getObjectDamage(buttonNumber) );
+		}
 		sprintf( speed, "Speed: %d", getObjectSpeed(buttonNumber) );
 
 		//float w = (float)getBitmapStringWidth(info_font_bold,name);
-		float w = (float)getBitmapStringWidth(info_font,desc);
+		float w = (float)max((double)getBitmapStringWidth(info_font,desc),80.0);
 		float h = 4*sep + 4 + len*info_font_height;
 		int yp = y + h;
 
 		float xp = x - w/2;
 		if(xp + w + 16 > GW)
 			xp = GW - w - 16;
-		else if (xp < 0)
-			xp = 0;
+		else if (xp < 16)
+			xp = 16;
 
 		glColor3f(1.0,1.0,1.0);
 		renderBitmapString(xp, yp, info_font_bold, name);
 		yp -= sep;
 		renderBitmapString(xp, yp, info_font, cost);
 		yp -= sep;
-		renderBitmapString(xp, yp, info_font, damage);
+		renderBitmapString(xp, yp, info_font, damageheatlh);
 		yp -= sep;
 		renderBitmapString(xp, yp, info_font, speed);
 		yp -= (sep + 4);
@@ -756,7 +763,7 @@ GLuint processTowerHits(GLint hits, GLuint buffer[])
 
 		ptr++;
 	}
-
+	return -1;
 	//printf("**************************************************************\n");
 }
 

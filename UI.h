@@ -31,7 +31,7 @@ void mouseMotion(int x, int y);
 void setOrthographicProjection(int w, int h);
 void resetPerspectiveProjection();
 void drawMouseBox(bool click);
-void drawPanel(int w, int h);
+void drawPanel(int w, int h, GLuint texture);
 void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumber);
 void startPicking(int cursorX, int cursorY, GLuint buffer[], int bufferSize);
 GLint stopPicking(void);
