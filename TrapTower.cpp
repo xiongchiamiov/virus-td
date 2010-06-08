@@ -11,7 +11,7 @@ namespace tr_tower{
   const int ATK_DT[MAX_UPGRADES] = {3000, 3000, 3000}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {1.0, 1.0, 1.5};
   const int BUILD_TIME = 3000;
-  char* SOUND = "media/sounds/basic_t.mp3";
+  char* SOUND = "media/sounds/big_laser2.wav";
 }
 
 using namespace tr_tower;
@@ -88,8 +88,8 @@ bool TrapTower::shoot(){
       (*i)->takeDamage(ai.atk_dmg);
       ret = true;
     }
-  }
-  return true;
+  } 
+  return ret;
 }
 
 bool TrapTower::upgrade(){

@@ -1,5 +1,5 @@
 #pragma once
-//#define VTD_SOUND
+#define VTD_SOUND
 #ifdef VTD_SOUND
 #include "include/irrKlang.h"
 using namespace irrklang;
@@ -10,6 +10,8 @@ namespace gamesounds{
   void playSound(const char* filename, float x, float y, float z);
 
   void setListenerPosition(MyVector& camPos);
+
+  
 }
 
 class GameSounds
@@ -18,6 +20,7 @@ public:
   GameSounds(void);
   ~GameSounds(void);
   void toggleMusic();
+  void checkForEnd();
 private:
 #ifdef VTD_SOUND
   ISoundEngine* engine;

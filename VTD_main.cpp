@@ -370,7 +370,7 @@ void update(int param){
     }
     p1.update(dt);
     opponent.update(dt);
-    //stepProjectiles(dt);
+    sound.checkForEnd();
 
 	if(p1.getLives() <= 0) {
 		paused = true;

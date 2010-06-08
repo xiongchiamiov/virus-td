@@ -11,11 +11,12 @@ namespace gamesounds{
 #endif
   //Sound filenames
   //Music
+  const int MAX_TRACKS = 3;
   const string music_sound = "media/sounds/Space\ Fighter\ Loop.mp3";
   char* music_files[] = {"media/sounds/Space\ Fighter\ Loop.mp3",
                          "media/sounds/Shiny\ Tech2.mp3",
                          "media/sounds/In\ A\ Heartbeat.mp3"};
-  string* songs_sound;
+  int current_track;
   //Towers
   const char* basic_t_sound;
   const char* fast_t_sound;
@@ -42,7 +43,8 @@ GameSounds::GameSounds(void)
     eng = engine = createIrrKlangDevice();
     if(engine)
       music = engine->play2D(music_files[0], false, true);
-    music->setVolume(0.5);
+    if(music)
+      music->setVolume(0.5);
   } else {
     engine = eng;
   }
@@ -67,6 +69,17 @@ void GameSounds::toggleMusic(){
     music->setIsPaused(false);
   } else if(music){
     music->setIsPaused();
+  }
+#endif
+}
+
+void GameSounds::checkForEnd(){
+#ifdef VTD_SOUND
+  if(music && music->isFinished()){
+    music->stop();
+    current_track = (current_track + 1)%MAX_TRACKS;
+    music = engine->play2D(music_files[current_track]);
+    music->setVolume(0.5);
   }
 #endif
 }

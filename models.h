@@ -35,10 +35,6 @@ void drawWormDLAnimated(double speed);
 void drawWorm();
 
 void drawBackTrack();
-void drawBackTrackLeftWing();
-void drawBackTrackRightWing();
-void drawBackTrackDLAnimated(double speed);
-
 void drawTeslaCoil();
 
 /* All functions needed for CPU Fan model*/

@@ -35,8 +35,6 @@ type(T_BASIC), build_time(BUILD_TIME), stage(0)*/
   // remember that cutoffs are scaled down by however much the towers are scaled down
   weapon->setCutOffs(250, 7, 250);
   weapon->setWeaponType(particle_texture[1]);
-  animateSpeed = 0.0;
-  increment = 0.03;
 }
 
 FastTower::~FastTower(void)
@@ -45,7 +43,7 @@ FastTower::~FastTower(void)
 }
 
 void FastTower::draw(GLuint id, GLenum mode){
-   glPushMatrix();
+  glPushMatrix();
   setMaterial(Yellow);
   if(ai.hasTarget){
     glBegin(GL_LINES);
@@ -76,16 +74,7 @@ void FastTower::draw(GLuint id, GLenum mode){
        glScaled(0.02, 0.02, 0.02);
        glRotated(90, 0.0, 1.0, 0.0);
 
-       if (animateSpeed >= 1) {
-          increment = -0.03;
-       }
-   
-       if (animateSpeed <= 0) {
-          increment = 0.03;
-       }
-
-     //  glCallList(vtd_dl::backtrackDL);
-     drawBackTrackDLAnimated(animateSpeed+=increment);
+       glCallList(vtd_dl::backtrackDL);
     glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(3);
