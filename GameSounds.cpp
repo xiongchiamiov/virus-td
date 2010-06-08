@@ -75,9 +75,9 @@ void GameSounds::toggleMusic(){
 void GameSounds::checkForEnd(){
 #ifdef VTD_SOUND
   if(music && music->isFinished()){
-    music->stop();
     current_track = (current_track + 1)%MAX_TRACKS;
-    music = engine->play2D(music_files[current_track]);
+    music = engine->play2D(music_files[current_track], false, true);
+    music ->setIsPaused(false);
     music->setVolume(0.5);
   }
 #endif
