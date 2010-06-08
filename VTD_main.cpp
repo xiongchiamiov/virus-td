@@ -505,7 +505,7 @@ void keyboard(unsigned char key, int x, int y){
 		exitting = true;
 		exit(0);
 		break;
-  case 32:
+  case 13:
     starting = false;
     break;
   }
