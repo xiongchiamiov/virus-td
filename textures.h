@@ -34,5 +34,6 @@ typedef struct RGB {
 //forward declaration of image loading and texture set-up code
 int ImageLoad(char *filename, Image *image);
 GLuint LoadTexture(char* image_file);
+GLuint LoadHQTexture(char* image_file);
 GLuint LoadMipMapTexture(char *image_file);
 GLuint LoadRepeatMipMapTexture(char *image_file);

@@ -1,6 +1,5 @@
 #include "UI.h"
 #include "Player.h"
-#include "limits.h"
 #include <stdlib.h>
 
 #define info_font GLUT_BITMAP_HELVETICA_10
@@ -24,6 +23,8 @@ GLuint panel_tex;
 GLuint panel_tex2;
 GLuint button_tex[18];
 GLuint info_tex[10];
+GLuint tower_gui_tex;
+GLuint tower_gui_btn[3];
 bool towerSelected = false;
 Tower *towerSelect = NULL;
 
@@ -69,26 +70,30 @@ void initializeUI()
 {
 	panel_tex = LoadTexture("GUI.bmp");
 	panel_tex2 = LoadTexture("GUI2.bmp");
+	tower_gui_tex = LoadTexture("tower_gui.bmp");
+	tower_gui_btn[0] = LoadHQTexture("tower_gui_btn_sell.bmp");
+	tower_gui_btn[1] = LoadHQTexture("tower_gui_btn_upgrade.bmp");
+	tower_gui_btn[2] = LoadHQTexture("tower_gui_btn_closest.bmp");
 	// Unit Icons
-	button_tex[0] = LoadTexture("BossUnit.bmp");
-	button_tex[1] = LoadTexture("Button.bmp");
-	button_tex[2] = LoadTexture("Button.bmp");
-	button_tex[3] = LoadTexture("StrongUnit3.bmp");
-	button_tex[4] = LoadTexture("StrongUnit2.bmp");
-	button_tex[5] = LoadTexture("StrongUnit.bmp");
-	button_tex[6] = LoadTexture("FastUnit.bmp");
-	button_tex[7] = LoadTexture("BasicUnit.bmp");
-	button_tex[8] = LoadTexture("FastUnit2.bmp");
+	button_tex[0] = LoadHQTexture("BossUnit.bmp");
+	button_tex[1] = LoadHQTexture("Button.bmp");
+	button_tex[2] = LoadHQTexture("Button.bmp");
+	button_tex[3] = LoadHQTexture("StrongUnit3.bmp");
+	button_tex[4] = LoadHQTexture("StrongUnit2.bmp");
+	button_tex[5] = LoadHQTexture("StrongUnit.bmp");
+	button_tex[6] = LoadHQTexture("FastUnit.bmp");
+	button_tex[7] = LoadHQTexture("BasicUnit.bmp");
+	button_tex[8] = LoadHQTexture("FastUnit2.bmp");
 	// Tower Icons
-	button_tex[9] = LoadTexture("Button.bmp");
-	button_tex[10] = LoadTexture("Button.bmp");
-	button_tex[11] = LoadTexture("Button.bmp");
-	button_tex[12] = LoadTexture("WallTower.bmp");
-	button_tex[13] = LoadTexture("TrapTower.bmp");
-	button_tex[14] = LoadTexture("StrongTower.bmp");
-	button_tex[15] = LoadTexture("FastTower.bmp");
-	button_tex[16] = LoadTexture("FreezeTower.bmp");
-	button_tex[17] = LoadTexture("BasicTower.bmp");
+	button_tex[9] = LoadHQTexture("Button.bmp");
+	button_tex[10] = LoadHQTexture("Button.bmp");
+	button_tex[11] = LoadHQTexture("Button.bmp");
+	button_tex[12] = LoadHQTexture("WallTower.bmp");
+	button_tex[13] = LoadHQTexture("TrapTower.bmp");
+	button_tex[14] = LoadHQTexture("StrongTower.bmp");
+	button_tex[15] = LoadHQTexture("FastTower.bmp");
+	button_tex[16] = LoadHQTexture("FreezeTower.bmp");
+	button_tex[17] = LoadHQTexture("BasicTower.bmp");
 	//button_tex = LoadTexture("SecurityIcons1.bmp");
 	info_tex[0] = LoadTexture("info_tlcorner.bmp");
 	info_tex[1] = LoadTexture("info_trcorner.bmp");
@@ -193,7 +198,24 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 
 	glPushMatrix();
 	glLoadIdentity();
+
+	if(towerSelected) {
+		glColor3f(1.0,1.0,1.0);
+		glPushMatrix();
+		glTranslatef(0.0,0.0,-0.01);
+		drawRectangle(GW-62,112,64,256,tower_gui_tex);
+		glPopMatrix();
+		glPushMatrix();
+		drawRectangle(GW-62+8,256+56,48,48,tower_gui_btn[2]);
+		glTranslatef(0.0,-52.0,0.0);
+		drawRectangle(GW-62+8,256+56,48,48,tower_gui_btn[0]);
+		glTranslatef(0.0,-52.0,0.0);
+		drawRectangle(GW-62+8,256+56,48,48,tower_gui_btn[1]);
+		glPopMatrix();
+	}
+
 	glDisable(GL_LIGHTING);
+	//Shared by text and tower select GUI
 	glColor3f(1.0,1.0,1.0);
 	char str[200];
 	sprintf( str, "Lives: %d", p->getLives() );
@@ -619,12 +641,12 @@ void mouseMotion(int x, int y) {
 	int btn = determineClickedButton(x,GH- y);
 	if(curBtn != -1 && btn != curBtn)
 	{
-		GLfloat col[] = {1.0,1.0,1.0};
+		GLfloat col[] = {0.8,0.8,0.8};
 		buttons.at(curBtn)->setButtonColor(col);
 	}
 	if(btn != -1)
 	{
-		GLfloat col[] = {0.8,0.8,0.8};
+		GLfloat col[] = {1.0,1.0,1.0};
 		buttons.at(btn)->setButtonColor(col);
 	}
 	curBtn = btn;
