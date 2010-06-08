@@ -3,7 +3,7 @@
 namespace vtd_player{
   const int START_LIVES = 5;
   const int START_INCOME = 10;
-  const int START_RESOURCES = 15000;//00000; /* originally 10, but 100000 for debug */
+  const int START_RESOURCES = 15;//00000; /* originally 10, but 100000 for debug */
 }
 const int cleanup_dt = 500;
 int last_cleanup = 0;
@@ -290,19 +290,20 @@ void Player::draw(bool isPlacing){
   glPushMatrix();
   glTranslatef(pos.getX(), pos.getY(), pos.getZ());
   pGrid.draw(isPlacing, GL_RENDER);
-  projectiles.drawProjectiles();
-  std::list<Tower*>::iterator i; 
-  for(i = tList.begin(); i != tList.end(); ++i){
-    if(!(*i)->isDead() && !cull(*i)){
-      (*i)->draw();
-    }
-  }
+
   std::list<Unit*>::iterator p; 
   for(p = opponent->uai.uList.begin(); p != opponent->uai.uList.end(); ++p){
     if(!(*p)->isDead() && !cull(*p)){
       (*p)->draw();
     }
   }
+  std::list<Tower*>::iterator i; 
+  for(i = tList.begin(); i != tList.end(); ++i){
+    if(!(*i)->isDead() && !cull(*i)){
+      (*i)->draw();
+    }
+  }
+  projectiles.drawProjectiles();
   glPopMatrix();
 }
 
