@@ -46,16 +46,17 @@ FastTower::~FastTower(void)
 
 void FastTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
-  setMaterial(Yellow);
-  if(ai.hasTarget){
-    glBegin(GL_LINES);
-      glVertex3f(x, GRID_SIZE*2.0, z);
-      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
-    glEnd();
-  }
 
   glTranslatef(x, y, z);
     glPushMatrix();
+		if(mode == GL_SELECT) {
+			 glLoadName(id);
+			 glPushMatrix();
+			 glScalef(1.0,0.5,1.0);
+			 glTranslatef(0.0,0.6,0.0);
+			 glutSolidCube(1.0f);
+			 glPopMatrix();
+		 }
          glPushMatrix();
             // Scale and orient animation to fit grid
             glTranslatef(0.0, 0.25, 0.0);
@@ -88,6 +89,8 @@ void FastTower::draw(GLuint id, GLenum mode){
      + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
      + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
 
+  if(mode == GL_SELECT)
+	  glLoadName(id);
   if (dist <= 8) {
      drawBackTrackDLAnimated(animateSpeed+=increment, 3);
   } else if (dist <= 11) {
@@ -99,7 +102,8 @@ void FastTower::draw(GLuint id, GLenum mode){
   //     glCallList(vtd_dl::backtrackDL);
     glPopMatrix();
 	 glPushMatrix();
-		draw_shadow(3);
+		if(mode == GL_RENDER)
+			draw_shadow(3);
 	 glPopMatrix();
   glPopMatrix();
 }

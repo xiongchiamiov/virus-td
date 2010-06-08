@@ -46,13 +46,6 @@ TrapTower::~TrapTower(void)
 
 void TrapTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
-  setMaterial(Yellow);
-  if(ai.hasTarget && mode == GL_RENDER){
-    glBegin(GL_LINES);
-      glVertex3f(x, GRID_SIZE*2.0, z);
-      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
-    glEnd();
-  }
   setMaterial(Exp);
   glTranslatef(x, y, z);
   glPushMatrix();

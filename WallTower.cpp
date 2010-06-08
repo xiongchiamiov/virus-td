@@ -41,13 +41,6 @@ WallTower::~WallTower(void)
 
 void WallTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
-  setMaterial(Yellow);
-  if(ai.hasTarget){
-    glBegin(GL_LINES);
-      glVertex3f(x, GRID_SIZE*2.0, z);
-      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
-    glEnd();
-  }
   glTranslatef(x, y, z);
      glPushMatrix();
         // Scale and orient model to fit grid
@@ -57,10 +50,20 @@ void WallTower::draw(GLuint id, GLenum mode){
       //  glRotated(83, 0.0, 1.0, 0.0);
       //  glCallList(vtd_dl::shieldDL);
      //   glCallList(vtd_dl::lockDL);
+	 if(mode == GL_SELECT) {
+		 glLoadName(id);
+		 glPushMatrix();
+		 glScalef(1.0,0.5,1.0);
+		 glTranslatef(0.0,0.6,0.0);
+		 glutSolidCube(1.0f);
+		 glPopMatrix();
+	 }
+
      glPushMatrix();
         glTranslatef(-0.2, 0.25, 0.0);
         glScaled(0.15, 0.15, 0.15);
-        weapon->drawParticles();
+		if(mode == GL_RENDER)
+			weapon->drawParticles();
      glPopMatrix();
 
     glPopMatrix();

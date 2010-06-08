@@ -279,7 +279,7 @@ void Player::sellTower(int x, int y){
         sellValue = tower_cost::WALL;
         break;
     }
-    sellValue = (sellValue * t->getStage())/2;
+    sellValue = (sellValue * (t->getStage()+1))/2;
   }
   resources += sellValue;
   pGrid.removeTower(x, y, tList);

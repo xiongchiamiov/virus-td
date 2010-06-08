@@ -42,13 +42,6 @@ FreezeTower::~FreezeTower(void)
 
 void FreezeTower::draw(GLuint id, GLenum mode){
   glPushMatrix();
-  setMaterial(Yellow);
-  if(ai.hasTarget){
-    glBegin(GL_LINES);
-      glVertex3f(x, GRID_SIZE*2.0, z);
-      glVertex3f(ai.target->getX(), ai.target->getY(), ai.target->getZ());
-    glEnd();
-  }
 
   glTranslatef(x, y, z);
      glPushMatrix();
@@ -81,6 +74,9 @@ void FreezeTower::draw(GLuint id, GLenum mode){
      + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
      + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
 
+  if(mode == GL_SELECT)
+	  glLoadName(id);
+
   if (dist <= 8) {
        drawFanDLAnimated(animateSpeed+=5, 3);
   } else if (dist <= 11) {
@@ -91,7 +87,8 @@ void FreezeTower::draw(GLuint id, GLenum mode){
   
      glPopMatrix();
 	 glPushMatrix();
-		draw_shadow(4);
+		if(mode == GL_RENDER)
+			draw_shadow(4);
 	 glPopMatrix();
   glPopMatrix();
 }
