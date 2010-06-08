@@ -76,8 +76,7 @@ ReturnCode Player::placeTower(int x, int y, int towerID){
   return returnCode;
 }
 
-// this needs to return a useful return code, like placeTower
-void Player::spawnUnit(int unitID){
+ReturnCode Player::spawnUnit(int unitID){
   Unit* nUnit = NULL;
   int cost, bonus;
 
@@ -122,7 +121,13 @@ void Player::spawnUnit(int unitID){
       bonus = unit_bonus::BOSS;
       break;
   }
-  if(nUnit != NULL && resources >= cost && uCooldown <= 0 && uai.uList.size() <= UNIT_MAX){
+  
+  ReturnCode returnCode = (nUnit == NULL) ? INVALID_UNIT
+                        : (resources < cost) ? INSUFFICIENT_BYTES
+                        : (uCooldown > 0) ? NEED_COOLDOWN
+                        : (uai.uList.size() > UNIT_MAX) ? UNIT_LIMIT_REACHED
+                        : SUCCESS;
+  if(returnCode == SUCCESS){
     uai.uList.push_back(nUnit);
     resources -= cost;
     income += bonus;
@@ -131,6 +136,8 @@ void Player::spawnUnit(int unitID){
   } else {
     delete nUnit;
   }
+  
+  return returnCode;
 }
 
 void Player::update(int dt){

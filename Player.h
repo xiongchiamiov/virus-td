@@ -21,7 +21,7 @@
 #include <list>
 #include <stack>
 
-enum ReturnCode {SUCCESS, INSUFFICIENT_BYTES, INVALID_LOCATION, INVALID_TOWER};
+enum ReturnCode {SUCCESS, INSUFFICIENT_BYTES, INVALID_LOCATION, INVALID_TOWER, INVALID_UNIT, NEED_COOLDOWN, UNIT_LIMIT_REACHED};
 
 class Player
 {
@@ -39,7 +39,7 @@ public:
   Player(void);
   ~Player(void);
   ReturnCode placeTower(int x, int y, int towerID);
-  void spawnUnit(int unitID);
+  ReturnCode spawnUnit(int unitID);
   void upgradeTower(int x, int y);
   void changeTowerMode(int x, int y, target_mode mode);
   void destroyTower(int x, int y);
