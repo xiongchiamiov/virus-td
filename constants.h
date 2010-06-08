@@ -42,6 +42,26 @@ namespace unit_bonus{
   extern const int BOSS;
 }
 
+namespace unit_health{
+  extern const int BASIC;
+  extern const int FAST;
+  extern const int FAST2;
+  extern const int STRONG;
+  extern const int STRONG2;
+  extern const int STRONG3;
+  extern const int BOSS;
+}
+
+namespace unit_speed{
+  extern const double BASIC;
+  extern const double FAST;
+  extern const double FAST2;
+  extern const double STRONG;
+  extern const double STRONG2;
+  extern const double STRONG3;
+  extern const double BOSS;
+}
+
 namespace unit_name {
    extern const char* BASIC;
    extern const char* FAST;
@@ -122,5 +142,5 @@ void grid2loc(g_elem g, float * x, float * z);
 const char* getObjectName(int index);
 const char* getObjectDescription(int index);
 int getObjectCost(int index);
-int getObjectDamage(int index);
+int getObjectDamageHealth(int index);
 int getObjectSpeed(int index);

@@ -43,6 +43,26 @@ namespace unit_bonus {
   const int BOSS = 20;
 }
 
+namespace unit_health {
+  const int BASIC = 10;
+  const int FAST = 8;
+  const int FAST2 = 16;
+  const int STRONG = 50;
+  const int STRONG2 = 100;
+  const int STRONG3 = 60;
+  const int BOSS = 1000;
+}
+
+namespace unit_speed {
+  const double BASIC = 0.0015;
+  const double FAST = 0.003;
+  const double FAST2 = 0.0032;
+  const double STRONG = 0.001;
+  const double STRONG2 = 0.001;
+  const double STRONG3 = 0.0015;
+  const double BOSS = 0.0017;
+}
+
 namespace unit_name {
    const char* BASIC = "Worm";
    const char* FAST = "Virus";
@@ -56,9 +76,11 @@ namespace unit_name {
 namespace unit_description {
    const char* BASIC = "This is a basic unit.";
    const char* FAST = "This unit is very fast, but dosen't\n have a lot of HP.";
-   const char* FAST2 = "This unit is similar to the virus\n but it is stronger.";
+   const char* STRONG = "This unit moves very \nslowly, but has a \nlot of HP.";
+   const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP.";
+   const char* FAST2 = "This unit is similar to the virus\n but it is stronger.";/*
    const char* STRONG = "This unit is strong, but slow.";
-   const char* STRONG2 = "This unit is strong, but slow. This is stronger than a fork bomb.";
+   const char* STRONG2 = "This unit is strong, but slow. This is stronger than a fork bomb.";*/
    const char* STRONG3 = "This unit is a stronger, faster worm unit.";
    const char* BOSS = "This is a boss unit. It is faster than normal\n units and extremely strong.";
 }
@@ -160,7 +182,7 @@ int getObjectCost(int index) {
 	}
 }
 
-int getObjectDamage(int index) {
+int getObjectDamageHealth(int index) {
 	switch(index) {
 		case 17:	return tower_damage::BASIC;
 			break;
@@ -174,7 +196,20 @@ int getObjectDamage(int index) {
 			break;
 		case 12: return tower_damage::WALL;
 			break;
-
+		case 6: return unit_health::FAST;
+			break;
+		case 7: return unit_health::BASIC;
+			break;
+		case 8: return unit_health::FAST2;
+			break;
+		case 3: return unit_health::STRONG3;
+			break;
+		case 4: return unit_health::STRONG2;
+			break;
+		case 5: return unit_health::STRONG;
+			break;
+		case 0: return unit_health::BOSS;
+			break;
 		default: return -1;
 			 break;
 	}
@@ -194,7 +229,20 @@ int getObjectSpeed(int index) {
 			break;
 		case 12: return tower_speed::WALL;
 			break;
-
+		case 6: return (int)(10000.0 * unit_speed::FAST);
+			break;
+		case 7: return (int)(10000.0 * unit_speed::BASIC);
+			break;
+		case 8: return (int)(10000.0 * unit_speed::FAST2);
+			break;
+		case 3: return (int)(10000.0 * unit_speed::STRONG3);
+			break;
+		case 4: return (int)(10000.0 * unit_speed::STRONG2);
+			break;
+		case 5: return (int)(10000.0 * unit_speed::STRONG);
+			break;
+		case 0: return (int)(10000.0 * unit_speed::BOSS);
+			break;
 		default: return -1;
 			 break;
 	}

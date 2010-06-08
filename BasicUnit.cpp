@@ -9,9 +9,9 @@
 //add radius of object if applicable
 
 namespace b_unit{
-  const int MAX_HP = 10;
-  const int ATK = 3;
-  const float SPD = 0.0015;
+	const int MAX_HP = unit_health::BASIC;
+	const int ATK = 3;
+	const float SPD = unit_speed::BASIC;
 }
 using namespace b_unit;
 

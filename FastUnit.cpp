@@ -5,9 +5,9 @@
 #include "shadow.h"
 
 namespace f_unit {
-  const int MAX_HP = 8;
+  const int MAX_HP = unit_health::FAST;
   const int ATK = 2;
-  const float SPD = 0.003;
+  const float SPD = unit_speed::FAST;
 }
 
 using namespace f_unit;

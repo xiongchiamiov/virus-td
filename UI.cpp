@@ -353,10 +353,10 @@ void drawInfoPanel(GLfloat x, GLfloat y, GLfloat GW, GLfloat GH, int buttonNumbe
 		}
 		sprintf( cost, "Cost: %d", getObjectCost(buttonNumber) );
 		if(buttonNumber <= 8) {
-			sprintf( damageheatlh, "Damage: %d", getObjectDamage(buttonNumber) );
+			sprintf( damageheatlh, "Health: %d", getObjectDamageHealth(buttonNumber) );
 		}
 		else {
-			sprintf( damageheatlh, "Health: %d", getObjectDamage(buttonNumber) );
+			sprintf( damageheatlh, "Damage: %d", getObjectDamageHealth(buttonNumber) );
 		}
 		sprintf( speed, "Speed: %d", getObjectSpeed(buttonNumber) );
 

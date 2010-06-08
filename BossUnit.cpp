@@ -9,9 +9,9 @@
 //add radius of object if applicable
 
 namespace boss_unit{
-  const int MAX_HP = 1000;
+  const int MAX_HP = unit_health::BOSS;
   const int ATK = 30;
-  const float SPD = 0.0017;
+  const float SPD = unit_speed::BOSS;
 }
 using namespace boss_unit;
 
