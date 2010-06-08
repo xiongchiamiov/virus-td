@@ -44,18 +44,20 @@ namespace unit_bonus {
 }
 
 namespace unit_name {
-   const char* BASIC = "Worm Unit";
-   const char* FAST = "Virus Unit";
-   const char* FAST2 = "Phishing Unit";
-   const char* STRONG = "Fork Bomb Unit";
-   const char* STRONG2 = "Trojan Horse Unit";
-   const char* STRONG3 = "Lock Unit";
-   const char* BOSS = "Ultimate Unit";
+   const char* BASIC = "Worm";
+   const char* FAST = "Virus";
+   const char* FAST2 = "Phish";
+   const char* STRONG = "Fork Bomb";
+   const char* STRONG2 = "Trojan Horse";
+   const char* STRONG3 = "Lock";
+   const char* BOSS = "Ultimate";
 }
 
 namespace unit_description {
    const char* BASIC = "This is a basic unit.";
    const char* FAST = "This unit is very fast, but dosen't\n have a lot of HP.";
+   const char* STRONG = "This unit moves very \nslowly, but has a \nlot of HP.";
+   const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP.";
    const char* FAST2 = "This unit is similar to the virus\n but it is stronger.";
    const char* STRONG = "This unit moves very slowly, but has\n a lot of HP.";
    const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP. This unit is stronger than a fork bomb.";
@@ -91,12 +93,12 @@ namespace tower_speed{
 }
 
 namespace tower_name{
-  const char* BASIC = "Memory Turret Tower";
-  const char* FAST = "BackTrack Tower";
-  const char* FREEZE = "8-Core CPU Fan Tower";
-  const char* SLOW = "Tesla Coil Tower";
-  const char* TRAP = "Black Hat Trap Tower";
-  const char* WALL = "Firewall Tower";
+  const char* BASIC = "Memory Turret";
+  const char* FAST = "BackTrack";
+  const char* FREEZE = "8-Core CPU Fan";
+  const char* SLOW = "Tesla Coil";
+  const char* TRAP = "Black Hat Trap";
+  const char* WALL = "Firewall";
 }
 
 namespace tower_description{

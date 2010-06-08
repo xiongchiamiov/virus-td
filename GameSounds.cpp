@@ -11,7 +11,10 @@ namespace gamesounds{
 #endif
   //Sound filenames
   //Music
-  const string music_sound = "media/sounds/11EasyTarget.mp3"; 
+  const string music_sound = "media/sounds/Space\ Fighter\ Loop.mp3";
+  char* music_files[] = {"media/sounds/Space\ Fighter\ Loop.mp3",
+                         "media/sounds/Shiny\ Tech2.mp3",
+                         "media/sounds/In\ A\ Heartbeat.mp3"};
   string* songs_sound;
   //Towers
   const char* basic_t_sound;
@@ -38,8 +41,8 @@ GameSounds::GameSounds(void)
   if(sound_count <= 0){
     eng = engine = createIrrKlangDevice();
     if(engine)
-      music = engine->play2D(music_sound.c_str(), false, true);
-    engine->play2D("media/sounds/basic_t.mp3");
+      music = engine->play2D(music_files[0], false, true);
+    music->setVolume(0.5);
   } else {
     engine = eng;
   }

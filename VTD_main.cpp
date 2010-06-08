@@ -474,7 +474,7 @@ int main(int argc, char** argv){
   opponent.player.setPosition(OPP_POSX2, OPP_POSY2, OPP_POSZ2);
 
   cam.setListenerPos();
-  //sound.toggleMusic();
+  sound.toggleMusic();
 
   tlx = 0;
   tly = 0;
