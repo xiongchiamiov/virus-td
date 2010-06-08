@@ -43,8 +43,19 @@ void StrongUnit3::draw() {
         
         glScaled(0.4, 0.4, 0.4);
         glTranslatef(0, 1, 0);
-        glCallList(vtd_dl::lockL1DL);
 
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 10) {
+     glCallList(vtd_dl::lockL3DL);
+  } else if (dist <= 11.5) {
+     glCallList(vtd_dl::lockL2DL);
+  } else {
+     glCallList(vtd_dl::lockL1DL);
+  }
+  
      glPopMatrix();
      
     glPushMatrix();

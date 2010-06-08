@@ -59,7 +59,18 @@ void FastUnit::draw() {
      incr = 0.03;
   }
 
-  drawVirusDLAnimated(animateSpeed+=incr, 3);
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 10) {
+     drawVirusDLAnimated(animateSpeed+=incr, 3);
+  } else if (dist <= 11.5) {
+     drawVirusDLAnimated(animateSpeed+=incr, 2);
+  } else {
+     drawVirusDLAnimated(animateSpeed+=incr, 1);
+  }
+
  // glCallList(vtd_dl::virusDL);
   //glCallList(vtd_dl::forkbDL);
   glPopMatrix();

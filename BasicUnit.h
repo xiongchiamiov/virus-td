@@ -1,5 +1,8 @@
 #pragma once
 #include "Unit.h"
+#include "Camera.h"
+
+extern Camera cam;
 
 class BasicUnit :
 	public Unit

@@ -1,6 +1,8 @@
 #pragma once
 #include "Tower.h"
 #include "lighting.h"
+#include "Camera.h"
+extern Camera cam;
 
 class FastTower : public Tower {
    public:

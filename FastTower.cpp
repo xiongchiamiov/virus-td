@@ -84,7 +84,18 @@ void FastTower::draw(GLuint id, GLenum mode){
           increment = 0.025;
        }
 
-      drawBackTrackDLAnimated(animateSpeed+=increment, 1);
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 8) {
+     drawBackTrackDLAnimated(animateSpeed+=increment, 3);
+  } else if (dist <= 11) {
+     drawBackTrackDLAnimated(animateSpeed+=increment, 2);
+  } else {
+     drawBackTrackDLAnimated(animateSpeed+=increment, 1);
+  }
+  
   //     glCallList(vtd_dl::backtrackDL);
     glPopMatrix();
 	 glPushMatrix();

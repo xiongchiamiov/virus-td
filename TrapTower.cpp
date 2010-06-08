@@ -66,7 +66,21 @@ void TrapTower::draw(GLuint id, GLenum mode){
    glScalef(.5,.5,.5);
    if(mode == GL_SELECT)
 	   glLoadName(id);
-   glCallList(vtd_dl::blkhatL3DL);
+      
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+   
+   std::cout << "dist: " << dist << std::endl;
+
+  if (dist <= 8) {
+     glCallList(vtd_dl::blkhatL3DL);
+  } else if (dist <= 11) {
+     glCallList(vtd_dl::blkhatL2DL);
+  } else {
+     glCallList(vtd_dl::blkhatL1DL);
+  }
+  
    //glutSolidTorus(0.2, 0.25, 10, 10);
   glPopMatrix();
 	 glPushMatrix();

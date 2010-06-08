@@ -1,5 +1,7 @@
 #pragma once
 #include "Unit.h"
+#include "Camera.h"
+extern Camera cam;
 
 class StrongUnit2 : public Unit {
    public:

@@ -47,7 +47,19 @@ void StrongUnit::draw() {
       }
         glScaled(0.25, 0.25, 0.25);
         glTranslatef(0, 1, 0);
-       drawForkBombDLAnimated(animateSpeed+=0.01, 2);
+
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 10) {
+     drawForkBombDLAnimated(animateSpeed+=0.01, 3);
+  } else if (dist <= 11.5) {
+     drawForkBombDLAnimated(animateSpeed+=0.01, 2);
+  } else {
+     drawForkBombDLAnimated(animateSpeed+=0.01, 1);
+  }
+  
      //   glCallList(vtd_dl::forkbDL);
         //glCallList(vtd_dl::virusDL);
      glPopMatrix();

@@ -61,7 +61,18 @@ void BossUnit::draw()
    
 //  glRotatef(90, 0.0, 1.0, 0.0);
 //  glCallList(vtd_dl::wormDL);
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 10) {
    drawBearDLAnimated(animateSpeed+=incr, 3);
+  } else if (dist <= 11.5) {
+   drawBearDLAnimated(animateSpeed+=incr, 2);
+  } else {
+   drawBearDLAnimated(animateSpeed+=incr, 1);
+  }
+
   glPopMatrix();
 	 glPushMatrix();
 //		draw_shadow(7);

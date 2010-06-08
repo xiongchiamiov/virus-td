@@ -74,8 +74,19 @@ void FreezeTower::draw(GLuint id, GLenum mode){
        if (animateSpeed >= 360) {
           animateSpeed = 0;
        }
+       
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
 
+  if (dist <= 8) {
+       drawFanDLAnimated(animateSpeed+=5, 3);
+  } else if (dist <= 11) {
+       drawFanDLAnimated(animateSpeed+=5, 2);
+  } else {
        drawFanDLAnimated(animateSpeed+=5, 1);
+  }
+  
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(4);

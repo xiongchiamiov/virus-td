@@ -44,7 +44,18 @@ void StrongUnit2::draw() {
 
         glScaled(0.15, 0.15, 0.15);
         glTranslatef(0, 10, 0);
-        glCallList(vtd_dl::trojanL1DL);
+
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 10) {
+     glCallList(vtd_dl::trojanL3DL);
+  } else if (dist <= 11.5) {
+     glCallList(vtd_dl::trojanL2DL);
+  } else {
+     glCallList(vtd_dl::trojanL1DL);
+  }
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(10);

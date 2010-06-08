@@ -63,8 +63,19 @@ void BasicUnit::draw()
  // if (animateSpeed <= 0.9) {
  //    incr = 0.01;
  // }
-  
-  drawWormDLAnimated(animateSpeed+=increment, 3);
+ 
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 8) {
+     drawWormDLAnimated(animateSpeed+=increment, 3);
+  } else if (dist <= 13) {
+     drawWormDLAnimated(animateSpeed+=increment, 2);
+  } else {
+     drawWormDLAnimated(animateSpeed+=increment, 1);
+  }
+
 //  glCallList(vtd_dl::wormDL);
   glPopMatrix();
 	 glPushMatrix();

@@ -52,7 +52,18 @@ void FastUnit2::draw() {
 
   //glRotatef(-90, 0.0, 1.0, 0.0);
 
- drawPhish(10); // literal tesallation values 4, 6, 10 ir higher
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 10) {
+     drawPhish(10); // literal tesallation values 4, 6, 10 ir higher
+  } else if (dist <= 11.5) {
+     drawPhish(6); // literal tesallation values 4, 6, 10 ir higher
+  } else {
+     drawPhish(4); // literal tesallation values 4, 6, 10 ir higher
+  }
+
   glPopMatrix();
 	 glPushMatrix();
 //		draw_shadow(8);

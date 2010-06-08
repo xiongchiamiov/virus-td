@@ -70,7 +70,18 @@ void SlowTower::draw(GLuint id, GLenum mode){
         glScaled(0.06, 0.08, 0.06);
         glRotated(83, 0.0, 1.0, 0.0);
 
+  double dist = sqrt((getX() - cam.getCamX()) * (getX() - cam.getCamX())
+     + (getY() - cam.getCamY()) * (getY() - cam.getCamY())
+     + (getZ() - cam.getCamZ()) * (getZ() - cam.getCamZ()));
+
+  if (dist <= 8) {
         glCallList(vtd_dl::teslaL3DL);
+  } else if (dist <= 11) {
+        glCallList(vtd_dl::teslaL2DL);
+  } else {
+        glCallList(vtd_dl::teslaL1DL);
+  }
+  
      glPopMatrix();
 	 glPushMatrix();
 		draw_shadow(1);

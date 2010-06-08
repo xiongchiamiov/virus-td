@@ -1,6 +1,8 @@
 #pragma once
 #include "Tower.h"
 #include "lighting.h"
+#include "Camera.h"
+extern Camera cam;
 
 class TrapTower : public Tower {
    public:
