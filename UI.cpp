@@ -684,7 +684,7 @@ void mouseClick(int button, int state, int x, int y) {
 				clicked = true;
 			}
 			
-			if (!towerSelectInPanel(x,GH-y)) {
+			else if (!towerSelectInPanel(x,GH-y)) {
 				GLuint id = checkTowerClick(x, y);
 				printf("Clicked: %d\n", id);
 				if(id != INT_MAX && id > 0)
