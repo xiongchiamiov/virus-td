@@ -3,7 +3,7 @@
 namespace vtd_player{
   const int START_LIVES = 5;
   const int START_INCOME = 10;
-  const int START_RESOURCES = 1500000; /* originally 10, but 100000 for debug */
+  const int START_RESOURCES = 15;//00000; /* originally 10, but 100000 for debug */
 }
 const int cleanup_dt = 500;
 int last_cleanup = 0;
@@ -143,7 +143,12 @@ void Player::update(int dt){
   std::list<Tower*>::iterator t;
   for(t = tList.begin(); t != tList.end(); ++t){
     (*t)->step(dt);
-    resources += (*t)->getKill();
+    int k =  (*t)->getKill();
+    if(k){
+      resources += k;
+      Particles part(0.7);
+      projectiles.addProjectile(&part, NULL, (*t)->getX() + pos.getX(), (*t)->getY() + pos.getY(), (*t)->getZ() + pos.getZ());
+    }
   }
   for(t = tList.begin(); t != tList.end(); ++t){
     (*t)->retarget();
