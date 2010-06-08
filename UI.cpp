@@ -105,6 +105,9 @@ void resetUI(void)
 {
 	towerSelected = false;
 	towerSelect = NULL;
+	clicked = false;
+	placingTower = false;
+	test = -1;
 }
 
 int bin(int num){/* start bin */ 
@@ -431,17 +434,19 @@ void mouseClick(int button, int state, int x, int y) {
 		fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
 
 		if (clicked == true) {
-			if (test >= 9 && test <= 17) {
+			if (test >= 9 && test <= 17 && click == -1) {
 				p1.placeTower(tlx, tly, test);
 				placingTower = false;
 			} 
 
-			clicked = !clicked;
+			clicked = false;
 		}
 		else
 		{
-			if (click >= 9 && click <= 17)
+			if (click >= 9 && click <= 17) {
 				placingTower = true;
+				clicked = true;
+			}
 		}
 
 		test = click;
@@ -450,15 +455,14 @@ void mouseClick(int button, int state, int x, int y) {
 			GLfloat col[] = {0.6,0.6,0.6};
 			buttons.at(test)->setButtonColor(col);
 		}
-	}else if (click >= 0 && click <= 8) {
-		p1.spawnUnit(click);
-	}
-
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+	} else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
 		if (test != -1) {
 			GLfloat col[] = {1.0,1.0,1.0};
 			buttons.at(test)->setButtonColor(col);
-			clicked = !clicked;
+			if (click >= 0 && click <= 8) {
+				p1.spawnUnit(click);
+				clicked = false;
+			}
 		}
 		else
 		{
@@ -593,7 +597,7 @@ void mouseMotion(int x, int y) {
 		GLuint selectBuf[BUFSIZE];
 
 		/* gl selection code */
-		startPicking(x, y, selectBuf, BUFSIZE);
+		startPicking(x + 16, y + 16, selectBuf, BUFSIZE);
 
 		gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
 			cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
