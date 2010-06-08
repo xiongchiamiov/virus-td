@@ -43,6 +43,7 @@ public:
   void upgradeTower(int x, int y);
   void changeTowerMode(int x, int y, target_mode mode);
   void destroyTower(int x, int y);
+  void sellTower(int x, int y);
   void moveUnits(float dt);
   void draw(bool isPlacing); // mode is used for picking
   bool cull(GameObject* obj);

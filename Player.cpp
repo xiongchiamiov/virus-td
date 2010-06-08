@@ -255,6 +255,37 @@ void Player::destroyTower(int x, int y){
   uai.determineUnitsPaths();
 }
 
+void Player::sellTower(int x, int y){
+  Tower* t = pGrid.getTowerAt(x, y);
+  int sellValue(0);
+  if(t != NULL){
+    switch(t->getType()){
+      case T_BASIC:
+        sellValue = tower_cost::BASIC;
+        break;
+      case T_FREEZE:
+        sellValue = tower_cost::FREEZE;
+        break;
+      case T_FAST:
+        sellValue = tower_cost::FAST;
+        break;
+      case T_SLOW:
+        sellValue = tower_cost::SLOW;
+        break;
+      case T_TRAP:
+        sellValue = tower_cost::TRAP;
+        break;
+      case T_WALL:
+        sellValue = tower_cost::WALL;
+        break;
+    }
+    sellValue = (sellValue * t->getStage())/2;
+  }
+  resources += sellValue;
+  pGrid.removeTower(x, y, tList);
+  uai.determineUnitsPaths();
+}
+
 void Player::draw(bool isPlacing){
   glPushMatrix();
   glTranslatef(pos.getX(), pos.getY(), pos.getZ());
