@@ -128,7 +128,16 @@ void initializeUI()
 	tower_select.height = 256;
 	tower_select.pos[0] = GW - 63; tower_select.pos[1] = tower_select.height - 134;
 	tower_select.btn_wid = 48; tower_select.btn_hei = 48;
-	tower_select.btn_pos[0] = 8; tower_select.btn_pos[1] = tower_select.height - tower_select.btn_hei - 8;
+	tower_select.btn_pos[0] = 8; tower_select.btn_pos[1] = tower_select.height - tower_select.btn_hei - 10;
+}
+
+void resetUIPosition(void)
+{
+	tower_select.width = 64;
+	tower_select.height = 256;
+	tower_select.pos[0] = GW - 63; tower_select.pos[1] = tower_select.height - 134;
+	tower_select.btn_wid = 48; tower_select.btn_hei = 48;
+	tower_select.btn_pos[0] = 8; tower_select.btn_pos[1] = tower_select.height - tower_select.btn_hei - 10;
 }
 
 void resetUI(void)
@@ -441,7 +450,7 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	glPushMatrix();
 	glTranslatef(200.0,0.0,0.0);
 	glColor3f(1.0,1.0,1.0);
-	drawPanel(400, 128, panel_tex3);
+	drawPanel(w - 400.0, 128, panel_tex3);
 	glPopMatrix();
 
 	if(towerSelected) {
@@ -468,7 +477,7 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 
 	glColor3f(1.0,0.0,0.0);
 	sprintf( str, "Enemy Lives: %d", opp->getLives() );
-	renderBitmapString(250 + xp, yp, GLUT_BITMAP_9_BY_15 , str);
+	renderBitmapString(w - 338, yp, GLUT_BITMAP_9_BY_15 , str);
 	//renderBitmapString(1.0 * GW / 4.0, H - 25, GLUT_BITMAP_TIMES_ROMAN_24 , "Time until next wave:");
 
 	//renderBitmapString(1.0 * GW / 4.0, 20.0, GLUT_BITMAP_TIMES_ROMAN_24 , "Currency:");
@@ -679,7 +688,7 @@ void mouseClick(int button, int state, int x, int y) {
 	else if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		mouse_down = true;
 		/* !!!!!! remember to invert y with (GH - y) so that it is on the bottom instead of the top */
-		fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
+		//fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
 
 		if (clicked == true) {
 			if (test >= 9 && test <= 17 && click == -1) {
@@ -698,7 +707,7 @@ void mouseClick(int button, int state, int x, int y) {
 			
 			else if (!towerSelectInPanel(x,GH-y)) {
 				GLuint id = checkTowerClick(x, y);
-				printf("Clicked: %d\n", id);
+				//printf("Clicked: %d\n", id);
 				if(id != INT_MAX && id > 0)
 				{
 					std::list<Tower*> tList = p1.getTowerList();

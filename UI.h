@@ -42,6 +42,7 @@ int determineClickedButton(int mouseX, int mouseY);
 void drawRectangle(float xp, float yp, float w, float h, GLuint texture);
 void renderBitmapString(float x, float y, void *font,char *string);
 int getBitmapStringWidth(void *font,char *string);
+void resetUIPosition();
 float p2w_y(int y);
 float p2w_x(int x);
 extern bool placingTower;
