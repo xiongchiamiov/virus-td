@@ -98,14 +98,17 @@ void display(){
 	  glColor3f(0.8, 0.5, 0.3);
 	  float lx = tlx*2.0*GRID_SIZE - GRID_SIZE*float(GRID_WIDTH) + GRID_SIZE + (GRID_SIZE * 2);
 	  float lz = tly*2.0*GRID_SIZE - GRID_SIZE*float(GRID_HEIGHT) + GRID_SIZE + (GRID_SIZE * 2);
-	  setMaterial(Exp2);
-	  glBegin(GL_LINES);{
-		glVertex3f(lx, 0.0, lz);
-		glVertex3f(lx, 5.0, lz);
-		glVertex3f(0.0, 0.0, 0.0);
-		glVertex3f(0.0, 5.0, 0.0);
-	  }
-	  glEnd();
+    if(placingTower){
+      setMaterial(Exp);
+      glNormal3f(0.0, 1.0, 0.0);
+      glBegin(GL_POLYGON);{
+        glVertex3f(worldX - GRID_SIZE*2.0, 0.001, worldZ - GRID_SIZE*2.0);
+        glVertex3f(worldX - GRID_SIZE*2.0, 0.001, worldZ + GRID_SIZE*2.0);
+        glVertex3f(worldX + GRID_SIZE*2.0, 0.001, worldZ + GRID_SIZE*2.0);
+        glVertex3f(worldX + GRID_SIZE*2.0, 0.001, worldZ - GRID_SIZE*2.0);
+      }glEnd();
+    }
+	  
 
      // draw root directories
      glPushMatrix();
