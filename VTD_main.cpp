@@ -54,6 +54,7 @@ int last_cycle;
 bool paused = false;
 bool gameOver = false;
 bool exitting = false;
+bool starting = true;
 int winner = 0;
 GLuint winTexture;
 Scenery scene("scenery.grid", &p1);
@@ -106,6 +107,16 @@ void display(){
         glVertex3f(worldX - GRID_SIZE*2.0, 0.001, worldZ + GRID_SIZE*2.0);
         glVertex3f(worldX + GRID_SIZE*2.0, 0.001, worldZ + GRID_SIZE*2.0);
         glVertex3f(worldX + GRID_SIZE*2.0, 0.001, worldZ - GRID_SIZE*2.0);
+      }glEnd();
+    }
+    if(towerSelected){
+      setMaterial(Exp);
+      glNormal3f(0.0, 1.0, 0.0);
+      glBegin(GL_POLYGON);{
+        glVertex3f(towerSelect->getX() - GRID_SIZE*2.0 + P1_POSX, 0.001, towerSelect->getZ() - GRID_SIZE*2.0 + P1_POSZ);
+        glVertex3f(towerSelect->getX() - GRID_SIZE*2.0 + P1_POSX, 0.001, towerSelect->getZ() + GRID_SIZE*2.0 + P1_POSZ);
+        glVertex3f(towerSelect->getX() + GRID_SIZE*2.0 + P1_POSX, 0.001, towerSelect->getZ() + GRID_SIZE*2.0 + P1_POSZ);
+        glVertex3f(towerSelect->getX() + GRID_SIZE*2.0 + P1_POSX, 0.001, towerSelect->getZ() - GRID_SIZE*2.0 + P1_POSZ);
       }glEnd();
     }
 	  
@@ -342,7 +353,7 @@ void update(int param){
   int dt = this_time - last_time;
   //fps = 1000.00/dt; 
   last_time = this_time;
-  if(!paused) {
+  if(!paused && !starting) {
     last_cycle += dt;
   }
   if(controls::keyMap[controls::BACKWARD]){
@@ -364,7 +375,7 @@ void update(int param){
     cam.zoomOut();
   }
 
-  if(!paused){
+  if(!paused && !starting){
     if(CYCLE_TIME < last_cycle){
       p1.calcResources();
       opponent.player.calcResources();
@@ -375,16 +386,16 @@ void update(int param){
     opponent.update(dt);
     sound.checkForEnd();
 
-	if(p1.getLives() <= 0) {
-		paused = true;
-		gameOver = true;
-		winner = COMPUTER_WIN;
-	}
-	if(opponent.player.getLives() <= 0) {
-		paused = true;
-		gameOver = true;
-		winner = PLAYER_WIN;
-	}
+    if(p1.getLives() <= 0) {
+      paused = true;
+      gameOver = true;
+      winner = COMPUTER_WIN;
+    }
+    if(opponent.player.getLives() <= 0) {
+      paused = true;
+      gameOver = true;
+      winner = PLAYER_WIN;
+    }
   }
   glutPostRedisplay();
   glutTimerFunc(10, update, 0);
