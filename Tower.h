@@ -54,6 +54,7 @@ public:
   int getKill();
   inline float getRange(){return ai.range;}
   inline void setTargetMode(target_mode nMode){ ai.setMode(nMode);}
+  inline target_mode getTargetMode(void) { return ai.mode; }
   inline bool isDead(){return hp <= 0;}
   inline void retarget(){ if(ai.hasTarget && ai.target->isDead()) ai.hasTarget = false; }
   inline Unit* getTarget(){ return ai.target;}

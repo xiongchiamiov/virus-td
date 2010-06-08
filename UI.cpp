@@ -10,6 +10,7 @@
 extern MyVector camera, newCam;
 extern Camera cam;
 extern int GH, GW;
+extern Player pl;
 extern std::vector<Button *> buttons;
 extern bool clicked;
 bool placingTower;
@@ -18,13 +19,14 @@ extern int tlx, tly, ulx, uly;
 extern Player p1;
 int curBtn = -1;
 GLfloat mx,my;
+bool mouse_down = false;
 int test = 0;
 GLuint panel_tex;
 GLuint panel_tex2;
 GLuint button_tex[18];
 GLuint info_tex[10];
 GLuint tower_gui_tex;
-GLuint tower_gui_btn[3];
+GLuint tower_gui_btn[7];
 bool towerSelected = false;
 Tower *towerSelect = NULL;
 
@@ -84,6 +86,10 @@ void initializeUI()
 	tower_gui_btn[0] = LoadHQTexture("tower_gui_btn_sell.bmp");
 	tower_gui_btn[1] = LoadHQTexture("tower_gui_btn_upgrade.bmp");
 	tower_gui_btn[2] = LoadHQTexture("tower_gui_btn_closest.bmp");
+	tower_gui_btn[3] = LoadHQTexture("tower_gui_btn_leasthealth.bmp");
+	tower_gui_btn[4] = LoadHQTexture("tower_gui_btn_mosthealth.bmp");
+	tower_gui_btn[5] = LoadHQTexture("tower_gui_btn_faster.bmp");
+	tower_gui_btn[6] = LoadHQTexture("tower_gui_btn_slowest.bmp");
 	// Unit Icons
 	button_tex[0] = LoadHQTexture("BossUnit.bmp");
 	button_tex[1] = LoadHQTexture("Button.bmp");
@@ -153,52 +159,54 @@ bool towerSelectOverButton(int mx, int my, int i)
 	return true;
 }
 
+bool towerSelectInPanel(int mx, int my)
+{
+	if(mx < tower_select.pos[0] || mx > tower_select.pos[0] + tower_select.width)
+		return false;
+	if(my < tower_select.pos[1] || my > tower_select.pos[1] + tower_select.height)
+		return false;
+	return true;
+}
+
+void handleTowerSelectClick(int mx, int my)
+{
+	if(!towerSelected)
+		return;
+
+	if(towerSelectOverButton(mx,my,0)) {
+		towerSelect->setTargetMode((target_mode)((towerSelect->getTargetMode() + 1) % 5));
+	} else if(towerSelectOverButton(mx,my,1)) {
+	} else if(towerSelectOverButton(mx,my,2)) {
+	}
+}
+
 void drawTowerSelect(int mx, int my)
 {
-	if(clicked)
-	{
-		printf("YAY");
-	}
+	if(!towerSelected)
+		return;
+
 	glColor3f(1.0,1.0,1.0);
 	glPushMatrix();
 	glTranslatef(0.0,0.0,-0.01);
 	drawRectangle(tower_select.pos[0],tower_select.pos[1],64,256,tower_gui_tex);
 	glPopMatrix();
 	glPushMatrix();
-	if(towerSelectOverButton(mx,my,0))
-		glColor3f(1.0,1.0,1.0);
-	else
-		glColor3f(0.6,0.6,0.6);
-	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[2]);
+
+	GLfloat cVal = towerSelectOverButton(mx,my,0) ? (mouse_down ? 0.3 : 1.0) : 0.6;
+	glColor3f(cVal,cVal,cVal);
+	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[2 + (int)towerSelect->getTargetMode()]);
 	glTranslatef(0.0,-tower_select.btn_hei-8.0,0.0);
-	if(towerSelectOverButton(mx,my,1))
-		glColor3f(1.0,1.0,1.0);
-	else
-		glColor3f(0.6,0.6,0.6);
+
+	cVal = towerSelectOverButton(mx,my,1) ? (mouse_down ? 0.3 : 1.0) : 0.6;
+	glColor3f(cVal,cVal,cVal);
 	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[0]);
 	glTranslatef(0.0,-tower_select.btn_hei-8.0,0.0);
-	if(towerSelectOverButton(mx,my,2))
-		glColor3f(1.0,1.0,1.0);
-	else
-		glColor3f(0.6,0.6,0.6);
+
+	cVal = towerSelectOverButton(mx,my,2) ? (mouse_down ? 0.3 : 1.0) : 0.6;
+	glColor3f(cVal,cVal,cVal);
 	drawRectangle(tower_select.pos[0] + tower_select.btn_pos[0],tower_select.pos[1] + tower_select.btn_pos[1],48,48,tower_gui_btn[1]);
 	glPopMatrix();
 }
-
-/*bool towerSelectMouseOver(int mx, int my)
-{
-	int btn = -1;
-	if(mx > tower_select.pos[0] + tower_select.btn_pos[0] && mx < tower_select.pos[0] + tower_select.btn_pos[0] + tower_select.btn_wid)
-	{
-		for(int i = 0; i < 3; i++)
-		{
-			if(my > tower_select.pos[1] + tower_select.btn_pos[1] + (i * (tower_select.btn_hei + 8)) && tower_select.pos[1] + tower_select.btn_pos[1] + tower_select.btn_hei  + (i * (tower_select.btn_hei + 8))) {
-				vtn = i;
-				break;
-			}
-		}
-	}
-}*/
 
 void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 {
@@ -501,6 +509,7 @@ void mouseClick(int button, int state, int x, int y) {
 		placingTower = false;
 	}
 	else if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		mouse_down = true;
 		/* !!!!!! remember to invert y with (GH - y) so that it is on the bottom instead of the top */
 		fprintf(stderr, "click: x: %d y: %d\n", x, GH- y);
 
@@ -518,6 +527,26 @@ void mouseClick(int button, int state, int x, int y) {
 				placingTower = true;
 				clicked = true;
 			}
+			
+			if (!towerSelectInPanel(x,GH-y)) {
+				GLuint id = checkTowerClick(x, y);
+				printf("Clicked: %d\n", id);
+				if(id != INT_MAX && id > 0)
+				{
+					std::list<Tower*> tList = p1.getTowerList();
+					std::list<Tower*>::iterator i = tList.begin(); 
+					
+					for(int j = 1; j < id; ++j)
+						i++;
+					towerSelect = *(i);
+					towerSelected = true;
+				}
+				else
+				{
+					towerSelected = false;
+					towerSelect = NULL;
+				}
+			}
 		}
 
 		test = click;
@@ -527,6 +556,7 @@ void mouseClick(int button, int state, int x, int y) {
 			buttons.at(test)->setButtonColor(col);
 		}
 	} else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+		mouse_down = false;
 		if (test != -1) {
 			GLfloat col[] = {1.0,1.0,1.0};
 			buttons.at(test)->setButtonColor(col);
@@ -535,23 +565,9 @@ void mouseClick(int button, int state, int x, int y) {
 				clicked = false;
 			}
 		}
-		else
+		else if (towerSelectInPanel(x,GH-y))
 		{
-			GLuint id = checkTowerClick(x, y);
-			printf("Clicked: %d\n", id);
-			if(id != INT_MAX && id > 0)
-			{
-				std::list<Tower*> tList = p1.getTowerList();
-				std::list<Tower*>::iterator i = tList.begin(); 
-				
-				towerSelect = *(i);
-				towerSelected = true;
-			}
-			else
-			{
-				towerSelected = false;
-				towerSelect = NULL;
-			}
+			handleTowerSelectClick(x,GH-y);
 		}
 	}
 
