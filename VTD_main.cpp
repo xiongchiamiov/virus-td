@@ -494,19 +494,6 @@ int main(int argc, char** argv){
     buttons.push_back(newBtn);
   }
   
-  buttons.at(17)->setObject(new BasicTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
-     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
-  buttons.at(16)->setObject(new FreezeTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
-     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
-  buttons.at(15)->setObject(new FastTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
-     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
-  buttons.at(14)->setObject(new SlowTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
-     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
-  buttons.at(13)->setObject(new TrapTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
-     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
-  buttons.at(12)->setObject(new WallTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
-     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
-  
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowSize(GW, GH);
@@ -525,10 +512,24 @@ int main(int argc, char** argv){
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_LIGHTING);
-  initializeParticleTextures();
   init_lighting();
   composeDisplayLists();
   glutTimerFunc(1000/60, update, 0);
+
+  initializeParticleTextures();
+  buttons.at(17)->setObject(new BasicTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
+     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
+  buttons.at(16)->setObject(new FreezeTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
+     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
+  buttons.at(15)->setObject(new FastTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
+     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
+  buttons.at(14)->setObject(new SlowTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
+     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
+  buttons.at(13)->setObject(new TrapTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
+     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
+  buttons.at(12)->setObject(new WallTower(float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0.25, 
+     float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
+
   initializeUI();
   winTexture = LoadTexture("Win.bmp");
   p1.pGrid.initialize(false);
