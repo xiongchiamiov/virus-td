@@ -84,20 +84,7 @@ void display(){
   gluLookAt(cam.getCamX(), cam.getCamY(), cam.getCamZ(),
     cam.getLookAtX(), cam.getLookAtY(), cam.getLookAtZ(),
     0.0, 1.0, 0.0);
-	glPushMatrix();
-		glDisable(GL_LIGHTING);
-		glPushMatrix();
-		glTranslatef(0.25, 2.0, 0.25);
-		glColor3f(0.0,0.0,1.0);
-		glutSolidCube(0.2);
-		glPopMatrix();
-		glPushMatrix();
-		glTranslatef(12.25, 2.0, 0.25);
-		glColor3f(1.0,0.0,0.0);
-		glutSolidCube(0.2);
-		glPopMatrix();
-		glEnable(GL_LIGHTING);
-	glPopMatrix();
+
   place_lights();
   if(!gameOver)
   {

@@ -119,6 +119,11 @@ int bin(int num){/* start bin */
 
 void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 {
+	if(towerSelected && towerSelect != NULL && towerSelect->isDead()) {
+		towerSelected = false;
+		towerSelect = NULL;
+	}
+
 	int bNumber = 0;
 
 	setOrthographicProjection(w, h);
@@ -159,24 +164,27 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	drawPanel(200, 200);
 	glTranslatef(140, 0, 0);
 	//setMaterial(Teal);
-	for (int i = 0; i < 3; i++) {
-		if (i == 0) {
-			glTranslatef(0, 5, 0.01);
-		} else {
-			glTranslatef(0, 65, 0);
-		}
+	if(!towerSelected)
+	{
+		for (int i = 0; i < 3; i++) {
+			if (i == 0) {
+				glTranslatef(0, 5, 0.01);
+			} else {
+				glTranslatef(0, 65, 0);
+			}
 
-		glPushMatrix();
-		glTranslatef(-5, 0, 0);
-		buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
-		bNumber++;
-		glTranslatef(-65, 0, 0);
-		buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
-		bNumber++;
-		glTranslatef(-65, 0, 0);
-		buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
-		bNumber++;
-		glPopMatrix();
+			glPushMatrix();
+			glTranslatef(-5, 0, 0);
+			buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+			bNumber++;
+			glTranslatef(-65, 0, 0);
+			buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+			bNumber++;
+			glTranslatef(-65, 0, 0);
+			buttons.at(bNumber)->drawButton(60, 60, button_tex[bNumber]);
+			bNumber++;
+			glPopMatrix();
+		}
 	}
 	glPopMatrix();
 
@@ -249,13 +257,13 @@ void drawRectangle(float xp, float yp, float w, float h, GLuint texture)
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0,1.0);
-	glVertex2f(xp,yp);
-	glTexCoord2f(1.0,1.0);
-	glVertex2f(xp+w,yp);
-	glTexCoord2f(1.0,0.0);
-	glVertex2f(xp+w,yp+h);
 	glTexCoord2f(0.0,0.0);
+	glVertex2f(xp,yp);
+	glTexCoord2f(1.0,0.0);
+	glVertex2f(xp+w,yp);
+	glTexCoord2f(1.0,1.0);
+	glVertex2f(xp+w,yp+h);
+	glTexCoord2f(0.0,1.0);
 	glVertex2f(xp,yp+h);
 	glEnd();
 
@@ -450,15 +458,28 @@ void mouseClick(int button, int state, int x, int y) {
 		}
 		else
 		{
-			printf("Clicked!\n");
-			checkTowerClick(x, GH - y);
+			GLuint id = checkTowerClick(x, y);
+			printf("Clicked: %d\n", id);
+			if(id != INT_MAX && id > 0)
+			{
+				std::list<Tower*> tList = p1.getTowerList();
+				std::list<Tower*>::iterator i = tList.begin(); 
+				
+				towerSelect = *(i);
+				towerSelected = true;
+			}
+			else
+			{
+				towerSelected = false;
+				towerSelect = NULL;
+			}
 		}
 	}
 
 	glutPostRedisplay();
 }
 
-void checkTowerClick(int x, int y) {
+GLuint checkTowerClick(int x, int y) {
 	// PICKING 
 	const int BUFSIZE = 512;
 	GLuint selectBuf[BUFSIZE];
@@ -479,7 +500,7 @@ void checkTowerClick(int x, int y) {
 	//p1.pGrid.draw(true,GL_SELECT);
 	std::list<Tower*> tList = p1.getTowerList();
 	std::list<Tower*>::iterator i; 
-	int id = 0;
+	int id = 1;
 	for(i = tList.begin(); i != tList.end(); ++i){
 		if(!(*i)->isDead() && !p1.cull(*i)){
 			(*i)->draw(id,GL_SELECT);
@@ -488,7 +509,7 @@ void checkTowerClick(int x, int y) {
 	}
 	glPopMatrix();
 	int hits = stopPicking();
-	processTowerHits(hits,selectBuf);
+	return processTowerHits(hits,selectBuf);
 }
 
 void mouseMotion(int x, int y) {
@@ -695,7 +716,7 @@ void processHits(GLint hits, GLuint buffer[])
 	printf("**************************************************************\n");
 }
 
-void processTowerHits(GLint hits, GLuint buffer[])
+GLuint processTowerHits(GLint hits, GLuint buffer[])
 {
 	// this function goes through the selection hit list of object names
 
@@ -704,9 +725,9 @@ void processTowerHits(GLint hits, GLuint buffer[])
 	GLfloat closestFront = 0.0;
 
 
-	printf("hits = %d\n", hits);
+	//printf("hits = %d\n", hits);
 	if(hits==0) {
-		printf("You have not selected any object.\n");
+		//printf("You have not selected any object.\n");
 		// if the grid uses -INT_MAX this value must be changed
 		worldX = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
 		worldZ = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
@@ -716,7 +737,7 @@ void processTowerHits(GLint hits, GLuint buffer[])
 	ptr = (GLuint *) buffer;
 	for(i=0; i<hits; i++) {
 		ptr++;
-		printf("  front at %g\n",(float) *ptr/0x7fffffff);
+		//printf("  front at %g\n",(float) *ptr/0x7fffffff);
 
 		if (closestFront == 0.0 || ((float) *ptr/0x7fffffff < closestFront)) {
 			closestFront = (float) *ptr/0x7fffffff;
@@ -724,18 +745,19 @@ void processTowerHits(GLint hits, GLuint buffer[])
 		}
 
 		ptr++;
-		printf("  back at = %g\n",(float) *ptr/0x7fffffff);
+		//printf("  back at = %g\n",(float) *ptr/0x7fffffff);
 		ptr++;
 
 		if(ptr) {
 			//    printf("You have picked the %d.\n", *ptr);
-			cout << "You selected: " << *ptr << endl;
+			//cout << "You selected: " << *ptr << endl;
+			return *ptr;
 		}
 
 		ptr++;
 	}
 
-	printf("**************************************************************\n");
+	//printf("**************************************************************\n");
 }
 
 /* 
