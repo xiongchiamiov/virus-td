@@ -56,8 +56,6 @@ namespace unit_name {
 namespace unit_description {
    const char* BASIC = "This is a basic unit.";
    const char* FAST = "This unit is very fast, but dosen't\n have a lot of HP.";
-   const char* STRONG = "This unit moves very \nslowly, but has a \nlot of HP.";
-   const char* STRONG2 = "This unit moves very slowly, but has\n a lot of HP.";
    const char* FAST2 = "This unit is similar to the virus\n but it is stronger.";/*
    const char* STRONG = "This unit is strong, but slow.";
    const char* STRONG2 = "This unit is strong, but slow. This is stronger than a fork bomb.";*/

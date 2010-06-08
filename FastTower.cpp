@@ -11,7 +11,7 @@ namespace fs_tower{
   const int ATK_DT[MAX_UPGRADES] = {500, 500, 300}; //Milleseconds between attacks
   const float RANGE[MAX_UPGRADES] = {2.5, 2.5, 3.0};
   const int BUILD_TIME = 3000;
-  char* SOUND = "media/sounds/basic_t.mp3";
+  char* SOUND = "media/sounds/Lazer.mp3";
 }
 
 using namespace fs_tower;
