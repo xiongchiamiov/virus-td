@@ -192,8 +192,8 @@ void drawTowerSelectInfo(int mx, int my, int btnNumb)
 	char info[400];
 	if(btnNumb == 0) {
 		int t = (int)towerSelect->getTargetMode();
-		char *mode = (t == 0 ? "Lowest Health" : (t == 1 ? "Highest Health" : (t == 2 ? "Fastest" : (t == 3 ? "Slowest" : "Closest"))));
-		char *curMode = t == 0 ? "Closest" : t == 1 ? "Lowest Health" : t == 2 ? "Highest Health" : t == 3 ? "Fastest" : "Slowest";
+		const char *mode = (t == 0 ? "Lowest Health" : (t == 1 ? "Highest Health" : (t == 2 ? "Fastest" : (t == 3 ? "Slowest" : "Closest"))));
+		const char *curMode = t == 0 ? "Closest" : t == 1 ? "Lowest Health" : t == 2 ? "Highest Health" : t == 3 ? "Fastest" : "Slowest";
 		sprintf(title2,"Switch To: %s",mode); 
 		sprintf(title,"Current Mode: %s",curMode);
 		if(t == 0)
@@ -923,9 +923,9 @@ void processHits(GLint hits, GLuint buffer[])
 	GLfloat closestFront = 0.0;
 
 
-	printf("hits = %d\n", hits);
+	//printf("hits = %d\n", hits);
 	if(hits==0) {
-		printf("You have not selected any object.\n");
+//		printf("You have not selected any object.\n");
 		// if the grid uses -INT_MAX this value must be changed
 		worldX = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
 		worldZ = -INT_MAX; // this value is just to ensure we really cant place anything on the grid.
@@ -935,7 +935,7 @@ void processHits(GLint hits, GLuint buffer[])
 	ptr = (GLuint *) buffer;
 	for(i=0; i<hits; i++) {
 		ptr++;
-		printf("  front at %g\n",(float) *ptr/0x7fffffff);
+	//	printf("  front at %g\n",(float) *ptr/0x7fffffff);
 
 		if (closestFront == 0.0 || ((float) *ptr/0x7fffffff < closestFront)) {
 			closestFront = (float) *ptr/0x7fffffff;
@@ -943,12 +943,12 @@ void processHits(GLint hits, GLuint buffer[])
 		}
 
 		ptr++;
-		printf("  back at = %g\n",(float) *ptr/0x7fffffff);
+//		printf("  back at = %g\n",(float) *ptr/0x7fffffff);
 		ptr++;
 
 		if(ptr) {
 			//    printf("You have picked the %d.\n", *ptr);
-			cout << "x: " << (*ptr % GRID_WIDTH * GRID_SIZE * 2) << " y: " << (*ptr / GRID_WIDTH * GRID_SIZE * 2) << endl;
+	//		cout << "x: " << (*ptr % GRID_WIDTH * GRID_SIZE * 2) << " y: " << (*ptr / GRID_WIDTH * GRID_SIZE * 2) << endl;
 			worldX = ((*ptr % GRID_WIDTH) * (GRID_SIZE * 2) - ((GRID_WIDTH / 2) * (GRID_SIZE * 2)));
 			worldZ = ((*ptr / GRID_WIDTH) * (GRID_SIZE * 2) - ((GRID_HEIGHT / 2) * (GRID_SIZE * 2)));
 			worldY = 0;
@@ -968,7 +968,7 @@ void processHits(GLint hits, GLuint buffer[])
 		ptr++;
 	}
 
-	printf("**************************************************************\n");
+//	printf("**************************************************************\n");
 }
 
 GLuint processTowerHits(GLint hits, GLuint buffer[])
