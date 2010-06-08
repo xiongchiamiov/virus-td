@@ -9,6 +9,7 @@ PlayerAI::PlayerAI(void) {
 	GLfloat boundCol[] = {0.4,0.0,0.0};
 	player.pGrid.setGridColor(boundCol);
 	unitBunching = 1; // magick
+	sendingUnitBunch = false;
 }
 PlayerAI::~PlayerAI(void) {}
 
@@ -22,13 +23,15 @@ void PlayerAI::update(int dt) {
 			desiredNumTowers = towersToBuild.size();
 		}
 		
-		//cout << "Opponent's bytes: " << player.resources << endl;
-		//cout << "need_more_towers(): " << need_more_towers() << endl;
-		//cout << "queue_more_units(): " << queue_more_units() << endl;
+		cout << "Opponent's bytes: " << player.resources << endl;
+		cout << "unitsToBuildCost: " << unitsToBuildCost << endl;
+		cout << "Percentage of queue filled: " << unitsToBuild.size() << " / " << unitBunching << endl;
+		cout << "need_more_towers(): " << need_more_towers() << endl;
+		cout << "queue_more_units(): " << queue_more_units() << endl;
 		
 		if (need_more_towers() >= queue_more_units() && need_more_towers() > 0) {
 			int towerCost = towersToBuild.top().first.second;
-			if (player.resources >= towerCost) {
+			if (player.resources >= towerCost + unitsToBuildCost) {
 				int towerType = towersToBuild.top().first.first;
 				pair<int, int> coordinates = towersToBuild.top().second;
 				towersToBuild.pop();
@@ -40,19 +43,39 @@ void PlayerAI::update(int dt) {
 				//cout << "Didn't have " << towerCost << " bytes." << endl;
 			}
 		}
-		else if (queue_more_units() > 0) {
-			unitsToBuild.push(7);
-			unitsToBuildCost += unit_cost::BASIC;
-			//cout << "Queued up another unit of cost " << unit_cost::BASIC << endl;
+		else if (queue_more_units() > 0 && !sendingUnitBunch) {
+			int percentageOfQueueFilled = (int)((float)(unitsToBuild.size()) / unitBunching * 100);
+			if (percentageOfQueueFilled < 33) {
+				unitsToBuild.push(make_pair(5, unit_cost::STRONG));
+				unitsToBuildCost += unit_cost::STRONG;
+			}
+			else if (percentageOfQueueFilled < 67) {
+				unitsToBuild.push(make_pair(7, unit_cost::BASIC));
+				unitsToBuildCost += unit_cost::BASIC;
+			}
+			else {
+				unitsToBuild.push(make_pair(8, unit_cost::FAST2));
+				unitsToBuildCost += unit_cost::FAST2;
+			}
+			cout << "Queued up another unit" << endl;
 		}
 		
 		if (unitsToBuild.size() >= unitBunching && player.resources >= unitsToBuildCost) {
-			while (unitsToBuild.size() > 0) {
-				player.spawnUnit(unitsToBuild.top());
-				unitsToBuildCost -= unit_cost::BASIC;
+			sendingUnitBunch = true;
+		}
+		if (sendingUnitBunch) {
+			cout << "Attempting to send a unit out...";
+			if (player.spawnUnit(unitsToBuild.front().first) == SUCCESS) {
+				unitsToBuildCost -= unitsToBuild.front().second;
 				unitsToBuild.pop();
+				if (unitsToBuild.size() == 0) {
+					sendingUnitBunch = false;
+					// gradually increase how many units we send at a time
+					unitBunching++;
+				}
 			}
 		}
+		cout << endl;
 	}
 	
 	player.update(dt);
