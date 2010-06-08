@@ -166,27 +166,24 @@ void renderUI(int w, int h,Player* p, Player* opp, float time_left, GLuint mode)
 	drawPanel(200, 200, panel_tex2);
 	glTranslatef(140, 0, 0);
 	//setMaterial(Teal);
-	if(!towerSelected)
-	{
-		for (int i = 0; i < 3; i++) {
-			if (i == 0) {
-				glTranslatef(0, 5, 0.01);
-			} else {
-				glTranslatef(0, 65, 0);
-			}
-
-			glPushMatrix();
-			glTranslatef(5, 0, 0);
-			buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
-			bNumber++;
-			glTranslatef(-65, 0, 0);
-			buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
-			bNumber++;
-			glTranslatef(-65, 0, 0);
-			buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
-			bNumber++;
-			glPopMatrix();
+	for (int i = 0; i < 3; i++) {
+		if (i == 0) {
+			glTranslatef(0, 5, 0.01);
+		} else {
+			glTranslatef(0, 65, 0);
 		}
+
+		glPushMatrix();
+		glTranslatef(5, 0, 0);
+		buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
+		bNumber++;
+		glTranslatef(-65, 0, 0);
+		buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
+		bNumber++;
+		glTranslatef(-65, 0, 0);
+		buttons.at(bNumber)->drawButton(50, 50, button_tex[bNumber]);
+		bNumber++;
+		glPopMatrix();
 	}
 	glPopMatrix();
 
@@ -487,6 +484,10 @@ void mouseClick(int button, int state, int x, int y) {
 }
 
 GLuint checkTowerClick(int x, int y) {
+	std::list<Tower*> tList = p1.getTowerList();
+	if(tList.size() == 0)
+		return 0;
+	
 	// PICKING 
 	const int BUFSIZE = 512;
 	GLuint selectBuf[BUFSIZE];
@@ -505,7 +506,7 @@ GLuint checkTowerClick(int x, int y) {
 	MyVector p = p1.getPosition();
 	glTranslatef(p.getX(), p.getY(), p.getZ());
 	//p1.pGrid.draw(true,GL_SELECT);
-	std::list<Tower*> tList = p1.getTowerList();
+
 	std::list<Tower*>::iterator i; 
 	int id = 1;
 	for(i = tList.begin(); i != tList.end(); ++i){
@@ -522,7 +523,7 @@ GLuint checkTowerClick(int x, int y) {
 void mouseMotion(int x, int y) {
 	mx = x;
 	my = GH - y;
-	if (clicked) {
+	if (clicked && test >= 9 && test <= 17) {
 #if 0
 		// Mouse clicking using gluUnProject
 		GLint viewport[4]; //var to hold the viewport info
@@ -763,7 +764,7 @@ GLuint processTowerHits(GLint hits, GLuint buffer[])
 
 		ptr++;
 	}
-	return -1;
+	return 0;
 	//printf("**************************************************************\n");
 }
 
