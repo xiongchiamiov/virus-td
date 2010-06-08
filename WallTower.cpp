@@ -36,6 +36,7 @@ Tower(inx, iny, inz, gx, gy)
 
 WallTower::~WallTower(void)
 {
+  delete weapon;
 }
 
 void WallTower::draw(GLuint id, GLenum mode){

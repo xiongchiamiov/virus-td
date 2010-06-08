@@ -511,7 +511,7 @@ int main(int argc, char** argv){
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowSize(GW, GH);
   glutInitWindowPosition(100, 100);
-  glutCreateWindow("<Sweet>");
+  glutCreateWindow("Crash & Burn");
   glClearColor(1.0, 1.0, 1.0, 1.0);
 
   //Register GLUT callbacks
