@@ -13,6 +13,7 @@ private:
   float speed;
   Unit* target;
   bool done;
+  int timeLeft;
 public:
   Projectile(Particles* p, Unit* targ, float x, float y, float z);
   ~Projectile(void);

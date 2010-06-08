@@ -3,11 +3,13 @@
 
 namespace projectile{
   const float SPD = 0.25;
+  const int DEATH_TIME = 1000;
 }
 using namespace projectile;
 
+//If the target is null, it is a death animation and will not move
 Projectile::Projectile(Particles* p, Unit* targ, float x, float y, float z):
-effect(*p), target(targ), done(false), pos(0.0, 0.0, 0.0, x, y, z)
+effect(*p), target(targ), done(false), pos(0.0, 0.0, 0.0, x, y, z), timeLeft(DEATH_TIME)
 {
 }
 
@@ -34,9 +36,14 @@ void Projectile::step(int dt){
     this->done = true;
   } else if(target != NULL){
     pos.setVector(target->getX() - pos.getX(), target->getY() - pos.getY(), target->getZ() - pos.getZ());
+    pos.normalize();
+    pos.setPosition(pos.getX() + pos.getI() * SPD, pos.getY() + pos.getJ() * SPD, pos.getZ() + pos.getK() * SPD);
+  } else { //Death animation
+    timeLeft -= dt;
+    if(timeLeft <= 0){
+      done = true;
+    }
   }
-  pos.normalize();
-  pos.setPosition(pos.getX() + pos.getI() * SPD, pos.getY() + pos.getJ() * SPD, pos.getZ() + pos.getK() * SPD);
 }
 
 ProjectileManager::ProjectileManager()
