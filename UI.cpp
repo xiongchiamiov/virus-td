@@ -188,8 +188,12 @@ void handleTowerSelectClick(int mx, int my)
 		towerSelect->setTargetMode((target_mode)((towerSelect->getTargetMode() + 1) % 5));
 	} else if(towerSelectOverButton(mx,my,1)) {
 		p1.sellTower(towerSelect->getGridX(),towerSelect->getGridY());
+		towerSelected = false;
+		towerSelect = NULL;
 	} else if(towerSelectOverButton(mx,my,2)) {
 		p1.upgradeTower(towerSelect->getGridX(),towerSelect->getGridY());
+		towerSelected = false;
+		towerSelect = NULL;
 	}
 }
 
