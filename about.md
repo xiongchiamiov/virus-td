@@ -14,7 +14,7 @@ Contents
 
 # Summary
 
-VTD is a competitive tower defence game:
+Crash and Burn is a competitive tower defence game:
 
 * A player wins by sending units across their opponent's grid to the goal
 * The player and the opponent each have a grid that they are defending by
@@ -120,8 +120,8 @@ pulvinar ut ornare elit.
 <span class="bio">
 ![James Pearson]({{site.url}}/media/images/pearson.jpg)
 **James Pearson** is a scripting language junkie utterly in love with Python and
-Ruby. Since there is currently no need for those in Virus-TD, he works on the AI
-opponent.  James is also the creator and maintainer of the website.
+Ruby. Since there is currently no need for those in Crash and Burn, he works on
+the AI opponent. James is also the creator and maintainer of the website.
 </span>
 
 <span class="bio">
