@@ -73,6 +73,14 @@ to traverse the player's own tower grid.
 <a name="results"></a>
 # Results
 
+* Tower and Unit Agents work as envisioned
+* Opponent Agent was difficult because of spatial reasoning and developing logical heuristics
+	- At the beginning of the game, the Opponent can be difficult to defeat
+	- As the game progresses, it gets easier
+	- Once the player has seen how the Opponent operates (a couple games), they can almost surely utilize this to win
+		+ This is due to a lack of variability in the Opponent's game play
+
+
 ![success!]({{site.url}}/media/images/success.png)
 
 <a name="conclusions"></a>
