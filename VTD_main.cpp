@@ -326,7 +326,7 @@ void drawIntroScreen()
 	glLoadIdentity();
 	glOrtho(0, GW*2, 0, GH*2, -5, 5);
 	glScalef(1, -1, 1);
-	glTranslatef(GW/2, -GH*2, 0);
+	glTranslatef(GW/2, -GH*2 + 16, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
@@ -611,8 +611,8 @@ int main(int argc, char** argv){
      float(-0.5)*GRID_SIZE*2.0 + GRID_SIZE, 0, 0));
 
   initializeUI();
-  winTexture = LoadTexture("Win.bmp");
-  startTexture = LoadTexture("title.bmp");
+  winTexture = LoadHQTexture("Win.bmp");
+  startTexture = LoadHQTexture("title.bmp");
 
   p1.pGrid.initialize(false);
   opponent.player.pGrid.initialize(true);
