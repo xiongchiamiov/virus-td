@@ -5,68 +5,84 @@ title: About
 
 <span class="toc">
 Contents  
-1. [PAGE](#page)  
-2. [Details](#details)  
-3. [Team](#team)
+1. [Introduction / PAGE](#page)  
+2. [Project Details](#details)  
+3. [Results](#results)  
+4. [Conclusions](#conclusions)  
+5. [Team](#team)
 </span>
 
-Virus-TD is a tower defense game, created for an introductory AI course and a
-graphics course at Cal Poly.
+# Summary
+
+VTD is a competitive tower defence game:
+
+* A player wins by sending units across their opponent's grid to the goal
+* The player and the opponent each have a grid that they are defending by
+  placing towers on it
+* Towers create a longer path for and destroy units
 
 <a name="page"></a>
-# PAGE
+# Introduction / PAGE
 
-Quisque eget orci ut sem fringilla condimentum sed in erat. Mauris sollicitudin
-varius mattis. Phasellus eget neque vitae mi auctor consectetur nec sit amet
-lorem. Sed sodales ipsum hendrerit nisl malesuada at fringilla lacus iaculis.
-Mauris urna justo, dapibus ac feugiat id, bibendum quis sem. Morbi molestie
-pharetra purus, vitae iaculis orci pellentesque nec. Class aptent taciti
-sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla
-facilisi. Fusce nisl augue, luctus eu fringilla a, pulvinar nec odio. Maecenas
-luctus urna ac ipsum pharetra quis lobortis lectus elementum. In eleifend orci
-sit amet augue accumsan auctor. Donec lacus odio, eleifend vitae aliquam eu,
-vulputate et nisl. Aliquam a bibendum neque. Quisque nisi leo, convallis sit
-amet viverra a, sagittis accumsan urna. Fusce sed facilisis ipsum.
+The artificial intelligence aspect of this game can be split up into 3 agents:
+
+Tower: A tower is used to block units' paths and make them find a different
+route to the goal. It can also shoot projectiles at a unit. If a unit's path is
+blocked by towers, it will proceed to attack it.
+
+* Percepts: in range units, surrounding towers, attacking units
+* Actions: select target, shoot
+* Goals: let the minimum number of units past it, do not get destroyed
+* Environment: grid of game containing tower/unit/empty tiles, path of units,
+  amount of units
+
+Unit: A unit tries to traverse the grid of towers in order to make it to the
+goal. They determine a path through the towers based on distance, probability of
+survival, control flow, etc. If no path is available, they proceed to create a
+path by attacking and destroying towers.
+
+* Percepts: tower layout, other units' paths, tower strength
+* Actions: choose direction, move toward goal, attack
+* Goals: reach the goal by traversing the grid of towers, do not get destroyed
+* Environment: grid of game containing tower/unit/empty tiles, addition of
+  towers at any given time
+
+Opponent: The opponent is the AI that the player plays the game against. It is
+responsible for managing its resources, used to create towers and units. It lays
+down towers to block the players units' path to the goal, while creating units
+to traverse the player's own tower grid.
+
+* Percepts: player's tower layout, player's units, resources count
+* Actions: create unit, place tower, upgrade tower
+* Goals: prevent player's units from traversing its grid, get required number of
+  units through player's grid before player
+* Environment: player's tower layout, path of player's units, amount of player's units
 
 <a name="details"></a>
-# Details
+# Project Details
 
-Mauris euismod blandit massa a lobortis. Pellentesque faucibus ullamcorper arcu,
-sed scelerisque mi viverra et. Sed tempus lacus in ipsum scelerisque malesuada.
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-mus. Fusce porttitor velit et tortor aliquam at ullamcorper leo blandit. Quisque
-lorem tellus, pretium non pulvinar vel, imperdiet aliquet felis. Ut quam libero,
-feugiat ac consectetur in, eleifend ut lacus. Cras hendrerit viverra leo, non
-lobortis nunc elementum vel. Phasellus diam velit, venenatis in mattis at,
-rutrum in nulla. Aenean eget rutrum justo. Nullam dapibus eleifend tellus, ut
-vehicula dui faucibus at. Cras at purus in mauris volutpat fringilla sed
-consectetur nisl. Cras felis enim, convallis et luctus in, tristique eu lectus.
+* Units: A* search to determine most efficient path, with adjusted heuristic to
+  determine a safe path
+* Towers: shoot closest unit until out of range or dead
+* Opponent: builds towers on a pre-built path, sends units in groups to ensure
+  some get through, use heuristics to determine whether to send units or place
+  towers with resources
 
-Mauris pretium tristique risus sed faucibus. Etiam tincidunt pulvinar
-adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-sollicitudin libero in urna mollis ac fermentum lacus auctor. Aliquam neque
-odio, placerat a imperdiet quis, elementum consequat elit. Mauris dignissim
-tortor ac augue malesuada fringilla. Maecenas dignissim varius tortor vel
-tristique. Mauris a varius nibh. Vestibulum lacinia commodo nisi, at fringilla
-sapien rhoncus non. Nulla non metus nunc, eu semper magna. Donec sed sodales
-leo. Vestibulum eu tellus et purus viverra aliquet. Phasellus vel enim eros.
-Etiam hendrerit bibendum bibendum. Mauris auctor hendrerit auctor. Vivamus risus
-libero, fringilla elementum porttitor eu, convallis eu turpis. Nam elementum
-sodales imperdiet. Nam pretium dolor vitae elit ultrices adipiscing. Integer
-eleifend imperdiet mi, vel ultricies eros tristique ut.
+![flowchart]({{site.url}}/media/images/flowchart.png)
 
-Curabitur dictum est ac turpis porttitor mattis. Integer felis magna, blandit
-posuere lobortis id, blandit et urna. Etiam hendrerit nunc eget odio mollis
-laoreet. Aliquam nunc diam, semper vel aliquam sit amet, venenatis vel sem.
-Nulla lacinia dictum viverra. Nullam placerat purus eget massa tempor faucibus.
-Aliquam convallis ligula non magna malesuada tincidunt. Sed ornare, urna vel
-congue gravida, ante tellus fermentum risus, a luctus mauris ante et felis. In
-eu ante nisl, a congue tortor. Nunc suscipit eros non lectus mollis ut volutpat
-metus convallis. Nunc ultricies dignissim iaculis. Aliquam erat volutpat.
-Curabitur at dolor purus, et vehicula libero. Sed ac ligula tincidunt odio
-pharetra congue. In hac habitasse platea dictumst. Ut et nulla eget leo
-ultricies egestas nec non dui. Duis eget arcu quis quam tincidunt consectetur
-nec nec nulla. Ut faucibus posuere condimentum. 
+<a name="results"></a>
+# Results
+
+![success!]({{site.url}}/media/images/success.png)
+
+<a name="conclusions"></a>
+# Conclusions
+
+* Computing search paths for a dynamic real-time environment is slow!
+* Determining a build path for towers that makes sense takes a lot of effort.
+* Main improvements that can be made:
+	- Efficiency
+	- Opponent heuristics refined
 
 <a name="team"></a>
 # Team
@@ -113,9 +129,8 @@ opponent.  James is also the creator and maintainer of the website.
 </span>
 
 <span class="bio">
-![Josh Robbins]({{site.url}}/media/images/unknown.jpg)
-**Josh Robbins** euismod ante vitae justo ultricies commodo. Vivamus et velit
-neque. Quisque ornare malesuada nunc quis cursus. Donec a turpis nulla, eu
-tempor lacus. Morbi ut vestibulum massa. Proin feugiat leo quis purus blandit a
-hendrerit dui lacinia. Mauris congue tellus at elit euismod feugiat.
+![Josh Robinson]({{site.url}}/media/images/robinson.jpg)
+**Josh Robinson** is a 3rd year Computer Science major at Cal Poly. He is graduating
+in December 2010. He likes to describe himself in 3rd person because it makes
+him sound cool.
 </span>
