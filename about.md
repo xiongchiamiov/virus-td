@@ -88,12 +88,11 @@ to traverse the player's own tower grid.
 # Team
 
 <span class="bio">
-![Tyler Casella]({{site.url}}/media/images/unknown.jpg)
-**Tyler Casella** hac habitasse platea dictumst. Aenean vitae metus dapibus
-lacus placerat cursus eu id nulla. Maecenas arcu urna, viverra vel faucibus in,
-consectetur aliquet dolor. Vestibulum non dolor nec nulla varius viverra. Ut
-ante enim, euismod et viverra eget, gravida vestibulum magna. Aenean vel aliquet
-libero.
+![Tyler Casella]({{site.url}}/media/images/tyler.png)
+**Tyler Casella** is a 3rd year computer scientist at Cal Poly. His favorite
+graphic framework to work with is XNA, although OpenGL has been growing on him.
+Tyler also enjoys traveling through time to help old people of the past cross
+the street.
 </span>
 
 <span class="bio">
