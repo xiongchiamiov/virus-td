@@ -105,13 +105,9 @@ ac mauris massa.
 </span>
 
 <span class="bio">
-![Ken Hung]({{site.url}}/media/images/unknown.jpg)
-**Ken Hung** nec urna vitae sem venenatis vehicula. Phasellus nec turpis ligula.
-Cras nec lacus vitae felis fermentum lacinia ut sed lacus. Phasellus vulputate
-condimentum porttitor. Vivamus pellentesque, sapien vel bibendum porta, magna
-enim feugiat odio, ut tempus dolor tellus sed odio. Donec egestas dictum massa,
-sit amet tristique nisi lobortis ut. Nullam at mi ac felis ornare varius eu non
-ante.
+![Ken Hung]({{site.url}}/media/images/ken.png)
+**Ken Hung** is a Computer Science student at Cal Poly. He has done extensive
+work with the models, particles, and animations for Crash and Burn.
 </span>
 
 <span class="bio">
