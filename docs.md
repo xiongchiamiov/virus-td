@@ -17,7 +17,7 @@ euismod metus, ut mollis libero aliquam quis. Quisque laoreet dictum tellus non
 ultrices. Maecenas sit amet nisl magna. Etiam dolor leo, egestas a pulvinar ut,
 interdum sed massa.
 
-![diagram of what's what](/media/images/diagram.jpg)
+![diagram of what's what](/media/images/diagram.png)
 
 <a name="towers"></a>
 # Towers
