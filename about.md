@@ -104,11 +104,14 @@ the street.
 </span>
 
 <span class="bio">
-![Andy Gonzalez]({{site.url}}/media/images/unknown.jpg)
-**Andy Gonzalez** rat volutpat. Aenean eget felis mi, ut auctor mi. Quisque
-fringilla diam nec enim ultricies volutpat. Cras sagittis, arcu at euismod
-imperdiet, neque nisi laoreet turpis, ut tristique tellus nulla at quam. Donec
-ac mauris massa.
+![Andy Gonzalez]({{site.url}}/media/images/andy.jpg)
+**Andres** (who goes by Andy, or in some circles "The Mexican"), is a
+*cough*Fifth*cough*-year Computer Science major at Cal Poly who can often be
+recognized by his large hair and his rugged good looks. But don't let his manly
+scars fool you. He really is a nice guy. His hobbies include watching movies no
+one likes and making jokes no one gets. As the fearless leader of this intrepid
+group, he urged his team toward victory and it was glorious! Surely this is a
+great feat!
 </span>
 
 <span class="bio">
