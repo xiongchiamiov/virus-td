@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>About - Crash and Burn</title>
+	<link rel="stylesheet" href="/media/css/style.css" /></head>
+	<script type="text/javascript" src="http://use.typekit.com/unl4jdp.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<body>
+	<div id="header">
+		<div class="wrapper">
+		<span class="logo"><a href="/" class="tk-neuropol-nova">Crash and Burn</a></span>
+		<ul id="nav" class="tk-neuropol-nova">
+			<!-- since these are being floated right, the order here is opposite
+			     of what you'll see.  Pretty awesome, neh?
+			-->
+			<li><a href="/download.html">Download</a></li>
+			<li><a href="/docs.html">Docs</a></li>
+			<li><a href="/news.html">News</a></li>
+			<li><a href="/about.html">About</a></li>
+		</ul>
+		</div>
+	</div>
+	<div id="main">
+		<p><span class="toc">
+Contents<br/>
+1. <a href="#page">Introduction / PAGE</a><br/>
+2. <a href="#demo">Demo Video</a><br/>
+3. <a href="#details">Project Details</a><br/>
+4. <a href="#results">Results</a><br/>
+5. <a href="#conclusions">Conclusions</a><br/>
+6. <a href="#references">References</a><br/>
+7. <a href="#team">Team</a>
+</span></p>
+
+<h1>Summary</h1>
+
+<p>Crash and Burn is a competitive tower defence game:</p>
+
+<ul>
+<li>A player wins by sending units across their opponent's grid to the goal</li>
+<li>The player and the opponent each have a grid that they are defending by
+placing towers on it</li>
+<li>Towers create a longer path for and destroy units</li>
+</ul>
+
+
+<p><a name="page"></a></p>
+
+<h1>Introduction / PAGE</h1>
+
+<p>The artificial intelligence aspect of this game can be split up into 3 agents:</p>
+
+<p>Tower: A tower is used to block units' paths and make them find a different
+route to the goal. It can also shoot projectiles at a unit. If a unit's path is
+blocked by towers, it will proceed to attack it.</p>
+
+<ul>
+<li>Percepts: in range units, surrounding towers, attacking units</li>
+<li>Actions: select target, shoot</li>
+<li>Goals: let the minimum number of units past it, do not get destroyed</li>
+<li>Environment: grid of game containing tower/unit/empty tiles, path of units,
+amount of units</li>
+</ul>
+
+
+<p>Unit: A unit tries to traverse the grid of towers in order to make it to the
+goal. They determine a path through the towers based on distance, probability of
+survival, control flow, etc. If no path is available, they proceed to create a
+path by attacking and destroying towers.</p>
+
+<ul>
+<li>Percepts: tower layout, other units' paths, tower strength</li>
+<li>Actions: choose direction, move toward goal, attack</li>
+<li>Goals: reach the goal by traversing the grid of towers, do not get destroyed</li>
+<li>Environment: grid of game containing tower/unit/empty tiles, addition of
+towers at any given time</li>
+</ul>
+
+
+<p>Opponent: The opponent is the AI that the player plays the game against. It is
+responsible for managing its resources, used to create towers and units. It lays
+down towers to block the players units' path to the goal, while creating units
+to traverse the player's own tower grid.</p>
+
+<ul>
+<li>Percepts: player's tower layout, player's units, resources count</li>
+<li>Actions: create unit, place tower, upgrade tower</li>
+<li>Goals: prevent player's units from traversing its grid, get required number of
+units through player's grid before player</li>
+<li>Environment: player's tower layout, path of player's units, amount of player's units</li>
+</ul>
+
+
+<p><a name="demo"></a></p>
+
+<h1>Demo Video</h1>
+
+<p id='preview'>The player will show in this paragraph</p>
+
+
+<script type='text/javascript' src='/media/swfobject.js'></script>
+
+
+<script type='text/javascript'>
+    var s1 = new SWFObject('/media/player.swf','player','820','546','9');
+    s1.addParam('allowfullscreen','true');
+    s1.addParam('allowscriptaccess','always');
+    s1.addParam('flashvars','file=/media/videos/game_video.f4v');
+    s1.write('preview');
+</script>
+
+
+<p><a name="details"></a></p>
+
+<h1>Project Details</h1>
+
+<ul>
+<li>Units: A* search to determine most efficient path, with adjusted heuristic to
+determine a safe path</li>
+<li>Towers: shoot closest unit until out of range or dead</li>
+<li>Opponent: builds towers on a pre-built path, sends units in groups to ensure
+some get through, use heuristics to determine whether to send units or place
+towers with resources</li>
+</ul>
+
+
+<p><img src="/media/images/flowchart.png" alt="flowchart" /></p>
+
+<p><a name="results"></a></p>
+
+<h1>Results</h1>
+
+<ul>
+<li>Tower and Unit Agents work as envisioned</li>
+<li>Opponent Agent was difficult because of spatial reasoning and developing logical heuristics
+
+<ul>
+<li>At the beginning of the game, the Opponent can be difficult to defeat</li>
+<li>As the game progresses, it gets easier</li>
+<li>Once the player has seen how the Opponent operates (a couple games), they can almost surely utilize this to win
+
+<ul>
+<li>This is due to a lack of variability in the Opponent's game play</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p><img src="/media/images/success.png" alt="success!" /></p>
+
+<p><a name="conclusions"></a></p>
+
+<h1>Conclusions</h1>
+
+<ul>
+<li>Computing search paths for a dynamic real-time environment is slow!</li>
+<li>Determining a build path for towers that makes sense takes a lot of effort.</li>
+<li>Main improvements that can be made:
+
+<ul>
+<li>Efficiency</li>
+<li>Opponent heuristics refined</li>
+</ul>
+</li>
+</ul>
+
+
+<p><a name="references"></a></p>
+
+<h1>References</h1>
+
+<p><a href="http://www.ambiera.com/irrklang/">irrKlang</a><br/>
+<a href="http://www.opengl.org/resources/code/samples/mjktips/TexShadowReflectLight.html">Shadows, Reflections, Lighting, Textures. Easy with OpenGL!</a><br/>
+<a href="http://www.lighthouse3d.com/w3d/">Shockwave 3D @ Lighthouse 3D</a><br/>
+<a href="http://www.lighthouse3d.com/opengl/glut/">OpenGL @ Lighthouse 3D</a><br/>
+<a href="http://nehe.gamedev.net/">NeHe Productions</a></p>
+
+<p><a name="team"></a></p>
+
+<h1>Team</h1>
+
+<p><span class="bio">
+<img src="/media/images/tyler.png" alt="Tyler Casella" />
+<strong>Tyler Casella</strong> is a 3rd year computer scientist at Cal Poly. His favorite
+graphic framework to work with is XNA, although OpenGL has been growing on him.
+Tyler also enjoys traveling through time to help old people of the past cross
+the street.
+</span></p>
+
+<p><span class="bio">
+<img src="/media/images/andy.jpg" alt="Andy Gonzalez" />
+<strong>Andres</strong> (who goes by Andy, or in some circles "The Mexican"), is a
+<em>cough</em>Fifth<em>cough</em>-year Computer Science major at Cal Poly who can often be
+recognized by his large hair and his rugged good looks. But don't let his manly
+scars fool you. He really is a nice guy. His hobbies include watching movies no
+one likes and making jokes no one gets. As the fearless leader of this intrepid
+group, he urged his team toward victory and it was glorious! Surely this is a
+great feat!
+</span></p>
+
+<p><span class="bio">
+<img src="/media/images/ken.png" alt="Ken Hung" />
+<strong>Ken Hung</strong> is a Computer Science student at Cal Poly. He has done extensive
+work with the models, particles, and animations for Crash and Burn.
+</span></p>
+
+<p><span class="bio">
+<img src="/media/images/unknown.jpg" alt="Jim Langloid" />
+<strong>Jim Langloid</strong> iaculis purus dui, et tempor sapien. Morbi ut libero ligula, eu
+pellentesque sem. In quis adipiscing velit. Donec id libero vitae massa pulvinar
+pulvinar ut ornare elit.
+</span></p>
+
+<p><span class="bio">
+<img src="/media/images/pearson.jpg" alt="James Pearson" />
+<strong>James Pearson</strong> is a scripting language junkie utterly in love with Python and
+Ruby. Since there is currently no need for those in Crash and Burn, he works on
+the AI opponent. James is also the creator and maintainer of the website.
+</span></p>
+
+<p><span class="bio">
+<img src="/media/images/robinson.jpg" alt="Josh Robinson" />
+<strong>Josh Robinson</strong> is a 3rd year Computer Science major at Cal Poly. He is graduating
+in December 2010. He likes to describe himself in 3rd person because it makes
+him sound cool.
+</span></p>
+
+	</div>
+	<div id="footer">
+		&copy; 2010 the Crash and Burn team
+	</div>
+</body>
+</html>
