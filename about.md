@@ -10,7 +10,8 @@ Contents
 3. [Project Details](#details)  
 4. [Results](#results)  
 5. [Conclusions](#conclusions)  
-6. [Team](#team)
+6. [References](#references)  
+7. [Team](#team)
 </span>
 
 # Summary
@@ -105,6 +106,15 @@ to traverse the player's own tower grid.
 * Main improvements that can be made:
 	- Efficiency
 	- Opponent heuristics refined
+
+<a name="references"></a>
+# References
+
+[irrKlang](http://www.ambiera.com/irrklang/)  
+[Shadows, Reflections, Lighting, Textures. Easy with OpenGL!](http://www.opengl.org/resources/code/samples/mjktips/TexShadowReflectLight.html)  
+[Shockwave 3D @ Lighthouse 3D](http://www.lighthouse3d.com/w3d/)  
+[OpenGL @ Lighthouse 3D](http://www.lighthouse3d.com/opengl/glut/)  
+[NeHe Productions](http://nehe.gamedev.net/)
 
 <a name="team"></a>
 # Team
