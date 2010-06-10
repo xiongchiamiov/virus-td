@@ -6,10 +6,11 @@ title: About
 <span class="toc">
 Contents  
 1. [Introduction / PAGE](#page)  
-2. [Project Details](#details)  
-3. [Results](#results)  
-4. [Conclusions](#conclusions)  
-5. [Team](#team)
+2. [Demo Video](#demo)  
+3. [Project Details](#details)  
+4. [Results](#results)  
+5. [Conclusions](#conclusions)  
+6. [Team](#team)
 </span>
 
 # Summary
@@ -57,6 +58,19 @@ to traverse the player's own tower grid.
 * Goals: prevent player's units from traversing its grid, get required number of
   units through player's grid before player
 * Environment: player's tower layout, path of player's units, amount of player's units
+
+<a name="demo"></a>
+# Demo Video
+
+<p id='preview'>The player will show in this paragraph</p>
+<script type='text/javascript' src='{{site.url}}/media/swfobject.js'></script>
+<script type='text/javascript'>
+	var s1 = new SWFObject('{{site.url}}/media/player.swf','player','820','546','9');
+	s1.addParam('allowfullscreen','true');
+	s1.addParam('allowscriptaccess','always');
+	s1.addParam('flashvars','file={{site.url}}/media/videos/game_video.f4v');
+	s1.write('preview');
+</script>
 
 <a name="details"></a>
 # Project Details
