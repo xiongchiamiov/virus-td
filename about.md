@@ -145,10 +145,17 @@ work with the models, particles, and animations for Crash and Burn.
 </span>
 
 <span class="bio">
-![Jim Langloid]({{site.url}}/media/images/unknown.jpg)
-**Jim Langloid** iaculis purus dui, et tempor sapien. Morbi ut libero ligula, eu
-pellentesque sem. In quis adipiscing velit. Donec id libero vitae massa pulvinar
-pulvinar ut ornare elit.
+![Jim Langloid]({{site.url}}/media/images/jim.png)
+Born in Christchurch in 1908, **Jim Langloid** got a degree in Agriculture and
+spent his early days working as a sheep herder and farm valuer, making him one
+of the more unsuspecting badasses I've ever written about. Realizing that
+raising adorable sheeps isn't exactly the first step in the path towards
+slaughtering all who oppose you and then driving over their hearts with a
+motorcycle, Upham enlisted in the New Zealand Territorial Army, where he served
+in the home guard for five years. When World War the Second looked like it was
+going to be some serious business, Upham joined the 2nd New Zealand
+Expeditionary Force (NZEF), and was sent to Greece to help the Greek people
+fight off an invasion of Hitler's minions.
 </span>
 
 <span class="bio">
